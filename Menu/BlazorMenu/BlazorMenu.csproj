@@ -1,0 +1,153 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="JSInterop\**" />
+    <Compile Remove="Shared\NewTabs\**" />
+    <Content Remove="JSInterop\**" />
+    <Content Remove="Shared\NewTabs\**" />
+    <EmbeddedResource Remove="JSInterop\**" />
+    <EmbeddedResource Remove="Shared\NewTabs\**" />
+    <None Remove="JSInterop\**" />
+    <None Remove="Shared\NewTabs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Authentication\BlazorMenuTokenRepository.cs" />
+    <Compile Remove="Services\R_ILoginService.cs" />
+    <Compile Remove="Services\R_LoginService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\Tabs\_Tab.razor" />
+    <Content Remove="wwwroot\js\R_BlazorMenuJsInterop.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\vendors\anchorjs\anchor.min.js" />
+    <None Include="wwwroot\js\vendors\bootstrap\bootstrap.min.js" />
+    <None Include="wwwroot\js\vendors\chart\chart.min.js" />
+    <None Include="wwwroot\js\vendors\choices\choices.min.js" />
+    <None Include="wwwroot\js\vendors\countup\countUp.umd.js" />
+    <None Include="wwwroot\js\vendors\dayjs\dayjs.min.js" />
+    <None Include="wwwroot\js\vendors\draggable\draggable.bundle.legacy.js" />
+    <None Include="wwwroot\js\vendors\dropzone\dropzone.min.js" />
+    <None Include="wwwroot\js\vendors\echarts\echarts.min.js" />
+    <None Include="wwwroot\js\vendors\fontawesome\all.min.js" />
+    <None Include="wwwroot\js\vendors\fullcalendar\main.min.js" />
+    <None Include="wwwroot\js\vendors\glightbox\glightbox.min.js" />
+    <None Include="wwwroot\js\vendors\is\is.min.js" />
+    <None Include="wwwroot\js\vendors\leaflet.markercluster\leaflet.markercluster.js" />
+    <None Include="wwwroot\js\vendors\leaflet.tilelayer.colorfilter\leaflet-tilelayer-colorfilter.min.js" />
+    <None Include="wwwroot\js\vendors\leaflet\leaflet.js" />
+    <None Include="wwwroot\js\vendors\list.js\list.min.js" />
+    <None Include="wwwroot\js\vendors\lodash\lodash.min.js" />
+    <None Include="wwwroot\js\vendors\lottie\lottie.min.js" />
+    <None Include="wwwroot\js\vendors\overlayscrollbars\OverlayScrollbars.min.js" />
+    <None Include="wwwroot\js\vendors\plyr\plyr.polyfilled.min.js" />
+    <None Include="wwwroot\js\vendors\popper\popper.min.js" />
+    <None Include="wwwroot\js\vendors\prism\prism.js" />
+    <None Include="wwwroot\js\vendors\rater-js\index.js" />
+    <None Include="wwwroot\js\vendors\swiper\swiper-bundle.min.js" />
+    <None Include="wwwroot\js\vendors\tinymce\tinymce.min.js" />
+    <None Include="wwwroot\js\vendors\typed.js\typed.js" />
+    <None Include="wwwroot\js\vendors\validator\validator.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.14" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.14" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
+    <!--<PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.1.0" />-->
+  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="BlazorMenuCommon">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Menu\BlazorMenuCommon.dll</HintPath>
+		</Reference>
+		<Reference Include="BlazorMenuModel">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Menu\BlazorMenuModel.dll</HintPath>
+		</Reference>
+		<Reference Include="R_APIClient">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_APIClient.dll</HintPath>
+		</Reference>
+		<Reference Include="R_APICommonDTO">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_APICommonDTO.dll</HintPath>
+		</Reference>
+		<Reference Include="R_AuthenticationEnumAndInterface">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_AuthenticationEnumAndInterface.dll</HintPath>
+		</Reference>
+		<Reference Include="R_AuthenticationFront">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_AuthenticationFront.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BlazorFrontEnd">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorFrontEnd.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BlazorFrontEnd.Authentication">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorFrontEnd.Authentication.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BlazorFrontEnd.Controls">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorFrontEnd.Controls.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BlazorFrontEnd.Excel">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorFrontEnd.Excel.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BlazorStartup">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorStartup.dll</HintPath>
+		</Reference>
+		<Reference Include="R_BusinessObjectFront">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BusinessObjectFront.dll</HintPath>
+		</Reference>
+		<Reference Include="R_CommonFrontBackAPI">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_CommonFrontBackAPI.dll</HintPath>
+		</Reference>
+		<Reference Include="R_ContextEnumAndInterface">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_ContextEnumAndInterface.dll</HintPath>
+		</Reference>
+		<Reference Include="R_ContextFrontEnd">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_ContextFrontEnd.dll</HintPath>
+		</Reference>
+		<Reference Include="R_CrossPlatformSecurity">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_CrossPlatformSecurity.dll</HintPath>
+		</Reference>
+		<Reference Include="R_ProcessAndUploadFront">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_ProcessAndUploadFront.dll</HintPath>
+		</Reference>
+		<Reference Include="R_SecurityPolicyCommon">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Menu\R_SecurityPolicyCommon.dll</HintPath>
+		</Reference>
+		<Reference Include="R_SecurityPolicyFront">
+			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Menu\R_SecurityPolicyFront.dll</HintPath>
+		</Reference>
+		  
+	</ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\Tabs\_Tab.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Shared\Tabs\_Tab.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\COMMON\GS\GSM01000Common\GSM01000Common.csproj" />
+    <ProjectReference Include="..\..\COMMON\GS\GSM07500Common\GSM07500Common.csproj" />
+    <ProjectReference Include="..\..\FRONT\GS\GSM01000Front\GSM01000Front.csproj" />
+    <ProjectReference Include="..\..\FRONT\GS\GSM07500Front\GSM07500Front.csproj" />
+  </ItemGroup>
+
+    <!--<ItemGroup>
+	    <BlazorWebAssemblyLazyLoad Include="SAB00700Front.dll" />
+    </ItemGroup>-->
+</Project>

@@ -1,0 +1,10 @@
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\bin\Debug\netstandard2.1\GSM001000BackResources.deps.json
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\bin\Debug\netstandard2.1\GSM001000BackResources.dll
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\bin\Debug\netstandard2.1\GSM001000BackResources.pdb
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.csproj.AssemblyReference.cache
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.AssemblyInfoInputs.cache
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.AssemblyInfo.cs
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.csproj.CoreCompileInputs.cache
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.dll
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\BACK\GS\GSM001000BackResources\obj\Debug\netstandard2.1\GSM001000BackResources.pdb

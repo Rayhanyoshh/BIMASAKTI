@@ -1,0 +1,63 @@
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.csproj.AssemblyReference.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.GeneratedMSBuildEditorConfig.editorconfig
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfoInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfo.cs
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.csproj.CoreCompileInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\GSM01000Model.deps.json
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\GSM01000Model.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\GSM01000Model.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\GSM01000Common.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_APIClient.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_APICommonDTO.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_BlazorFrontEnd.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_BusinessObjectFront.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_CommonFrontBackAPI.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_ContextEnumAndInterface.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_AuthenticationEnumAndInterface.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\R_ContextFrontEnd.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\bin\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.csproj.CopyComplete
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\GSM01000\obj\Debug\netstandard2.1\GSM01000Model.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.deps.json
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Common.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_APIClient.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_APICommonDTO.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_BlazorFrontEnd.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_BusinessObjectFront.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_CommonFrontBackAPI.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_ContextFrontEnd.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_ContextEnumAndInterface.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_AuthenticationEnumAndInterface.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.AssemblyReference.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.GeneratedMSBuildEditorConfig.editorconfig
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfoInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfo.cs
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.CoreCompileInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.CopyComplete
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.pdb
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.deps.json
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Model.pdb
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Common.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_APIClient.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_APICommonDTO.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_BlazorFrontEnd.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_BusinessObjectFront.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_CommonFrontBackAPI.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_ContextFrontEnd.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_ContextEnumAndInterface.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\R_AuthenticationEnumAndInterface.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\bin\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.AssemblyReference.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.GeneratedMSBuildEditorConfig.editorconfig
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfoInputs.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.AssemblyInfo.cs
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.CoreCompileInputs.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.csproj.CopyComplete
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\FRONT\GS\GSM01000Model\obj\Debug\netstandard2.1\GSM01000Model.pdb

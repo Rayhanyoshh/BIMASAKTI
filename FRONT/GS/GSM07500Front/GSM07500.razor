@@ -1,0 +1,82 @@
+@page "/GSM01000"
+@inherits R_Page
+
+<R_StackLayout Row="Enabled">
+    <R_StackLayout class="col-3">
+        <R_Grid @ref="@_gridPeriodRef"
+                DataSource="@_GSM07510ViewModel.loGridPeriodList"
+                Pageable="true"
+                R_ConductorSource="@_conductorGridPeriodRef"
+                R_GridType="@R_eGridType.Navigator"
+                R_ServiceGetListRecord="@GridPeriod_R_ServiceGetListRecord"
+                AllowAddNewRow="false"
+                AllowDeleteRow="false"
+                AllowEditRow="false"
+                Enabled="false">
+            <R_GridColumns>
+                <R_GridTextColumn FieldName="CYEAR" HeaderText="Year Period" R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn FieldName="LPERIOD_MODE" HeaderText="Period Mode" />
+                <R_GridTextColumn FieldName="INO_PERIOD" HeaderText="No Of Period" R_EnableAdd="false" R_EnableEdit="false" />
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+    <R_StackLayout class="col-9">
+        <R_StackLayout Row="true">
+            <R_ItemLayout xs="1" Class="col-lg-1">
+                <R_Label>Year Period</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout xs="1" Class="col-lg-1">
+                <R_TextBox @bind-Value="@_GSM07510ViewModel.Data.CYEAR" 
+                           R_ConductorSource="@_conductorGridPeriodRef"
+                           R_EnableOther="false"
+                           Enabled="false">
+                </R_TextBox>
+            </R_ItemLayout>
+        </R_StackLayout>
+        <R_StackLayout Row="true">
+            <R_ItemLayout xs="1" Class="col-lg-1">
+                <R_Label>No Of Period</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout xs="1" Class="col-lg-1">
+                <R_NumericTextBox @bind-Value="@_GSM07510ViewModel.Data.INO_PERIOD"
+                                  R_ConductorSource="@_conductorGridPeriodRef"
+                                  R_EnableOther="false"
+                                  R_EnableEdit="false"
+                                  Enabled="false">
+                </R_NumericTextBox>
+            </R_ItemLayout>
+        </R_StackLayout>
+         <R_StackLayout Row="true">
+             <R_Grid @ref="@_gridPeriodDetailRef"
+                     DataSource="@_GSM07500ViewModel.loGridPeriodDetailList"
+                     Pageable="true"
+                     R_ConductorGridSource="@_conductorGridPeriodDetailRef"
+                     R_GridType="@R_eGridType.Original"
+                     R_ServiceGetListRecord="@GridPeriodDetail_R_ServiceGetListRecord"
+                     Enabled="true">
+                 <R_GridColumns>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CPERIOD_NO)" HeaderText="Period No" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CSTART_DATE)" HeaderText="Start Date" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CEND_DATE)" HeaderText="End Date" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CUPDATE_BY)" HeaderText="Updated By" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DUPDATE_DATE)" HeaderText="Updated Date" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CCREATE_BY)" HeaderText="Created By" R_EnableAdd="false" R_EnableEdit="false"/>
+                     <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DCREATE_DATE)" HeaderText="Created Date" R_EnableAdd="false" R_EnableEdit="false"/>
+                 </R_GridColumns>
+             </R_Grid>
+         </R_StackLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_Conductor @ref="@_conductorGridPeriodRef"
+             R_ViewModel="@_GSM07510ViewModel"
+             R_IsHeader="true"
+             R_ServiceGetRecord="@ConductorPeriod_ServiceGetRecord"
+             R_ConvertToGridEntity="R_ConvertToGridEntity"
+             R_Display="@ConductorPeriod_Display">
+</R_Conductor>
+
+<R_ConductorGrid @ref="_conductorGridPeriodDetailRef"
+                 R_ViewModel="_GSM07500ViewModel"
+                 R_ConductorParent="_conductorGridPeriodRef">
+</R_ConductorGrid>

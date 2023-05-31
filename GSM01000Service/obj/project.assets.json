@@ -1,0 +1,123 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "GSM01000Back/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "GSM01000Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/GSM01000Back.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GSM01000Back.dll": {}
+        }
+      },
+      "GSM01000Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/GSM01000Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GSM01000Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GSM01000Back/1.0.0": {
+      "type": "project",
+      "path": "../BACK/GS/GSM001000Back/GSM01000Back.csproj",
+      "msbuildProject": "../BACK/GS/GSM001000Back/GSM01000Back.csproj"
+    },
+    "GSM01000Common/1.0.0": {
+      "type": "project",
+      "path": "../COMMON/GS/GSM01000Common/GSM01000Common.csproj",
+      "msbuildProject": "../COMMON/GS/GSM01000Common/GSM01000Common.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "GSM01000Back >= 1.0.0",
+      "GSM01000Common >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\rayhan.codeid\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\GSM01000Service\\GSM01000Service.csproj",
+      "projectName": "GSM01000Service",
+      "projectPath": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\GSM01000Service\\GSM01000Service.csproj",
+      "packagesPath": "C:\\Users\\rayhan.codeid\\.nuget\\packages\\",
+      "outputPath": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\GSM01000Service\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\rayhan.codeid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/v3/index.json": {},
+        "https://www1.realta.net/realtanuget/nuget": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\BACK\\GS\\GSM001000Back\\GSM01000Back.csproj": {
+              "projectPath": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\BACK\\GS\\GSM001000Back\\GSM01000Back.csproj"
+            },
+            "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\COMMON\\GS\\GSM01000Common\\GSM01000Common.csproj": {
+              "projectPath": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\COMMON\\GS\\GSM01000Common\\GSM01000Common.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

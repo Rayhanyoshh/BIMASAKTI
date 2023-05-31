@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "Pt48/8d0NqSMyDhba+7jB4CN9LnmgSZ78h2KvcjdsMc=",
+  "Source": "GSM03000Front",
+  "BasePath": "_content/GSM03000Front",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "GSM03000Front\\wwwroot",
+      "Source": "GSM03000Front",
+      "ContentRoot": "D:\\BIMASAKTI[1]\\BIMASAKTI_11\\1.00\\PROGRAM\\BS Program\\SOURCE\\FRONT\\GS\\GSM03000Front\\wwwroot\\",
+      "BasePath": "_content/GSM03000Front",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

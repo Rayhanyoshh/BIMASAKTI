@@ -1,0 +1,31 @@
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.AssemblyReference.cache
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfoInputs.cache
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfo.cs
+D:\Work\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.CoreCompileInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.deps.json
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\R_APICommonDTO.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\R_CommonFrontBackAPI.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.AssemblyReference.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfoInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfo.cs
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.CoreCompileInputs.cache
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.CopyComplete
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.dll
+D:\BIMASAKTI[1]\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.deps.json
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\GSM01000Common.pdb
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\R_APICommonDTO.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\bin\Debug\netstandard2.1\R_CommonFrontBackAPI.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.AssemblyReference.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfoInputs.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.AssemblyInfo.cs
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.CoreCompileInputs.cache
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.csproj.CopyComplete
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.dll
+D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\COMMON\GS\GSM01000Common\obj\Debug\netstandard2.1\GSM01000Common.pdb
