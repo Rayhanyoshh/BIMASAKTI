@@ -1,0 +1,44 @@
+ @using GSM01000Common.DTOs;
+ @inherits R_Page
+ @* <R_StackLayout Row>
+     <R_Grid @ref="@_gridCoAListToAssignRef"
+             DataSource="_GSM1310ViewModel.CoAToAssignList"
+             R_ServiceGetListRecord="R_ServiceGetListRecordAsync"
+             R_ConductorGridSource="_ConAssignCOARef"
+             R_GridType="@R_eGridType.Batch"
+             AllowAddNewRow="false"
+             AllowDeleteRow="false"
+             AllowEditRow="false"
+             Pageable
+             PageSize="10">
+         <R_GridColumns>
+             <R_GridCheckBoxSelectColumn FieldName="@nameof(AssignCoADTO.LSELECTED)"
+                                                             R_EnableAdd
+                                                             R_EnableEdit
+                                                             ShowSelectAllHeader />
+             <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText="Account Code"></R_GridTextColumn>
+             <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText="Account Name"></R_GridTextColumn>
+         </R_GridColumns>
+     </R_Grid>
+ </R_StackLayout>
+
+ <R_StackLayout Row Class="justify-content-start">
+     <R_ItemLayout col="2">
+         <R_Button OnClick="Button_OnClickOkAsync">
+             Process
+         </R_Button>
+     </R_ItemLayout>
+     <R_ItemLayout col="2">
+         <R_Button OnClick="Button_OnClickCloseAsync">
+             Cancel
+         </R_Button>
+     </R_ItemLayout>
+ </R_StackLayout>
+
+
+ <R_ConductorGrid @ref="@_ConAssignCOARef"
+                  R_ViewModel="@_GSM1300ViewModel"
+                  R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                  R_AfterSaveBatch="@R_AfterSaveBatch"
+                  R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                  R_IsHeader="true" /> *@

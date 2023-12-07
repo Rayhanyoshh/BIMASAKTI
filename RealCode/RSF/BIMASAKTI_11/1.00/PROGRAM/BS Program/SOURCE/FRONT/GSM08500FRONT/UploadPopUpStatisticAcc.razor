@@ -1,0 +1,120 @@
+@page "/UploadPopUpStatisticAcc"
+@using GSM08500Common.DTOs
+@using GSM008500Common.DTOs
+@attribute [R_Page(Title = "Upload File")]
+@inherits R_Page
+
+<R_StackLayout Style="width: 1000px">
+    <R_StackLayout Row >
+        <R_ItemLayout col="2">
+            <R_Label>Company</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="@_GSM08501ViewModel.loCompany.CCOMPANY_ID"
+                       Enabled="false"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_TextBox @bind-Value="@_GSM08501ViewModel.loCompany.CCOMPANY_NAME"
+                       Enabled="false"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+          <R_ItemLayout col="2">
+            <R_Label>Source File</R_Label>
+        </R_ItemLayout>
+          <R_ItemLayout col="7">
+            <R_TextBox  @bind-Value="@_GSM08501ViewModel.SourceFileName"
+                        Enabled="false"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_InputFile OnChange="@_STATISTIC_ACCOUNT_SourceUpload_OnChange" Accepts="@accepts"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout col="12">
+            <R_Grid @ref="@_STATISTIC_ACCOUNTUploadGridRef"
+                    DataSource="@_GSM08501ViewModel.STATISTIC_ACCOUNTValidateUploadError"
+                    Pageable
+                    PageSize="5"
+                    R_GridType="@R_eGridType.Batch"
+                    R_ServiceGetListRecord="@STATISTIC_ACCOUNT_Upload_R_ServiceGetListRecord"
+                    Width="100%">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.NO)" HeaderText="No" Width="100px"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NO)" HeaderText="Account No" R_EnableAdd="true" R_EnableEdit="false"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText="Account Name" R_EnableAdd="true" R_EnableEdit="true"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CBSIS)" HeaderText="BS/IS" R_EnableAdd="true" R_EnableEdit="true"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CDBCR)" HeaderText="D/C" R_EnableAdd="true" R_EnableEdit="true"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.LACTIVE)" HeaderText="Active" R_EnableAdd="true" R_EnableEdit="false"/>
+                    <R_GridTextColumn FieldName="Valid" HeaderText="Valid" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="ErrorMessage" HeaderText="ErrorMessage" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>                </R_GridColumns>
+            </R_Grid>
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+    <R_StackLayout Row>
+            <R_ItemLayout col="12">
+                <R_ProgressBar Label="@_GSM08501ViewModel.Message" MaxValue="100" Value="@_GSM08501ViewModel.Percentage"></R_ProgressBar>
+            </R_ItemLayout>
+    </R_StackLayout>
+    
+<R_StackLayout Row>
+    <R_ItemLayout col="8">
+        <R_StackLayout Row>
+            <R_ItemLayout col="3">
+                <R_Label>Total Row(s)</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout col="2">
+                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumListStaffExcel"
+                                  Arrows="false"
+                                  Enabled="false">
+                </R_NumericTextBox>
+            </R_ItemLayout>
+            <R_ItemLayout col="1">
+                <R_Label>Valid</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout col="2" Class="bg-success">
+                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumValidDataStaffExcel"
+                                  Arrows="false"
+                                  Enabled="false">
+                </R_NumericTextBox>
+            </R_ItemLayout>
+            <R_ItemLayout col="1">
+                <R_Label>Invalid</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout col="2" Class="badge bg-danger">
+                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumInvalidDataStaffExcel"
+                                  Arrows="false"
+                                  Enabled="false">
+                </R_NumericTextBox>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_ItemLayout>
+    <R_ItemLayout col="4" hidden="@_GSM08501ViewModel.VisibleError">
+        <R_StackLayout Row Class="justify-content-end">
+            <R_ItemLayout>
+                <R_Button OnClick="Button_OnClickCloseAsync">
+                    Cancel
+                </R_Button>
+                <R_Button OnClick="Button_OnClickOkAsync" Enabled="@FileHasData">
+                    Proses
+                </R_Button>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_ItemLayout>
+    <R_ItemLayout col="4" hidden="@(!_GSM08501ViewModel.VisibleError)">
+        <R_StackLayout Row Class="justify-content-end">
+            <R_ItemLayout>
+                <R_Button OnClick="Button_OnClickCloseAsync">
+                    Cancel
+                </R_Button>
+                <R_Button OnClick="@Button_OnClickSaveExcelAsync">
+                    Save To Excel
+                </R_Button>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>

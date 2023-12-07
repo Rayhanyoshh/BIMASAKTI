@@ -1,0 +1,4 @@
+8501 = Error process, please contact your administrator!
+8502 = Duplicate Statistic Account!
+8503 = Cannot Delete, Statistic Account Already in used!
+

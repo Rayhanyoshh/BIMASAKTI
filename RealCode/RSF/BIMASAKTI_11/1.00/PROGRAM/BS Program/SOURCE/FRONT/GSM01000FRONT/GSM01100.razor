@@ -1,0 +1,58 @@
+@page "/GSM01100"
+@inherits R_Page
+
+<R_StackLayout>
+    <R_StackLayout Spacing="3">
+        <R_StackLayout Row="true">
+            <R_ItemLayout xs="1">
+                <R_Label>Account</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout xs="2" >
+                <R_TextBox @bind-Value="@_GSM01100ViewModel.loParameter.CGLACCOUNT_NO"
+                            R_ConductorGridSource="@_conductorGridCoAUserRef"
+                           Enabled="false">
+                </R_TextBox>
+            </R_ItemLayout>
+            <R_ItemLayout xs="3" >
+                <R_TextBox @bind-Value="@_GSM01100ViewModel.loParameter.CGLACCOUNT_NAME"
+                           R_ConductorGridSource="@_conductorGridCoAUserRef"
+                           Enabled="false">
+                </R_TextBox>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Class="mb-3">
+        <R_Grid @ref="@_gridCoAUserRef"
+                DataSource="@_GSM01100ViewModel.loGridCoAUserList"
+                Pageable="true"
+                R_ConductorGridSource="@_conductorGridCoAUserRef"
+                R_GridType="@R_eGridType.Original"
+                AllowAddNewRow="false"
+                AllowDeleteRow="false"
+                AllowEditRow="false"
+                R_ServiceGetListRecord="@GridCoAUser_R_ServiceGetListRecord">
+    
+            <R_GridColumns>
+                <R_GridTextColumn FieldName="CUSER_ID" HeaderText="User Id" />
+                <R_GridTextColumn FieldName="CUSER_NAME" HeaderText="User Name" />
+                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText="Updated By" />
+                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText="Updated Date" />
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+    
+    <R_StackLayout Row="true" Spacing="3">
+        <R_ItemLayout xs="1">
+            <R_Popup R_Before_Open_Popup="R_Before_Open_Popup" R_After_Open_Popup="R_After_Open_Popup">
+                      Assign User
+                  </R_Popup>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_ConductorGrid  @ref="@_conductorGridCoAUserRef"
+              R_ViewModel="@_GSM01100ViewModel"
+              R_DisableCancelConfirmation="false"
+              R_ConvertToGridEntity="@R_ConvertToGridEntity">
+</R_ConductorGrid>

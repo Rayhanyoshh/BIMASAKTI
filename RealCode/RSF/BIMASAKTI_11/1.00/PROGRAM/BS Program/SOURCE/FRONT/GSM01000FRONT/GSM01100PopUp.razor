@@ -1,0 +1,46 @@
+@using GSM01000Common.DTOs
+@inherits R_Page
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
+<R_StackLayout Row>
+    <R_Grid @ref="@_gridUserListToAssignRef"
+            DataSource="_GSM1100ViewModel.UsersToAssignList"
+            R_ConductorGridSource="_ConAssignUserRef"
+            R_GridType="@R_eGridType.Batch"
+            AllowAddNewRow="false"
+            AllowDeleteRow="false"
+            AllowEditRow="false"
+            R_ServiceGetListRecord="R_ServiceGetListRecordAsync"
+            Pageable
+            PageSize="10">
+        <R_GridColumns>
+            <R_GridCheckBoxSelectColumn FieldName="@nameof(AssignUserDTO.LSELECTED)"
+                                        R_EnableAdd
+                                        R_EnableEdit
+                                        ShowSelectAllHeader/>
+             <R_GridTextColumn FieldName="@nameof(AssignUserDTO.CUSER_ID)" HeaderText=@_localizer["_print"] R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridTextColumn FieldName="@nameof(AssignUserDTO.CUSER_NAME)" HeaderText="User Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+</R_StackLayout>
+
+<R_StackLayout Row Class="justify-content-end">
+    <R_ItemLayout xs="2">
+        <R_Button OnClick="Button_OnClickOkAsync">
+            Process
+        </R_Button>
+    </R_ItemLayout>
+    <R_ItemLayout xs="2">
+        <R_Button OnClick="Button_OnClickCloseAsync">
+            Cancel
+        </R_Button>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_ConAssignUserRef"
+                 R_ViewModel="@_GSM1100ViewModel"
+                 R_BeforeSaveBatch="@R_BeforeSaveBatch"
+                 R_AfterSaveBatch="@R_AfterSaveBatch"
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch"
+                 R_IsHeader="true" />

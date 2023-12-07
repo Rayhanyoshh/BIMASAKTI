@@ -1,0 +1,5 @@
+7501= Error process, please contact your administrator!
+7502= Year cannot be empty!
+7503= Cannot Edit / Delete this Period, Period Already in used!
+7504= No of Period cannot be empty
+

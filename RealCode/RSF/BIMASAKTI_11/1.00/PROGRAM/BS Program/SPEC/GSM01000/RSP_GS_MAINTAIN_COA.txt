@@ -1,0 +1,4 @@
+1001	= Error process, please contact your administrator!
+1002	= Duplicate GL Account!
+1003	= This GL Account already used in Journal Transaction
+

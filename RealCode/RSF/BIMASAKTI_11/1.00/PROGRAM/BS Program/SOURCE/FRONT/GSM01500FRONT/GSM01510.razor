@@ -1,0 +1,40 @@
+﻿@page "/GSM01510"
+@inherits R_Page
+@using GSM01500COMMON.DTOs
+
+<R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>Center</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="3">
+            <R_TextBox @bind-Value="@DepartmentViewModel.SelectedCenterCode"
+                       R_ConductorGridSource="@_conGridDeptRef"
+                       Enabled="true"></R_TextBox>
+        </R_ItemLayout>
+        <R_ItemLayout xs="7">
+            <R_TextBox @bind-Value="@DepartmentViewModel.SelectedCenterCode"
+                       R_ConductorGridSource="@_conGridDeptRef"
+                       Enabled="true"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_Grid @ref="@_gridRef"
+            DataSource="@DepartmentViewModel.loDeptList"
+            Pageable="true"
+            R_ConductorGridSource="@_conGridDeptRef"
+            R_GridType="@R_eGridType.Original"
+            AllowAddNewRow="false"
+            AllowEditRow="false"
+            AllowDeleteRow="false"
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridTextColumn FieldName=@nameof(GSM01510DepartmentDTO.CDEPT_CODE) HeaderText="Department Code"></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(GSM01510DepartmentDTO.CDEPT_NAME) HeaderText="Department Name"></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridDeptRef"
+                 R_ViewModel="@DepartmentViewModel">
+             </R_ConductorGrid>

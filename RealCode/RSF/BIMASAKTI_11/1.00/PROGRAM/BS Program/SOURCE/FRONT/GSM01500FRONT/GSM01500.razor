@@ -1,0 +1,67 @@
+﻿@page "/GSM01500"
+@inherits R_Page
+@using GSM01500COMMON.DTOs
+
+<R_StackLayout>
+    <R_Grid @ref="@_gridRef"
+            DataSource="@CenterViewModel.loCenterList"
+            Pageable="true"
+            R_ConductorGridSource="@_conGridCenterRef"
+            R_GridType="@R_eGridType.Original"
+            AllowAddNewRow="true"
+            AllowEditRow="true"
+            AllowDeleteRow="true"
+            R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridTextColumn FieldName=@nameof(GSM01500DTO.CCENTER_CODE) HeaderText="Center Code" R_EnableAdd></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(GSM01500DTO.CCENTER_NAME) HeaderText="Center Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(GSM01500DTO.LACTIVE) HeaderText="Active" R_EnableAdd ></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(GSM01500DTO.CUPDATE_BY) HeaderText="Last Updated By"></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(GSM01500DTO.DUPDATE_DATE) HeaderText="Last Updated Date"></R_GridTextColumn>
+        </R_GridColumns>
+    </R_Grid>
+    <R_StackLayout Row="true" Spacing="3">
+        <R_ItemLayout xs="2">
+            <R_PopupButton R_ConductorGridSource="@_conGridCenterRef"
+                           R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
+                           R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
+                              R_EnableOther>Copy From</R_PopupButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="2">
+            <R_Button R_Conductor="">Template</R_Button>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="2">
+            <R_Button R_Conductor="">Upload</R_Button>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="2">
+            <R_PopupButton R_ConductorGridSource="@_conGridCenterRef"
+                           R_Before_Open_Popup="@R_Before_Open_Popup_ActivateInactive"
+                           R_After_Open_Popup="@R_After_Open_Popup_ActivateInactive"
+                              R_EnableOther>@loLabel</R_PopupButton>
+        </R_ItemLayout>
+
+        <R_ItemLayout xs="2">
+            <R_Button R_Conductor="">Print</R_Button>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_ConductorGrid @ref="@_conGridCenterRef"
+                 R_ViewModel="@CenterViewModel"
+                      R_IsHeader
+                 R_Display="@Grid_Display"
+                 R_ServiceGetRecord="@Grid_ServiceGetRecord"
+                 R_BeforeEdit="@Grid_BeforeEdit"
+                 R_BeforeCancel="@Grid_BeforeCancel"
+                 R_BeforeAdd="@Grid_BeforeAdd"
+                 R_AfterAdd="@Grid_AfterAdd"
+                 R_Validation="@Grid_Validation"
+                 R_Saving="@Grid_Saving"
+                 R_ServiceSave="@Grid_ServiceSave"
+                 R_AfterSave="@Grid_AfterSave"
+                 R_BeforeDelete="@Grid_BeforeDelete"
+                 R_ServiceDelete="@Grid_ServiceDelete"
+                 R_AfterDelete="@Grid_AfterDelete"></R_ConductorGrid>

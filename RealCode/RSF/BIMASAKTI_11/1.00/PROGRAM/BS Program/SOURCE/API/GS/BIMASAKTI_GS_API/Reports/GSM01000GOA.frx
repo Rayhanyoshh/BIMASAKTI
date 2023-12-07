@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\GS\BIMASAKTI_GS_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="10/17/2023 14:27:04" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="GOAData" DataType="GSM01000Common.DTOs.GSM01000PrintGOAResultDTo, GSM01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Title" DataType="System.String"/>
+        <Column Name="Header" DataType="System.String"/>
+        <Column Name="PrintDept" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="Column" DataType="GSM01000Common.DTOs.GSM01000PrintColoumnGOADTO, GSM01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="COLOUMN_CODE" DataType="System.String"/>
+          <Column Name="COLOUMN_NAME" DataType="System.String"/>
+          <Column Name="COLOUMN_CATEGORY" DataType="System.String"/>
+          <Column Name="COLOUMN_CASHFLOW" DataType="System.String"/>
+          <Column Name="COLOUMN_ACTIVE" DataType="System.String"/>
+        </Column>
+        <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[GSM01000Common.DTOs.GSM01000DataResultGOADTO, GSM01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CGOA_CODE" DataType="System.String"/>
+          <Column Name="CGOA_NAME" DataType="System.String"/>
+          <Column Name="CGOA_BSIS" DataType="System.String"/>
+          <Column Name="CGOA_DBCR" DataType="System.String"/>
+          <BusinessObjectDataSource Name="GSM01001DataResultGOADTO" DataType="System.Collections.Generic.List`1[[GSM01000Common.DTOs.GSM01001DataResultGOADTO, GSM01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <Column Name="CBSIS" DataType="System.String"/>
+            <Column Name="CDBCR" DataType="System.String"/>
+            <Column Name="CCASH_FLOW_CODE" DataType="System.String"/>
+            <Column Name="CCASH_FLOW_NAME" DataType="System.String"/>
+            <Column Name="LACTIVE" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="CGLACCOUNT_NO" DataType="System.String"/>
+            <Column Name="CGLACCOUNT_NAME" DataType="System.String"/>
+          </BusinessObjectDataSource>
+        </BusinessObjectDataSource>
+      </Column>
+      <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="BLOGO_COMPANY" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="CPRINT_CODE" DataType="System.String"/>
+        <Column Name="CCOMPANY_NAME" DataType="System.String"/>
+        <Column Name="CPRINT_NAME" DataType="System.String"/>
+        <Column Name="CUSER_ID" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <inherited Name="Page1">
+    <inherited Name="PageHeader1" Fill.Color="DarkBlue">
+      <inherited Name="Picture1"/>
+      <inherited Name="Text33" TextFill.Color="White"/>
+      <inherited Name="Text40" TextFill.Color="White">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </inherited>
+      <inherited Name="Text36" TextFill.Color="White"/>
+      <inherited Name="Text38" TextFill.Color="White"/>
+      <inherited Name="Text41" TextFill.Color="White"/>
+      <inherited Name="Text34" TextFill.Color="White"/>
+      <inherited Name="Text37" TextFill.Color="White"/>
+      <inherited Name="Text39" TextFill.Color="White"/>
+      <inherited Name="Text42" TextFill.Color="White"/>
+    </inherited>
+    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="78.27" Width="1047.06" Height="37.8">
+      <TextObject Name="Text43" Left="9.45" Top="9.45" Width="179.55" Height="18.9" Text="Code" Font="MS Gothic, 10pt, style=Bold"/>
+      <TextObject Name="Text44" Left="264.6" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.GOAData.Column.COLOUMN_NAME]" Font="MS Gothic, 10pt, style=Bold"/>
+      <TextObject Name="Text45" Left="567" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.GOAData.Column.COLOUMN_CATEGORY]" Font="MS Gothic, 10pt, style=Bold"/>
+      <TextObject Name="Text46" Left="708.75" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.GOAData.Column.COLOUMN_CASHFLOW]" Font="MS Gothic, 10pt, style=Bold"/>
+      <TextObject Name="Text47" Left="963.9" Top="9.45" Width="85.05" Height="18.9" Text="[ResponseDataModel.GOAData.Column.COLOUMN_ACTIVE]" Font="MS Gothic, 10pt, style=Bold"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" ZOrder="0" Top="118.73" Width="1047.06" Height="37.8" DataSource="Data">
+      <TextObject Name="Text52" Left="567" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.GOAData.Data.CGOA_BSIS] - [ResponseDataModel.GOAData.Data.CGOA_DBCR]" Font="MS Gothic, 10pt">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text55" Left="9.45" Top="9.45" Width="189" Height="18.9" Text="[ResponseDataModel.GOAData.Data.CGOA_CODE]" Font="MS Gothic, 10pt"/>
+      <TextObject Name="Text56" Left="264.6" Top="9.45" Width="245.7" Height="18.9" Text="[ResponseDataModel.GOAData.Data.CGOA_NAME]" Font="MS Gothic, 10pt"/>
+      <DataBand Name="Data2" Top="159.2" Width="1047.06" Height="37.8" DataSource="GSM01001DataResultGOADTO">
+        <TextObject Name="Text53" Left="595.35" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CBSIS] - [ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CDBCR]" Font="MS Gothic, 10pt">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text54" Left="708.75" Top="9.45" Width="236.25" Height="18.9" Text="[ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CCASH_FLOW_CODE] - [ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CCASH_FLOW_NAME]" Font="MS Gothic, 10pt">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <CheckBoxObject Name="CheckBox1" Left="992.25" Top="9.45" Width="18.9" Height="18.9" DataColumn="ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.LACTIVE"/>
+        <TextObject Name="Text57" Left="28.35" Top="9.45" Width="217.35" Height="18.9" Text="[ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CGLACCOUNT_NO]" Font="MS Gothic, 10pt"/>
+        <TextObject Name="Text58" Left="274.05" Top="9.45" Width="274.05" Height="18.9" Text="[ResponseDataModel.GOAData.Data.GSM01001DataResultGOADTO.CGLACCOUNT_NAME]" Font="MS Gothic, 10pt"/>
+      </DataBand>
+    </DataBand>
+  </inherited>
+</inherited>

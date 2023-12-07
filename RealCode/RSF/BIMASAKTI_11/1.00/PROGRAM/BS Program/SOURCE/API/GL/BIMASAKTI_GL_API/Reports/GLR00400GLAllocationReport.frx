@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/04/2023 16:21:09" ReportInfo.Modified="09/11/2023 17:21:53" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="Title" DataType="System.String"/>
+      <Column Name="Header" DataType="GLR00400Common.DTOs.GLR00400Print.GLR00400Header, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="GLALLOCATIONREPORT" DataType="System.String"/>
+        <Column Name="CCURRENCY" DataType="System.String"/>
+      </Column>
+      <Column Name="Column" DataType="GLR00400Common.DTOs.GLR00400Print.GLR00400ColumnPrintDTO, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="CDEPARTMENT" DataType="System.String"/>
+        <Column Name="CREF_NO" DataType="System.String"/>
+        <Column Name="CREF_DATE" DataType="System.String"/>
+        <Column Name="CALLOCATION" DataType="System.String"/>
+        <Column Name="CGLACCOUNT" DataType="System.String"/>
+        <Column Name="CSOURCE_CENTER" DataType="System.String"/>
+        <Column Name="CSOURCE_DBCR" DataType="System.String"/>
+        <Column Name="NSOURCE_AMOUNT" DataType="System.String"/>
+        <Column Name="CTARGET_CENTER" DataType="System.String"/>
+        <Column Name="CTARGET_DBCR" DataType="System.String"/>
+        <Column Name="NTARGET_AMOUNT" DataType="System.String"/>
+      </Column>
+      <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[GLR00400Common.DTOs.GLR00400Print.GLR00400TitleData, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="CPERIOD" DataType="System.String"/>
+        <BusinessObjectDataSource Name="DataDepartment" DataType="System.Collections.Generic.List`1[[GLR00400Common.DTOs.GLR00400Print.GLR00400Data1, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CDEPARTMENT" DataType="System.String"/>
+          <BusinessObjectDataSource Name="DataRefNo" DataType="System.Collections.Generic.List`1[[GLR00400Common.DTOs.GLR00400Print.GLR00400Data2, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <Column Name="CREF_NO" DataType="System.String"/>
+            <Column Name="CREF_DATE" DataType="System.String"/>
+            <Column Name="CALLOCATION" DataType="System.String"/>
+            <BusinessObjectDataSource Name="DataAccountNo" DataType="System.Collections.Generic.List`1[[GLR00400Common.DTOs.GLR00400Print.GLR00400Data3, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="CGLACCOUNT" DataType="System.String"/>
+              <Column Name="CSOURCE_CENTER" DataType="System.String"/>
+              <Column Name="CSOURCE_DBCR" DataType="System.String"/>
+              <Column Name="NSOURCE_AMOUNT" DataType="System.Decimal"/>
+              <BusinessObjectDataSource Name="DataTargetCenter" DataType="System.Collections.Generic.List`1[[GLR00400Common.DTOs.GLR00400Print.GLR00400Data4, GLR00400Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="CTARGET_CENTER" DataType="System.String"/>
+                <Column Name="CTARGET_DBCR" DataType="System.String"/>
+                <Column Name="NTARGET_AMOUNT" DataType="System.Decimal"/>
+              </BusinessObjectDataSource>
+            </BusinessObjectDataSource>
+          </BusinessObjectDataSource>
+        </BusinessObjectDataSource>
+        <Column Name="CCURRENCY" DataType="System.String"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+    <Total Name="TotalDAN" Expression="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.NSOURCE_AMOUNT]" Evaluator="Data4" PrintOn="DataFooter1"/>
+    <Total Name="TotalDTC" Expression="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.DataTargetCenter.NTARGET_AMOUNT]" Evaluator="Data5" PrintOn="DataFooter1"/>
+    <Total Name="FinalTotalDAN" Expression="[TotalDAN]" Evaluator="Data1" PrintOn="DataFooter2"/>
+    <Total Name="FinalTotalDTC" Expression="[TotalDTC]" Evaluator="Data1" PrintOn="DataFooter2"/>
+    <Total Name="GlobalFinalTotalDan" Expression="[FinalTotalDAN]" Evaluator="Data1" PrintOn="DataFooter3"/>
+    <Total Name="GlobalFinalTotalDTC" Expression="[FinalTotalDTC]" Evaluator="Data1" PrintOn="DataFooter3"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" Watermark.Font="Arial, 60pt" LastPageSource="15" FirstPageSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text2" Top="9.45" Width="1048.95" Height="18.9" Text="[ResponseDataModel.Title]" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="43.13" Width="1047.06" Height="18.9" DataSource="Data">
+      <DataBand Name="Data2" Top="110.5" Width="1047.06" DataSource="DataDepartment">
+        <TextObject Name="Text3" Left="-9.45" Width="122.85" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.CDEPARTMENT]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+        <DataHeaderBand Name="DataHeader1" Top="67.37" Width="1047.06" Height="37.8">
+          <TextObject Name="Text17" Width="122.85" Height="18.9" Text="Period : [ResponseDataModel.Data.CPERIOD]" VertAlign="Center" Font="Arial, 7pt"/>
+          <TextObject Name="Text18" Left="207.9" Width="472.5" Height="18.9" Text="Currency : [ResponseDataModel.Data.CCURRENCY]" VertAlign="Center" Font="Arial, 7pt"/>
+          <LineObject Name="Line1" Top="18.9" Width="1067.85"/>
+          <LineObject Name="Line2" Top="37.8" Width="1067.85"/>
+          <TextObject Name="Text19" Top="18.9" Width="94.5" Height="18.9" Text="[ResponseDataModel.Column.CDEPARTMENT]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text20" Left="94.5" Top="18.9" Width="132.3" Height="18.9" Text="[ResponseDataModel.Column.CREF_NO]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text22" Left="302.4" Top="18.9" Width="151.2" Height="18.9" Text="[ResponseDataModel.Column.CALLOCATION]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text23" Left="444.15" Top="18.9" Width="151.2" Height="18.9" Text="[ResponseDataModel.Column.CGLACCOUNT]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text24" Left="585.9" Top="18.9" Width="103.95" Height="18.9" Text="[ResponseDataModel.Column.CSOURCE_CENTER]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text25" Left="670.95" Top="18.9" Width="66.15" Height="18.9" Text="[ResponseDataModel.Column.CSOURCE_DBCR]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text26" Left="708.75" Top="18.9" Width="94.5" Height="18.9" Text="[ResponseDataModel.Column.NSOURCE_AMOUNT]" HorzAlign="Right" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text27" Left="793.8" Top="18.9" Width="170.1" Height="18.9" Text="[ResponseDataModel.Column.CTARGET_CENTER]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text28" Left="935.55" Top="18.9" Width="66.15" Height="18.9" Text="[ResponseDataModel.Column.CTARGET_DBCR]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text29" Left="973.35" Top="18.9" Width="85.05" Height="18.9" Text="[ResponseDataModel.Column.NTARGET_AMOUNT]" HorzAlign="Right" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+          <TextObject Name="Text21" Left="217.35" Top="18.9" Width="94.5" Height="18.9" Text="[ResponseDataModel.Column.CREF_DATE]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt, style=Bold"/>
+        </DataHeaderBand>
+        <DataBand Name="Data3" Top="115.83" Width="1047.06" DataSource="DataRefNo">
+          <TextObject Name="Text4" Left="94.5" Width="132.3" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.CREF_NO]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TextObject Name="Text5" Left="217.35" Width="94.5" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.CREF_DATE]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <TextObject Name="Text6" Left="302.4" Width="151.2" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.CALLOCATION]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          <DataBand Name="Data4" Top="121.17" Width="1047.06" DataSource="DataAccountNo">
+            <TextObject Name="Text7" Left="444.15" Width="151.2" Height="28.35" CanGrow="true" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.CGLACCOUNT]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+            <TextObject Name="Text8" Left="585.9" Width="103.95" Height="28.35" CanGrow="true" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.CSOURCE_CENTER]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+            <TextObject Name="Text9" Left="670.95" Width="56.7" Height="28.35" CanGrow="true" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.CSOURCE_DBCR]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+            <TextObject Name="Text10" Left="708.75" Width="94.5" Height="28.35" CanGrow="true" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.NSOURCE_AMOUNT]" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.CurrencySymbol="" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial, 7pt" Trimming="EllipsisCharacter"/>
+            <DataBand Name="Data5" Top="126.5" Width="1047.06" Height="28.35" DataSource="DataTargetCenter">
+              <TextObject Name="Text11" Left="793.8" Width="170.1" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.DataTargetCenter.CTARGET_CENTER]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+              <TextObject Name="Text13" Left="973.35" Width="94.5" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.DataTargetCenter.NTARGET_AMOUNT]" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.CurrencySymbol="" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial, 7pt" Trimming="EllipsisCharacter"/>
+              <TextObject Name="Text12" Left="954.45" Width="28.35" Height="28.35" Text="[ResponseDataModel.Data.DataDepartment.DataRefNo.DataAccountNo.DataTargetCenter.CTARGET_DBCR]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+            </DataBand>
+            <DataFooterBand Name="DataFooter1" Top="160.18" Width="1047.06" Height="37.8">
+              <TextObject Name="Text39" Left="453.6" Width="274.05" Height="37.8" Text="Total Ref. No [ResponseDataModel.Data.DataDepartment.DataRefNo.CREF_NO]" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+              <LineObject Name="Line9" Left="453.6" Width="604.8"/>
+              <TextObject Name="Text40" Left="633.15" Width="170.1" Height="37.8" Text="[TotalDAN]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+              <TextObject Name="Text41" Left="945" Width="122.85" Height="37.8" Text="[TotalDTC]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+            </DataFooterBand>
+          </DataBand>
+          <DataFooterBand Name="DataFooter2" Top="203.32" Width="1047.06" Height="37.8">
+            <LineObject Name="Line4" Left="453.6" Width="604.8"/>
+            <TextObject Name="Text33" Left="453.6" Width="274.05" Height="37.8" Text="Total Department [ResponseDataModel.Data.DataDepartment.CDEPARTMENT]" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+            <TextObject Name="Text34" Left="633.15" Width="170.1" Height="37.8" Text="[FinalTotalDAN]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+            <TextObject Name="Text35" Left="945" Width="122.85" Height="37.8" Text="[FinalTotalDTC]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          </DataFooterBand>
+        </DataBand>
+        <DataFooterBand Name="DataFooter3" Top="246.45" Width="1047.06" Height="37.8">
+          <LineObject Name="Line5" Left="1" Width="1058.4"/>
+          <TextObject Name="Text36" Left="453.6" Width="274.05" Height="37.8" Text="Total Period [ResponseDataModel.Data.CPERIOD]" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TextObject Name="Text37" Left="633.15" Width="170.1" Height="37.8" Text="[GlobalFinalTotalDan]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <TextObject Name="Text38" Left="945" Width="122.85" Height="37.8" Text="[GlobalFinalTotalDTC]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Arial, 8pt, style=Bold"/>
+          <LineObject Name="Line6" Left="453.6" Width="604.8"/>
+        </DataFooterBand>
+      </DataBand>
+    </DataBand>
+    <DataBand Name="Data6" Top="289.58" Width="1047.06" Height="37.8">
+      <LineObject Name="Line8" Width="1058.4"/>
+    </DataBand>
+  </ReportPage>
+</Report>

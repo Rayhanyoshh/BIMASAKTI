@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BACKUP NEW\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\GS\BIMASAKTI_GS_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="11/22/2023 13:19:01" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="StatAccountData" DataType="GSM008500Common.DTOs.GSM01000PrintStatAccResultDTo, GSM08500Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Title" DataType="System.String"/>
+        <Column Name="Header" DataType="System.String"/>
+        <Column Name="Column" DataType="GSM008500Common.DTOs.PrintDTO.GSM08500PrintColoumnStatAccDTO, GSM08500Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="COLOUMN_ACCOUNT_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_ACCOUNT_NAME" DataType="System.String"/>
+          <Column Name="COLOUMN_CATEGORY" DataType="System.String"/>
+          <Column Name="COLOUMN_ACTIVE" DataType="System.String"/>
+        </Column>
+        <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[GSM008500Common.DTOs.PrintDTO.GSM08500ResultSPPrintStatAccDTO, GSM08500Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CGLACCOUNT_NO" DataType="System.String"/>
+          <Column Name="CGLACCOUNT_NAME" DataType="System.String"/>
+          <Column Name="CBSIS" DataType="System.String"/>
+          <Column Name="CDBCR" DataType="System.String"/>
+          <Column Name="LACTIVE" DataType="System.Boolean" BindableControl="CheckBox"/>
+        </BusinessObjectDataSource>
+      </Column>
+      <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="BLOGO_COMPANY" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="CPRINT_CODE" DataType="System.String"/>
+        <Column Name="CCOMPANY_NAME" DataType="System.String"/>
+        <Column Name="CPRINT_NAME" DataType="System.String"/>
+        <Column Name="CUSER_ID" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <inherited Name="Page1">
+    <inherited Name="PageHeader1">
+      <inherited Name="Picture1"/>
+      <inherited Name="Text33"/>
+      <inherited Name="Text40">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </inherited>
+      <inherited Name="Text36"/>
+      <inherited Name="Text38"/>
+      <inherited Name="Text41"/>
+      <inherited Name="Text34"/>
+      <inherited Name="Text37"/>
+      <inherited Name="Text39"/>
+      <inherited Name="Text42"/>
+    </inherited>
+    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="79.6" Width="1047.06" Height="37.8" Fill.Color="Blue">
+      <TextObject Name="Text43" Left="9.45" Top="9.45" Width="170.1" Height="18.9" Text="Account No" Font="MS Gothic, 10pt" TextFill.Color="White"/>
+      <TextObject Name="Text44" Left="189" Top="9.45" Width="217.35" Height="18.9" Text="Account Name" Font="MS Gothic, 10pt" TextFill.Color="White"/>
+      <TextObject Name="Text45" Left="727.65" Top="9.45" Width="66.15" Height="18.9" Text="Category" Font="MS Gothic, 10pt" TextFill.Color="White"/>
+      <TextObject Name="Text46" Left="916.65" Top="9.45" Width="56.7" Height="18.9" Text="Active" Font="MS Gothic, 10pt" TextFill.Color="White"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" ZOrder="0" Top="121.4" Width="1047.06" Height="37.8" DataSource="Data">
+      <TextObject Name="Text47" Left="9.45" Top="9.45" Width="170.1" Height="18.9" Text="[ResponseDataModel.StatAccountData.Data.CGLACCOUNT_NO]" Font="MS Gothic, 9.75pt"/>
+      <TextObject Name="Text48" Left="189" Top="9.45" Width="510.3" Height="18.9" Text="[ResponseDataModel.StatAccountData.Data.CGLACCOUNT_NAME]" Font="MS Gothic, 9.75pt"/>
+      <TextObject Name="Text49" Left="727.65" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.StatAccountData.Data.CBSIS] - [ResponseDataModel.StatAccountData.Data.CDBCR]" Font="MS Gothic, 9.75pt">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <CheckBoxObject Name="CheckBox1" Left="935.55" Top="9.45" Width="18.9" Height="18.9" DataColumn="ResponseDataModel.StatAccountData.Data.LACTIVE"/>
+    </DataBand>
+  </inherited>
+</inherited>

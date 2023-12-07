@@ -1,0 +1,87 @@
+ @page "/GSM08500" 
+ @using GSM08500Common.DTOs
+ @using GSM008500Common.DTOs
+ @inherits R_Page
+
+ <R_StackLayout Spacing="3" Class="mb-4">
+     <R_StackLayout>
+         <R_Grid @ref="@_gridRef"
+                 DataSource="@_GSM08500ViewModel.loGridList"
+                 Pageable="true"
+                 R_ConductorGridSource="_conductorGridRef"
+                 R_GridType="@R_eGridType.Original"
+                 R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
+                 AllowAddNewRow="true"
+                 AllowEditRow="true"
+                 AllowDeleteRow="true">
+        
+             <R_GridColumns>
+                <R_GridTextColumn MaxLength="20" FieldName="CGLACCOUNT_NO" HeaderText="Account No" R_EnableAdd="true" R_EnableEdit="false" Width="128px"></R_GridTextColumn>
+                <R_GridTextColumn MaxLength="60" FieldName="CGLACCOUNT_NAME" HeaderText="Account Name" R_EnableAdd="true" R_EnableEdit="true" Width="400px" />
+                 <R_GridDropDownListColumn   Data="@_GSM08500ViewModel.BSIS_Option"
+                                             FieldName="@nameof(GSM08500DTO.CBSIS)"
+                                             ValueField="@nameof(DropDownDTO.Id)"
+                                             TextField="@nameof(DropDownDTO.Text)"
+                                             HeaderText="BS / IS"
+                                             R_EnableAdd="true"
+                                             R_EnableEdit="true "
+                                             Width="115px"/>
+                 <R_GridDropDownListColumn Data="@_GSM08500ViewModel.CDBCR_Option"
+                                           FieldName="@nameof(GSM08500DTO.CDBCR)"
+                                           ValueField="@nameof(DropDownDTO.Id)"
+                                           TextField="@nameof(DropDownDTO.Text)"
+                                           HeaderText="D / C"
+                                           R_EnableAdd="true"
+                                           R_EnableEdit="true "
+                                           Width="113px" />
+                <R_GridCheckBoxColumn Width="85px" FieldName="@nameof(GSM08500DTO.LACTIVE)" HeaderText="Active" R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn Width="115px" FieldName="CUPDATE_BY" HeaderText="Updated By" R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn Width="135px" FieldName="DUPDATE_DATE" HeaderText="Updated Date" R_EnableAdd="false" R_EnableEdit="false" />
+             </R_GridColumns>
+         </R_Grid>
+     </R_StackLayout>
+     <R_StackLayout Row="true" Spacing="3">
+         <R_ItemLayout>
+             <R_Popup R_ConductorGridSource="@_conductorGridRef"
+                      R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
+                      R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
+                      R_EnableOther>Copy Form</R_Popup>
+         </R_ItemLayout>
+
+         <R_ItemLayout>
+             <R_Button R_Conductor="@_conductorGridRef" OnClick="@DownloadTemplate">Template</R_Button>
+         </R_ItemLayout>
+        
+         <R_ItemLayout>
+                 <R_Popup R_ConductorGridSource="_conductorGridRef"
+                                      R_Before_Open_Popup="R_Before_Open_Popup_Upload"
+                                      R_After_Open_Popup="R_After_Open_Popup_Upload"
+                                      Enabled>Upload
+                 </R_Popup>
+         </R_ItemLayout>
+        
+         <R_ItemLayout>
+             <R_Popup R_ConductorGridSource="@_conductorGridRef"
+                      R_Before_Open_Popup="@R_Before_Open_Popup_ActivateInactive"
+                      R_After_Open_Popup="@R_After_Open_Popup_ActivateInactive">
+                 @loLabelButton
+             </R_Popup>
+         </R_ItemLayout>
+        
+         <R_ItemLayout>
+             <R_Popup R_Conductor="@_conductorGridRef"
+                      R_Before_Open_Popup="@R_Before_Open_Popup_Print"
+                      R_After_Open_Popup="@R_After_Open_Popup_Print">Print</R_Popup>
+         </R_ItemLayout>
+     </R_StackLayout>
+ </R_StackLayout>    
+ <R_ConductorGrid @ref="@_conductorGridRef"
+                               R_ViewModel="@_GSM08500ViewModel"
+                               R_IsHeader="true"
+                               R_Display="@Grid_Display"
+                               R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
+                               R_Validation="@GridAddCOA_Validation"
+                               R_AfterAdd="R_After_Add_COA"
+                               R_ServiceSave="@Grid_ServiceSave"
+                               R_ServiceDelete="@Grid_ServiceDelete"
+                               R_ConvertToGridEntity="@R_ConvertToGridEntity"/>

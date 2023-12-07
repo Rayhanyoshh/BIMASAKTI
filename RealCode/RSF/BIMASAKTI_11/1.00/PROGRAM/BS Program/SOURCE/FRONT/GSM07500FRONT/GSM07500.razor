@@ -1,0 +1,108 @@
+ @page "/GSM07500" 
+@using GSM07500Model.ViewModel
+@using GSM07500Common.DTOs
+@using System.Globalization
+
+@inherits R_Page
+
+<R_StackLayout Style="width: 1000px">
+
+<R_StackLayout Row="true">
+    <R_StackLayout Class="me-5 mt-5">
+        <R_Grid @ref="@_gridPeriodRef"
+                DataSource="@_GSM07510ViewModel.loGridPeriodList"
+                Pageable="true"
+                R_ConductorSource="@_conductorGridPeriodRef"
+                R_GridType="@R_eGridType.Navigator"
+                R_ServiceGetListRecord="@GridPeriod_R_ServiceGetListRecord"
+                AllowAddNewRow="false"
+                AllowDeleteRow="false"
+                AllowEditRow="false"
+                Enabled="true"
+                Width="250px">
+            <R_GridColumns>
+                <R_GridTextColumn FieldName="CYEAR" HeaderText="Year Period" R_EnableAdd="false" R_EnableEdit="false" />
+       
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+    
+    <R_StackLayout>
+            <R_StackLayout Row="true" Class="mb-1">
+            <R_ItemLayout col="1" >
+                <R_Label>Year Period</R_Label>
+            </R_ItemLayout>
+            <R_ItemLayout col="1">
+                <R_TextBox @bind-Value="@_GSM07510ViewModel.Data.CYEAR"
+                           R_ConductorSource="@_conductorGridPeriodRef"
+                           R_EnableOther="false"
+                           Enabled="false">
+                </R_TextBox>
+            </R_ItemLayout>
+        </R_StackLayout>
+    
+        
+        <R_StackLayout Row="true" Class="me-3">
+            <R_Grid @ref="@_gridPeriodDetailRef"
+                    DataSource="@_GSM07500ViewModel.loGridPeriodDetailList"
+                    Pageable="true"
+                    R_ConductorGridSource="@_conductorGridPeriodDetailRef"
+                    R_GridType="@R_eGridType.Batch"
+                    R_ServiceGetListRecord="@GridPeriodDetail_R_ServiceGetListRecord"
+                    AllowAddNewRow="false"
+                    AllowEditRow="false"
+                    AllowDeleteRow="false"
+                    PageSize="12"
+                    Width="1000px">
+                <R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CPERIOD_NO)" HeaderText="No" R_EnableAdd="false" R_EnableEdit="false" Width="20px"/>
+                    <R_GridDatePickerColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DSTART_DATE)" HeaderText="Start Date" R_EnableAdd="false" R_EnableEdit="false" Width="50px"/>
+                    <R_GridDatePickerColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DEND_DATE)" HeaderText="End Date" R_EnableAdd="false" R_EnableEdit="false" Width="50px"/>
+                    <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CUPDATE_BY)" HeaderText="Updated By" R_EnableAdd="false" R_EnableEdit="false" Width="40px"/>
+                    <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DUPDATE_DATE)" HeaderText="Updated Date" R_EnableAdd="false" R_EnableEdit="false" Width="50px"/>
+                    <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.CCREATE_BY)" HeaderText="Created By" R_EnableAdd="false" R_EnableEdit="false" Width="40px"/>
+                    <R_GridTextColumn FieldName="@nameof(_GSM07500ViewModel.loEntity.DCREATE_DATE)" HeaderText="Created Date" R_EnableAdd="false" R_EnableEdit="false" Width="50px"/>
+                </R_GridColumns>
+            </R_Grid>
+        </R_StackLayout>
+        <R_StackLayout Spacing="4" Row="true">
+            <R_ItemLayout>
+                <R_SaveButton R_Conductor="_conductorGridPeriodRef">Save</R_SaveButton>
+            </R_ItemLayout>
+            <R_ItemLayout>
+                <R_CancelButton R_Conductor="@_conductorGridPeriodRef">Cancel</R_CancelButton>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+ <R_StackLayout Row="true">
+     <R_ItemLayout>
+         <R_AddButton R_Conductor="_conductorGridPeriodRef">Add</R_AddButton>
+     </R_ItemLayout>
+     <R_ItemLayout>
+         <R_DeleteButton R_Conductor="_conductorGridPeriodRef">Delete</R_DeleteButton>
+     </R_ItemLayout>
+ </R_StackLayout>
+
+
+</R_StackLayout>
+<R_Conductor @ref="@_conductorGridPeriodRef"
+             R_ViewModel="@_GSM07510ViewModel"
+             R_IsHeader="true"
+             R_ServiceGetRecord="@ConductorPeriod_ServiceGetRecord"
+             R_ConvertToGridEntity="R_ConvertToGridEntity"
+             R_AfterAdd="GetOnClickAfterAddButton"
+             R_Display="@ConductorPeriod_Display"
+             R_SetAdd="@GridPeriod_SetAdd"
+             R_ServiceSave="@Grid_ServiceSave"
+             R_AfterSave="@Grid_AfterSave"
+             R_BeforeDelete="@BeforeDelete"
+             R_ServiceDelete="@Grid_ServiceDelete"
+             >
+</R_Conductor>
+
+<R_ConductorGrid @ref="_conductorGridPeriodDetailRef"
+                 R_ViewModel="_GSM07500ViewModel"
+                 R_ConductorParent="_conductorGridPeriodRef">
+</R_ConductorGrid>

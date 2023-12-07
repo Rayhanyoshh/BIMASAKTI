@@ -1,0 +1,136 @@
+﻿@page "/GSM01000Print"
+@using GSM01000Common.DTOs;
+@inherits R_Page
+@attribute [R_BlazorFrontEnd.Controls.Attributes.R_Page(Title = "Print COA")]
+
+<R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="3">
+            <R_Label Class="fw-bold">Print COA</R_Label>
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+        
+    <R_StackLayout Row="true">
+
+        <R_ItemLayout col="4">
+            <R_Label>From Account</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_FROM"
+                       R_ConductorSource="@_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@R_BeforeOpenLookUpFrom" R_After_Open_Lookup="R_AfterOpenLookUpFrom" @ref="COALookUp"> ... </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_NAME_FROM"
+                       R_ConductorSource="@_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+
+    </R_StackLayout>
+    
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="4">
+            <R_Label>To Account</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_TO"
+                       R_ConductorSource="@_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@R_BeforeOpenLookUpTo" R_After_Open_Lookup="R_AfterOpenLookUpTo" @ref="COALookUp"> ... </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_NAME_TO"
+                       R_ConductorSource="@_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+   <R_StackLayout Row="true">
+        <R_ItemLayout col="4">
+            <R_Label>Account Category</R_Label>
+        </R_ItemLayout>
+         <R_ItemLayout>
+             <R_CheckBox @bind-Value="_GSM01000ViewModel.loPrint.LBALANCE_SHEET"
+                        R_ConductorSource="_conductorRef">
+             </R_CheckBox>
+         </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_Label>Balance Sheet</R_Label>
+        </R_ItemLayout>
+         <R_ItemLayout>
+            <R_CheckBox @bind-Value="_GSM01000ViewModel.loPrint.LINCOME_STATEMENT"
+                        R_ConductorSource="_conductorRef">
+             </R_CheckBox>
+         </R_ItemLayout>
+        <R_ItemLayout col="3">
+            <R_Label>Income Statement</R_Label>
+        </R_ItemLayout>
+   </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="4">
+            <R_Label>Sort By</R_Label>
+        </R_ItemLayout>
+
+        <R_ItemLayout col="3">
+            <R_RadioGroup Data="@_GSM01000ViewModel.SortBy"
+                          @bind-Value="@_GSM01000ViewModel.loPrint.CSHORT_BY"
+                          ValueField="@nameof(GSM01000PrintParamCOADTO.CSHORT_BY)"
+                          TextField="@nameof(GSM01000PrintParamCOADTO.SortBy)"
+                          R_ConductorSource="@_conductorRef">
+            </R_RadioGroup>
+        </R_ItemLayout>
+
+    </R_StackLayout>
+
+
+    <R_StackLayout Row="true">
+       <R_ItemLayout>
+            <R_CheckBox @bind-Value="@_GSM01000ViewModel.loPrint.LPRINT_INACTIVE"
+                        R_ConductorSource="@_conductorRef">
+           </R_CheckBox>
+       </R_ItemLayout>
+       <R_ItemLayout>
+           <R_Label>Print Inactive Account</R_Label>
+       </R_ItemLayout>
+   </R_StackLayout>
+   <R_StackLayout Row="true">
+       <R_ItemLayout>
+         <R_CheckBox @bind-Value="@_GSM01000ViewModel.loPrint.LPRINT_USER_RESTRICT"
+                        R_ConductorSource="@_conductorRef"/>
+       </R_ItemLayout>
+       <R_ItemLayout>
+           <R_Label>Print User Restriction</R_Label>
+       </R_ItemLayout>
+   </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout>
+            <R_CheckBox @bind-Value="@_GSM01000ViewModel.loPrint.LPRINT_CENTER_RESTRICT"
+                        R_ConductorSource="@_conductorRef">
+            </R_CheckBox>
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Label>Print Center Restriction</R_Label>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+
+<R_StackLayout Row Class="justify-content-end">
+     <R_ItemLayout col="6">
+         <R_Button OnClick="Button_OnClickProcessAsync">
+             Print
+         </R_Button>
+     </R_ItemLayout>
+     <R_ItemLayout col="4">
+         <R_Button OnClick="Button_OnClickCloseAsync">
+             Cancel
+         </R_Button>
+     </R_ItemLayout>
+ </R_StackLayout>
+ 

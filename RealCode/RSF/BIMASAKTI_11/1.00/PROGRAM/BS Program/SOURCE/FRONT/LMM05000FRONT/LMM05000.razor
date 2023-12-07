@@ -1,0 +1,100 @@
+@page "/LMM05000"
+@using LMM05000Common.DTOs;
+@using R_BlazorFrontEnd.Controls.Enums
+@inherits R_Page
+
+<R_StackLayout Row="true">
+    <R_ItemLayout col="2">
+        <R_Label FontColor="R_eFontColor.Danger" FontStyle="R_eFontStyle.Bold" Class="p-3">PROPERTY</R_Label>
+    </R_ItemLayout>
+    <R_ItemLayout col="3">
+        <R_ComboBox Data="@_LMM05000ViewModel.PropertyList"
+                    @bind-Value="_LMM05000ViewModel.PropertyValue"
+                    ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
+                    TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+                    R_ConductorGridSource="@_conductorUnitPriceRef" OnChanged="OnChanged" />
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row="true">
+    <R_ItemLayout col="2">
+        <R_Grid @ref="@_gridUnitTypeRef"
+                DataSource="@_LMM05010ViewModel.UnitTypeList"
+                R_GridType="@R_eGridType.Original"
+                R_ConductorGridSource="@_condUnitTypeRef"
+                R_ServiceGetListRecord="@UnitTypeGrid_ServiceGetListRecord"
+                AllowAddNewRow="false">
+            <R_GridColumns>
+                <R_GridTextColumn Width="120px" FieldName="CUNIT_TYPE_NAME" HeaderText="Unit Type" />
+            </R_GridColumns>
+        </R_Grid>
+    </R_ItemLayout>
+
+    <R_ItemLayout col="9">
+        <R_Grid @ref="@_gridUnitTypePriceRef"
+                DataSource="@_LMM05000ViewModel.UnitPriceList"
+                Pageable="true"
+                R_GridType="@R_eGridType.Original"
+                R_ConductorGridSource="@_conductorUnitPriceRef"
+                R_ServiceGetListRecord="@GridUnitPrice_ServiceGetListRecord"
+                AllowAddNewRow="true"
+                AllowDeleteRow="true"
+                AllowEditRow="true"
+                Height="360px">
+            <R_GridColumns>
+                <R_GridTextColumn Width="90px" FieldName="CVALID_INTERNAL_ID" HeaderText="Valid Id" R_EnableEdit="false" R_EnableAdd="false" />
+                <R_GridDatePickerColumn Width="150px" FieldName="DVALID_DATE" HeaderText="Valid From Date" R_EnableEdit="false" R_EnableAdd="true" />
+                <R_GridDropDownListColumn 
+                                      Width="130px"
+                                      Data="@_LMM05000ViewModel.SqmTotalList"
+                                      FieldName="@nameof(LMM05000DTO.CBY_SQM_TOTAL)"
+                                      ValueField="@nameof(DropDownSqmTotalDTO.Id)"
+                                      TextField="@nameof(DropDownSqmTotalDTO.Text)"
+                                      HeaderText="SQM/TOTAL"
+                                      R_EnableAdd="true"
+                                      R_EnableEdit="true" />
+                <R_GridMultiHeaderColumn HeaderText="Normal">
+                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_PRICE_SQM" HeaderText="Price/SQM" R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_SELLING_PRICE" HeaderText="Selling Price" R_EnableEdit="true" R_EnableAdd="true" />
+                </R_GridMultiHeaderColumn>
+                <R_GridMultiHeaderColumn HeaderText="Bottom">
+                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_PRICE_SQM" HeaderText="Price/SQM" R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_SELLING_PRICE" HeaderText="Selling Price" R_EnableEdit="true" R_EnableAdd="true" />
+                </R_GridMultiHeaderColumn>
+                <R_GridCheckBoxColumn Width="105px" FieldName="LOVERWRITE" HeaderText="Overwrite" R_EnableEdit="true" R_EnableAdd="true" />
+                <R_GridCheckBoxColumn Width="100px" FieldName="LACTIVE" HeaderText="Active" />
+                <R_GridTextColumn Width="120px" FieldName="CUPDATE_BY" HeaderText="Updated By" />
+                <R_GridDateTimePickerColumn Width="150px" FieldName="DUPDATE_DATE" HeaderText="Updated Date" />
+                <R_GridTextColumn Width="110px" FieldName="CCREATE_BY" HeaderText="Created By" />
+                <R_GridDateTimePickerColumn Width="150px" FieldName="DCREATE_DATE" HeaderText="Created Date" />
+            </R_GridColumns>
+        </R_Grid>
+    </R_ItemLayout>
+</R_StackLayout>
+
+<R_StackLayout Row="true">
+    <R_ItemLayout col="2"/>
+    <R_ItemLayout col="1">
+        <R_Popup R_After_Open_Popup="@R_After_Open_Popup_ActivateInactive" R_Before_Open_Popup="@R_Before_Open_Popup_ActivateInactive">@loLabel</R_Popup>
+    </R_ItemLayout>
+</R_StackLayout>
+
+
+
+<R_ConductorGrid @ref="@_condUnitTypeRef"
+                 R_ViewModel="@_LMM05010ViewModel"
+                 R_IsHeader="true"
+                 R_Display="UnitTypeGrid_Display"
+                 R_ServiceGetRecord="UnitTypeGrid_ServiceGetRecord" />
+
+<R_ConductorGrid @ref="@_conductorUnitPriceRef"
+                 R_ViewModel="_LMM05000ViewModel"
+                 R_ConductorParent="_condUnitTypeRef"
+                 R_ServiceGetRecord="ConductorUnitPrice_ServiceGetRecord"
+                 R_ServiceSave="Conductor_ServiceSave"
+                 R_AfterSave="Connductor_AfterSave"
+                 R_ServiceDelete="Conductor_ServiceDelete"
+                 R_Display="Grid_Display"
+                 R_AfterAdd="Conductor_AfterAdd"
+                 R_Saving="Conductor_Saving" 
+                 R_Validation="@GridAddCOA_Validation" />
