@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -611,30 +611,30 @@ namespace GSM01000Front
         #endregion
 
         #region CenterAssign
-                private void R_Before_Open_PopupCenter(R_BeforeOpenPopupEventArgs eventArgs)
-                {
-                    eventArgs.Parameter = _GSM01200ViewModel.cglAccount;
-                    eventArgs.TargetPageType = typeof(GSM01200PopUp);
-                }
-        
-                private async Task R_After_Open_PopupCenter(R_AfterOpenPopupEventArgs eventArgs)
-                {
-                    //var loTempResult = (AssignCenterDTO)eventArgs.Result;
-                    //var loParam = (GSM01200DTO)_conductorGridCoACenterRef.R_GetCurrentData();
-                    //// var loGlAccountTab = _GSM01200ViewModel.loParameter;
-        
-                    //if (loTempResult==null)
-                    //{
-                    //    return;
-                    //}
-        
-                    //loParam.CCENTER_CODE = loTempResult.CCENTER_CODE;
-                    //loParam.CGLACCOUNT_NO = _GSM01200ViewModel.cglAccount;
-        
-                    ////await _GSM01200ViewModel.AssignCenterToCOA(loParam, 
-                    ////    eCRUDMode.AddMode);
-                    await _gridCoACenterRef.R_RefreshGrid(null);
-                }
+        private void R_Before_Open_PopupCenter(R_BeforeOpenPopupEventArgs eventArgs)
+        {
+            eventArgs.Parameter = _GSM01200ViewModel.cglAccount;
+            eventArgs.TargetPageType = typeof(GSM01200PopUp);
+        }
+
+        private async Task R_After_Open_PopupCenter(R_AfterOpenPopupEventArgs eventArgs)
+        {
+            //var loTempResult = (AssignCenterDTO)eventArgs.Result;
+            //var loParam = (GSM01200DTO)_conductorGridCoACenterRef.R_GetCurrentData();
+            //// var loGlAccountTab = _GSM01200ViewModel.loParameter;
+
+            //if (loTempResult==null)
+            //{
+            //    return;
+            //}
+
+            //loParam.CCENTER_CODE = loTempResult.CCENTER_CODE;
+            //loParam.CGLACCOUNT_NO = _GSM01200ViewModel.cglAccount;
+
+            ////await _GSM01200ViewModel.AssignCenterToCOA(loParam, 
+            ////    eCRUDMode.AddMode);
+            await _gridCoACenterRef.R_RefreshGrid(null);
+        }
         #endregion
 
 
