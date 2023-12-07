@@ -39,6 +39,7 @@ public partial class UploadPopUpStatisticAcc : R_Page
         await JSRuntime.downloadFileFromStreamHandler(lcName, loByte);
     }
     // Create Method Action StateHasChange
+    #region Invoke
     private void StateChangeInvoke()
     {
         StateHasChanged();
@@ -49,6 +50,16 @@ public partial class UploadPopUpStatisticAcc : R_Page
         var loEx = new R_Exception(poEx.ErrorList.Select(x => new R_BlazorFrontEnd.Exceptions.R_Error(x.ErrNo, x.ErrDescp)).ToList());
         this.R_DisplayException(loEx);
     }
+
+    private async Task ShowSuccessInvoke()
+    {
+        var loValidate = await R_MessageBox.Show("", "Upload Process Successfully!", R_eMessageBoxButtonType.OK);
+        if (loValidate == R_eMessageBoxResult.OK)
+        {
+            await this.Close(true, true);
+        }
+    }
+    #endregion
 
     protected override Task R_Init_From_Master(object poParameter)
     {
@@ -66,8 +77,9 @@ public partial class UploadPopUpStatisticAcc : R_Page
             _GSM08501ViewModel.StateChangeAction = StateChangeInvoke;
             _GSM08501ViewModel.ShowErrorAction = ShowErrorInvoke;
             _GSM08501ViewModel.ActionDataSetExcel = ActionFuncDataSetExcel;
+            _GSM08501ViewModel.ShowSuccessAction = ShowSuccessInvoke;
 
-            
+
 
         }
         catch (Exception ex)

@@ -47,7 +47,7 @@
                     <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText="Account Name" R_EnableAdd="true" R_EnableEdit="true"/>
                     <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CBSIS)" HeaderText="BS/IS" R_EnableAdd="true" R_EnableEdit="true"/>
                     <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CDBCR)" HeaderText="D/C" R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.LACTIVE)" HeaderText="Active" R_EnableAdd="true" R_EnableEdit="false"/>
+                     <R_GridCheckBoxColumn FieldName="@nameof(GSM08501ErrorValidateDTO.LACTIVE)" HeaderText="Active" R_EnableAdd="true" R_EnableEdit="false" />
                     <R_GridTextColumn FieldName="Valid" HeaderText="Valid" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>
                     <R_GridTextColumn FieldName="ErrorMessage" HeaderText="ErrorMessage" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>                </R_GridColumns>
             </R_Grid>

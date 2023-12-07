@@ -50,13 +50,13 @@ public partial class UploadPopUp : R_Page
             await this.Close(true, true);
         }
     }
-    #endregion
-
-
     private void ShowErrorInvoke(R_APIException poEx)
     {
         var loEx = new R_Exception(poEx.ErrorList.Select(x => new R_BlazorFrontEnd.Exceptions.R_Error(x.ErrNo, x.ErrDescp)).ToList());
         this.R_DisplayException(loEx);
+    #endregion
+
+
     }
 
     protected override async Task<Task> R_Init_From_Master(object poParameter)

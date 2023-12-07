@@ -36,9 +36,7 @@ namespace GSM01000Common.Model
                     CCASH_FLOW_NAME = $"CCASH_FLOW_NAME {a}",
                     LACTIVE = a % 2 == 0 ? true:false,
                     CUSER_NAME_LIST =$"Alief{a}, AOC, cp, Ericson, Ivan, Reni",
-                    CCENTER_NAME_LIST=$"Marketing",
-                    
-
+                    CCENTER_NAME_LIST=$"Marketing{a}, HRD{a}",
                 });
             }
             
@@ -46,7 +44,7 @@ namespace GSM01000Common.Model
             loData.ParamDTO = new GSM01000PrintParamCOADTO
             {
                 LPRINT_USER_RESTRICT = true,
-                LPRINT_CENTER_RESTRICT = false,
+                LPRINT_CENTER_RESTRICT = true,
             };
             return loData;
         }

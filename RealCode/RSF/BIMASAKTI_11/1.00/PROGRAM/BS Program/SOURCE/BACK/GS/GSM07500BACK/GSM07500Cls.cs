@@ -122,95 +122,95 @@ namespace GSM07500Back
         protected override void R_Saving(SaveBatchGSM07500DTO poNewEntity, eCRUDMode poCRUDMode)
         {
             var loEx = new R_Exception();
-    string lcQuery = "";
-    var loDb = new R_Db();
-    DbConnection loConn = null;
-    var loCmd = loDb.GetCommand();
+            string lcQuery = "";
+            var loDb = new R_Db();
+            DbConnection loConn = null;
+            var loCmd = loDb.GetCommand();
 
-    // Log the start of the R_Saving method
-    _logger.LogInfo("Starting R_Saving for poNewEntity: {@poNewEntity}, poCRUDMode: {poCRUDMode}", poNewEntity, poCRUDMode);
-
-    try
-    {
-        if (poCRUDMode == eCRUDMode.AddMode)
-        {
-            poNewEntity.CACTION = "ADD";
-        }
-        else if (poCRUDMode == eCRUDMode.EditMode)
-        {
-            poNewEntity.CACTION = "EDIT";
-        }
-
-        using (var TransScope = new TransactionScope(TransactionScopeOption.Required))
-        {
-            loConn = loDb.GetConnection();
-
-            lcQuery = "DECLARE @CPERIOD_LIST AS RDT_COMMON_OBJECT ";
-
-            if (poNewEntity.CPERIOD_LIST != null && poNewEntity.CPERIOD_LIST.Count > 0)
-            {
-                lcQuery += "INSERT INTO @CPERIOD_LIST  " +
-                    "(COBJECT_ID, COBJECT_DESC, CATTRIBUTE01 ) " +
-                    "VALUES ";
-                foreach (var loRate in poNewEntity.CPERIOD_LIST)
-                {
-                    lcQuery += $"('{loRate.CPERIOD_NO}', '{loRate.CSTART_DATE}', '{loRate.CEND_DATE}' ) ,";
-                }
-                lcQuery = lcQuery.Substring(0, lcQuery.Length - 1) + " ";
-            }
-
-            lcQuery += "EXEC RSP_GS_MAINTAIN_PERIOD " +
-                $"@CCOMPANY_ID = '{poNewEntity.CCOMPANY_ID}' " +
-                $",@CYEAR = '{poNewEntity.CYEAR}' " +
-                $",@LPERIOD_MODE = {poNewEntity.LPERIOD_MODE} " +
-                $",@INO_PERIOD = {poNewEntity.INO_PERIOD} " +
-                $",@CACTION = '{poNewEntity.CACTION}' " +
-                $",@CUSER_ID = '{poNewEntity.CUSER_ID}' " +
-                ",@CPERIOD_LIST = @CPERIOD_LIST ";
-
-            // Log the SQL query using LogDebug
-            _logger.LogDebug("Executing SQL query: {lcQuery}", lcQuery);
-
-            R_ExternalException.R_SP_Init_Exception(loConn);
+            // Log the start of the R_Saving method
+            _logger.LogInfo("Starting R_Saving for poNewEntity: {@poNewEntity}, poCRUDMode: {poCRUDMode}", poNewEntity, poCRUDMode);
 
             try
             {
-                loDb.SqlExecQuery(lcQuery, loConn, false);
+                if (poCRUDMode == eCRUDMode.AddMode)
+                {
+                    poNewEntity.CACTION = "ADD";
+                }
+                else if (poCRUDMode == eCRUDMode.EditMode)
+                {
+                    poNewEntity.CACTION = "EDIT";
+                }
+
+                using (var TransScope = new TransactionScope(TransactionScopeOption.Required))
+                {
+                    loConn = loDb.GetConnection();
+
+                    lcQuery = "DECLARE @CPERIOD_LIST AS RDT_COMMON_OBJECT ";
+
+                    if (poNewEntity.CPERIOD_LIST != null && poNewEntity.CPERIOD_LIST.Count > 0)
+                    {
+                        lcQuery += "INSERT INTO @CPERIOD_LIST  " +
+                            "(COBJECT_ID, COBJECT_DESC, CATTRIBUTE01 ) " +
+                            "VALUES ";
+                        foreach (var loRate in poNewEntity.CPERIOD_LIST)
+                        {
+                            lcQuery += $"('{loRate.CPERIOD_NO}', '{loRate.CSTART_DATE}', '{loRate.CEND_DATE}' ) ,";
+                        }
+                        lcQuery = lcQuery.Substring(0, lcQuery.Length - 1) + " ";
+                    }
+
+                    lcQuery += "EXEC RSP_GS_MAINTAIN_PERIOD " +
+                        $"@CCOMPANY_ID = '{poNewEntity.CCOMPANY_ID}' " +
+                        $",@CYEAR = '{poNewEntity.CYEAR}' " +
+                        $",@LPERIOD_MODE = {poNewEntity.LPERIOD_MODE} " +
+                        $",@INO_PERIOD = {poNewEntity.INO_PERIOD} " +
+                        $",@CACTION = '{poNewEntity.CACTION}' " +
+                        $",@CUSER_ID = '{poNewEntity.CUSER_ID}' " +
+                        ",@CPERIOD_LIST = @CPERIOD_LIST ";
+
+                    // Log the SQL query using LogDebug
+                    _logger.LogDebug("Executing SQL query: {lcQuery}", lcQuery);
+
+                    R_ExternalException.R_SP_Init_Exception(loConn);
+
+                    try
+                    {
+                        loDb.SqlExecQuery(lcQuery, loConn, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception using R_LogError
+                        _logger.LogError(ex, "An error occurred while executing the SQL query.");
+                        loEx.Add(ex);
+                    }
+
+                    loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
+
+                    TransScope.Complete();
+                };
             }
             catch (Exception ex)
             {
                 // Log the exception using R_LogError
-                _logger.LogError(ex, "An error occurred while executing the SQL query.");
+                _logger.LogError(ex, "An error occurred during R_Saving.");
                 loEx.Add(ex);
             }
+            finally
+            {
+                // Log the end of the R_Saving method
+                _logger.LogInfo("R_Saving completed.");
 
-            loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
+                if (loConn != null)
+                {
+                    if (loConn.State != System.Data.ConnectionState.Closed)
+                        loConn.Close();
 
-            TransScope.Complete();
-        };
-    }
-    catch (Exception ex)
-    {
-        // Log the exception using R_LogError
-        _logger.LogError(ex, "An error occurred during R_Saving.");
-        loEx.Add(ex);
-    }
-    finally
-    {
-        // Log the end of the R_Saving method
-        _logger.LogInfo("R_Saving completed.");
+                    loConn.Dispose();
+                    loConn = null;
+                }
+            }
 
-        if (loConn != null)
-        {
-            if (loConn.State != System.Data.ConnectionState.Closed)
-                loConn.Close();
-
-            loConn.Dispose();
-            loConn = null;
-        }
-    }
-
-    loEx.ThrowExceptionIfErrors();
+            loEx.ThrowExceptionIfErrors();
         }
 
         protected override void R_Deleting(SaveBatchGSM07500DTO poEntity)

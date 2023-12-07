@@ -32,6 +32,9 @@ namespace GSM08500Model
         // Action Get DataSet
         public Func<Task> ActionDataSetExcel { get; set; }
 
+        //func process is Success
+        public Func<Task> ShowSuccessAction { get; set; }
+
         // DataSet Excel 
         public DataSet ExcelDataSet { get; set; }
         
@@ -166,6 +169,7 @@ namespace GSM08500Model
                 {
                     Message = string.Format("Process Complete and success with GUID {0}", pcKeyGuid);
                     VisibleError = false;
+                    await ShowSuccessAction();
                 }
 
                 if (poProcessResultMode == eProcessResultMode.Fail)

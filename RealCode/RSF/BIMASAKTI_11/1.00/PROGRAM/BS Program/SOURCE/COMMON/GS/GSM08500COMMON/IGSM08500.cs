@@ -20,6 +20,8 @@ namespace GSM008500Common
         GSM08500CoAExcelDTO CoAExcelTemplate(); 
         
         GSM08500UploadHeaderDTO CompanyDetail();
+        
+        PrimaryAccountDTO PrimaryAccountCheck();
 
     }
 }

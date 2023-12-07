@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using GSM008500Common.DTOs;
 using GSM08500Common.DTOs;
 using GSM008500Common.DTOs.PrintDTO;
+using R_BlazorFrontEnd.Helpers;
 
 namespace GSM08500Model.ViewModel
 {
@@ -22,6 +23,9 @@ namespace GSM08500Model.ViewModel
         public ObservableCollection<CopyFromProcessCompanyDTO> loCompanyList = new ObservableCollection<CopyFromProcessCompanyDTO>();
         
         public CopyFromProcessCompanyListDTO loCompanyRtn = new CopyFromProcessCompanyListDTO();
+
+        public PrimaryAccountDTO loHasil = new PrimaryAccountDTO();
+
         public R_ContextHeader _ContextHeader { get; set; }
         
         public string SelectedCopyFromCompanyId = "";
@@ -197,6 +201,26 @@ namespace GSM08500Model.ViewModel
             loEx.ThrowExceptionIfErrors();
 
             return loResult;
+        }
+
+        public async Task<bool> GetResultPrimaryAcc()
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loResult = await _GSM08500Model.PrimaryAccModel();
+                // loHasil.LPRIMARY_ACCOUNT = false;
+                loHasil = R_FrontUtility.ConvertObjectToObject<PrimaryAccountDTO>(loResult);
+
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            return loHasil.LPRIMARY_ACCOUNT;
         }
     }
 }

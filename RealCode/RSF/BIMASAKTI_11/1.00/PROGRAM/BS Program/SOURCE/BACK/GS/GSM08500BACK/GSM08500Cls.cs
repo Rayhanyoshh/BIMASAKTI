@@ -503,6 +503,47 @@ namespace GSM08500Back
 
            return loResult;
        }
+          
+          public PrimaryAccountDTO PrimaryAccountCheckCls(GSM08500DTO poEntity)
+          {
+              R_Exception loEx = new R_Exception();
+              PrimaryAccountDTO loRtn = null;
+              R_Db loDb;
+              DbConnection loConn;
+              DbCommand loCmd;
+              string lcQuery;
+
+              try
+              {
+                  loDb = new R_Db();
+                  loConn = loDb.GetConnection("R_DefaultConnectionString");
+                  loCmd = loDb.GetCommand();
+
+                  lcQuery = "RSP_GS_GET_COMPANY_INFO";
+                  loCmd.CommandType = CommandType.StoredProcedure;
+                  loCmd.CommandText = lcQuery;
+
+                  loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
+
+                  // Log the query using LogDebug
+                  _logger.LogDebug("Executing stored procedure: {lcQuery}", lcQuery);
+
+                  var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+
+                  loRtn = R_Utility.R_ConvertTo<PrimaryAccountDTO>(loDataTable).FirstOrDefault();
+              }
+              catch (Exception ex)
+              {
+                  // Log the exception
+                  _logger.LogError(ex, "An error occurred while executing the stored procedure.");
+                  loEx.Add(ex);
+              }
+
+              EndBlock:
+              loEx.ThrowExceptionIfErrors();
+
+              return loRtn;
+          }
     }
 }
 

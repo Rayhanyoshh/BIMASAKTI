@@ -190,7 +190,55 @@ namespace GSM08500Model
 
             return loResult;
         }
-        
+
+        public async Task<PrimaryAccountDTO> PrimaryAccModel()
+        {
+            var loEx = new R_Exception();
+            PrimaryAccountDTO loResult = null;
+
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestObject<PrimaryAccountDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGSM08500.PrimaryAccountCheck), DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
+        public async Task<GSM08500CoAExcelDTO> GSM01000DownloadTemplateFileModel()
+        {
+            var loEx = new R_Exception();
+            GSM08500CoAExcelDTO loResult = new GSM08500CoAExcelDTO();
+
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestObject<GSM08500CoAExcelDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGSM08500.CoAExcelTemplate),
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
+
         public GSM08500ListDTO GetStatisticAccDbList()
         {
             throw new NotImplementedException();
@@ -226,29 +274,10 @@ namespace GSM08500Model
             throw new NotImplementedException();
         }
 
-        public async Task<GSM08500CoAExcelDTO> GSM01000DownloadTemplateFileModel()
+
+        public PrimaryAccountDTO PrimaryAccountCheck()
         {
-            var loEx = new R_Exception();
-            GSM08500CoAExcelDTO loResult = new GSM08500CoAExcelDTO();
-
-            try
-            {
-                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
-                loResult = await R_HTTPClientWrapper.R_APIRequestObject<GSM08500CoAExcelDTO>(
-                    _RequestServiceEndPoint,
-                    nameof(IGSM08500.CoAExcelTemplate),
-                    DEFAULT_MODULE,
-                    _SendWithContext,
-                    _SendWithToken);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-
-            return loResult;
+            throw new NotImplementedException();
         }
     }
 }

@@ -332,6 +332,32 @@ namespace GSM08500Service
             return loRtn; 
         }
 
+        public PrimaryAccountDTO PrimaryAccountCheck()
+        {
+            _logger.LogInfo("Start - Primary account check");
+
+            R_Exception loException = new R_Exception();
+            GSM08500DTO loParam = new GSM08500DTO();
+            PrimaryAccountDTO loRtn = new PrimaryAccountDTO();
+            GSM08500Cls loCls = new GSM08500Cls(); 
+            try
+            {
+                // loParam.CCOMPANY_ID = "rcd";
+                _logger.LogInfo("Set Parameter");
+                loParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                _logger.LogInfo("Get - Primary account check");
+                loRtn = loCls.PrimaryAccountCheckCls(loParam);
+            }
+            catch (Exception ex)
+            {
+                loException.Add(ex);
+            }
+
+            loException.ThrowExceptionIfErrors();
+            _logger.LogInfo("End - Primary account check");
+            return loRtn; 
+        }
+
         private async IAsyncEnumerable<GSM08500DTO> GetStatAccStream(List<GSM08500DTO> poParameter)
         {
             foreach (GSM08500DTO item in poParameter)

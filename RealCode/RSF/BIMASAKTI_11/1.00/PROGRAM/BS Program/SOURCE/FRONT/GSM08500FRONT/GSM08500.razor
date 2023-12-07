@@ -45,7 +45,8 @@
              <R_Popup R_ConductorGridSource="@_conductorGridRef"
                       R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
                       R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
-                      R_EnableOther>Copy Form</R_Popup>
+                      R_EnableOther
+                      Enabled="@CopyFromButton">Copy Form</R_Popup>
          </R_ItemLayout>
 
          <R_ItemLayout>
@@ -84,4 +85,5 @@
                                R_AfterAdd="R_After_Add_COA"
                                R_ServiceSave="@Grid_ServiceSave"
                                R_ServiceDelete="@Grid_ServiceDelete"
+                               R_Saving="Validation_Saving"
                                R_ConvertToGridEntity="@R_ConvertToGridEntity"/>

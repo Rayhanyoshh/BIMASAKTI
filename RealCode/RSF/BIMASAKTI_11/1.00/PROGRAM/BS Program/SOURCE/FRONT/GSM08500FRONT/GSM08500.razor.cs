@@ -25,6 +25,7 @@ using R_BlazorFrontEnd.Controls.MessageBox;
 using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls.Popup;
 using GFF00900COMMON.DTOs;
+using System.Globalization;
 
 namespace GSM08500Front;
 
@@ -35,6 +36,10 @@ public partial class GSM08500 : R_Page
     private R_Grid<GSM08500DTO> _gridRef;
     
     private string loLabelButton = "";
+    private bool EditModePrimary = true;
+    private bool AddModePrimary = true;
+    private bool DeleteModePrimary = true;
+    private bool CopyFromButton = true;
 
     // [Inject] private IClientHelper _clientHelper { get; set; }
     [Inject] private R_ContextHeader _contextHeader { get; set; }
@@ -60,6 +65,22 @@ public partial class GSM08500 : R_Page
                 new DropDownDTO { Id = "C", Text = "Credit" }
             };
             await _GSM08500ViewModel.GetGridList();
+            await _GSM08500ViewModel.GetResultPrimaryAcc();
+            if (_GSM08500ViewModel.loHasil.LPRIMARY_ACCOUNT == true)
+            {
+                EditModePrimary = true;
+                AddModePrimary = true;
+                DeleteModePrimary = true;
+                CopyFromButton = false;
+                // PopupCopyFrom.Enabled = false;
+            }
+            else
+            {
+                EditModePrimary = false;
+                AddModePrimary = false;
+                DeleteModePrimary = false;
+                CopyFromButton = true;
+            }
             await _gridRef.R_RefreshGrid(null);
                 
         }
@@ -151,7 +172,42 @@ public partial class GSM08500 : R_Page
 
         loEx.ThrowExceptionIfErrors();
     }
-    
+
+    public async Task Validation_Saving(R_SavingEventArgs eventArgs)
+    {
+        var loParam = R_FrontUtility.ConvertObjectToObject<GSM08500DTO>(eventArgs.Data);
+        var loEx = new R_Exception();
+        try
+        {
+            if (eventArgs.ConductorMode == R_eConductorMode.Edit)
+            {
+                // Tambahkan logika validasi untuk mode Edit (jika diperlukan)
+                if (loParam.CGLACCOUNT_NO == null || loParam.CGLACCOUNT_NAME == null || loParam.CBSIS == null || loParam.CDBCR == null)
+                {
+                    // Jika salah satu properti null, tambahkan pesan ke exception
+                    loEx.Add("Error","Field ACCOUNT NO, ACCOUNT NAME, BS/IS, or D/C cannot be null .");
+                }
+            }
+            if (eventArgs.ConductorMode == R_eConductorMode.Add)
+            {
+                // Pengecekan untuk mode Add
+                if (loParam.CGLACCOUNT_NO == null || loParam.CGLACCOUNT_NAME == null || loParam.CBSIS == null || loParam.CDBCR == null)
+                {
+                    // Jika salah satu properti null, tambahkan pesan ke exception
+                    loEx.Add("Error", "Field ACCOUNT NO, ACCOUNT NAME, BS/IS, or D/C cannot be null .");
+ 
+                }
+
+            }
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+
     private async Task Grid_ServiceDelete(R_ServiceDeleteEventArgs eventArgs)
     {
         var loEx = new R_Exception();
