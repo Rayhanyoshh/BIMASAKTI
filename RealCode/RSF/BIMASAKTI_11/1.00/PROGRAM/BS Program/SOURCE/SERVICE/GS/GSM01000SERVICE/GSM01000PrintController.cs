@@ -160,7 +160,7 @@ public class GSM01000PrintController : R_ReportControllerBase
             loData.Header = $"{poParam.CCOMPANY_ID}";
             
             
-            _logger.LogInfo("Get Detail COA Analysis Report");
+            _logger.LogInfo("Get Detail COA Report");
             loData.Data = loCollection;
             loData.ParamDTO = poParam;
             loRtn.BaseHeaderData = loParam;
