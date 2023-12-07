@@ -313,7 +313,7 @@ namespace GSM01000Front
                 if (coaList.Any(coa => coa.CGLACCOUNT_NO == selectedCGLACCOUNT_NO))
                 {
                     // Jika ada, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
-                    loEx.Add(new Exception("Tidak bisa menghapus karena CGLACCOUNT_NO terkait tidak bisa dihapus."));
+                    loEx.Add(new Exception("Cannot Delete Paired Account"));
                 }
             }
             catch (Exception ex)
