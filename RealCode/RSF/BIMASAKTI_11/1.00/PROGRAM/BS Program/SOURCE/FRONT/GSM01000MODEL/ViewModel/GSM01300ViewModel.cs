@@ -9,6 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using GSM01000Common.DTOs;
 using GSM01000Common;
+using R_BlazorFrontEnd.Interfaces;
+using System.Net.NetworkInformation;
+
+using GSM01000FrontResources;
+using R_BlazorFrontEnd.Interfaces;
+
 
 namespace GSM01000Model
 {

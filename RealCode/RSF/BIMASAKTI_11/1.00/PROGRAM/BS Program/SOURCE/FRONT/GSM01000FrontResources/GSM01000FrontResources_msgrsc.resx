@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="_AccCategory" xml:space="preserve">
+    <value>Account Category</value>
+  </data>
   <data name="_account" xml:space="preserve">
     <value>Account</value>
   </data>
@@ -159,6 +162,12 @@
   <data name="_centerRestriction" xml:space="preserve">
     <value>Center Restriction</value>
   </data>
+  <data name="_close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="_company" xml:space="preserve">
+    <value>Company</value>
+  </data>
   <data name="_companyID" xml:space="preserve">
     <value>Company ID</value>
   </data>
@@ -174,8 +183,29 @@
   <data name="_createdDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
+  <data name="_credit" xml:space="preserve">
+    <value>Credit</value>
+  </data>
   <data name="_dc" xml:space="preserve">
     <value>D / C</value>
+  </data>
+  <data name="_debit" xml:space="preserve">
+    <value>Debit</value>
+  </data>
+  <data name="_errorMessage" xml:space="preserve">
+    <value>Error Message</value>
+  </data>
+  <data name="_fromAcc" xml:space="preserve">
+    <value>From Account</value>
+  </data>
+  <data name="_fromGOA" xml:space="preserve">
+    <value>From Group Of Account</value>
+  </data>
+  <data name="_goaCode" xml:space="preserve">
+    <value>Group Of Account Code</value>
+  </data>
+  <data name="_groupOfAccCategory" xml:space="preserve">
+    <value>Group Of Account Category</value>
   </data>
   <data name="_GroupOfAccount" xml:space="preserve">
     <value>Group Of Account</value>
@@ -189,14 +219,53 @@
   <data name="_incomeStatement" xml:space="preserve">
     <value>Income Statement</value>
   </data>
+  <data name="_no" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="_print" xml:space="preserve">
     <value>Print</value>
+  </data>
+  <data name="_printAccount" xml:space="preserve">
+    <value>Print Account</value>
+  </data>
+  <data name="_printCenterRestric" xml:space="preserve">
+    <value>Print Center Restriction</value>
+  </data>
+  <data name="_printCOA" xml:space="preserve">
+    <value>Print COA</value>
+  </data>
+  <data name="_printGOA" xml:space="preserve">
+    <value>Print GOA</value>
+  </data>
+  <data name="_printInactiveAcc" xml:space="preserve">
+    <value>Print Inactive Account</value>
+  </data>
+  <data name="_printUserRestric" xml:space="preserve">
+    <value>Print User Restriction</value>
   </data>
   <data name="_process" xml:space="preserve">
     <value>Process</value>
   </data>
+  <data name="_saveToExcel" xml:space="preserve">
+    <value>Save To Excel</value>
+  </data>
+  <data name="_sortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="_sourceFile" xml:space="preserve">
+    <value>Source File</value>
+  </data>
   <data name="_template" xml:space="preserve">
     <value>Template</value>
+  </data>
+  <data name="_toAcc" xml:space="preserve">
+    <value>To Account</value>
+  </data>
+  <data name="_toGOA" xml:space="preserve">
+    <value>To Group Of Account</value>
+  </data>
+  <data name="_totalRows" xml:space="preserve">
+    <value>Total Row(s)</value>
   </data>
   <data name="_updateBy" xml:space="preserve">
     <value>Updated By</value>
@@ -215,5 +284,8 @@
   </data>
   <data name="_userRestriction" xml:space="preserve">
     <value>User Restriction</value>
+  </data>
+  <data name="_valid" xml:space="preserve">
+    <value>Valid</value>
   </data>
 </root>

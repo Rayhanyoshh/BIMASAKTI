@@ -2,6 +2,9 @@
 @using GSM01000Common.DTOs
 @attribute [R_Page(Title = "Upload File")]
 @inherits R_Page
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_StackLayout Style="width: 1000px">
     <R_StackLayout Row >

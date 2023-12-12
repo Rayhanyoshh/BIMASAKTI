@@ -61,6 +61,15 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Category.
+        /// </summary>
+        internal static string _AccCategory {
+            get {
+                return ResourceManager.GetString("_AccCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string _account {
@@ -187,6 +196,24 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string _close {
+            get {
+                return ResourceManager.GetString("_close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        internal static string _company {
+            get {
+                return ResourceManager.GetString("_company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company ID.
         /// </summary>
         internal static string _companyID {
@@ -232,11 +259,74 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credit.
+        /// </summary>
+        internal static string _credit {
+            get {
+                return ResourceManager.GetString("_credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D / C.
         /// </summary>
         internal static string _dc {
             get {
                 return ResourceManager.GetString("_dc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debit.
+        /// </summary>
+        internal static string _debit {
+            get {
+                return ResourceManager.GetString("_debit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Message.
+        /// </summary>
+        internal static string _errorMessage {
+            get {
+                return ResourceManager.GetString("_errorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Account.
+        /// </summary>
+        internal static string _fromAcc {
+            get {
+                return ResourceManager.GetString("_fromAcc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Group Of Account.
+        /// </summary>
+        internal static string _fromGOA {
+            get {
+                return ResourceManager.GetString("_fromGOA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Of Account Code.
+        /// </summary>
+        internal static string _goaCode {
+            get {
+                return ResourceManager.GetString("_goaCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Of Account Category.
+        /// </summary>
+        internal static string _groupOfAccCategory {
+            get {
+                return ResourceManager.GetString("_groupOfAccCategory", resourceCulture);
             }
         }
         
@@ -277,11 +367,74 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string _no {
+            get {
+                return ResourceManager.GetString("_no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
         internal static string _print {
             get {
                 return ResourceManager.GetString("_print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Account.
+        /// </summary>
+        internal static string _printAccount {
+            get {
+                return ResourceManager.GetString("_printAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Center Restriction.
+        /// </summary>
+        internal static string _printCenterRestric {
+            get {
+                return ResourceManager.GetString("_printCenterRestric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print COA.
+        /// </summary>
+        internal static string _printCOA {
+            get {
+                return ResourceManager.GetString("_printCOA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print GOA.
+        /// </summary>
+        internal static string _printGOA {
+            get {
+                return ResourceManager.GetString("_printGOA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Inactive Account.
+        /// </summary>
+        internal static string _printInactiveAcc {
+            get {
+                return ResourceManager.GetString("_printInactiveAcc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print User Restriction.
+        /// </summary>
+        internal static string _printUserRestric {
+            get {
+                return ResourceManager.GetString("_printUserRestric", resourceCulture);
             }
         }
         
@@ -295,11 +448,65 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save To Excel.
+        /// </summary>
+        internal static string _saveToExcel {
+            get {
+                return ResourceManager.GetString("_saveToExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort By.
+        /// </summary>
+        internal static string _sortBy {
+            get {
+                return ResourceManager.GetString("_sortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source File.
+        /// </summary>
+        internal static string _sourceFile {
+            get {
+                return ResourceManager.GetString("_sourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Template.
         /// </summary>
         internal static string _template {
             get {
                 return ResourceManager.GetString("_template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Account.
+        /// </summary>
+        internal static string _toAcc {
+            get {
+                return ResourceManager.GetString("_toAcc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Group Of Account.
+        /// </summary>
+        internal static string _toGOA {
+            get {
+                return ResourceManager.GetString("_toGOA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Row(s).
+        /// </summary>
+        internal static string _totalRows {
+            get {
+                return ResourceManager.GetString("_totalRows", resourceCulture);
             }
         }
         
@@ -354,6 +561,15 @@ namespace GSM01000FrontResources {
         internal static string _userRestriction {
             get {
                 return ResourceManager.GetString("_userRestriction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string _valid {
+            get {
+                return ResourceManager.GetString("_valid", resourceCulture);
             }
         }
     }

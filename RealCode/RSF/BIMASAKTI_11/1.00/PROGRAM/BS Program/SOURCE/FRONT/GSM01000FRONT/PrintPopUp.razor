@@ -2,11 +2,14 @@
 @using GSM01000Common.DTOs;
 @inherits R_Page
 @attribute [R_BlazorFrontEnd.Controls.Attributes.R_Page(Title = "Print COA")]
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_StackLayout>
     <R_StackLayout Row="true">
         <R_ItemLayout col="3">
-            <R_Label Class="fw-bold">Print COA</R_Label>
+            <R_Label Class="fw-bold">@_localizer["_printCOA"] </R_Label>
         </R_ItemLayout>
     </R_StackLayout>
     
@@ -14,7 +17,7 @@
     <R_StackLayout Row="true">
 
         <R_ItemLayout col="4">
-            <R_Label>From Account</R_Label>
+            <R_Label>@_localizer["_fromAcc"] </R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="3">
             <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_FROM"
@@ -34,7 +37,7 @@
     
     <R_StackLayout Row="true">
         <R_ItemLayout col="4">
-            <R_Label>To Account</R_Label>
+            <R_Label>@_localizer["_toAcc"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="3">
             <R_TextBox @bind-Value="@_GSM01000ViewModel.loPrint.CGL_ACCOUNT_TO"
@@ -53,7 +56,7 @@
 
    <R_StackLayout Row="true">
         <R_ItemLayout col="4">
-            <R_Label>Account Category</R_Label>
+            <R_Label>@_localizer["_AccCategory"]</R_Label>
         </R_ItemLayout>
          <R_ItemLayout>
              <R_CheckBox @bind-Value="_GSM01000ViewModel.loPrint.LBALANCE_SHEET"
@@ -61,7 +64,7 @@
              </R_CheckBox>
          </R_ItemLayout>
         <R_ItemLayout col="3">
-            <R_Label>Balance Sheet</R_Label>
+            <R_Label>@_localizer["_balanceSheet"]</R_Label>
         </R_ItemLayout>
          <R_ItemLayout>
             <R_CheckBox @bind-Value="_GSM01000ViewModel.loPrint.LINCOME_STATEMENT"
@@ -69,13 +72,13 @@
              </R_CheckBox>
          </R_ItemLayout>
         <R_ItemLayout col="3">
-            <R_Label>Income Statement</R_Label>
+            <R_Label>@_localizer["_incomeStatement"]</R_Label>
         </R_ItemLayout>
    </R_StackLayout>
 
     <R_StackLayout Row="true">
         <R_ItemLayout col="4">
-            <R_Label>Sort By</R_Label>
+            <R_Label>@_localizer["_sortBy"]</R_Label>
         </R_ItemLayout>
 
         <R_ItemLayout col="3">
@@ -97,7 +100,7 @@
            </R_CheckBox>
        </R_ItemLayout>
        <R_ItemLayout>
-           <R_Label>Print Inactive Account</R_Label>
+            <R_Label>@_localizer["_printInactiveAcc"]</R_Label>
        </R_ItemLayout>
    </R_StackLayout>
    <R_StackLayout Row="true">
@@ -106,7 +109,7 @@
                         R_ConductorSource="@_conductorRef"/>
        </R_ItemLayout>
        <R_ItemLayout>
-           <R_Label>Print User Restriction</R_Label>
+            <R_Label>@_localizer["_printUserRestric"]</R_Label>
        </R_ItemLayout>
    </R_StackLayout>
     <R_StackLayout Row="true">
@@ -116,7 +119,7 @@
             </R_CheckBox>
         </R_ItemLayout>
         <R_ItemLayout>
-            <R_Label>Print Center Restriction</R_Label>
+            <R_Label>@_localizer["_printCenterRestric"]</R_Label>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>
@@ -124,12 +127,12 @@
 <R_StackLayout Row Class="justify-content-end">
      <R_ItemLayout col="6">
          <R_Button OnClick="Button_OnClickProcessAsync">
-             Print
+             @_localizer["_print"]
          </R_Button>
      </R_ItemLayout>
      <R_ItemLayout col="4">
          <R_Button OnClick="Button_OnClickCloseAsync">
-             Cancel
+             @_localizer["_close"]
          </R_Button>
      </R_ItemLayout>
  </R_StackLayout>

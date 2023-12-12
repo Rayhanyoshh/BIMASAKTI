@@ -90,14 +90,14 @@ namespace GSM01000Front
             {
                 _GSM01000ViewModel.BSIS_Option = new List<DropDownDTO>
                 {
-                    new DropDownDTO { Id = "B", Text = "Balance Sheet" },
-                    new DropDownDTO { Id = "I", Text = "Income Statement" }
+                    new DropDownDTO { Id = "B", Text = @_localizer["_balanceSheet"] },
+                    new DropDownDTO { Id = "I", Text = @_localizer["_incomeStatement"] }
                 };
 
                 _GSM01000ViewModel.CDBCR_Option = new List<DropDownDTO>
                 {
-                    new DropDownDTO { Id = "D", Text = "Debit" },
-                    new DropDownDTO { Id = "C", Text = "Credit" }
+                    new DropDownDTO { Id = "D", Text = @_localizer["_debit"] },
+                    new DropDownDTO { Id = "C", Text = @_localizer["_credit"] }
                 };
                 await _GSM01000ViewModel.GetGridList();
                 await _GSM01000ViewModel.GetResultPrimaryAcc();

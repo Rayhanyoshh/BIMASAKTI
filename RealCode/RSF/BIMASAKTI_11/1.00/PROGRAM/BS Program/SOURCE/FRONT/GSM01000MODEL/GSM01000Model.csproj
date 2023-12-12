@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\COMMON\GS\GSM01000Common\GSM01000Common.csproj" />
+    <ProjectReference Include="..\GSM01000FrontResources\GSM01000FrontResources.csproj" />
   </ItemGroup>
 
 </Project>

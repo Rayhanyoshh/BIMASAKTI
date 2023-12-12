@@ -1,5 +1,8 @@
 @using GSM01000Common.DTOs;
 @inherits R_Page
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_StackLayout Style="width: 700px">
     <R_StackLayout Row>
@@ -21,8 +24,8 @@
                         R_GridRowAfterDrop="@R_GridRowAfterDrop"
                         Height="300px">
                     <R_GridColumns>
-                        <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText="Account No" Width="150px"></R_GridTextColumn>
-                        <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText="Account Name" Width="300px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
                     </R_GridColumns>
                 </R_Grid>
                 </R_GroupBox>
@@ -66,8 +69,8 @@
                         R_GridRowAfterDrop="@R_GridRowAfterDrop"
                         Height="300px">
                     <R_GridColumns>
-                        <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText="Account No" Width="150px"></R_GridTextColumn>
-                        <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText="Account Name" Width="300px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
                     </R_GridColumns>
                 </R_Grid>
                 </R_GroupBox>
@@ -76,8 +79,8 @@
 
     <R_StackLayout Row Class="mt-2">
         <R_ItemLayout col="4">
-            <R_Button Enabled="@HasMove" OnClick="@BtnProcess">Process</R_Button>
-            <R_Button OnClick="@BtnClose">Close</R_Button>
+             <R_Button Enabled="@HasMove" OnClick="@BtnProcess">@_localizer["_process"]</R_Button>
+             <R_Button OnClick="@BtnClose">@_localizer["_close"]</R_Button>
         </R_ItemLayout>
     </R_StackLayout>
 </R_StackLayout>

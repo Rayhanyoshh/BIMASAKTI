@@ -1,5 +1,8 @@
 @page "/GSM01300"
 @inherits R_Page
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 
 
@@ -17,12 +20,12 @@
                 PageSize="10">
         
             <R_GridColumns>
-                <R_GridTextColumn FieldName="CGOA_CODE" HeaderText="Group Of Account" R_EnableAdd="false" R_EnableEdit="false"></R_GridTextColumn>
-                <R_GridTextColumn FieldName="CGOA_NAME" HeaderText="Group Of Account Name" R_EnableAdd="false" R_EnableEdit="false"/>
-                <R_GridTextColumn FieldName="CBSIS_DESCR" HeaderText="BS/IS" R_EnableAdd="false" R_EnableEdit="false"/>
-                <R_GridTextColumn FieldName="CDBCR_DESCR" HeaderText="D/C" R_EnableAdd="false" R_EnableEdit="false"/>
-                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText="Updated By" R_EnableAdd="false" R_EnableEdit="false"/>
-                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText="Updated Date" R_EnableAdd="false" R_EnableEdit="false"/>
+                <R_GridTextColumn FieldName="CGOA_CODE" HeaderText=@_localizer["_GroupOfAccount"] R_EnableAdd="false" R_EnableEdit="false"></R_GridTextColumn>
+                <R_GridTextColumn FieldName="CGOA_NAME" HeaderText=@_localizer["_GroupOfAccountName"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn FieldName="CBSIS_DESCR" HeaderText=@_localizer["_bsis"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn FieldName="CDBCR_DESCR" HeaderText=@_localizer["_dc"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] R_EnableAdd="false" R_EnableEdit="false" />
             </R_GridColumns>
         </R_Grid>
     </R_StackLayout>
@@ -32,7 +35,7 @@
     <R_StackLayout Spacing="3" Class="mt-2">
         <R_StackLayout Row="true">
             <R_ItemLayout col="2">
-                <R_Label>Group Of Account</R_Label>
+                <R_Label>@_localizer["_GroupOfAccount"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2" Class="col-lg-2">
                 <R_TextBox @bind-Value="@_GSM01310ViewModel.Data.CGOA_CODE"
@@ -60,24 +63,24 @@
                 PageSize="5">
     
             <R_GridColumns>
-                <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText="Account No" />
-                <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText="Account Name" />
-                <R_GridTextColumn FieldName="CBSIS_DESCR" HeaderText="BS/IS" />
-                <R_GridTextColumn FieldName="CDBCR_DESCR" HeaderText="D/C" />
-                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText="Updated By" />
-                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText="Updated Date" />
+                <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] />
+                <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] />
+                <R_GridTextColumn FieldName="CBSIS_DESCR" HeaderText=@_localizer["_bsis"] />
+                <R_GridTextColumn FieldName="CDBCR_DESCR" HeaderText=@_localizer["_dc"] />
+                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] />
+                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] />
             </R_GridColumns>
         </R_Grid>
     </R_StackLayout>
    <R_StackLayout Row="true" Spacing="3">
           <R_ItemLayout col="1">
                <R_Popup R_Before_Open_Popup="R_Before_Open_Popup" R_After_Open_Popup="R_After_Open_Popup">
-                  Assign COA
+                @_localizer["_assignCOA"]
                </R_Popup>
           </R_ItemLayout>
         <R_ItemLayout col="1">
             <R_Popup R_Before_Open_Popup="R_Before_Open_PopupPrint" R_After_Open_Popup="R_After_Open_PopupPrint">
-                Print
+                @_localizer["_print"]
             </R_Popup>
         </R_ItemLayout>
       </R_StackLayout>
