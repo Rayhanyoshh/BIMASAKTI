@@ -209,6 +209,7 @@
       "GSM01000Model/1.0.0": {
         "dependencies": {
           "GSM01000Common": "1.0.0",
+          "GSM01000FrontResources": "1.0.0",
           "System.Text.Json": "6.0.0"
         },
         "runtime": {

@@ -2,6 +2,9 @@
  @using GSM08500Common.DTOs
  @using GSM008500Common.DTOs
  @inherits R_Page
+ @using GSM08500FrontResources;
+ @using R_BlazorFrontEnd.Interfaces;
+ @inject R_ILocalizer<ResourcesDummyCls> _localizer
 
  <R_StackLayout Spacing="3" Class="mb-4">
      <R_StackLayout>
@@ -16,13 +19,13 @@
                  AllowDeleteRow="true">
         
              <R_GridColumns>
-                <R_GridTextColumn MaxLength="20" FieldName="CGLACCOUNT_NO" HeaderText="Account No" R_EnableAdd="true" R_EnableEdit="false" Width="128px"></R_GridTextColumn>
-                <R_GridTextColumn MaxLength="60" FieldName="CGLACCOUNT_NAME" HeaderText="Account Name" R_EnableAdd="true" R_EnableEdit="true" Width="400px" />
+                <R_GridTextColumn MaxLength="20" FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false" Width="128px"></R_GridTextColumn>
+                <R_GridTextColumn MaxLength="60" FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] R_EnableAdd="true" R_EnableEdit="true" Width="400px" />
                  <R_GridDropDownListColumn   Data="@_GSM08500ViewModel.BSIS_Option"
                                              FieldName="@nameof(GSM08500DTO.CBSIS)"
                                              ValueField="@nameof(DropDownDTO.Id)"
                                              TextField="@nameof(DropDownDTO.Text)"
-                                             HeaderText="BS / IS"
+                                             HeaderText=@_localizer["_bsis"]
                                              R_EnableAdd="true"
                                              R_EnableEdit="true "
                                              Width="115px"/>
@@ -30,13 +33,13 @@
                                            FieldName="@nameof(GSM08500DTO.CDBCR)"
                                            ValueField="@nameof(DropDownDTO.Id)"
                                            TextField="@nameof(DropDownDTO.Text)"
-                                           HeaderText="D / C"
+                                           HeaderText=@_localizer["_dc"]
                                            R_EnableAdd="true"
                                            R_EnableEdit="true "
                                            Width="113px" />
-                <R_GridCheckBoxColumn Width="85px" FieldName="@nameof(GSM08500DTO.LACTIVE)" HeaderText="Active" R_EnableAdd="false" R_EnableEdit="false" />
-                <R_GridTextColumn Width="115px" FieldName="CUPDATE_BY" HeaderText="Updated By" R_EnableAdd="false" R_EnableEdit="false" />
-                <R_GridTextColumn Width="135px" FieldName="DUPDATE_DATE" HeaderText="Updated Date" R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridCheckBoxColumn Width="85px" FieldName="@nameof(GSM08500DTO.LACTIVE)" HeaderText=@_localizer["_active"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn Width="115px" FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] R_EnableAdd="false" R_EnableEdit="false" />
+                <R_GridTextColumn Width="135px" FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] R_EnableAdd="false" R_EnableEdit="false" />
              </R_GridColumns>
          </R_Grid>
      </R_StackLayout>
@@ -46,18 +49,18 @@
                       R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
                       R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
                       R_EnableOther
-                      Enabled="@CopyFromButton">Copy Form</R_Popup>
+                      Enabled="@CopyFromButton">@_localizer["_copyForm"]</R_Popup>
          </R_ItemLayout>
 
          <R_ItemLayout>
-             <R_Button R_Conductor="@_conductorGridRef" OnClick="@DownloadTemplate">Template</R_Button>
+             <R_Button R_Conductor="@_conductorGridRef" OnClick="@DownloadTemplate">@_localizer["_template"]</R_Button>
          </R_ItemLayout>
         
          <R_ItemLayout>
                  <R_Popup R_ConductorGridSource="_conductorGridRef"
                                       R_Before_Open_Popup="R_Before_Open_Popup_Upload"
                                       R_After_Open_Popup="R_After_Open_Popup_Upload"
-                                      Enabled>Upload
+                                      Enabled>@_localizer["_upload"]
                  </R_Popup>
          </R_ItemLayout>
         
@@ -72,7 +75,7 @@
          <R_ItemLayout>
              <R_Popup R_Conductor="@_conductorGridRef"
                       R_Before_Open_Popup="@R_Before_Open_Popup_Print"
-                      R_After_Open_Popup="@R_After_Open_Popup_Print">Print</R_Popup>
+                      R_After_Open_Popup="@R_After_Open_Popup_Print">@_localizer["_print"]</R_Popup>
          </R_ItemLayout>
      </R_StackLayout>
  </R_StackLayout>    

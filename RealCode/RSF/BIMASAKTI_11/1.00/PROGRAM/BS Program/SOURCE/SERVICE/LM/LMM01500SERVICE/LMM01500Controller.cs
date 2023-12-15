@@ -1,0 +1,124 @@
+using LMM01500BACK;
+using LMM01500Common;
+using LMM01500Common.DTOs;
+using LMM01500Common.Loggers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using R_Common;
+using R_CommonFrontBackAPI;
+using R_BackEnd;
+
+namespace LMM01500SERVICE
+{
+    [ApiController]
+    [Route("api/[controller]/[action]")]
+    
+    public class LMM01500Controller : ControllerBase, ILMM01500
+    {
+        private LoggerLMM01500 _Logger;
+        public LMM01500Controller(ILogger<LoggerLMM01500> logger)
+        {
+            //Initial and Get Logger
+            LoggerLMM01500.R_InitializeLogger(logger);
+            _Logger = LoggerLMM01500.R_GetInstanceLogger();
+        }
+
+        
+        public R_ServiceGetRecordResultDTO<LMM01500DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<LMM01500DTO> poParameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public R_ServiceSaveResultDTO<LMM01500DTO> R_ServiceSave(R_ServiceSaveParameterDTO<LMM01500DTO> poParameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<LMM01500DTO> poParameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public IAsyncEnumerable<LMM01501DTO> GetInvoiceGrpList()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<LMM01501DTO> loRtn = null;
+            List<LMM01501DTO> loTempRtn = null;
+            var loParameter = new LMM01501ParameterDTO();
+            _Logger.LogInfo("Start GetInvoiceGrpList");
+
+            try
+            {
+                var loCls = new LMM01500Cls();
+                loTempRtn = new List<LMM01501DTO>();
+
+                _Logger.LogInfo("Set Param GetInvoiceGrpList");
+                loParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                loParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
+                loParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
+
+                _Logger.LogInfo("Call Back Method GetAllInvoiceGrp");
+                loTempRtn = loCls.GetAllInvoiceGrp(loParameter);
+
+                _Logger.LogInfo("Call Stream Method Data GetInvoiceGrpList");
+                loRtn = GetInvoiceGrpListStream<LMM01501DTO>(loTempRtn);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End GetInvoiceGrpList");
+
+            return loRtn;
+        }
+        private async IAsyncEnumerable<T> GetInvoiceGrpListStream<T>(List<T> poParameter)
+        {
+            foreach (var item in poParameter)
+            {
+                yield return item;
+            }
+        }
+        
+        [HttpPost]
+        public IAsyncEnumerable<LMM01500PropertyDTO> GetProperty()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<LMM01500PropertyDTO> loRtn = null;
+            var loParameter = new LMM01500PropertyParameterDTO();
+            _Logger.LogInfo("Start GetProperty");
+
+            try
+            {
+                var loCls = new LMM01500Cls();
+
+                _Logger.LogInfo("Set Param GetProperty");
+                loParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                loParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                _Logger.LogInfo("Call Back Method GetProperty");
+                var loResult = loCls.GetProperty(loParameter);
+
+                _Logger.LogInfo("Call Stream Method Data GetProperty");
+                loRtn = GetInvoiceGrpListStream<LMM01500PropertyDTO>(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End GetProperty");
+
+            return loRtn;
+        }
+
+
+    }
+}
+

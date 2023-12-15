@@ -1,6 +1,9 @@
 @using GSM08500Common.DTOs
 @inherits R_Page
 @attribute [R_BlazorFrontEnd.Controls.Attributes.R_Page(Title = "Company List")]
+@using GSM08500FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_StackLayout>
     <R_Grid @ref="@_gridRef"
@@ -13,18 +16,18 @@
             AllowDeleteRow="false"
             R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord">
         <R_GridColumns>
-            <R_GridTextColumn FieldName=@nameof(CopyFromProcessCompanyDTO .CCOMPANY_ID) HeaderText="Company Id" ></R_GridTextColumn>
-            <R_GridTextColumn FieldName=@nameof(CopyFromProcessCompanyDTO.CCOMPANY_NAME) HeaderText="Company Name"></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(CopyFromProcessCompanyDTO .CCOMPANY_ID) HeaderText=@_localizer["_companyId"] ></R_GridTextColumn>
+            <R_GridTextColumn FieldName=@nameof(CopyFromProcessCompanyDTO.CCOMPANY_NAME) HeaderText=@_localizer["_companyName"]></R_GridTextColumn>
         </R_GridColumns>
     </R_Grid>
     <R_StackLayout Row="true" Spacing="3">
 
         <R_ItemLayout col="2">
-            <R_Button R_ConductorGridSource="_conGridCompanyRef" OnClick="OnProcess">Process</R_Button>
+            <R_Button R_ConductorGridSource="_conGridCompanyRef" OnClick="OnProcess">@_localizer["_process"]</R_Button>
         </R_ItemLayout>
 
         <R_ItemLayout col="2">
-            <R_Button R_ConductorGridSource="_conGridCompanyRef" OnClick="OnClose">Close</R_Button>
+            <R_Button R_ConductorGridSource="_conGridCompanyRef" OnClick="OnClose">@_localizer["_close"]</R_Button>
         </R_ItemLayout>
 
     </R_StackLayout>

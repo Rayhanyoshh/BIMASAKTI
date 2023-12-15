@@ -17,6 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_GSFRONT\Lookup_GSFRONT.csproj" />
+		<ProjectReference Include="..\GSM07500FrontResources\GSM07500FrontResources.csproj" />
 		<ProjectReference Include="..\GSM07500Model\GSM07500Model.csproj" />
 	</ItemGroup>
 

@@ -3,11 +3,14 @@
 @using GSM008500Common.DTOs
 @attribute [R_Page(Title = "Upload File")]
 @inherits R_Page
+@using GSM08500FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_StackLayout Style="width: 1000px">
     <R_StackLayout Row >
         <R_ItemLayout col="2">
-            <R_Label>Company</R_Label>
+            <R_Label>@_localizer["_company"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
             <R_TextBox @bind-Value="@_GSM08501ViewModel.loCompany.CCOMPANY_ID"
@@ -21,7 +24,7 @@
 
     <R_StackLayout Row>
           <R_ItemLayout col="2">
-            <R_Label>Source File</R_Label>
+            <R_Label>@_localizer["_sourceFile"]</R_Label>
         </R_ItemLayout>
           <R_ItemLayout col="7">
             <R_TextBox  @bind-Value="@_GSM08501ViewModel.SourceFileName"
@@ -42,14 +45,14 @@
                     R_ServiceGetListRecord="@STATISTIC_ACCOUNT_Upload_R_ServiceGetListRecord"
                     Width="100%">
                 <R_GridColumns>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.NO)" HeaderText="No" Width="100px"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NO)" HeaderText="Account No" R_EnableAdd="true" R_EnableEdit="false"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText="Account Name" R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CBSIS)" HeaderText="BS/IS" R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CDBCR)" HeaderText="D/C" R_EnableAdd="true" R_EnableEdit="true"/>
-                     <R_GridCheckBoxColumn FieldName="@nameof(GSM08501ErrorValidateDTO.LACTIVE)" HeaderText="Active" R_EnableAdd="true" R_EnableEdit="false" />
-                    <R_GridTextColumn FieldName="Valid" HeaderText="Valid" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="ErrorMessage" HeaderText="ErrorMessage" Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>                </R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.NO)" HeaderText=@_localizer["_no"] Width="100px"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NO)" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText=@_localizer["_accountName"] R_EnableAdd="true" R_EnableEdit="true"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CBSIS)" HeaderText=@_localizer["_bsis"] R_EnableAdd="true" R_EnableEdit="true"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM08501ErrorValidateDTO.CDBCR)" HeaderText=@_localizer["_dc"] R_EnableAdd="true" R_EnableEdit="true"/>
+                     <R_GridCheckBoxColumn FieldName="@nameof(GSM08501ErrorValidateDTO.LACTIVE)" HeaderText=@_localizer["_active"] R_EnableAdd="true" R_EnableEdit="false" />
+                    <R_GridTextColumn FieldName="Valid" HeaderText=@_localizer["_valid"] Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>
+                    <R_GridTextColumn FieldName="ErrorMessage" HeaderText=@_localizer["_toAcc"] Visible="@_GSM08501ViewModel.VisibleError" Width="300px"></R_GridTextColumn>                </R_GridColumns>
             </R_Grid>
         </R_ItemLayout>
     </R_StackLayout>
@@ -64,7 +67,7 @@
     <R_ItemLayout col="8">
         <R_StackLayout Row>
             <R_ItemLayout col="3">
-                <R_Label>Total Row(s)</R_Label>
+                <R_Label>@_localizer["_totalRows"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2">
                 <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumListStaffExcel"
@@ -73,7 +76,7 @@
                 </R_NumericTextBox>
             </R_ItemLayout>
             <R_ItemLayout col="1">
-                <R_Label>Valid</R_Label>
+                    <R_Label>@_localizer["_valid"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2" Class="bg-success">
                 <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumValidDataStaffExcel"
@@ -82,7 +85,7 @@
                 </R_NumericTextBox>
             </R_ItemLayout>
             <R_ItemLayout col="1">
-                <R_Label>Invalid</R_Label>
+                    <R_Label>@_localizer["_invalid"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2" Class="badge bg-danger">
                 <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumInvalidDataStaffExcel"
@@ -96,10 +99,10 @@
         <R_StackLayout Row Class="justify-content-end">
             <R_ItemLayout>
                 <R_Button OnClick="Button_OnClickCloseAsync">
-                    Cancel
+                         @_localizer["_cancel"]
                 </R_Button>
                 <R_Button OnClick="Button_OnClickOkAsync" Enabled="@FileHasData">
-                    Proses
+                         @_localizer["_process"]
                 </R_Button>
             </R_ItemLayout>
         </R_StackLayout>
@@ -108,10 +111,10 @@
         <R_StackLayout Row Class="justify-content-end">
             <R_ItemLayout>
                 <R_Button OnClick="Button_OnClickCloseAsync">
-                    Cancel
+                         @_localizer["_cancel"]
                 </R_Button>
                 <R_Button OnClick="@Button_OnClickSaveExcelAsync">
-                    Save To Excel
+                         @_localizer["_saveToExcel"]
                 </R_Button>
             </R_ItemLayout>
         </R_StackLayout>

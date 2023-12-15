@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,65 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_AccCategory" xml:space="preserve">
-    <value>Account Category</value>
-  </data>
-  <data name="_account" xml:space="preserve">
-    <value>Account</value>
-  </data>
-  <data name="_accountName" xml:space="preserve">
-    <value>Account Name</value>
-  </data>
-  <data name="_accountNo" xml:space="preserve">
-    <value>Account No</value>
-  </data>
-  <data name="_active" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="_assignCenter" xml:space="preserve">
-    <value>Assign Center</value>
-  </data>
-  <data name="_assignCOA" xml:space="preserve">
-    <value>Assign COA</value>
-  </data>
-  <data name="_assignUser" xml:space="preserve">
-    <value>Assign User</value>
-  </data>
-  <data name="_balanceSheet" xml:space="preserve">
-    <value>Balance Sheet</value>
-  </data>
-  <data name="_bsis" xml:space="preserve">
-    <value>BS / IS</value>
+  <data name="_add" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="_cancel" xml:space="preserve">
     <value>Cancel</value>
-  </data>
-  <data name="_cashflow" xml:space="preserve">
-    <value>Cash Flow</value>
-  </data>
-  <data name="_centerCode" xml:space="preserve">
-    <value>Center Code</value>
-  </data>
-  <data name="_centerName" xml:space="preserve">
-    <value>Center Name</value>
-  </data>
-  <data name="_centerRestriction" xml:space="preserve">
-    <value>Center Restriction</value>
-  </data>
-  <data name="_close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="_company" xml:space="preserve">
-    <value>Company</value>
-  </data>
-  <data name="_companyID" xml:space="preserve">
-    <value>Company ID</value>
-  </data>
-  <data name="_companyName" xml:space="preserve">
-    <value>Company Name</value>
-  </data>
-  <data name="_copyForm" xml:space="preserve">
-    <value>Copy Form</value>
   </data>
   <data name="_createdBy" xml:space="preserve">
     <value>Created By</value>
@@ -183,92 +129,20 @@
   <data name="_createdDate" xml:space="preserve">
     <value>Created Date</value>
   </data>
-  <data name="_credit" xml:space="preserve">
-    <value>Credit</value>
+  <data name="_delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="_dc" xml:space="preserve">
-    <value>D / C</value>
-  </data>
-  <data name="_debit" xml:space="preserve">
-    <value>Debit</value>
-  </data>
-  <data name="_errorMessage" xml:space="preserve">
-    <value>Error Message</value>
-  </data>
-  <data name="_fromAcc" xml:space="preserve">
-    <value>From Account</value>
-  </data>
-  <data name="_fromGOA" xml:space="preserve">
-    <value>From Group Of Account</value>
-  </data>
-  <data name="_goaCode" xml:space="preserve">
-    <value>Group Of Account Code</value>
-  </data>
-  <data name="_groupOfAccCategory" xml:space="preserve">
-    <value>Group Of Account Category</value>
-  </data>
-  <data name="_GroupOfAccount" xml:space="preserve">
-    <value>Group Of Account</value>
-  </data>
-  <data name="_GroupOfAccountName" xml:space="preserve">
-    <value>Group Of Account Name</value>
-  </data>
-  <data name="_inactive" xml:space="preserve">
-    <value>Inactive</value>
-  </data>
-  <data name="_incomeStatement" xml:space="preserve">
-    <value>Income Statement</value>
-  </data>
-  <data name="_invalid" xml:space="preserve">
-    <value>Invalid</value>
+  <data name="_endDate" xml:space="preserve">
+    <value>End Date</value>
   </data>
   <data name="_no" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="_print" xml:space="preserve">
-    <value>Print</value>
+  <data name="_save" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="_printAccount" xml:space="preserve">
-    <value>Print Account</value>
-  </data>
-  <data name="_printCenterRestric" xml:space="preserve">
-    <value>Print Center Restriction</value>
-  </data>
-  <data name="_printCOA" xml:space="preserve">
-    <value>Print COA</value>
-  </data>
-  <data name="_printGOA" xml:space="preserve">
-    <value>Print GOA</value>
-  </data>
-  <data name="_printInactiveAcc" xml:space="preserve">
-    <value>Print Inactive Account</value>
-  </data>
-  <data name="_printUserRestric" xml:space="preserve">
-    <value>Print User Restriction</value>
-  </data>
-  <data name="_process" xml:space="preserve">
-    <value>Process</value>
-  </data>
-  <data name="_saveToExcel" xml:space="preserve">
-    <value>Save To Excel</value>
-  </data>
-  <data name="_sortBy" xml:space="preserve">
-    <value>Sort By</value>
-  </data>
-  <data name="_sourceFile" xml:space="preserve">
-    <value>Source File</value>
-  </data>
-  <data name="_template" xml:space="preserve">
-    <value>Template</value>
-  </data>
-  <data name="_toAcc" xml:space="preserve">
-    <value>To Account</value>
-  </data>
-  <data name="_toGOA" xml:space="preserve">
-    <value>To Group Of Account</value>
-  </data>
-  <data name="_totalRows" xml:space="preserve">
-    <value>Total Row(s)</value>
+  <data name="_startDate" xml:space="preserve">
+    <value>Start Date</value>
   </data>
   <data name="_updateBy" xml:space="preserve">
     <value>Updated By</value>
@@ -276,19 +150,7 @@
   <data name="_updateDate" xml:space="preserve">
     <value>Updated Date</value>
   </data>
-  <data name="_upload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="_userID" xml:space="preserve">
-    <value>User ID</value>
-  </data>
-  <data name="_username" xml:space="preserve">
-    <value>User Name</value>
-  </data>
-  <data name="_userRestriction" xml:space="preserve">
-    <value>User Restriction</value>
-  </data>
-  <data name="_valid" xml:space="preserve">
-    <value>Valid</value>
+  <data name="_yearPeriod" xml:space="preserve">
+    <value>Year Period</value>
   </data>
 </root>

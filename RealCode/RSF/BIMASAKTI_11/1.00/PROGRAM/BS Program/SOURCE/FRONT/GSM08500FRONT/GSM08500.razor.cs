@@ -55,14 +55,14 @@ public partial class GSM08500 : R_Page
         {
             _GSM08500ViewModel.BSIS_Option = new List<DropDownDTO>
             {
-                new DropDownDTO { Id = "B", Text = "Balance Sheet"},
-                new DropDownDTO { Id = "I", Text = "Income Statement" }
+                new DropDownDTO { Id = "B", Text = @_localizer["_balanceSheet"]},
+                new DropDownDTO { Id = "I", Text = @_localizer["_incomeStatement"] }
             };
 
             _GSM08500ViewModel.CDBCR_Option = new List<DropDownDTO>
             {
-                new DropDownDTO { Id = "D", Text = "Debit" },
-                new DropDownDTO { Id = "C", Text = "Credit" }
+                new DropDownDTO { Id = "D", Text = @_localizer["_debit"] },
+                new DropDownDTO { Id = "C", Text = @_localizer["_credit"] }
             };
             await _GSM08500ViewModel.GetGridList();
             await _GSM08500ViewModel.GetResultPrimaryAcc();
@@ -120,12 +120,12 @@ public partial class GSM08500 : R_Page
 
             if (loParam.LACTIVE)
             {
-                loLabelButton = "Inactive";
+                loLabelButton = @_localizer["_activate"];
                 _GSM08500ViewModel.SelectedActiveInactiveLACTIVE = false;
             } 
             else 
             {
-                loLabelButton = "Activate";
+                loLabelButton = @_localizer["_inactive"];
                 _GSM08500ViewModel.SelectedActiveInactiveLACTIVE = true;
             }
             // await _gridRef.R_RefreshGrid(loParam);
