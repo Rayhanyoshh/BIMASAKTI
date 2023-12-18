@@ -25,9 +25,34 @@ namespace LMM01500SERVICE
         }
 
         
+        [HttpPost]
         public R_ServiceGetRecordResultDTO<LMM01500DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<LMM01500DTO> poParameter)
         {
-            throw new NotImplementedException();
+            var loEx = new R_Exception();
+            R_ServiceGetRecordResultDTO<LMM01500DTO> loRtn = new R_ServiceGetRecordResultDTO<LMM01500DTO>();
+            _Logger.LogInfo("Start ServiceGetRecord LMM01500");
+
+            try
+            {
+                _Logger.LogInfo("Set Param Entity ServiceGetRecord LMM01500");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                var loCls = new LMM01500Cls();
+
+                _Logger.LogInfo("Call Back Method R_GetRecord LMM01500Cls");
+                loRtn.data = loCls.R_GetRecord(poParameter.Entity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End R_GetRecord LMM01500");
+
+            return loRtn;
         }
 
         public R_ServiceSaveResultDTO<LMM01500DTO> R_ServiceSave(R_ServiceSaveParameterDTO<LMM01500DTO> poParameter)
