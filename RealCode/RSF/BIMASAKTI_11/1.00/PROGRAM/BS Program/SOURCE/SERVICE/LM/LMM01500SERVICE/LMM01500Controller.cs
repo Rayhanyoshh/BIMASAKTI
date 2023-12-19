@@ -101,6 +101,70 @@ namespace LMM01500SERVICE
 
             return loRtn;
         }
+
+        [HttpPost]
+        public LMM01500DTO LMM01500ActiveInactive(LMM01500DTO poParam)
+        {
+            R_Exception loException = new R_Exception();
+            LMM01500DTO loRtn = new LMM01500DTO();
+            LMM01500Cls loCls = new LMM01500Cls();
+            _Logger.LogInfo("Start LMM01500ActiveInactive");
+
+            try
+            {
+                _Logger.LogInfo("Set Param LMM01500ActiveInactive");
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                _Logger.LogInfo("Call Back Method LMM01500ActiveInactive");
+                loCls.LMM01500ActiveInactiveSP(poParam);
+            }
+            catch (Exception ex)
+            {
+                loException.Add(ex);
+                _Logger.LogError(loException);
+            }
+
+            loException.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End LMM01500ActiveInactive");
+
+            return loRtn;
+        }
+
+
+        [HttpPost]
+        public IAsyncEnumerable<LMM01502DTO> LMM01500LookupBank()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<LMM01502DTO> loRtn = null;
+            var loParameter = new LMM01502DTO();
+            _Logger.LogInfo("Start LMM01500LookupBank");
+
+            try
+            {
+                var loCls = new LMM01500Cls();
+
+                _Logger.LogInfo("Set Param LMM01500LookupBank");
+                loParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+
+                _Logger.LogInfo("Call Back Method LMM01530LookupBank");
+                var loResult = loCls.LMM01530LookupBank(loParameter);
+
+                _Logger.LogInfo("Call Stream Method Data LMM01500LookupBank");
+                loRtn = GetInvoiceGrpListStream<LMM01502DTO>(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End LMM01500LookupBank");
+
+            return loRtn;
+        }
+
         private async IAsyncEnumerable<T> GetInvoiceGrpListStream<T>(List<T> poParameter)
         {
             foreach (var item in poParameter)
