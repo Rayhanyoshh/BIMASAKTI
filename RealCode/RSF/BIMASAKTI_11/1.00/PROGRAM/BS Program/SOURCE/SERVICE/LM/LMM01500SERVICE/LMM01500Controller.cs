@@ -55,14 +55,64 @@ namespace LMM01500SERVICE
             return loRtn;
         }
 
+        [HttpPost]
         public R_ServiceSaveResultDTO<LMM01500DTO> R_ServiceSave(R_ServiceSaveParameterDTO<LMM01500DTO> poParameter)
         {
-            throw new NotImplementedException();
+            var loEx = new R_Exception();
+            R_ServiceSaveResultDTO<LMM01500DTO> loRtn = new R_ServiceSaveResultDTO<LMM01500DTO>();
+            _Logger.LogInfo("Start ServiceSave LMM01500");
+
+            try
+            {
+                _Logger.LogInfo("Set Param Entity ServiceSave LMM01500");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                var loCls = new LMM01500Cls();
+
+                _Logger.LogInfo("Call Back Method R_Save LMM01500Cls");
+                loRtn.data = loCls.R_Save(poParameter.Entity, poParameter.CRUDMode);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End ServiceSave LMM01500");
+
+            return loRtn;
         }
 
+        [HttpPost]
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<LMM01500DTO> poParameter)
         {
-            throw new NotImplementedException();
+            var loEx = new R_Exception();
+            R_ServiceDeleteResultDTO loRtn = new R_ServiceDeleteResultDTO();
+            _Logger.LogInfo("Start ServiceDelete LMM01500");
+
+            try
+            {
+                _Logger.LogInfo("Set Param Entity ServiceDelete LMM01500");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                var loCls = new LMM01500Cls();
+
+                _Logger.LogInfo("Call Back Method R_Delete LMM01500Cls");
+                loCls.R_Delete(poParameter.Entity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _Logger.LogInfo("End ServiceDelete LMM01500");
+
+            return loRtn;
+        
         }
 
         [HttpPost]
