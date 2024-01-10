@@ -10,6 +10,7 @@
         "dependencies": {
           "GFF00900FRONT": "1.0.0",
           "GFF00900Model": "1.0.0",
+          "GSM08500FrontResources": "1.0.0",
           "GSM08500Model": "1.0.0",
           "Lookup_GSCOMMON": "1.0.0",
           "Lookup_GSFRONT": "1.0.0",
@@ -200,6 +201,11 @@
         },
         "runtime": {
           "GSM08500Common.dll": {}
+        }
+      },
+      "GSM08500FrontResources/1.0.0": {
+        "runtime": {
+          "GSM08500FrontResources.dll": {}
         }
       },
       "GSM08500Model/1.0.0": {
@@ -476,6 +482,11 @@
       "sha512": ""
     },
     "GSM08500Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GSM08500FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -6,17 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="GSM08500FrontResources_msgrc.resx">
+      <EmbeddedResource Update="GSM08500FrontResources_msgrsc.resx">
         <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>GSM08500FrontResources_msgrc.Designer.cs</LastGenOutput>
+        <LastGenOutput>GSM08500FrontResources_msgrsc.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="GSM08500FrontResources_msgrc.Designer.cs">
+      <Compile Update="GSM08500FrontResources_msgrsc.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>GSM08500FrontResources_msgrc.resx</DependentUpon>
+        <DependentUpon>GSM08500FrontResources_msgrsc.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

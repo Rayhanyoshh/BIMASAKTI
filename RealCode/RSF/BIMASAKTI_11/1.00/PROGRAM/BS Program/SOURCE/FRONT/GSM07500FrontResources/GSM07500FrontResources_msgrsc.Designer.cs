@@ -22,14 +22,14 @@ namespace GSM07500FrontResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GSM07500FrontResources_msgrc {
+    internal class GSM07500FrontResources_msgrsc {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GSM07500FrontResources_msgrc() {
+        internal GSM07500FrontResources_msgrsc() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GSM07500FrontResources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSM07500FrontResources.GSM07500FrontResources_msgrc", typeof(GSM07500FrontResources_msgrc).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSM07500FrontResources.GSM07500FrontResources_msgrsc", typeof(GSM07500FrontResources_msgrsc).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

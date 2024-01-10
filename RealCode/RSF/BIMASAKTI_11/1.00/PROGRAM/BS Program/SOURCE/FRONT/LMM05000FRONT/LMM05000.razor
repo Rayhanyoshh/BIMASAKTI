@@ -1,11 +1,14 @@
 @page "/LMM05000"
 @using LMM05000Common.DTOs;
+@using LMM05000FrontResources
 @using R_BlazorFrontEnd.Controls.Enums
+@using R_BlazorFrontEnd.Interfaces
 @inherits R_Page
+@inject R_ILocalizer<ResourcesDummyClass> _localizer
 
 <R_StackLayout Row="true">
     <R_ItemLayout col="2">
-        <R_Label FontColor="R_eFontColor.Danger" FontStyle="R_eFontStyle.Bold" Class="p-3">PROPERTY</R_Label>
+        <R_Label FontColor="R_eFontColor.Danger" FontStyle="R_eFontStyle.Bold" Class="p-3">@_localizer["_property"]</R_Label>
     </R_ItemLayout>
     <R_ItemLayout col="3">
         <R_ComboBox Data="@_LMM05000ViewModel.PropertyList"
@@ -25,7 +28,7 @@
                 R_ServiceGetListRecord="@UnitTypeGrid_ServiceGetListRecord"
                 AllowAddNewRow="false">
             <R_GridColumns>
-                <R_GridTextColumn Width="120px" FieldName="CUNIT_TYPE_NAME" HeaderText="Unit Type" />
+                <R_GridTextColumn Width="120px" FieldName="CUNIT_TYPE_NAME" HeaderText=@_localizer["_unitType"] />
             </R_GridColumns>
         </R_Grid>
     </R_ItemLayout>
@@ -42,31 +45,31 @@
                 AllowEditRow="true"
                 Height="360px">
             <R_GridColumns>
-                <R_GridTextColumn Width="90px" FieldName="CVALID_INTERNAL_ID" HeaderText="Valid Id" R_EnableEdit="false" R_EnableAdd="false" />
-                <R_GridDatePickerColumn Width="150px" FieldName="DVALID_DATE" HeaderText="Valid From Date" R_EnableEdit="false" R_EnableAdd="true" />
+                <R_GridTextColumn Width="90px" FieldName="CVALID_INTERNAL_ID" HeaderText=@_localizer["_validId"] R_EnableEdit="false" R_EnableAdd="false" />
+                <R_GridDatePickerColumn Width="150px" FieldName="DVALID_DATE" HeaderText=@_localizer["_validFromDate"] R_EnableEdit="false" R_EnableAdd="true" />
                 <R_GridDropDownListColumn 
                                       Width="130px"
                                       Data="@_LMM05000ViewModel.SqmTotalList"
                                       FieldName="@nameof(LMM05000DTO.CBY_SQM_TOTAL)"
                                       ValueField="@nameof(DropDownSqmTotalDTO.Id)"
                                       TextField="@nameof(DropDownSqmTotalDTO.Text)"
-                                      HeaderText="SQM/TOTAL"
+                                      HeaderText=@_localizer["_sqmtotal"]
                                       R_EnableAdd="true"
                                       R_EnableEdit="true" />
                 <R_GridMultiHeaderColumn HeaderText="Normal">
-                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_PRICE_SQM" HeaderText="Price/SQM" R_EnableEdit="true" R_EnableAdd="true" />
-                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_SELLING_PRICE" HeaderText="Selling Price" R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_PRICE_SQM" HeaderText=@_localizer["_priceSqm"] R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NNORMAL_SELLING_PRICE" HeaderText=@_localizer["_sellingPrice"] R_EnableEdit="true" R_EnableAdd="true" />
                 </R_GridMultiHeaderColumn>
                 <R_GridMultiHeaderColumn HeaderText="Bottom">
-                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_PRICE_SQM" HeaderText="Price/SQM" R_EnableEdit="true" R_EnableAdd="true" />
-                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_SELLING_PRICE" HeaderText="Selling Price" R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_PRICE_SQM" HeaderText=@_localizer["_priceSqm"] R_EnableEdit="true" R_EnableAdd="true" />
+                    <R_GridNumericColumn Width="120px" FieldName="NBOTTOM_SELLING_PRICE" HeaderText=@_localizer["_sellingPrice"] R_EnableEdit="true" R_EnableAdd="true" />
                 </R_GridMultiHeaderColumn>
-                <R_GridCheckBoxColumn Width="105px" FieldName="LOVERWRITE" HeaderText="Overwrite" R_EnableEdit="true" R_EnableAdd="true" />
-                <R_GridCheckBoxColumn Width="100px" FieldName="LACTIVE" HeaderText="Active" />
-                <R_GridTextColumn Width="120px" FieldName="CUPDATE_BY" HeaderText="Updated By" />
-                <R_GridDateTimePickerColumn Width="150px" FieldName="DUPDATE_DATE" HeaderText="Updated Date" />
-                <R_GridTextColumn Width="110px" FieldName="CCREATE_BY" HeaderText="Created By" />
-                <R_GridDateTimePickerColumn Width="150px" FieldName="DCREATE_DATE" HeaderText="Created Date" />
+                <R_GridCheckBoxColumn Width="105px" FieldName="LOVERWRITE" HeaderText=@_localizer["_overwrite"] R_EnableEdit="true" R_EnableAdd="true" />
+                <R_GridCheckBoxColumn Width="100px" FieldName="LACTIVE" HeaderText=@_localizer["_active"] />
+                <R_GridTextColumn Width="120px" FieldName="CUPDATE_BY" HeaderText=@_localizer["_updatedBy"] />
+                <R_GridDateTimePickerColumn Width="150px" FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updatedDate"] />
+                <R_GridTextColumn Width="110px" FieldName="CCREATE_BY" HeaderText=@_localizer["_createdBy"] />
+                <R_GridDateTimePickerColumn Width="150px" FieldName="DCREATE_DATE" HeaderText=@_localizer["_createdDate"] />
             </R_GridColumns>
         </R_Grid>
     </R_ItemLayout>

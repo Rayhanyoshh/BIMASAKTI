@@ -9,6 +9,7 @@
       "GLT00600Front/1.0.0": {
         "dependencies": {
           "GLT00600Common": "1.0.0",
+          "GLT00600FrontResources": "1.0.0",
           "GLT00600Model": "1.0.0",
           "GLTR00100FRONT": "1.0.0",
           "Lookup_GSFRONT": "1.0.0",
@@ -172,6 +173,11 @@
       "GLT00600Common/1.0.0": {
         "runtime": {
           "GLT00600Common.dll": {}
+        }
+      },
+      "GLT00600FrontResources/1.0.0": {
+        "runtime": {
+          "GLT00600FrontResources.dll": {}
         }
       },
       "GLT00600Model/1.0.0": {
@@ -474,6 +480,11 @@
       "sha512": ""
     },
     "GLT00600Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GLT00600FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

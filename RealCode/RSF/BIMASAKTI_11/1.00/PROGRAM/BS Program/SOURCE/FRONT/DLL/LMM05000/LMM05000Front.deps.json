@@ -10,8 +10,8 @@
         "dependencies": {
           "GFF00900FRONT": "1.0.0",
           "GFF00900Model": "1.0.0",
+          "LMM05000FrontResources": "1.0.0",
           "LMM05000Model": "1.0.0",
-          "Lookup_GSFRONT": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.15",
           "BlazorClientHelper": "1.0.0.0",
           "R_APICommonDTO": "1.0.0.0",
@@ -181,35 +181,17 @@
           "LMM05000Common.dll": {}
         }
       },
+      "LMM05000FrontResources/1.0.0": {
+        "runtime": {
+          "LMM05000FrontResources.dll": {}
+        }
+      },
       "LMM05000Model/1.0.0": {
         "dependencies": {
           "LMM05000Common": "1.0.0"
         },
         "runtime": {
           "LMM05000Model.dll": {}
-        }
-      },
-      "Lookup_GSCOMMON/1.0.0": {
-        "runtime": {
-          "Lookup_GSCOMMON.dll": {}
-        }
-      },
-      "Lookup_GSFRONT/1.0.0": {
-        "dependencies": {
-          "Lookup_GSCOMMON": "1.0.0",
-          "Lookup_GSModel": "1.0.0",
-          "Microsoft.AspNetCore.Components.Web": "6.0.15"
-        },
-        "runtime": {
-          "Lookup_GSFRONT.dll": {}
-        }
-      },
-      "Lookup_GSModel/1.0.0": {
-        "dependencies": {
-          "Lookup_GSCOMMON": "1.0.0"
-        },
-        "runtime": {
-          "Lookup_GSModel.dll": {}
         }
       },
       "BlazorClientHelper/1.0.0.0": {
@@ -439,22 +421,12 @@
       "serviceable": false,
       "sha512": ""
     },
+    "LMM05000FrontResources/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "LMM05000Model/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Lookup_GSCOMMON/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Lookup_GSFRONT/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Lookup_GSModel/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "GSM07500Front/1.0.0": {
         "dependencies": {
+          "GSM07500FrontResources": "1.0.0",
           "GSM07500Model": "1.0.0",
           "Lookup_GSFRONT": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.15",
@@ -154,6 +155,11 @@
       "GSM07500Common/1.0.0": {
         "runtime": {
           "GSM07500Common.dll": {}
+        }
+      },
+      "GSM07500FrontResources/1.0.0": {
+        "runtime": {
+          "GSM07500FrontResources.dll": {}
         }
       },
       "GSM07500Model/1.0.0": {
@@ -387,6 +393,11 @@
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
     "GSM07500Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GSM07500FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
