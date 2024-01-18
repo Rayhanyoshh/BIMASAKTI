@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using R_APICommonDTO;
 
-namespace GSM005000Common
+namespace GSM05000Common
 {
     public class GSM05000ListDTO<T> : R_APIResultBaseDTO
     {

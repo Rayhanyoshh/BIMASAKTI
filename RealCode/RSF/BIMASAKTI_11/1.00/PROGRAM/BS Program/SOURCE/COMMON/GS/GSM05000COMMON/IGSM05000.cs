@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using GSM005000Common.DTOs;
-using GSM005000Common.Parameters;
+using GSM05000Common.DTOs;
+using GSM05000Common.Parameters;
 using R_CommonFrontBackAPI;
 
-namespace GSM005000Common
+namespace GSM05000Common
 {
     public interface IGSM05000 : R_IServiceCRUDBase<GSM05000DTO>
     {

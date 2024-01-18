@@ -1,6 +1,6 @@
 using System;
 
-namespace GSM005000Common
+namespace GSM05000Common
 {
     public class GSM05000ApprovalUserDTO
     {

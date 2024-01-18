@@ -5,6 +5,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using GSM01000Common;
 
 namespace GSM01000Back
@@ -12,10 +13,13 @@ namespace GSM01000Back
     public class GSM01010Cls : R_BusinessObject<GSM01010DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM01010Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
         }
         
         protected override GSM01010DTO R_Display(GSM01010DTO poEntity)
@@ -35,6 +39,8 @@ namespace GSM01000Back
         
         public List<GSM01010DTO> GetGoAListByGlAccount(GOAHeadListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetGoAListByGlAccount");
+
             var loEx = new R_Exception();
             List<GSM01010DTO> loRtn = null;
             R_Db loDb;

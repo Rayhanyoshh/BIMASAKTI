@@ -1,6 +1,6 @@
 using System;
 
-namespace GSM005000Common.Parameters
+namespace GSM05000Common.Parameters
 {
     public class GSM05000NumberingGridDTO
     {

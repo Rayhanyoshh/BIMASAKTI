@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
 using R_CommonFrontBackAPI;
 using GSM001000Back;
+using GSM01000Back;
 using GSM01000Common;
 using GSM01000Common.DTOs;
 using Microsoft.Extensions.Logging;
@@ -16,6 +18,7 @@ namespace GSM01000Service
     [Route("api/[controller]/[action]"),AllowAnonymous]
     public class GSM01000Controller : ControllerBase, IGSM01000
     {
+        private readonly ActivitySource _activitySource;
         private LoggerGSM01000 _logger;
         
         public GSM01000Controller(ILogger<GSM01000Controller> logger)
@@ -23,11 +26,15 @@ namespace GSM01000Service
             //Initial and Get Logger
             LoggerGSM01000.R_InitializeLogger(logger);
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000Controller));
+
         }
 
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM01000DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM01000DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             _logger.LogInfo("Start - Get Account Record");
 
             R_Exception loEx = new R_Exception();
@@ -60,8 +67,9 @@ namespace GSM01000Service
         [HttpPost]
         public R_ServiceSaveResultDTO<GSM01000DTO> R_ServiceSave(R_ServiceSaveParameterDTO<GSM01000DTO> poParameter)
          {
-             _logger.LogInfo("Start - Save Account Record");
-             R_Exception loEx = new R_Exception();
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+            _logger.LogInfo("Start - Save Account Record");
+            R_Exception loEx = new R_Exception();
             R_ServiceSaveResultDTO<GSM01000DTO> loRtn = null;
             GSM01000Cls loCls;
 
@@ -101,6 +109,8 @@ namespace GSM01000Service
         [HttpPost]
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<GSM01000DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceDelete");
+
             _logger.LogInfo("Start - Delete Tax Entity");
             R_Exception loEx = new R_Exception();
             R_ServiceDeleteResultDTO loRtn = new R_ServiceDeleteResultDTO();
@@ -131,6 +141,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01000ListDTO GetAllCOA()
         {
+            using Activity activity = _activitySource.StartActivity("GetAllCOA");
+
             _logger.LogInfo("Start - Get COA List");
             R_Exception loEx = new R_Exception();
             GSM01000ListDTO loRtn = null;
@@ -165,6 +177,8 @@ namespace GSM01000Service
         [HttpPost]
         public IAsyncEnumerable<GSM01000DTO> GetAllCOAStream()
         {
+            using Activity activity = _activitySource.StartActivity("GetAllCOAStream");
+
             _logger.LogInfo("Start - Get COA List Stream");
             R_Exception loException = new R_Exception();
             COAListDbParameter loDbPar;
@@ -197,6 +211,8 @@ namespace GSM01000Service
         [HttpPost]
         public IAsyncEnumerable<CopyFromProcessCompanyDTO> GetCompanyList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCompanyList");
+
             _logger.LogInfo("Start - Get Company List");
             R_Exception loException = new R_Exception();
             IAsyncEnumerable<CopyFromProcessCompanyDTO> loRtn = null;
@@ -227,6 +243,8 @@ namespace GSM01000Service
         [HttpPost]
         public CopyFromProcess CopyFromProcess()
         {
+            using Activity activity = _activitySource.StartActivity("CopyFromProcess");
+
             _logger.LogInfo("Start - Copy From Process");
             R_Exception loException = new R_Exception();
             CopyFromProcessParameter loParam = new CopyFromProcessParameter();
@@ -254,6 +272,8 @@ namespace GSM01000Service
         [HttpPost]
         public ActiveInactiveDTO RSP_GS_ACTIVE_INACTIVE_COAMethod()
         {
+            using Activity activity = _activitySource.StartActivity("RSP_GS_ACTIVE_INACTIVE_COAMethod");
+
             _logger.LogInfo("Start - Set Active/Inactive");
             R_Exception loException = new R_Exception();
             ActiveInactiveParameterDTO loParam = new ActiveInactiveParameterDTO();
@@ -284,6 +304,8 @@ namespace GSM01000Service
         [HttpPost]
         public PrimaryAccountDTO PrimaryAccountCheck()
         {
+            using Activity activity = _activitySource.StartActivity("PrimaryAccountCheck");
+
             _logger.LogInfo("Start - Primary account check");
 
             R_Exception loException = new R_Exception();
@@ -311,6 +333,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01000CoAExcelDTO CoAExcelTemplate()
         {
+            using Activity activity = _activitySource.StartActivity("CoAExcelTemplate");
+
             _logger.LogInfo("Start - Template Download Process");
 
             var loEx = new R_Exception();
@@ -349,6 +373,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01000UploadHeaderDTO CompanyDetail()
         {
+            using Activity activity = _activitySource.StartActivity("CompanyDetail");
+
             R_Exception loException = new R_Exception();
             COAListDbParameter loParam = new COAListDbParameter();
             GSM01000UploadHeaderDTO loRtn = new GSM01000UploadHeaderDTO();

@@ -1,4 +1,4 @@
-namespace GSM005000Common
+namespace GSM05000Common
 {
     public enum GSM05000eTabName
     {

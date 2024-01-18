@@ -92,6 +92,7 @@
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLT00600FRONT\GLT00600Front.csproj" />
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLTR00100FRONT\GLTR00100FRONT.csproj" />
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM01000FRONT\GSM01000Front.csproj" />
+    <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM05000FRONT\GSM05000Front.csproj" />
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM07500FRONT\GSM07500Front.csproj" />
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM08500FRONT\GSM08500Front.csproj" />
     <ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM01500Front\LMM01500Front.csproj" />

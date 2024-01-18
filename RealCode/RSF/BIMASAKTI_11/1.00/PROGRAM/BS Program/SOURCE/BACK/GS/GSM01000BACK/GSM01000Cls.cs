@@ -1,23 +1,29 @@
 ﻿using R_BackEnd;
-using R_Common;
-using R_CommonFrontBackAPI;
 using GSM01000Common.DTOs;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
+using GSM01000Back;
 using GSM01000Common;
+using R_Common;
+using R_CommonFrontBackAPI;
 
 namespace GSM001000Back
 {
     public class GSM01000Cls : R_BusinessObject<GSM01000DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
 
         public GSM01000Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
         }
+        
         protected override GSM01000DTO R_Display(GSM01000DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
             R_Exception loEx = new R_Exception();
             GSM01000DTO loRtn = null;
             R_Db loDb;
@@ -74,6 +80,8 @@ namespace GSM001000Back
         
        protected override void R_Saving(GSM01000DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -159,6 +167,8 @@ namespace GSM001000Back
 
         protected override void R_Deleting(GSM01000DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Deleting");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -221,6 +231,8 @@ namespace GSM001000Back
         
         public List<GSM01000DTO> GetCoaListDb(COAListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetCoaListDb");
+
             R_Exception loException = new R_Exception();
             List<GSM01000DTO> loRtn = null;
             R_Db loDb;
@@ -264,6 +276,7 @@ namespace GSM001000Back
         
         public void CopyFromProcessGSM01000Cls(CopyFromProcessParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("CopyFromProcessGSM01000Cls");
             R_Exception loException = new R_Exception();
 
             try
@@ -298,6 +311,8 @@ namespace GSM001000Back
         
         public List<CopyFromProcessCompanyDTO> GetCompanyList(COAListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetCompanyList");
+
             R_Exception loException = new R_Exception();
             List<CopyFromProcessCompanyDTO> loResult = null;
 
@@ -334,6 +349,8 @@ namespace GSM001000Back
         
         public void ActiveInactiveProcess()
         {
+            using Activity activity = _activitySource.StartActivity("ActiveInactiveProcess");
+
             R_Exception loException = new R_Exception();
 
             try
@@ -354,6 +371,7 @@ namespace GSM001000Back
         
         public void RSP_GS_ACTIVE_INACTIVE_COA_Method(ActiveInactiveParameterDTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("RSP_GS_ACTIVE_INACTIVE_COA_Method");
             R_Exception loException = new R_Exception();
 
             try
@@ -388,6 +406,8 @@ namespace GSM001000Back
 
         public PrimaryAccountDTO PrimaryAccountCheckCls(GSM01000DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("PrimaryAccountCheckCls");
+
             R_Exception loEx = new R_Exception();
             PrimaryAccountDTO loRtn = null;
             R_Db loDb;
@@ -430,6 +450,8 @@ namespace GSM001000Back
         
         public GSM01000UploadHeaderDTO CompanyDetailCls(COAListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("CompanyDetailCls");
+
             R_Exception loEx = new R_Exception();
             GSM01000UploadHeaderDTO loRtn = null;
             R_Db loDb;
@@ -472,6 +494,8 @@ namespace GSM001000Back
         
        public List<GSM01000ResultSPPrintCOADTO> GetPrintDataResult(GSM01000PrintParamCOADTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetPrintDataResult");
+
             R_Exception loEx = new R_Exception();
             List<GSM01000ResultSPPrintCOADTO> loResult = null;
 
@@ -519,6 +543,8 @@ namespace GSM001000Back
 
        public List<GSM01000ResultSPPrintGOADTO> GetPrintDataResultGOA(GSM01000PrintParamGOADTO poEntity)
        {
+           using Activity activity = _activitySource.StartActivity("GetPrintDataResultGOA");
+
            R_Exception loEx = new R_Exception();
            List<GSM01000ResultSPPrintGOADTO> loResult = null;
 

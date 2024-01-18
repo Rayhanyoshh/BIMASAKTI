@@ -1,9 +1,8 @@
-using GSM005000Common;
-using GSM005000Common.DTOs;
-using GSM005000Common.Parameters;
+using GSM05000Common;
+using GSM05000Common.DTOs;
+using GSM05000Common.Parameters;
 using GSM05000Back;
 using GSM05000BACK;
-using GSM05000Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using R_BackEnd;

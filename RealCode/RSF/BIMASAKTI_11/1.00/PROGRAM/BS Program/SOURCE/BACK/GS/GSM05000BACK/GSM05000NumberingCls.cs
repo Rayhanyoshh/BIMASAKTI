@@ -1,7 +1,7 @@
 using System.Data;
 using System.Data.Common;
-using GSM005000Common.DTOs;
-using GSM005000Common.Parameters;
+using GSM05000Common.DTOs;
+using GSM05000Common.Parameters;
 using GSM05000BACK;
 using GSM05000Common;
 using R_BackEnd;
