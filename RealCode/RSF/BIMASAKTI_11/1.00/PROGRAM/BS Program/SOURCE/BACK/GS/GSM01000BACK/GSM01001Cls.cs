@@ -88,7 +88,9 @@ public class GSM01001Cls  : R_IBatchProcess
                            ", LCENTER_RESTR	BIT" +
                            ", LUSER_RESTR	BIT" +
                            ", LEXIST		BIT" +
-                           ", NonActiveDate	VARCHAR(8))";
+                           ", NonActiveDate	VARCHAR(8)" +
+                           ", CCASH_FLOW_GROUP_CODE VARCHAR(20)" +
+                           ", CCASH_FLOW_CODE   VARCHAR(20))";
 
                 loDb.SqlExecNonQuery(lcQuery, loConn, false);
 

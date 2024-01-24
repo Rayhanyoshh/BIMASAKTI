@@ -6,6 +6,7 @@ using GSM01000Common.DTOs;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using GSM001000Back;
 using System.Windows.Input;
@@ -15,13 +16,19 @@ namespace GSM01000Back
     public class GSM01300Cls : R_BusinessObject<GSM01300DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM01300Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
+
         }
         protected override GSM01300DTO R_Display(GSM01300DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
+
             R_Exception loEx = new R_Exception();
             GSM01300DTO loRtn = null;
             R_Db loDb;
@@ -78,6 +85,8 @@ namespace GSM01000Back
 
         public List<GSM01300DTO> GetGoAListDb(GOAHeadListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetGoAListDb");
+
             R_Exception loException = new R_Exception();
             List<GSM01300DTO> loRtn = null;
             R_Db loDb;
@@ -121,6 +130,8 @@ namespace GSM01000Back
         
         public void SaveAssignCOAToDb(COAtoAssignParam poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("SaveAssignCOAToDb");
+
             R_Exception loException = new R_Exception();
             R_Db loDb = new R_Db();
             DbConnection loConn = loDb.GetConnection();

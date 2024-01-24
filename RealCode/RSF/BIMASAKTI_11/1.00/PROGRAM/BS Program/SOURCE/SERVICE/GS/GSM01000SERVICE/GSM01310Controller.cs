@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
@@ -17,17 +18,23 @@ namespace GSM01000Service
     public class GSM01310Controller : ControllerBase, IGSM01310
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
         
         public GSM01310Controller(ILogger<GSM01310Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM01000.R_InitializeLogger(logger);
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000Controller));
+
         }
+        
        [HttpPost]
-       
-        public R_ServiceGetRecordResultDTO<GSM01310DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM01310DTO> poParameter)
+       public R_ServiceGetRecordResultDTO<GSM01310DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM01310DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             R_Exception loEx = new R_Exception();
             R_ServiceGetRecordResultDTO<GSM01310DTO> loRtn = null;
             GSM01310Cls loCls;
@@ -62,6 +69,8 @@ namespace GSM01000Service
         [HttpPost]
         public R_ServiceSaveResultDTO<GSM01310DTO> R_ServiceSave(R_ServiceSaveParameterDTO<GSM01310DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+
             R_Exception loEx = new R_Exception();
             R_ServiceSaveResultDTO<GSM01310DTO> loRtn = null;
             GSM01310Cls loCls;
@@ -104,6 +113,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01310ListDTO GetGoACoA()
         {
+            using Activity activity = _activitySource.StartActivity("GetGoACoA");
+
             R_Exception loEx = new R_Exception();
             GSM01310ListDTO loRtn = null;
             GoAMainDbParameter loDbPar;
@@ -138,6 +149,8 @@ namespace GSM01000Service
         [HttpPost]
         public IAsyncEnumerable<GSM01310DTO> GetGoACoAListStream()
         {
+            using Activity activity = _activitySource.StartActivity("GetGoACoAListStream");
+
             R_Exception loException = new R_Exception();
             GoAMainDbParameter loDbPar;
             List<GSM01310DTO> loRtnTmp;
@@ -177,6 +190,8 @@ namespace GSM01000Service
         [HttpPost]
         public IAsyncEnumerable<GSM01310DTO> GetCoAToAssignList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCoAToAssignList");
+
             GOAHeadListDbParameter loDbPar;
             List<GSM01310DTO> loRtnTemp = null;
             R_Exception loEx = new R_Exception();

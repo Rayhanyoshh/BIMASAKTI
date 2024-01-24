@@ -6,6 +6,7 @@ using GSM01000Common.DTOs;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using GSM001000Back;
 
@@ -15,13 +16,19 @@ namespace GSM01000Back
     public class GSM01100Cls : R_BusinessObject<GSM01100DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM01100Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
+
         }
         protected override GSM01100DTO R_Display(GSM01100DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
+
             R_Exception loEx = new R_Exception();
             GSM01100DTO loRtn = null;
             R_Db loDb;
@@ -70,6 +77,8 @@ namespace GSM01000Back
         
         public List<GSM01100DTO> GetCoAUserListDb(GOAHeadListDbParameter poEntity) // nunggu revisian
         {
+            using Activity activity = _activitySource.StartActivity("GetCoAUserListDb");
+
             R_Exception loException = new R_Exception();
             List<GSM01100DTO> loRtn = null;
             R_Db loDb;
@@ -116,6 +125,8 @@ namespace GSM01000Back
         
         public List<AssignUserDTO> GetUserToAssignList(GOAHeadListDbParameter poNewEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetUserToAssignList");
+
             List<AssignUserDTO> loRtn = null;
             R_Exception loEx = new R_Exception();
             R_Db loDB;
@@ -171,6 +182,8 @@ namespace GSM01000Back
         
        public GSM01100DTO GSM01100GetParameterDb(UsertoAssignParam poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("GSM01100GetParameterDb");
+
             R_Exception loException = new R_Exception();
             GSM01100DTO loRtn = null;
             string lcQuery;
@@ -221,6 +234,7 @@ namespace GSM01000Back
 
         public void SaveAssignUserToDb(GSM01100DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("SaveAssignUserToDb");
             R_Exception loException = new R_Exception();
             R_Db loDb = new R_Db();
             DbConnection loConn = loDb.GetConnection();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
 using R_CommonFrontBackAPI;
@@ -17,16 +18,21 @@ namespace GSM01010Service
     public class GSM01010Controller : ControllerBase, IGSM01010
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
         
         public GSM01010Controller(ILogger<GSM01010Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM01000.R_InitializeLogger(logger);
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01010Controller));
+
         }
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM01010DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM01010DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             R_Exception loEx = new R_Exception();
             R_ServiceGetRecordResultDTO<GSM01010DTO> loRtn = null;
             GSM01010Cls loCls;
@@ -78,6 +84,8 @@ namespace GSM01010Service
 
             try
             {
+                using Activity activity = _activitySource.StartActivity("GetGoA");
+
                 _logger.LogInfo("Start - GetGoA");
 
                 loRtn = new GSM01010ListDTO();
@@ -109,6 +117,8 @@ namespace GSM01010Service
         [HttpPost]
         public IAsyncEnumerable<GSM01010DTO> GetGOAListByGLAccountStream()
         {
+            using Activity activity = _activitySource.StartActivity("GetGOAListByGLAccountStream");
+
             R_Exception loException = new R_Exception();
             GOAHeadListDbParameter loDbPar;
             List<GSM01010DTO> loRtnTmp;

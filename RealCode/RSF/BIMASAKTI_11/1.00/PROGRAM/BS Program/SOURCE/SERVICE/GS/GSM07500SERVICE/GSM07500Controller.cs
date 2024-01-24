@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
@@ -16,17 +17,23 @@ namespace GSM07500Service
     public class GSM07500Controller : ControllerBase, IGSM07500
     {
         private LoggerGSM07500 _logger;
+        private readonly ActivitySource _activitySource;
+
         
         public GSM07500Controller(ILogger<GSM07500Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM07500.R_InitializeLogger(logger);
             _logger = LoggerGSM07500.R_GetInstanceLogger();
+            _activitySource = GSM07500Activity.R_InitializeAndGetActivitySource(nameof(GSM07500Controller));
+
         }   
 
         [HttpPost]
         public GSM07500ListDTO PeriodDetailList()
         {
+            using Activity activity = _activitySource.StartActivity("PeriodDetailList");
+
             _logger.LogInfo("Start - PeriodDetailList");
 
             R_Exception loEx = new R_Exception();
@@ -66,6 +73,8 @@ namespace GSM07500Service
         [HttpPost]
         public IAsyncEnumerable<GSM07500DTO> PeriodDetailListStream()
         {
+            using Activity activity = _activitySource.StartActivity("PeriodDetailListStream");
+
             _logger.LogInfo("Start - PeriodDetailListStream");
 
             R_Exception loException = new R_Exception();
@@ -104,6 +113,8 @@ namespace GSM07500Service
         [HttpPost]
         public GSM07500ListDTO RftPeriodGenerator()
         {
+            using Activity activity = _activitySource.StartActivity("RftPeriodGenerator");
+
             _logger.LogInfo("Start - RftPeriodGenerator");
 
             R_Exception loEx = new R_Exception();
@@ -152,6 +163,8 @@ namespace GSM07500Service
         [HttpPost]
         public R_ServiceGetRecordResultDTO<SaveBatchGSM07500DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<SaveBatchGSM07500DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             _logger.LogInfo("Start - R_ServiceGetRecord");
             var loEx = new R_Exception();
             R_ServiceGetRecordResultDTO<SaveBatchGSM07500DTO> loRtn = new R_ServiceGetRecordResultDTO<SaveBatchGSM07500DTO>();
@@ -178,6 +191,8 @@ namespace GSM07500Service
         [HttpPost]
         public R_ServiceSaveResultDTO<SaveBatchGSM07500DTO> R_ServiceSave(R_ServiceSaveParameterDTO<SaveBatchGSM07500DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+
             _logger.LogInfo("Start - R_ServiceSave");
             var loEx = new R_Exception();
             R_ServiceSaveResultDTO<SaveBatchGSM07500DTO> loRtn = new R_ServiceSaveResultDTO<SaveBatchGSM07500DTO>();

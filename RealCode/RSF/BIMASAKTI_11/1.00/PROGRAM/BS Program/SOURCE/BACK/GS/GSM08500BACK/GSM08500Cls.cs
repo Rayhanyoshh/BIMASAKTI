@@ -4,6 +4,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using GSM001000Back;
 using GSM008500Common;
 using GSM008500Common.DTOs.PrintDTO;
@@ -14,13 +15,19 @@ namespace GSM08500Back
     public class GSM08500Cls: R_BusinessObject<GSM08500DTO>
     {
         private LoggerGSM08500 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM08500Cls()
         {
             _logger = LoggerGSM08500.R_GetInstanceLogger();
+            _activitySource = GSM08500Activity.R_GetInstanceActivitySource();
+
         }
         protected override GSM08500DTO R_Display(GSM08500DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
+
             R_Exception loEx = new R_Exception();
             GSM08500DTO loRtn = null;
             R_Db loDb;
@@ -75,6 +82,8 @@ namespace GSM08500Back
 
         protected override void R_Saving(GSM08500DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -165,6 +174,8 @@ namespace GSM08500Back
 
         protected override void R_Deleting(GSM08500DTO poNewEntity)
         { 
+            using Activity activity = _activitySource.StartActivity("R_Deleting");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -248,6 +259,8 @@ namespace GSM08500Back
         
         public List<GSM08500DTO> GetStatAccListDb (GSM08500DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetStatAccListDb");
+
             R_Exception loException = new R_Exception();
             List<GSM08500DTO> loRtn = null;
             R_Db loDb;
@@ -294,6 +307,7 @@ namespace GSM08500Back
         
         public void CopyFromProcessGSM08500Cls(CopyFromProcessParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("CopyFromProcessGSM08500Cls");
             R_Exception loException = new R_Exception();
 
             try
@@ -335,6 +349,8 @@ namespace GSM08500Back
         
         public List<CopyFromProcessCompanyDTO> GetCompanyList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCompanyList");
+
             R_Exception loException = new R_Exception();
             List<CopyFromProcessCompanyDTO> loResult = null;
 
@@ -370,6 +386,8 @@ namespace GSM08500Back
         
         public void ActiveInactiveProcess()
         {
+            using Activity activity = _activitySource.StartActivity("ActiveInactiveProcess");
+
             R_Exception loException = new R_Exception();
 
             try
@@ -390,6 +408,8 @@ namespace GSM08500Back
         
         public void RSP_GS_ACTIVE_INACTIVE_StatAcc_Method(ActiveInactiveParameterDTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("RSP_GS_ACTIVE_INACTIVE_StatAcc_Method");
+
             R_Exception loException = new R_Exception();
 
             try
@@ -424,6 +444,8 @@ namespace GSM08500Back
         
         public GSM08500UploadHeaderDTO CompanyDetailCls(GSM08500DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("CompanyDetailCls");
+
             R_Exception loEx = new R_Exception();
             GSM08500UploadHeaderDTO loRtn = null;
             R_Db loDb;
@@ -459,9 +481,12 @@ namespace GSM08500Back
             loEx.ThrowExceptionIfErrors();
 
             return loRtn;
-        }
-          public List<GSM08500ResultSPPrintStatAccDTO> GetPrintDataResultStatAcc (GSM08500PrintParamStatAccDTO poEntity)
-       {
+        } 
+        
+        public List<GSM08500ResultSPPrintStatAccDTO> GetPrintDataResultStatAcc (GSM08500PrintParamStatAccDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GetPrintDataResultStatAcc");
+
            R_Exception loEx = new R_Exception();
            List<GSM08500ResultSPPrintStatAccDTO> loResult = null;
 
@@ -506,6 +531,8 @@ namespace GSM08500Back
           
           public PrimaryAccountDTO PrimaryAccountCheckCls(GSM08500DTO poEntity)
           {
+              using Activity activity = _activitySource.StartActivity("PrimaryAccountCheckCls");
+
               R_Exception loEx = new R_Exception();
               PrimaryAccountDTO loRtn = null;
               R_Db loDb;

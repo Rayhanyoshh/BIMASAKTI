@@ -4,6 +4,7 @@ using R_CommonFrontBackAPI;
 using GSM07500Common.DTOs;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Transactions;
 using GSM07500Common;
 
@@ -12,14 +13,18 @@ namespace GSM07500Back
     public class GSM07500Cls: R_BusinessObject<SaveBatchGSM07500DTO>
     {
         private LoggerGSM07500 _logger;
+        private readonly ActivitySource _activitySource;
 
         public GSM07500Cls()
         {
             _logger = LoggerGSM07500.R_GetInstanceLogger();
+            _activitySource = GSM07500Activity.R_GetInstanceActivitySource();
+
         }
     
         public List<GSM07500DTO> GetPeriodDetailDbList (GSM07500DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetPeriodDetailDbList");
             R_Exception loException = new R_Exception();
             List<GSM07500DTO> loRtn = null;
             R_Db loDb;
@@ -59,6 +64,8 @@ namespace GSM07500Back
         
         public List<GSM07500DTO> RftGenerateGSMPeriod (GeneratePeriodParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("RftGenerateGSMPeriod");
+
             R_Exception loException = new R_Exception();
             List<GSM07500DTO> loRtn = null;
             R_Db loDb;
@@ -100,6 +107,8 @@ namespace GSM07500Back
 
         protected override SaveBatchGSM07500DTO R_Display(SaveBatchGSM07500DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
+
             _logger.LogInfo("Start - R_Display");
             SaveBatchGSM07500DTO loRtn = null;
             R_Exception loException = new R_Exception();
@@ -121,6 +130,8 @@ namespace GSM07500Back
 
         protected override void R_Saving(SaveBatchGSM07500DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             var loEx = new R_Exception();
             string lcQuery = "";
             var loDb = new R_Db();

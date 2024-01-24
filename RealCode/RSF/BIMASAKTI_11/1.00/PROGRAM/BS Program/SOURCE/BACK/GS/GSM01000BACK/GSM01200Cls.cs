@@ -6,6 +6,7 @@ using GSM01000Common.DTOs;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using GSM001000Back;
 using GSM01000Back;
@@ -15,13 +16,18 @@ namespace GSM01200Back
     public class GSM01200Cls: R_BusinessObject<GSM01200DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM01200Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
+    
         }
         protected override GSM01200DTO R_Display(GSM01200DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
             R_Exception loEx = new R_Exception();
             GSM01200DTO loRtn = null;
             R_Db loDb;
@@ -70,6 +76,8 @@ namespace GSM01200Back
 
         protected override void R_Saving(GSM01200DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -126,6 +134,8 @@ namespace GSM01200Back
 
         public List<GSM01200DTO> GetCoACenterListDb(GOAHeadListDbParameter poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetCoACenterListDb");
+
             R_Exception loException = new R_Exception();
             List<GSM01200DTO> loRtn = null;
             string lcCmd;
@@ -168,6 +178,8 @@ namespace GSM01200Back
         
         public List<AssignCenterDTO> GetCenterToAssignList(CenterAssignParameter poNewEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetCenterToAssignList");
+
             List<AssignCenterDTO> loRtn = null;
             R_Exception loEx = new R_Exception();
             R_Db loDB;
@@ -214,6 +226,8 @@ namespace GSM01200Back
         
         public GSM01200DTO GSM01200GetParameterDb(ParameterHeadGLDbParameter poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("GSM01200GetParameterDb");
+
             R_Exception loException = new R_Exception();
             GSM01200DTO loRtn = null;
             string lcQuery;
@@ -261,6 +275,8 @@ namespace GSM01200Back
 
         public void SaveAssignCenterToDb(CentertoAssignParam poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("SaveAssignCenterToDb");
+
             R_Exception loException = new R_Exception();
             R_Db loDb = new R_Db();
             DbConnection loConn = loDb.GetConnection();

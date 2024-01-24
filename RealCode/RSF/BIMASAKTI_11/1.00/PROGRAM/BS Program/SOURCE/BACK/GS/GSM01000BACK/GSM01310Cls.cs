@@ -5,6 +5,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using GSM01000Common;
 
 namespace GSM01000Back
@@ -12,13 +13,19 @@ namespace GSM01000Back
     public class GSM01310Cls: R_BusinessObject<GSM01310DTO>
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM01310Cls()
         {
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_GetInstanceActivitySource();
+
         }
         protected override GSM01310DTO R_Display(GSM01310DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("R_Display");
+
             R_Exception loEx = new R_Exception();
             GSM01310DTO loRtn = null;
             R_Db loDb;
@@ -67,6 +74,8 @@ namespace GSM01000Back
 
         protected override void R_Saving(GSM01310DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             R_Exception loEx = new R_Exception();
             string lcQuery = null;
             R_Db loDb;
@@ -121,6 +130,8 @@ namespace GSM01000Back
         
         public List<GSM01310DTO> GetGoACoAList (GoAMainDbParameter poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("GetGoACoAList");
+
             R_Exception loEx = new R_Exception();
             List<GSM01310DTO> loRtn = null;
             R_Db loDb;
@@ -163,6 +174,8 @@ namespace GSM01000Back
         
         public List<GSM01310DTO> GetCoAToAssignList(GOAHeadListDbParameter poNewEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetCoAToAssignList");
+
             List<GSM01310DTO> loRtn = null;
             R_Exception loEx = new R_Exception();
             R_Db loDB;

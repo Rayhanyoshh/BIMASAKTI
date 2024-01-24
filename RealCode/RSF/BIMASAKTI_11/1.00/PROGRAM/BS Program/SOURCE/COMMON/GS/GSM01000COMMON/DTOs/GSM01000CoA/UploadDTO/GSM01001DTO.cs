@@ -15,6 +15,13 @@ namespace GSM01000Common.DTOs
         public bool CenterRestriction { get; set; }
         public bool UserRestriction { get; set; }
         public string NonActiveDate { get; set; }
+        
+        public string CashFlowGroupCode { get; set; }
+        public string CashFlowCode { get; set; }
+        public string Valid { get; set; }
+
+
+
         public string ErrorMessage { get; set; }
         public bool Var_Exists { get; set; }
         public bool Var_Overwrite { get; set; }
@@ -46,6 +53,9 @@ namespace GSM01000Common.DTOs
         public string CDBCR { get; set; }
         public bool LACTIVE { get; set; }
         public bool LCENTER_RESTR { get; set; }
+        public string CCASH_FLOW_GROUP_CODE { get; set; }
+        public string CCASH_FLOW_CODE { get; set; }
+
         public bool LUSER_RESTR { get; set; } 
         public bool LEXIST { get; set; } 
         public string NonActiveDate { get; set; }

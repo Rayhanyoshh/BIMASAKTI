@@ -88,7 +88,7 @@ namespace GSM01000Model
                     LCENTER_RESTR = loTemp.CenterRestriction,
                     NonActiveDate = loTemp.NonActiveDate,
                     NonActiveDateDisplay = !string.IsNullOrWhiteSpace(loTemp.NonActiveDate) ? DateTime.ParseExact(loTemp.NonActiveDate, "yyyyMMdd", CultureInfo.InvariantCulture) : default,
-                    Valid = "",
+                    Valid = loTemp.Valid,
                     ErrorMessage = "",
                     Var_Exists = loTemp.Var_Exists,
                     Var_Overwrite = loTemp.Var_Overwrite

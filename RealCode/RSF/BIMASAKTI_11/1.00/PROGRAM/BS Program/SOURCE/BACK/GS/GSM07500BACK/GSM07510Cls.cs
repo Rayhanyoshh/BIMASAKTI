@@ -4,6 +4,7 @@ using R_CommonFrontBackAPI;
 using GSM07500Common.DTOs;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Transactions;
 using GSM07500Common;
 
@@ -12,59 +13,67 @@ namespace GSM07500Back
     public class GSM07510Cls : R_BusinessObject<GSM07510DTO>
     {
         private LoggerGSM07500 _logger;
+        private readonly ActivitySource _activitySource;
+
 
         public GSM07510Cls()
         {
             _logger = LoggerGSM07500.R_GetInstanceLogger();
+            _activitySource = GSM07500Activity.R_GetInstanceActivitySource();
+
         }
         protected override GSM07510DTO R_Display(GSM07510DTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GetPeriodDetailDbList");
+
+            R_Exception loEx = new R_Exception();
+            GSM07510DTO loRtn = null;
+            R_Db loDb;
+            DbConnection loConn;
+            DbCommand loCmd;
+            string lcQuery;
+
+            // Log the start of the R_Display method
+            _logger.LogInfo("Starting R_Display for poEntity: {@poEntity}", poEntity);
+
+            try
             {
-                R_Exception loEx = new R_Exception();
-                GSM07510DTO loRtn = null;
-                R_Db loDb;
-                DbConnection loConn;
-                DbCommand loCmd;
-                string lcQuery;
-    
-                // Log the start of the R_Display method
-                _logger.LogInfo("Starting R_Display for poEntity: {@poEntity}", poEntity);
+                loDb = new R_Db();
+                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loCmd = loDb.GetCommand();
 
-                try
-                {
-                    loDb = new R_Db();
-                    loConn = loDb.GetConnection("R_DefaultConnectionString");
-                    loCmd = loDb.GetCommand();
+                lcQuery = "RSP_GS_GET_PERIOD_HD";
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loCmd.CommandText = lcQuery;
 
-                    lcQuery = "RSP_GS_GET_PERIOD_HD";
-                    loCmd.CommandType = CommandType.StoredProcedure;
-                    loCmd.CommandText = lcQuery;
-        
-                    loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
-                    loDb.R_AddCommandParameter(loCmd, "@CYEAR", System.Data.DbType.String, 4, poEntity.CYEAR);
-                    loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", System.Data.DbType.String, 50, poEntity.CUSER_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CYEAR", System.Data.DbType.String, 4, poEntity.CYEAR);
+                loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", System.Data.DbType.String, 50, poEntity.CUSER_ID);
 
-                    var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
 
-                    loRtn = R_Utility.R_ConvertTo<GSM07510DTO>(loDataTable).FirstOrDefault();
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception using R_LogError
-                    _logger.LogError(ex, "An error occurred in R_Display.");
-                    loEx.Add(ex);
-                }
+                loRtn = R_Utility.R_ConvertTo<GSM07510DTO>(loDataTable).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception using R_LogError
+                _logger.LogError(ex, "An error occurred in R_Display.");
+                loEx.Add(ex);
+            }
 
-                EndBlock:
-                loEx.ThrowExceptionIfErrors();
+            EndBlock:
+            loEx.ThrowExceptionIfErrors();
 
-                // Log the end of the R_Display method
-                _logger.LogInfo("R_Display completed.");
+            // Log the end of the R_Display method
+            _logger.LogInfo("R_Display completed.");
 
-                return loRtn;
+            return loRtn;
         }
 
         protected override void R_Saving(GSM07510DTO poNewEntity, eCRUDMode poCRUDMode)
         {
+            using Activity activity = _activitySource.StartActivity("R_Saving");
+
             var loEx = new R_Exception();
             string lcQuery = "";
             var loDb = new R_Db();

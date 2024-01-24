@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
@@ -16,17 +17,23 @@ namespace GSM01000Service
     public class GSM01300Controller : ControllerBase, IGSM01300
     {
         private LoggerGSM01000 _logger;
+        private readonly ActivitySource _activitySource;
+
         
         public GSM01300Controller(ILogger<GSM01300Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM01000.R_InitializeLogger(logger);
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000Controller));
+
         }
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM01300DTO> R_ServiceGetRecord(
             R_ServiceGetRecordParameterDTO<GSM01300DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             R_Exception loEx = new R_Exception();
             R_ServiceGetRecordResultDTO<GSM01300DTO> loRtn = null;
             GSM01300Cls loCls;
@@ -73,6 +80,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01300ListDTO GetAllGOA()
         {
+            using Activity activity = _activitySource.StartActivity("GetAllGOA");
+
             R_Exception loEx = new R_Exception();
             GSM01300ListDTO loRtn = null;
             List<GSM01300DTO> loResult;
@@ -113,6 +122,8 @@ namespace GSM01000Service
         [HttpPost]
         public IAsyncEnumerable<GSM01300DTO> GetAllGOAStream()
         {
+            using Activity activity = _activitySource.StartActivity("GetAllGOAStream");
+
             R_Exception loException = new R_Exception();
             GOAHeadListDbParameter loDbPar;
             List<GSM01300DTO> loRtnTmp;
@@ -152,6 +163,8 @@ namespace GSM01000Service
         [HttpPost]
         public AssignCOAResultDTO AssignCOAAction(COAtoAssignParam poParam)
         {
+            using Activity activity = _activitySource.StartActivity("AssignCOAAction");
+
             var loEx = new R_Exception();
             AssignCOAResultDTO loRtn = new AssignCOAResultDTO();
             COAtoAssignParam loparam;

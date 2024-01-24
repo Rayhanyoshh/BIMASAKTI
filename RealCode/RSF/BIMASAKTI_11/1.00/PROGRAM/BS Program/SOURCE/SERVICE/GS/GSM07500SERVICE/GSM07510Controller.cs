@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
@@ -16,17 +17,23 @@ namespace GSM07500Service
     public class GSM07510Controller  : ControllerBase, IGSM07510
     {
         private LoggerGSM07500 _logger;
+        private readonly ActivitySource _activitySource;
+
         
         public GSM07510Controller(ILogger<GSM07510Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM07500.R_InitializeLogger(logger);
             _logger = LoggerGSM07500.R_GetInstanceLogger();
+            _activitySource = GSM07500Activity.R_InitializeAndGetActivitySource(nameof(GSM07500Controller));
+
         }   
         
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM07510DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM07510DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             _logger.LogInfo("Start - R_ServiceGetRecord");
 
             R_Exception loEx = new R_Exception();
@@ -66,6 +73,8 @@ namespace GSM07500Service
         [HttpPost]
         public R_ServiceSaveResultDTO<GSM07510DTO> R_ServiceSave(R_ServiceSaveParameterDTO<GSM07510DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+
             _logger.LogInfo("Start - R_ServiceSave");
 
             var loEx = new R_Exception();
@@ -100,6 +109,8 @@ namespace GSM07500Service
         [HttpPost]
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<GSM07510DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceDelete");
+
             _logger.LogInfo("Start - R_ServiceDelete");
 
             R_Exception loEx = new R_Exception();
@@ -134,6 +145,8 @@ namespace GSM07500Service
         [HttpPost]
         public GSM07510ListDTO PeriodList()
         {
+            using Activity activity = _activitySource.StartActivity("PeriodList");
+
             _logger.LogInfo("Start - PeriodList");
 
             R_Exception loEx = new R_Exception();
@@ -182,6 +195,8 @@ namespace GSM07500Service
         [HttpPost]
         public IAsyncEnumerable<GSM07510DTO> PeriodListStream()
         {
+            using Activity activity = _activitySource.StartActivity("PeriodListStream");
+
             _logger.LogInfo("Start - PeriodListStream");
 
             R_Exception loException = new R_Exception();
@@ -219,6 +234,8 @@ namespace GSM07500Service
         [HttpPost]
         public LastYearDTO GetLastYear()
         {
+            using Activity activity = _activitySource.StartActivity("GetLastYear");
+
             _logger.LogInfo("Start - GetLastYear");
 
             R_Exception loEx = new R_Exception();

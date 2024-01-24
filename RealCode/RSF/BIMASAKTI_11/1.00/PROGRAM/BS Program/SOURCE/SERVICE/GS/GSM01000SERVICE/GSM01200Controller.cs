@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_Common;
@@ -16,6 +17,7 @@ namespace GSM01000Service
     [Route("api/[controller]/[action]"), AllowAnonymous]
     public class GSM01200Controller: ControllerBase, IGSM01200
     {
+        private readonly ActivitySource _activitySource;
         private LoggerGSM01000 _logger;
         
         public GSM01200Controller(ILogger<GSM01200Controller> logger)
@@ -23,11 +25,15 @@ namespace GSM01000Service
             //Initial and Get Logger
             LoggerGSM01000.R_InitializeLogger(logger);
             _logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000Controller));
+
         }
         
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM01200DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM01200DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             R_Exception loEx = new R_Exception();
             R_ServiceGetRecordResultDTO<GSM01200DTO> loRtn = null;
             GSM01200Cls loCls;
@@ -60,6 +66,8 @@ namespace GSM01000Service
         [HttpPost]
         public R_ServiceSaveResultDTO<GSM01200DTO> R_ServiceSave(R_ServiceSaveParameterDTO<GSM01200DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+
             R_Exception loEx = new R_Exception();
             R_ServiceSaveResultDTO<GSM01200DTO> loRtn = null;
             GSM01200Cls loCls;
@@ -99,6 +107,8 @@ namespace GSM01000Service
        [HttpPost]
         public IAsyncEnumerable<GSM01200DTO> GetCoACenterListStream()
         {
+            using Activity activity = _activitySource.StartActivity("GetCoACenterListStream");
+
             R_Exception loException = new R_Exception();
             GOAHeadListDbParameter loDbPar;
             List<GSM01200DTO> loRtnTmp;
@@ -136,6 +146,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01200CenterListDTO GetCoACenterList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCoACenterList");
+
             R_Exception loEx = new R_Exception();
             GSM01200CenterListDTO loRtn = null;
             GOAHeadListDbParameter loDbPar;
@@ -179,9 +191,11 @@ namespace GSM01000Service
         }
     }
     
-     [HttpPost]
+        [HttpPost]
         public IAsyncEnumerable<AssignCenterDTO> GetCenterToAssignList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCenterToAssignList");
+
             CenterAssignParameter loDbPar;
             List<AssignCenterDTO> loRtnTemp = null;
             R_Exception loEx = new R_Exception();
@@ -212,6 +226,8 @@ namespace GSM01000Service
         [HttpPost]
         public GSM01200DTO GetParameterInfo()
         {
+            using Activity activity = _activitySource.StartActivity("GetParameterInfo");
+
             R_Exception loException = new R_Exception();
             ParameterHeadGLDbParameter loDbPar;
             GSM01200Cls loCls;
@@ -246,6 +262,8 @@ namespace GSM01000Service
         [HttpPost]
         public AssignCenterResultDTO AssignCenterAction(CentertoAssignParam poParam)
         {
+            using Activity activity = _activitySource.StartActivity("AssignCenterAction");
+
             var loEx = new R_Exception();
             AssignCenterResultDTO loRtn = new AssignCenterResultDTO();
             CentertoAssignParam loparam;

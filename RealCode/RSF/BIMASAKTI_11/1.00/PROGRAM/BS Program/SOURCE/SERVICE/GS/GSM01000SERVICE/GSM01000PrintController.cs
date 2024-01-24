@@ -6,6 +6,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using R_ReportFastReportBack;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Xml.Linq;
@@ -26,6 +27,8 @@ public class GSM01000PrintController : R_ReportControllerBase
     private LoggerGSM01000Print _logger;
     private R_ReportFastReportBackClass _ReportCls;
     private GSM01000PrintParamCOADTO _Parameter;
+    private readonly ActivitySource _activitySource;
+
 
     #region instantiation
 
@@ -33,6 +36,8 @@ public class GSM01000PrintController : R_ReportControllerBase
     {
         LoggerGSM01000Print.R_InitializeLogger(logger);
         _logger = LoggerGSM01000Print.R_GetInstanceLogger();
+        _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000PrintController));
+
 
         _ReportCls = new R_ReportFastReportBackClass();
         _ReportCls.R_InstantiateMainReportWithFileName += _ReportCls_R_InstantiateMainReportWithFileName;
@@ -69,6 +74,8 @@ public class GSM01000PrintController : R_ReportControllerBase
     [HttpPost]
     public R_DownloadFileResultDTO AllCOAPost(GSM01000PrintParamCOADTO poParameter)
     {
+        using Activity activity = _activitySource.StartActivity("AllCOAPost");
+
         _logger.LogInfo("Start - Post COA Status");
         R_Exception loException = new R_Exception();
         GSM01000PrintLogKeyDTO loCache = null;
@@ -98,6 +105,8 @@ public class GSM01000PrintController : R_ReportControllerBase
     [HttpGet, AllowAnonymous]
     public FileStreamResult ChartOfAccountReport(string pcGuid)
     {
+        using Activity activity = _activitySource.StartActivity("ChartOfAccountReport");
+
         _logger.LogInfo("Start - Get COA Status");
         R_Exception loException = new R_Exception();
         FileStreamResult loRtn = null;
@@ -134,6 +143,8 @@ public class GSM01000PrintController : R_ReportControllerBase
     #region Helper
     private GSM01000PrintCOAResultWithBaseHeaderPrintDTO GenerateDataPrint(GSM01000PrintParamCOADTO poParam)
     {
+        using Activity activity = _activitySource.StartActivity("GenerateDataPrint");
+
         var loEx = new R_Exception();
         GSM01000PrintCOAResultWithBaseHeaderPrintDTO loRtn = new GSM01000PrintCOAResultWithBaseHeaderPrintDTO();
 

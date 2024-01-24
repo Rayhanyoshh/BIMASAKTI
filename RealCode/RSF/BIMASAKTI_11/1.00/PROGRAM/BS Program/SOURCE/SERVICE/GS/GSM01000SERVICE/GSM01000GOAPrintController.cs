@@ -11,9 +11,11 @@ using R_ReportFastReportBack;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GSM01000Back;
 using GSM01000Common;
 using GSM01000Service.DTOs;
 using Microsoft.Extensions.Logging;
@@ -27,6 +29,8 @@ namespace GSM01000Service
         private LoggerGSM01000 _Logger;
         private R_ReportFastReportBackClass _ReportCls;
         private GSM01000PrintParamGOADTO _AllGSM01000GOAParameter;
+        private readonly ActivitySource _activitySource;
+
 
         #region instantiation
 
@@ -34,6 +38,8 @@ namespace GSM01000Service
         {
             LoggerGSM01000.R_InitializeLogger(Logger);
             _Logger = LoggerGSM01000.R_GetInstanceLogger();
+            _activitySource = GSM01000Activity.R_InitializeAndGetActivitySource(nameof(GSM01000GOAPrintController));
+
             
             _ReportCls = new R_ReportFastReportBackClass();
             _ReportCls.R_InstantiateMainReportWithFileName += _ReportCls_R_InstantiateMainReportWithFileName;
@@ -68,6 +74,8 @@ namespace GSM01000Service
         [HttpPost]
         public R_DownloadFileResultDTO AllGOAPost(GSM01000PrintParamGOADTO poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("AllGOAPost");
+
             _Logger.LogInfo("Start - Post GOA");
             R_Exception loException = new R_Exception();
             GSM01000GOAPrintLogKeyDTO loCache = null;
@@ -103,6 +111,8 @@ namespace GSM01000Service
         [HttpGet, AllowAnonymous]
         public FileStreamResult GroupOfAccountReport(string pcGuid)
         {
+            using Activity activity = _activitySource.StartActivity("GroupOfAccountReport");
+
             _Logger.LogInfo("Start - Get GOA Status");
             R_Exception loException = new R_Exception();
             FileStreamResult loRtn = null;
@@ -134,88 +144,90 @@ namespace GSM01000Service
         #region Helper
         private GSM01000PrintGOAResultWithBaseHeaderPrintDTO GenerateDataPrint(GSM01000PrintParamGOADTO poParam)
         {
+            using Activity activity = _activitySource.StartActivity("GenerateDataPrint");
+
             var loEx = new R_Exception();
-    GSM01000PrintGOAResultWithBaseHeaderPrintDTO loRtn = new GSM01000PrintGOAResultWithBaseHeaderPrintDTO();
-    var loParam = new BaseHeaderDTO();
+            GSM01000PrintGOAResultWithBaseHeaderPrintDTO loRtn = new GSM01000PrintGOAResultWithBaseHeaderPrintDTO();
+            var loParam = new BaseHeaderDTO();
 
-    try
-    {
-        _Logger.LogInfo("Generating data for Group Of Account report.");
-
-        // Set base header data
-        loParam.CCOMPANY_NAME = "PT Realta Chackradarma";
-        loParam.CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper();
-        loParam.CPRINT_NAME = "Group Of Account";
-        loParam.CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper();
-        
-        // Create an instance of GSM01000PrintGOAResultDTo
-        GSM01000PrintGOAResultDTo loData = new GSM01000PrintGOAResultDTo()
-        {
-            Title = "Group Of Accounts",
-            Header = "001",
-            Column = new GSM01000PrintColoumnGOADTO(),
-            Data = new List<GSM01000DataResultGOADTO>()
-        };
-
-        // Create an instance of GSM01000Cls
-        var loCls = new GSM01000Cls();
-
-        // Get print data for Group Of Account report
-        var loCollection = loCls.GetPrintDataResultGOA(poParam);
-
-        // Process the data and create a formatted list
-        var loTempData = loCollection
-            .GroupBy(data1a => new
+            try
             {
-                data1a.CGOA_CODE,
-                data1a.CGOA_NAME,
-                data1a.CGOA_BSIS,
-                data1a.CGOA_DBCR,
-            }).Select(data1b => new GSM01000DataResultGOADTO()
+            _Logger.LogInfo("Generating data for Group Of Account report.");
+
+            // Set base header data
+            loParam.CCOMPANY_NAME = "PT Realta Chackradarma";
+            loParam.CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper();
+            loParam.CPRINT_NAME = "Group Of Account";
+            loParam.CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper();
+            
+            // Create an instance of GSM01000PrintGOAResultDTo
+            GSM01000PrintGOAResultDTo loData = new GSM01000PrintGOAResultDTo()
             {
-                CGOA_CODE = data1b.Key.CGOA_CODE,
-                CGOA_NAME = data1b.Key.CGOA_NAME,
-                CGOA_BSIS = data1b.Key.CGOA_BSIS,
-                CGOA_DBCR = data1b.Key.CGOA_DBCR,
-                GSM01001DataResultGOADTO = data1b.GroupBy(data2a => new
+                Title = "Group Of Accounts",
+                Header = "001",
+                Column = new GSM01000PrintColoumnGOADTO(),
+                Data = new List<GSM01000DataResultGOADTO>()
+            };
+
+            // Create an instance of GSM01000Cls
+            var loCls = new GSM01000Cls();
+
+            // Get print data for Group Of Account report
+            var loCollection = loCls.GetPrintDataResultGOA(poParam);
+
+            // Process the data and create a formatted list
+            var loTempData = loCollection
+                .GroupBy(data1a => new
                 {
-                    data2a.CGLACCOUNT_NO,
-                    data2a.CGLACCOUNT_NAME,
-                    data2a.CBSIS,
-                    data2a.CDBCR,
-                    data2a.CCASH_FLOW_CODE,
-                    data2a.CCASH_FLOW_NAME,
-                    data2a.LACTIVE,
-                }).Select(data2b => new GSM01001DataResultGOADTO()
+                    data1a.CGOA_CODE,
+                    data1a.CGOA_NAME,
+                    data1a.CGOA_BSIS,
+                    data1a.CGOA_DBCR,
+                }).Select(data1b => new GSM01000DataResultGOADTO()
                 {
-                    CGLACCOUNT_NO = data2b.Key.CGLACCOUNT_NO,
-                    CGLACCOUNT_NAME = data2b.Key.CGLACCOUNT_NAME,
-                    CBSIS = data2b.Key.CBSIS,
-                    CDBCR = data2b.Key.CDBCR,
-                    CCASH_FLOW_CODE = data2b.Key.CCASH_FLOW_CODE,
-                    CCASH_FLOW_NAME = data2b.Key.CCASH_FLOW_NAME,
-                    LACTIVE = data2b.Key.LACTIVE,
-                }).ToList()
-            }).ToList();
+                    CGOA_CODE = data1b.Key.CGOA_CODE,
+                    CGOA_NAME = data1b.Key.CGOA_NAME,
+                    CGOA_BSIS = data1b.Key.CGOA_BSIS,
+                    CGOA_DBCR = data1b.Key.CGOA_DBCR,
+                    GSM01001DataResultGOADTO = data1b.GroupBy(data2a => new
+                    {
+                        data2a.CGLACCOUNT_NO,
+                        data2a.CGLACCOUNT_NAME,
+                        data2a.CBSIS,
+                        data2a.CDBCR,
+                        data2a.CCASH_FLOW_CODE,
+                        data2a.CCASH_FLOW_NAME,
+                        data2a.LACTIVE,
+                    }).Select(data2b => new GSM01001DataResultGOADTO()
+                    {
+                        CGLACCOUNT_NO = data2b.Key.CGLACCOUNT_NO,
+                        CGLACCOUNT_NAME = data2b.Key.CGLACCOUNT_NAME,
+                        CBSIS = data2b.Key.CBSIS,
+                        CDBCR = data2b.Key.CDBCR,
+                        CCASH_FLOW_CODE = data2b.Key.CCASH_FLOW_CODE,
+                        CCASH_FLOW_NAME = data2b.Key.CCASH_FLOW_NAME,
+                        LACTIVE = data2b.Key.LACTIVE,
+                    }).ToList()
+                }).ToList();
 
-        // Set the generated data in loRtn
-        _Logger.LogInfo("Get Detail GOA Analysis Report");
-        loRtn.GOAData = loData;
-        loRtn.BaseHeaderData = loParam;
-        loData.Data = loTempData;
-        
-        _Logger.LogInfo("Data generation for Group Of Account report completed.");
-    }
-    catch (Exception ex)
-    {
-        loEx.Add(ex);
-        _Logger.LogError(loEx);
-    }
-
-    loEx.ThrowExceptionIfErrors();
-
-    return loRtn;
+            // Set the generated data in loRtn
+            _Logger.LogInfo("Get Detail GOA Analysis Report");
+            loRtn.GOAData = loData;
+            loRtn.BaseHeaderData = loParam;
+            loData.Data = loTempData;
+            
+            _Logger.LogInfo("Data generation for Group Of Account report completed.");
         }
-        #endregion
-    }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+            _Logger.LogError(loEx);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+
+        return loRtn;
+            }
+            #endregion
+        }
 }
