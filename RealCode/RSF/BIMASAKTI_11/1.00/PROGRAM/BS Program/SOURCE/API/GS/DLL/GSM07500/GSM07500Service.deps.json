@@ -13,7 +13,10 @@
           "R_APIBackEnd": "1.0.0.0",
           "R_APICommon": "1.0.0.0",
           "R_APICommonDTO": "1.0.0.0",
-          "R_CommonFrontBackAPI": "1.0.0.0"
+          "R_Cache": "1.0.0.0",
+          "R_CommonFrontBackAPI": "1.0.0.0",
+          "R_OpenTelemetry": "1.0.0.0",
+          "R_ReportFastReportBack": "1.0.0.0"
         },
         "runtime": {
           "GSM07500Service.dll": {}
@@ -21,7 +24,8 @@
       },
       "GSM07500Back/1.0.0": {
         "dependencies": {
-          "GSM07500Common": "1.0.0"
+          "GSM07500Common": "1.0.0",
+          "RSP_GS_MAINTAIN_PERIODResources": "1.0.0"
         },
         "runtime": {
           "GSM07500Back.dll": {}
@@ -30,6 +34,11 @@
       "GSM07500Common/1.0.0": {
         "runtime": {
           "GSM07500Common.dll": {}
+        }
+      },
+      "RSP_GS_MAINTAIN_PERIODResources/1.0.0": {
+        "runtime": {
+          "RSP_GS_MAINTAIN_PERIODResources.dll": {}
         }
       },
       "R_APIBackEnd/1.0.0.0": {
@@ -64,9 +73,33 @@
           }
         }
       },
+      "R_Cache/1.0.0.0": {
+        "runtime": {
+          "R_Cache.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "R_CommonFrontBackAPI/1.0.0.0": {
         "runtime": {
           "R_CommonFrontBackAPI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "R_OpenTelemetry/1.0.0.0": {
+        "runtime": {
+          "R_OpenTelemetry.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "R_ReportFastReportBack/1.0.0.0": {
+        "runtime": {
+          "R_ReportFastReportBack.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -80,9 +113,9 @@
           }
         }
       },
-      "R_StorageCommon/1.0.0.0": {
+      "R_AuthorizationBack.Abstract/1.0.0.0": {
         "runtime": {
-          "R_StorageCommon.dll": {
+          "R_AuthorizationBack.Abstract.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -122,6 +155,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "RSP_GS_MAINTAIN_PERIODResources/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "R_APIBackEnd/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -137,7 +175,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "R_Cache/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "R_CommonFrontBackAPI/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R_OpenTelemetry/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R_ReportFastReportBack/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -147,7 +200,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "R_StorageCommon/1.0.0.0": {
+    "R_AuthorizationBack.Abstract/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

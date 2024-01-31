@@ -286,14 +286,25 @@ namespace GSM07500Back
                 // Initialize external exception handling
                 R_ExternalException.R_SP_Init_Exception(loConn);
 
-                lcQuery = "SELECT CAST(ISNULL((SELECT TOP 1 CYEAR FROM GSM_PERIOD WHERE CCOMPANY_ID = @CCOMPANY_ID ORDER BY CYEAR DESC), 0) + 1 AS VARCHAR(4)) AS NEXT_YEAR";
+                lcQuery = "SELECT CAST" +
+                          "(CASE WHEN ISNULL((SELECT TOP 1 CYEAR FROM GSM_PERIOD " +
+                          "WHERE CCOMPANY_ID = 'BSI' " +
+                          "ORDER BY CYEAR DESC), " +
+                          "(CONVERT(VARCHAR(4), GETDATE(), 112) - 1)) + 1 = 1 " +
+                          "THEN CONVERT(VARCHAR(4), GETDATE(), 112) " +
+                          "ELSE ISNULL((SELECT TOP 1 CYEAR FROM GSM_PERIOD " +
+                          "WHERE CCOMPANY_ID = 'BSI' ORDER BY CYEAR DESC), (CONVERT(VARCHAR(4), " +
+                          "GETDATE(), 112) - 1)) + 1 END AS VARCHAR(4)) AS NEXT_YEAR";
                 loCmd.CommandType = CommandType.Text;
                 loCmd.CommandText = lcQuery;
 
+                
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
 
                 // Log the SQL query using LogDebug
+                _logger.LogDebug("CCOMPANY_ID parameter value: {CCOMPANY_ID}", poEntity.CCOMPANY_ID);
                 _logger.LogDebug("Executing SQL query: {lcQuery}", lcQuery);
+
 
                 var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
 

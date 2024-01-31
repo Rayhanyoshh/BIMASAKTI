@@ -169,6 +169,24 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CashFlowCode.
+        /// </summary>
+        internal static string _cashflowcode {
+            get {
+                return ResourceManager.GetString("_cashflowcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CashFlowGroupCode.
+        /// </summary>
+        internal static string _cashflowgroupcode {
+            get {
+                return ResourceManager.GetString("_cashflowgroupcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Center Code.
         /// </summary>
         internal static string _centerCode {

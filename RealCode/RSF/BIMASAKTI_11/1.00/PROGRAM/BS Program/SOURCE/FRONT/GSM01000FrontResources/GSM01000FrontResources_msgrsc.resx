@@ -153,6 +153,12 @@
   <data name="_cashflow" xml:space="preserve">
     <value>Cash Flow</value>
   </data>
+  <data name="_cashflowcode" xml:space="preserve">
+    <value>CashFlowCode</value>
+  </data>
+  <data name="_cashflowgroupcode" xml:space="preserve">
+    <value>CashFlowGroupCode</value>
+  </data>
   <data name="_centerCode" xml:space="preserve">
     <value>Center Code</value>
   </data>

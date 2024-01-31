@@ -136,7 +136,7 @@ public class GSM01001Cls  : R_IBatchProcess
                 lcQuery = $"EXEC RSP_WriteUploadProcessStatus '{poBatchProcessPar.Key.COMPANY_ID}', " +
                           $"'{poBatchProcessPar.Key.USER_ID}', " +
                           $"'{poBatchProcessPar.Key.KEY_GUID}', " +
-                          $"100, '{loException.ErrorList[0].ErrDescp}', 9";
+                          $"100, '{loException.ErrorList[0].ErrDescp}', 13";
 
                 loDb.SqlExecNonQuery(lcQuery);
             }

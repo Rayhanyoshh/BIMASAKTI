@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Transactions;
+using RSP_GS_MAINTAIN_PERIODResources;
 using GSM07500Common;
 
 namespace GSM07500Back
@@ -14,6 +15,7 @@ namespace GSM07500Back
     {
         private LoggerGSM07500 _logger;
         private readonly ActivitySource _activitySource;
+        private RSP_GS_MAINTAIN_PERIODResources.Resources_Dummy_Class _RSP_PERIOD = new RSP_GS_MAINTAIN_PERIODResources.Resources_Dummy_Class();
 
         public GSM07500Cls()
         {

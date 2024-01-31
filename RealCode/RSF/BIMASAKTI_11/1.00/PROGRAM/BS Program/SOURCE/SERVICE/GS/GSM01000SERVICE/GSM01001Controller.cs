@@ -12,7 +12,7 @@ namespace GSM01000Service
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class GSM01001Controller  : ControllerBase, IGSM01001
+    public class  GSM01001Controller  : ControllerBase, IGSM01001
     {
         [HttpPost]
         public IAsyncEnumerable<GSM01001ErrorValidateDTO> GetErrorProcess()

@@ -147,7 +147,7 @@ namespace GSM01000Model
                 loBatchPar.ClassName = "GSM01000Back.GSM01001Cls";
                 loBatchPar.BigObject = Bigobject;
 
-                var lcGuid = await loCls.R_BatchProcess<List<GSM01001ErrorValidateDTO>>(loBatchPar, 20);
+                var lcGuid = await loCls.R_BatchProcess<List<GSM01001ErrorValidateDTO>>(loBatchPar, 13);
             }
             catch (Exception ex)
             {
