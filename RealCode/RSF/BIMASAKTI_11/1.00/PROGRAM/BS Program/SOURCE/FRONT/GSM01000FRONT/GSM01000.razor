@@ -1,9 +1,6 @@
 ﻿@page "/GSM01000" 
-@attribute [R_Page(Title = "Chart Of Account")]
 @inherits R_Page
-@using GSM01000Common.DTOs
-@using GSM01000FrontResources;
-@using R_BlazorFrontEnd.Interfaces;
+@attribute [R_Page(Title = "Chart Of Account")]
 @inject R_ILocalizer<ResourcesDummyCls> _localizer
 
 <R_PredefinedDock R_InstantiateDock="@Predef_GOA" R_AfterOpenPredefinedDock="@AfterPredef_GOA" title="Group Of Account">
@@ -63,6 +60,14 @@
                          R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
                          R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
                          R_EnableOther
+                         R_Display="@Grid_Display"
+                         R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
+                         R_BeforeAdd="@COA_BeforeAdd"
+                         R_Validation="@GridAddCOA_Validation"
+                         R_ServiceSave="@Grid_ServiceSave"
+                         R_AfterAdd="R_After_Add_COA"
+                         R_ServiceDelete="@Grid_ServiceDelete"
+                         R_ViewModel="@_GSM01000ViewModel"
                          Enabled="@CopyFromButton">@_localizer["_copyForm"]</R_Popup>
             </R_ItemLayout>
 
@@ -120,6 +125,7 @@
                     AllowAddNewRow="false"
                     AllowDeleteRow="false"
                     AllowEditRow="false"
+                    R_ViewModel="@_GSM01010ViewModel"
                     R_ServiceGetListRecord="@GridGoA_ServiceGetListRecord"
                     Height="120px">
 
@@ -133,19 +139,8 @@
         </R_StackLayout>
     </R_StackLayout>
     <R_ConductorGrid @ref="@_conductorGridRef"
-                     R_ViewModel="@_GSM01000ViewModel"
-                     R_IsHeader="true"
-                     R_Display="@Grid_Display"
-                     R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
-                     R_BeforeAdd="@COA_BeforeAdd"
-                     R_Validation="@GridAddCOA_Validation"
-                     R_ServiceSave="@Grid_ServiceSave"
-                     R_AfterAdd="R_After_Add_COA"
-                     R_ServiceDelete="@Grid_ServiceDelete"
-                     @* R_BeforeDelete="@BeforeDeleteCOA" *@
-                     R_ConvertToGridEntity="@R_ConvertToGridEntity"/>
+                     R_IsHeader="true"/>
     <R_ConductorGrid @ref="@_conductorGoARef"
-                     R_ViewModel="@_GSM01010ViewModel"
                      R_ConductorParent="@_conductorGridRef"
                      R_DisableCancelConfirmation="false">
     </R_ConductorGrid>

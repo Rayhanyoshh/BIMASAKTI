@@ -1,6 +1,7 @@
 
 using BlazorClientHelper;
 using GSM01000Common;
+using GSM01000FrontResources;
 using GSM01000Common.DTOs;
 using GSM01000Model;
 using Microsoft.AspNetCore.Components;

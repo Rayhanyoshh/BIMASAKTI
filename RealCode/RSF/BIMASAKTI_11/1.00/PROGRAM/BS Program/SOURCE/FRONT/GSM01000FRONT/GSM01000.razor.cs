@@ -1,31 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlazorClientHelper;
+﻿using BlazorClientHelper;
 using GFF00900COMMON.DTOs;
-using GSM01000Common;
 using GSM01000Common.DTOs;
+using GSM01000Front;
 using GSM01000Model;
 using Lookup_GSCOMMON.DTOs;
 using Lookup_GSFRONT;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.Grid.Columns;
+using R_BlazorFrontEnd.Controls.MessageBox;
+using R_BlazorFrontEnd.Controls.Popup;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
 using R_ContextFrontEnd;
-using R_BlazorFrontEnd.Helpers;
-using Microsoft.JSInterop;
-using R_BlazorFrontEnd.Controls.MessageBox;
-using R_BlazorFrontEnd.Controls.Popup;
-using R_BlazorFrontEnd.Interfaces;
-
 
 namespace GSM01000Front
 {
@@ -81,7 +73,6 @@ namespace GSM01000Front
 
         #endregion
 
-
         protected override async Task R_Init_From_Master(object poParam)
         {
             var loEx = new R_Exception();
@@ -116,13 +107,74 @@ namespace GSM01000Front
             R_DisplayException(loEx);
         }
 
+        override 
+        //private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
+        //private const string DEFAULT_MODULE_NAME = "GS";
+        //override 
+        //override  
+        // protected async override Task<bool> R_LockUnlock(R_LockUn eventArgs)
+        // {
+        //     var loEx = new R_Exception();
+        //     var llRtn = false;
+        //     R_LockingFrontResult loLockResult = null;
+        //
+        //     try
+        //     {
+        //         var loData = (APM00310DTO)eventArgs.Data;
+        //
+        //         var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
+        //             plSendWithContext: true,
+        //             plSendWithToken: true,
+        //             pcHttpClientName: DEFAULT_HTTP_NAME);
+        //
+        //         if (eventArgs.Mode == R_eLockUnlock.Lock)
+        //         {
+        //             var loLockPar = new R_ServiceLockingLockParameterDTO
+        //             {
+        //                 Company_Id = clientHelper.CompanyId,
+        //                 User_Id = clientHelper.UserId,
+        //                 Program_Id = "APM00310",
+        //                 Table_Name = "APM_SUPPLIER",
+        //                 Key_Value = string.Join("|", clientHelper.CompanyId, loData.CPROPERTY_ID, loData.CSUPPLIER_ID)
+        //             };
+        //
+        //             loLockResult = await loCls.R_Lock(loLockPar);
+        //         }
+        //         else
+        //         {
+        //             var loUnlockPar = new R_ServiceLockingUnLockParameterDTO
+        //             {
+        //                 Company_Id = clientHelper.CompanyId,
+        //                 User_Id = clientHelper.UserId,
+        //                 Program_Id = "APM00310",
+        //                 Table_Name = "APM_SUPPLIER",
+        //                 Key_Value = string.Join("|", clientHelper.CompanyId, loData.CPROPERTY_ID, loData.CSUPPLIER_ID)
+        //             };
+        //
+        //             loLockResult = await loCls.R_UnLock(loUnlockPar);
+        //         }
+        //
+        //         llRtn = loLockResult.IsSuccess;
+        //         if (!loLockResult.IsSuccess && loLockResult.Exception != null)
+        //             throw loLockResult.Exception;
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         loEx.Add(ex);
+        //     }
+        //
+        //     loEx.ThrowExceptionIfErrors();
+        //
+        //     return llRtn;
+        // }
+
         #region COA
 
-        private void COA_BeforeAdd(R_BeforeAddEventArgs eventArgs)
-        {
-            _enableActiveInactive = false;
+        //private void COA_BeforeAdd(R_BeforeAddEventArgs eventArgs)
+        //{
+        //    _enableActiveInactive = false;
 
-        }
+        //}
 
         private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs arg)
         {
@@ -198,7 +250,7 @@ namespace GSM01000Front
                     AssignUserButton = true;
                 }
 
-                if(loParam.LCENTER_RESTR == false)
+                if (loParam.LCENTER_RESTR == false)
                 {
                     AssignCenterButton = false;
                 }
@@ -298,7 +350,7 @@ namespace GSM01000Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private async Task BeforeDeleteCOA (R_BeforeDeleteEventArgs eventArgs)
+        private async Task BeforeDeleteCOA(R_BeforeDeleteEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
@@ -758,7 +810,7 @@ namespace GSM01000Front
         #endregion
 
         #region BeforeAdd
-         private void R_After_Add_COA (R_AfterAddEventArgs eventArgs)
+        private void R_After_Add_COA(R_AfterAddEventArgs eventArgs)
         {
             var loEx = new R_Exception();
 

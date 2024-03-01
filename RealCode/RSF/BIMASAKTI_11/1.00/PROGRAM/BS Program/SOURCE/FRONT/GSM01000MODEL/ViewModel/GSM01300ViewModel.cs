@@ -29,6 +29,8 @@ namespace GSM01000Model
         public ObservableCollection<GSM01300DTO> loGridGoAList { get; set; } = new ObservableCollection<GSM01300DTO>();
         public GSM01300DTO loEntity = new GSM01300DTO();
         public string loGOA { get; set; } = "";
+        public string GOAcode { get; set; }
+        public string GOAname { get; set; }
 
         public R_ContextHeader _ContextHeader { get; set; }
         
@@ -72,6 +74,8 @@ namespace GSM01000Model
                 loParam = poParam;
                 var loResult = await _GSM01300Model.R_ServiceGetRecordAsync(loParam);
                 loEntity = loResult;
+                loEntity.CGOA_CODE = GOAcode;
+                loEntity.CGOA_NAME = GOAname;
             }
             catch (Exception ex)
             {

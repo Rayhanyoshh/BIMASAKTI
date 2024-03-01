@@ -20,6 +20,9 @@ namespace GSM01000Model
         public R_ContextHeader _ContextHeader { get; set; }
         public string _cglAccountNo { get; set; }
         
+        public string _cglCode { get; set; }
+        public string _cglName { get; set; }
+        
         public async Task GetGOAListbyGL()
         {
             var loEx = new R_Exception();

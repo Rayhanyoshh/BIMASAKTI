@@ -50,6 +50,11 @@ public partial class GSM07500 : R_Page
         R_DisplayException(loEx);
     }
 
+    protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+    {
+        return base.R_LockUnlock(eventArgs);
+    }
+
     #region Period
 
     private async Task GridPeriod_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs arg)

@@ -7,8 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="6.0.0" />
+	  <ProjectReference Include="..\..\COMMON\GL\GLT00600COMMON\GLT00600Common.csproj" />
 	</ItemGroup>
+
+	<!--<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
+	</ItemGroup>-->
 	
 	<ItemGroup>
 		<Reference Include="R_APIClient">
@@ -38,15 +42,7 @@
 		<Reference Include="R_ProcessAndUploadFront">
 			<HintPath>..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_ProcessAndUploadFront.dll</HintPath>
 		</Reference>
-		<Reference Include="R_BlazorFrontEnd.Controls">
-			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Front\R_BlazorFrontEnd.Controls.dll</HintPath>
-		</Reference>
 	</ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\..\COMMON\GL\GLT00600COMMON\GLT00600Common.csproj" />
-	</ItemGroup>
-
 
 
 </Project>

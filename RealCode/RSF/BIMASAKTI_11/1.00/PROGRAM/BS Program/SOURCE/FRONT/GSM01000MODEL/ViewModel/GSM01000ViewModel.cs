@@ -31,6 +31,9 @@ namespace GSM01000Model
         public List<DropDownDTO> CDBCR_Option { get; set; } = new List<DropDownDTO>();
         
         public PrimaryAccountDTO loHasil = new PrimaryAccountDTO();
+        
+        public string _cglCode { get; set; }
+        public string _cglName { get; set; }
 
         #region Print
 
@@ -73,6 +76,7 @@ namespace GSM01000Model
                 loParam = poParam;
                 var loResult = await _GSM01000Model.R_ServiceGetRecordAsync(loParam);
                 loEntity = loResult;
+
             }
             catch (Exception ex)
             {

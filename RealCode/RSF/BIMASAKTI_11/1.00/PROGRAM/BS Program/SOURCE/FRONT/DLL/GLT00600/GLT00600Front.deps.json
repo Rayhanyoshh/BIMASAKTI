@@ -8,7 +8,6 @@
     ".NETCoreApp,Version=v6.0": {
       "GLT00600Front/1.0.0": {
         "dependencies": {
-          "GLT00600Common": "1.0.0",
           "GLT00600FrontResources": "1.0.0",
           "GLT00600Model": "1.0.0",
           "GLTR00100FRONT": "1.0.0",
@@ -154,17 +153,6 @@
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
-      "System.Text.Encodings.Web/6.0.0": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "System.Text.Json/6.0.0": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
-          "System.Text.Encodings.Web": "6.0.0"
-        }
-      },
       "BaseHeaderReportCOMMON/1.0.0": {
         "runtime": {
           "BaseHeaderReportCOMMON.dll": {}
@@ -182,8 +170,7 @@
       },
       "GLT00600Model/1.0.0": {
         "dependencies": {
-          "GLT00600Common": "1.0.0",
-          "System.Text.Json": "6.0.0"
+          "GLT00600Common": "1.0.0"
         },
         "runtime": {
           "GLT00600Model.dll": {}
@@ -459,20 +446,6 @@
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
-    },
-    "System.Text.Encodings.Web/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Vg8eB5Tawm1IFqj4TVK1czJX89rhFxJo9ELqc/Eiq0eXy13RK00eubyU6TJE6y+GQXjyV5gSfiewDUZjQgSE0w==",
-      "path": "system.text.encodings.web/6.0.0",
-      "hashPath": "system.text.encodings.web.6.0.0.nupkg.sha512"
-    },
-    "System.Text.Json/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
-      "path": "system.text.json/6.0.0",
-      "hashPath": "system.text.json.6.0.0.nupkg.sha512"
     },
     "BaseHeaderReportCOMMON/1.0.0": {
       "type": "project",

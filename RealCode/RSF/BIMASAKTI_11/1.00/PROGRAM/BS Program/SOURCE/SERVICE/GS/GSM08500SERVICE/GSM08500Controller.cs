@@ -305,6 +305,7 @@ namespace GSM08500Service
             return loRtn;          
         }
 
+        [HttpPost]
         public GSM08500UploadHeaderDTO CompanyDetail()
         {
             _logger.LogInfo("Start - CompanyDetail");
@@ -332,6 +333,7 @@ namespace GSM08500Service
             return loRtn; 
         }
 
+        [HttpPost]
         public PrimaryAccountDTO PrimaryAccountCheck()
         {
             _logger.LogInfo("Start - Primary account check");
