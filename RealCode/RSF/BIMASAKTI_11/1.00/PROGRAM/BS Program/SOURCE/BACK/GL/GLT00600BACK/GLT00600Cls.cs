@@ -71,69 +71,72 @@ namespace GLT00600Back
                 {
                     lcAction = "EDIT";
                 }
-                loCmd = loDB.GetCommand();
-                loConn = loDB.GetConnection();
-
-                var tempParam = R_Utility.R_ConvertCollectionToCollection<GLT00600JournalGridDetailDTO, SaveJournalDetailDTO>(poNewEntity
-                    .DetailList);
-                lcQuery = @"CREATE TABLE #GLT0100_JOURNAL_DETAIL 
-                              ( CGLACCOUNT_NO VARCHAR(20)
-                                ,CCENTER_CODE    VARCHAR(10)
-                                ,CDBCR           CHAR(1)
-                                ,NAMOUNT         NUMERIC(19,2)
-                                ,CDETAIL_DESC    NVARCHAR(200)
-                                ,CDOCUMENT_NO    VARCHAR(20)
-                                ,CDOCUMENT_DATE  VARCHAR(8)
-                              ) ";
-
-                try
+                using (var TransScope = new TransactionScope(TransactionScopeOption.Required))
                 {
-                    R_ExternalException.R_SP_Init_Exception(loConn);
-                    loDB.SqlExecNonQuery(lcQuery, loConn, false);
-                    loDB.R_BulkInsert((SqlConnection)loConn, "#GLT0100_JOURNAL_DETAIL", tempParam);
+                    loCmd = loDB.GetCommand();
+                    loConn = loDB.GetConnection();
 
-                    lcQuery = @"EXEC RSP_GL_SAVE_JOURNAL 
-                              @CUSER_ID, @CJRN_ID, @CACTION, @CCOMPANY_ID, 
-                              @CDEPT_CODE, @CTRANS_CODE, @CREF_NO, @CDOC_NO, @CDOC_DATE,@CREF_DATE,
-                              @CREVERSE_DATE, @LREVERSE, @CTRANS_DESC, @CCURRENCY_CODE, 
-                              @NLBASE_RATE, @NLCURRENCY_RATE, @NBBASE_RATE, @NBCURRENCY_RATE, @NPRELIST_AMOUNT 
-                              ";
-                    loCmd.CommandText = lcQuery;
-                    loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 50, poNewEntity.CUSER_ID);
-                    loDB.R_AddCommandParameter(loCmd, "@CJRN_ID", DbType.String, 50, poNewEntity.CREC_ID ?? "");
-                    loDB.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, 50, lcAction);
-                    loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poNewEntity.CCOMPANY_ID);
-                    loDB.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, 50, poNewEntity.CDEPT_CODE);
-                    loDB.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 50, poNewEntity.CTRANS_CODE);
-                    loDB.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, 50, poNewEntity.CREF_NO);
-                    loDB.R_AddCommandParameter(loCmd, "@CDOC_NO", DbType.String, 50, poNewEntity.CDOC_NO);
-                    loDB.R_AddCommandParameter(loCmd, "@CDOC_DATE", DbType.String, 50, poNewEntity.CDOC_DATE);
-                    loDB.R_AddCommandParameter(loCmd, "@CREF_DATE", DbType.String, 50, poNewEntity.CREF_DATE);
-                    loDB.R_AddCommandParameter(loCmd, "@CREVERSE_DATE", DbType.String, 50, poNewEntity.CREVERSE_DATE);
-                    loDB.R_AddCommandParameter(loCmd, "@LREVERSE", DbType.Boolean, 50, poNewEntity.LREVERSE);
-                    loDB.R_AddCommandParameter(loCmd, "@CTRANS_DESC", DbType.String, 50, poNewEntity.CTRANS_DESC);
-                    loDB.R_AddCommandParameter(loCmd, "@CCURRENCY_CODE", DbType.String, 50, poNewEntity.CCURRENCY_CODE);
-                    loDB.R_AddCommandParameter(loCmd, "@NLBASE_RATE", DbType.Decimal, 50, poNewEntity.NLBASE_RATE);
-                    loDB.R_AddCommandParameter(loCmd, "@NLCURRENCY_RATE", DbType.Decimal, 50, poNewEntity.NLCURRENCY_RATE);
-                    loDB.R_AddCommandParameter(loCmd, "@NBBASE_RATE", DbType.Decimal, 50, poNewEntity.NBBASE_RATE);
-                    loDB.R_AddCommandParameter(loCmd, "@NBCURRENCY_RATE", DbType.Decimal, 50, poNewEntity.NBCURRENCY_RATE);
-                    loDB.R_AddCommandParameter(loCmd, "@NPRELIST_AMOUNT", DbType.Decimal, 50, poNewEntity.NPRELIST_AMOUNT);
+                    var tempParam = R_Utility.R_ConvertCollectionToCollection<GLT00600JournalGridDetailDTO, SaveJournalDetailDTO>(poNewEntity
+                        .DetailList);
+                    lcQuery = @"CREATE TABLE #GLT0100_JOURNAL_DETAIL 
+                                  ( CGLACCOUNT_NO VARCHAR(20)
+                                    ,CCENTER_CODE    VARCHAR(10)
+                                    ,CDBCR           CHAR(1)
+                                    ,NAMOUNT         NUMERIC(19,2)
+                                    ,CDETAIL_DESC    NVARCHAR(200)
+                                    ,CDOCUMENT_NO    VARCHAR(20)
+                                    ,CDOCUMENT_DATE  VARCHAR(8)
+                                  ) ";
 
-
-                    var loDataTable = loDB.SqlExecQuery(loConn, loCmd, false);
-                    loResult = R_Utility.R_ConvertTo<GLT00600DTO>(loDataTable).ToList();
-
-                    if (string.IsNullOrWhiteSpace(poNewEntity.CREC_ID))
+                    try
                     {
-                        poNewEntity.CREC_ID = loResult.FirstOrDefault().CJRN_ID;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    loEx.Add(ex);
-                }
-                loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
+                        R_ExternalException.R_SP_Init_Exception(loConn);
+                        loDB.SqlExecNonQuery(lcQuery, loConn, false);
+                        loDB.R_BulkInsert((SqlConnection)loConn, "#GLT0100_JOURNAL_DETAIL", tempParam);
 
+                        lcQuery = @"EXEC RSP_GL_SAVE_JOURNAL 
+                                  @CUSER_ID, @CJRN_ID, @CACTION, @CCOMPANY_ID, 
+                                  @CDEPT_CODE, @CTRANS_CODE, @CREF_NO, @CDOC_NO, @CDOC_DATE,@CREF_DATE,
+                                  @CREVERSE_DATE, @LREVERSE, @CTRANS_DESC, @CCURRENCY_CODE, 
+                                  @NLBASE_RATE, @NLCURRENCY_RATE, @NBBASE_RATE, @NBCURRENCY_RATE, @NPRELIST_AMOUNT 
+                                  ";
+                        loCmd.CommandText = lcQuery;
+                        loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 50, poNewEntity.CUSER_ID);
+                        loDB.R_AddCommandParameter(loCmd, "@CJRN_ID", DbType.String, 50, poNewEntity.CREC_ID ?? "");
+                        loDB.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, 50, lcAction);
+                        loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poNewEntity.CCOMPANY_ID);
+                        loDB.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, 50, poNewEntity.CDEPT_CODE);
+                        loDB.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 50, poNewEntity.CTRANS_CODE);
+                        loDB.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, 50, poNewEntity.CREF_NO);
+                        loDB.R_AddCommandParameter(loCmd, "@CDOC_NO", DbType.String, 50, poNewEntity.CDOC_NO);
+                        loDB.R_AddCommandParameter(loCmd, "@CDOC_DATE", DbType.String, 50, poNewEntity.CDOC_DATE);
+                        loDB.R_AddCommandParameter(loCmd, "@CREF_DATE", DbType.String, 50, poNewEntity.CREF_DATE);
+                        loDB.R_AddCommandParameter(loCmd, "@CREVERSE_DATE", DbType.String, 50, "");
+                        loDB.R_AddCommandParameter(loCmd, "@LREVERSE", DbType.Boolean, 50, poNewEntity.LREVERSE);
+                        loDB.R_AddCommandParameter(loCmd, "@CTRANS_DESC", DbType.String, 50, poNewEntity.CTRANS_DESC);
+                        loDB.R_AddCommandParameter(loCmd, "@CCURRENCY_CODE", DbType.String, 50, poNewEntity.CCURRENCY_CODE);
+                        loDB.R_AddCommandParameter(loCmd, "@NLBASE_RATE", DbType.Decimal, 50, poNewEntity.NLBASE_RATE);
+                        loDB.R_AddCommandParameter(loCmd, "@NLCURRENCY_RATE", DbType.Decimal, 50, poNewEntity.NLCURRENCY_RATE);
+                        loDB.R_AddCommandParameter(loCmd, "@NBBASE_RATE", DbType.Decimal, 50, poNewEntity.NBBASE_RATE);
+                        loDB.R_AddCommandParameter(loCmd, "@NBCURRENCY_RATE", DbType.Decimal, 50, poNewEntity.NBCURRENCY_RATE);
+                        loDB.R_AddCommandParameter(loCmd, "@NPRELIST_AMOUNT", DbType.Decimal, 50, poNewEntity.NPRELIST_AMOUNT);
+
+
+                        var loDataTable = loDB.SqlExecQuery(loConn, loCmd, false);
+                        loResult = R_Utility.R_ConvertTo<GLT00600DTO>(loDataTable).ToList();
+
+                        if (string.IsNullOrWhiteSpace(poNewEntity.CREC_ID))
+                        {
+                            poNewEntity.CREC_ID = loResult.FirstOrDefault().CJRN_ID;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        loEx.Add(ex);
+                    }
+                    loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
+                    TransScope.Complete();
+                }
             }
             catch (Exception ex)
             {
@@ -318,6 +321,49 @@ namespace GLT00600Back
             loException.ThrowExceptionIfErrors();
             return loResult;
         }
+
+
+        public GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600ParameterDTO poParameter, GLT00600JournalGridDTO poData)
+        {
+            R_Exception loEx = new R_Exception();
+            //_loggerGLT00600.LogInfo("Start RefreshCurrencyRate GLT00600");
+            DbCommand loCmd;
+            string lcQuery = "";
+            try
+            {
+                R_Db loDb = new R_Db();
+                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loCmd = loDb.GetCommand();
+
+                lcQuery = "RSP_GS_GET_LAST_CURRENCY_RATE";
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loCmd.CommandText = lcQuery;
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poParameter.CCOMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CURRENCY_CODE", DbType.String, 50, poParameter.CURRENCY_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CRATETYPE_CODE", DbType.String, 50, poParameter.CRATETYPE_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CRATE_DATE", DbType.String, 50, poData.CREF_DATE);
+
+                var loDbParam = loCmd.Parameters.Cast<DbParameter>()
+                    .Where(x => x != null && x.ParameterName.StartsWith("@"))
+                    .ToDictionary(x => x.ParameterName, x => x.Value);
+                //_loggerGLT00400.LogDebug("{@ObjectQuery} {@Parameter}", loCmd.CommandText, loDbParam);
+
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            if (loEx.Haserror)
+            {
+                //_loggerGLT00400.LogError(loEx);
+
+            }
+            //_loggerGLT00400.LogInfo("End RefreshCurrencyRate GLT00400");
+            loEx.ThrowExceptionIfErrors();
+            return poData;
+        }
+
+
         public List<VAR_USER_DEPARTMENTDTO> GetDeptList(GLT00600ParameterDTO poParameter)
         {
             var loEx = new R_Exception();

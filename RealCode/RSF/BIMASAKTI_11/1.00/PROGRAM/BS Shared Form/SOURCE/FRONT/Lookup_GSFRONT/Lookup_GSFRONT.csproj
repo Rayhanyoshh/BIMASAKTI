@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BACK\Lookup_GSCOMMON\Lookup_GSCOMMON.csproj" />
+    <ProjectReference Include="..\Lookup_GSFrontResources\Lookup_GSFrontResources.csproj" />
     <ProjectReference Include="..\Lookup_GSModel\Lookup_GSModel.csproj" />
   </ItemGroup>
 
@@ -40,6 +40,12 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Update="GSL00510.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="GSL02300.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Update="GSL02200.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

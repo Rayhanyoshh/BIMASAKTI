@@ -288,12 +288,12 @@ namespace GSM07500Back
 
                 lcQuery = "SELECT CAST" +
                           "(CASE WHEN ISNULL((SELECT TOP 1 CYEAR FROM GSM_PERIOD " +
-                          "WHERE CCOMPANY_ID = 'BSI' " +
+                          "WHERE CCOMPANY_ID = @CCOMPANY_ID " +
                           "ORDER BY CYEAR DESC), " +
                           "(CONVERT(VARCHAR(4), GETDATE(), 112) - 1)) + 1 = 1 " +
                           "THEN CONVERT(VARCHAR(4), GETDATE(), 112) " +
                           "ELSE ISNULL((SELECT TOP 1 CYEAR FROM GSM_PERIOD " +
-                          "WHERE CCOMPANY_ID = 'BSI' ORDER BY CYEAR DESC), (CONVERT(VARCHAR(4), " +
+                          "WHERE CCOMPANY_ID = @CCOMPANY_ID ORDER BY CYEAR DESC), (CONVERT(VARCHAR(4), " +
                           "GETDATE(), 112) - 1)) + 1 END AS VARCHAR(4)) AS NEXT_YEAR";
                 loCmd.CommandType = CommandType.Text;
                 loCmd.CommandText = lcQuery;

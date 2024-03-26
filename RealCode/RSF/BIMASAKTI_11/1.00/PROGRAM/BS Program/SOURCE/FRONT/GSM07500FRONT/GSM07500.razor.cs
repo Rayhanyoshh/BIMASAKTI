@@ -12,6 +12,8 @@ using R_CommonFrontBackAPI;
 using R_ContextFrontEnd;
 using System.Diagnostics.Tracing;
 using System.Xml.Linq;
+using R_BlazorFrontEnd.Controls.Enums;
+using R_LockingFront;
 
 namespace GSM07500Front;
 
@@ -50,10 +52,67 @@ public partial class GSM07500 : R_Page
         R_DisplayException(loEx);
     }
 
-    protected override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
-    {
-        return base.R_LockUnlock(eventArgs);
-    }
+    #region LockUnlock
+
+      private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
+        private const string DEFAULT_MODULE_NAME = "GS";
+        protected async override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+            var llRtn = false;
+            R_LockingFrontResult loLockResult = null;
+
+            try
+            {
+                var loData = (GSM07510DTO)eventArgs.Data;
+
+                var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
+                    plSendWithContext: true,
+                    plSendWithToken: true,
+                    pcHttpClientName: DEFAULT_HTTP_NAME);
+
+                if (eventArgs.Mode == R_eLockUnlock.Lock)
+                {
+                    var loLockPar = new R_ServiceLockingLockParameterDTO
+                    {
+                        Company_Id = _clientHelper.CompanyId,
+                        User_Id = _clientHelper.UserId,
+                        Program_Id = "GSM07500",
+                        Table_Name = "GSM_PERIOD",
+                        Key_Value = string.Join("|", _clientHelper.CompanyId, loData.CCOMPANY_ID, loData.CYEAR)
+                    };
+
+                    loLockResult = await loCls.R_Lock(loLockPar);
+                }
+                else
+                {
+                    var loUnlockPar = new R_ServiceLockingUnLockParameterDTO
+                    {
+                        Company_Id = _clientHelper.CompanyId,
+                        User_Id = _clientHelper.UserId,
+                        Program_Id = "GSM07500",
+                        Table_Name = "GSM_PERIOD",
+                        Key_Value = string.Join("|", _clientHelper.CompanyId, loData.CCOMPANY_ID, loData.CYEAR)
+                    };
+
+                    loLockResult = await loCls.R_UnLock(loUnlockPar);
+                }
+
+                llRtn = loLockResult.IsSuccess;
+                if (!loLockResult.IsSuccess && loLockResult.Exception != null)
+                    throw loLockResult.Exception;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return llRtn;
+        }
+
+    #endregion
 
     #region Period
 

@@ -10,7 +10,7 @@ using R_BlazorFrontEnd;
 
 namespace GLT00600Model
 {
-    public class GLT00600Model: R_BusinessObjectServiceClientBase<GLT00600DTO>, IGLT00600
+    public class GLT00600Model : R_BusinessObjectServiceClientBase<GLT00600DTO>, IGLT00600
     {
         private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrlGL";
         private const string DEFAULT_SERVICEPOINT_NAME = "api/GLT00600";
@@ -26,7 +26,7 @@ namespace GLT00600Model
         {
         }
 
-        public async Task<GLT00600JournalGridListDTO> GetJournalListAsync(string lcPeriod, string lcSearch, string lcDeptCode, string lcStatus)
+        public async Task<GLT00600JournalGridListDTO> GetJournalListAsync(string lcPeriod, string lcTransCode, string lcSearch, string lcDeptCode, string lcStatus)
         {
             R_Exception loEx = new R_Exception();
             GLT00600JournalGridListDTO loResult = new GLT00600JournalGridListDTO();
@@ -36,6 +36,7 @@ namespace GLT00600Model
                 R_FrontContext.R_SetContext(ContextConstant.CSEARCH_TEXT, lcSearch);
                 R_FrontContext.R_SetContext(ContextConstant.CDEPT_CODE, lcDeptCode);
                 R_FrontContext.R_SetContext(ContextConstant.CSTATUS, lcStatus);
+                R_FrontContext.R_SetContext(ContextConstant.CTRANS_CODE, lcTransCode);
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
                 var loResTemp = await R_HTTPClientWrapper.R_APIRequestStreamingObject<GLT00600JournalGridDTO>(
                     _RequestServiceEndPoint,
@@ -104,6 +105,30 @@ namespace GLT00600Model
             loEx.ThrowExceptionIfErrors();
 
         }
+
+        public async Task<GLT00600JournalGridListDTO> RefreshCurrencyRateAsync(GLT00600JournalGridDTO poData)
+        {
+            var loEx = new R_Exception();
+            GLT00600JournalGridListDTO loResult = new GLT00600JournalGridListDTO();
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridListDTO, GLT00600JournalGridDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGLT00600.RefreshCurrencyRate),
+                    poData,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loResult;
+        }
+
         public async Task JournalProcessAsync(GLT00600JournalGridDTO poData)
         {
             R_Exception loEx = new R_Exception();
@@ -489,6 +514,11 @@ namespace GLT00600Model
         }
 
         public GSM_TRANSACTION_APPROVALDTO GetTransactionApproval()
+        {
+            throw new NotImplementedException();
+        }
+
+        public GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData)
         {
             throw new NotImplementedException();
         }

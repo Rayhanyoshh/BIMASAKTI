@@ -19,7 +19,10 @@ using Lookup_GSFRONT;
 using GLT00600Model.ViewModel;
 using GLT00600Common.DTOs;
 using Lookup_GSCOMMON.DTOs;
+using R_BlazorFrontEnd.Controls.Enums;
 using R_BlazorFrontEnd.Controls.MessageBox;
+using R_LockingFront;
+using Lookup_GSModel.ViewModel;
 
 namespace GLT00600Front;
 
@@ -33,7 +36,7 @@ public partial class GLT00600 : R_Page
 
     private R_Grid<GLT00600JournalGridDetailDTO> _gridDetailRef;
     private R_ConductorGrid _conductorGridDetailRef;
-    [Inject] IClientHelper clientHelper { get; set; }
+    [Inject] IClientHelper _clientHelper { get; set; }
 
     protected override async Task R_Init_From_Master(object poParameter)
     {
@@ -60,8 +63,8 @@ public partial class GLT00600 : R_Page
             await _JournalListViewModel.GetIundo();
             await _JournalListViewModel.GetStatusList();
             //await GetMonth();
-            _JournalListViewModel.COMPANYID = clientHelper.CompanyId;
-            _JournalListViewModel.USERID = clientHelper.UserId;
+            _JournalListViewModel.COMPANYID = _clientHelper.CompanyId;
+            _JournalListViewModel.USERID = _clientHelper.UserId;
 
             //await _JournalListViewModel.GetAllData();
             //await _gridRef.R_RefreshGrid(null);
@@ -73,17 +76,12 @@ public partial class GLT00600 : R_Page
 
         loEx.ThrowExceptionIfErrors();
     }
+    
+   
 
     public async Task GetMonth()
     {
         _JournalListViewModel.GetMonthList = new List<GetMonthDTO>();
-
-        //for (int i = 1; i <= 12; i++)
-        //{
-        //    string monthId = i.ToString("D2");
-        //    GetMonthDTO month = new GetMonthDTO { Id = monthId };
-        //    _JournalListViewModel.GetMonthList.Add(month);
-        //}
 
         for (int i = 0; i < 12; i++)
         {
@@ -91,9 +89,6 @@ public partial class GLT00600 : R_Page
             GetMonthDTO month = new GetMonthDTO { Id = monthId };
             _JournalListViewModel.GetMonthList.Add(month);
         }
-
-
-
     }
 
     public async Task OnclickSearch(object poParam)
@@ -173,6 +168,8 @@ public partial class GLT00600 : R_Page
         loEx.ThrowExceptionIfErrors();
 
     }
+
+   
 
     #region JournalGrid
     private async Task JournalGrid_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
@@ -386,8 +383,8 @@ public partial class GLT00600 : R_Page
     {
         var param = new GSL00700ParameterDTO
         {
-            CUSER_ID = clientHelper.UserId,
-            CCOMPANY_ID = clientHelper.CompanyId
+            CUSER_ID = _clientHelper.UserId,
+            CCOMPANY_ID = _clientHelper.CompanyId
         };
         eventArgs.Parameter = param;
         eventArgs.TargetPageType = typeof(GSL00700);
@@ -404,6 +401,41 @@ public partial class GLT00600 : R_Page
 
         _JournalListViewModel.Data.CDEPT_CODE = loTempResult.CDEPT_CODE;
         _JournalListViewModel.Data.CDEPT_NAME = loTempResult.CDEPT_NAME;
+    }
+
+    private async Task OnLostFocus_LookupDept()
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            LookupGSL00700ViewModel loLookupViewModel = new LookupGSL00700ViewModel(); //use GSL's model
+            var loParam = new GSL00700ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            {
+                CSEARCH_TEXT = _JournalListViewModel.Parameter.CDEPT_CODE, // property that bindded to search textbox
+            };
+
+
+            var loResult = await loLookupViewModel.GetDepartment(loParam); //retrive single record 
+
+            //show result & show name/related another fields
+            if (loResult == null)
+            {
+                loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
+                        "_ErrLookup01"));
+                _JournalListViewModel.Parameter.CDEPT_NAME = ""; //kosongin bind textbox name kalo gaada
+                                                                     //await GLAccount_TextBox.FocusAsync();
+            }
+            else
+                _JournalListViewModel.Parameter.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        R_DisplayException(loEx);
     }
     #endregion
 

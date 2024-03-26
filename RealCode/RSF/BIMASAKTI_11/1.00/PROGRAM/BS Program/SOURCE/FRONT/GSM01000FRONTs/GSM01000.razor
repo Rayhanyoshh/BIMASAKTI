@@ -1,0 +1,271 @@
+﻿@page "/GSM01000" 
+@attribute [R_Page(Title = "Chart Of Account")]
+@inherits R_Page
+@using GSM01000Common.DTOs
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
+
+<R_PredefinedDock R_InstantiateDock="@Predef_GOA" R_AfterOpenPredefinedDock="@AfterPredef_GOA" title="Group Of Account">
+
+</R_PredefinedDock>
+
+<R_TabStrip  OnActiveTabIndexChanged="@ChangeTab">
+<R_TabStripTab Title="Chart Of Account">
+    <R_StackLayout Spacing="3" Class="mb-4">
+        <R_StackLayout>
+            <R_Grid @ref="@_gridRef"
+                    DataSource="@_GSM01000ViewModel.loGridList"
+                    Pageable="true"
+                    R_ConductorGridSource="_conductorGridRef"
+                    R_GridType="@R_eGridType.Original"
+                    R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
+                    AllowAddNewRow="@AddModePrimary"
+                    AllowEditRow="@EditModePrimary"
+                    AllowDeleteRow="@DeleteModePrimary"
+                    R_Before_Open_Grid_Lookup="Cash_Before_Open_Lookup"
+                    R_After_Open_Grid_Lookup="Cash_After_Open_Lookup"
+                    >
+
+                <R_GridColumns>
+                        <R_GridTextColumn MaxLength="20" FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false" Width="128px"></R_GridTextColumn>
+                        <R_GridTextColumn MaxLength="60" FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] R_EnableAdd="true" R_EnableEdit="true" Width="400px" />
+                    <R_GridDropDownListColumn Data="@_GSM01000ViewModel.BSIS_Option"
+                                              FieldName="@nameof(GSM01000DTO.CBSIS)"
+                                              ValueField="@nameof(DropDownDTO.Id)"
+                                              TextField="@nameof(DropDownDTO.Text)"
+                                                  HeaderText=@_localizer["_bsis"]
+                                              R_EnableAdd="true"
+                                              R_EnableEdit="true"
+                                              Width="115px"/>
+                    <R_GridDropDownListColumn Data="@_GSM01000ViewModel.CDBCR_Option"
+                                              FieldName="@nameof(GSM01000DTO.CDBCR)"
+                                              ValueField="@nameof(DropDownDTO.Id)"
+                                              TextField="@nameof(DropDownDTO.Text)"
+                                                  HeaderText=@_localizer["_dc"]
+                                              R_EnableAdd="true"
+                                              R_EnableEdit="true"
+                                              Width="120px"/>
+                        <R_GridCheckBoxColumn FieldName="LACTIVE" HeaderText=@_localizer["_active"] R_EnableAdd="false" Enabled="false" R_EnableEdit="@_enableActiveInactive" Width="85px" />
+                        <R_GridCheckBoxColumn FieldName="LUSER_RESTR" HeaderText=@_localizer["_userRestriction"] R_EnableAdd="@AddModePrimary" R_EnableEdit="@EditModePrimary" Width="140px" />
+                        <R_GridCheckBoxColumn FieldName="LCENTER_RESTR" HeaderText=@_localizer["_centerRestriction"] R_EnableAdd="@AddModePrimary" R_EnableEdit="@EditModePrimary" Width="155px" />
+                        <R_GridLookupColumn FieldName="CCASH_FLOW_CODE" Name="CCASH" HeaderText=@_localizer["_cashflow"] R_EnableAdd="true" R_EnableEdit="true" Width="110px" />
+                        <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] R_EnableAdd="false" R_EnableEdit="false" Width="115px" />
+                        <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] R_EnableAdd="false" R_EnableEdit="false" Width="150px" />
+                        <R_GridTextColumn FieldName="CCREATE_BY" HeaderText=@_localizer["_createdBy"] R_EnableAdd="false" R_EnableEdit="false" Width="110px" />
+                        <R_GridTextColumn FieldName="DCREATE_DATE" HeaderText=@_localizer["_createdDate"] R_EnableAdd="false" R_EnableEdit="false" Width="135px" />
+                </R_GridColumns>
+            </R_Grid>
+        </R_StackLayout>
+        <R_StackLayout Row="true" Spacing="3">
+            <R_ItemLayout>
+                <R_Popup R_ConductorGridSource="@_conductorGridRef"
+                         R_Before_Open_Popup="@R_Before_Open_Popup_CopyFrom"
+                         R_After_Open_Popup="@R_After_Open_Popup_CopyFrom"
+                         R_EnableOther
+                         Enabled="@CopyFromButton">@_localizer["_copyForm"]</R_Popup>
+            </R_ItemLayout>
+
+            <R_ItemLayout >
+                     <R_Button R_Conductor="@_conductorGridRef" OnClick="@DownloadTemplate">@_localizer["_template"]</R_Button>
+            </R_ItemLayout>
+
+            <R_ItemLayout >
+                <R_Popup R_ConductorGridSource="_conductorGridRef"
+                         R_Before_Open_Popup="R_Before_Open_Popup_Upload"
+                         R_After_Open_Popup="R_After_Open_Popup_Upload"
+                             Enabled>@_localizer["_upload"]</R_Popup>
+            </R_ItemLayout>
+
+            <R_ItemLayout >
+                <R_Popup R_ConductorGridSource="@_conductorGridRef"
+                         R_Before_Open_Popup="@R_Before_Open_Popup_ActivateInactive"
+                         R_After_Open_Popup="@R_After_Open_Popup_ActivateInactive">
+                    @loLabel
+                </R_Popup>
+            </R_ItemLayout>
+
+            <R_ItemLayout >
+                <R_Popup R_Conductor="@_conductorGridRef"
+                         R_Before_Open_Popup="@R_Before_Open_Popup_Print"
+                             R_After_Open_Popup="@R_After_Open_Popup_Print">@_localizer["_print"]</R_Popup>
+            </R_ItemLayout>
+        </R_StackLayout>
+    </R_StackLayout>
+    <R_StackLayout>
+        <R_StackLayout Spacing="3" Class="mt-2">
+            <R_StackLayout Row="true">
+                <R_ItemLayout col="1">
+                        <R_Label>@_localizer["_account"]</R_Label>
+                </R_ItemLayout>
+                <R_ItemLayout col="2">
+                    <R_TextBox @bind-Value="@_GSM01000ViewModel._cglCode"
+                               R_ConductorGridSource="@_conductorGridRef"
+                               Enabled="false">
+                    </R_TextBox>
+                </R_ItemLayout>
+                <R_ItemLayout col="3">
+                    <R_TextBox @bind-Value="@_GSM01000ViewModel._cglName"
+                               R_ConductorGridSource="@_conductorGridRef"
+                               Enabled="false">
+                    </R_TextBox>
+                </R_ItemLayout>
+            </R_StackLayout>
+        </R_StackLayout>
+
+        <R_StackLayout Class="mb-3">
+            <R_Grid @ref="@_gridGoARef"
+                    DataSource="@_GSM01010ViewModel.loGridGoAList"
+                    Pageable="true"
+                    R_ConductorGridSource="@_conductorGoARef"
+                    R_GridType="@R_eGridType.Original"
+                    AllowAddNewRow="false"
+                    AllowDeleteRow="false"
+                    AllowEditRow="false"
+                    R_ServiceGetListRecord="@GridGoA_ServiceGetListRecord"
+                    Height="120px">
+
+                <R_GridColumns>
+                        <R_GridTextColumn FieldName="CGOA_CODE" Width="128px" HeaderText=@_localizer["_GroupOfAccount"] />
+                        <R_GridTextColumn FieldName="CGOA_NAME" Width="400px" HeaderText=@_localizer["_GroupOfAccountName"] />
+                        <R_GridTextColumn FieldName="CUPDATE_BY" Width="110px" HeaderText=@_localizer["_updateBy"] />
+                        <R_GridTextColumn FieldName="DUPDATE_DATE" Width="150px" HeaderText=@_localizer["_updateDate"] />
+                </R_GridColumns>
+            </R_Grid>
+        </R_StackLayout>
+    </R_StackLayout>
+    <R_ConductorGrid @ref="@_conductorGridRef"
+                     R_ViewModel="@_GSM01000ViewModel"
+                     R_IsHeader="true"
+                     R_Display="@Grid_Display"
+                     R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
+                     R_BeforeAdd="@COA_BeforeAdd"
+                     R_Validation="@GridAddCOA_Validation"
+                     R_ServiceSave="@Grid_ServiceSave"
+                     R_AfterAdd="R_After_Add_COA"
+                     R_ServiceDelete="@Grid_ServiceDelete"
+                     @* R_BeforeDelete="@BeforeDeleteCOA" *@
+                     R_ConvertToGridEntity="@R_ConvertToGridEntity"/>
+    <R_ConductorGrid @ref="@_conductorGoARef"
+                     R_ViewModel="@_GSM01010ViewModel"
+                     R_ConductorParent="@_conductorGridRef"
+                     R_DisableCancelConfirmation="false">
+    </R_ConductorGrid>
+</R_TabStripTab>
+        <R_TabStripTab Title="User" Id="TabUser" >
+                <R_StackLayout>
+                    <R_StackLayout Spacing="3">
+                        <R_StackLayout Row="true">
+                            <R_ItemLayout col="1" >
+                              <R_Label>@_localizer["_account"]</R_Label>
+                            </R_ItemLayout>
+                            <R_ItemLayout col="2">
+                                <R_TextBox @bind-Value="@_GSM01000ViewModel._cglCode"
+                                            R_ConductorGridSource="@_conductorGridCoAUserRef"
+                                           Enabled="false">
+                                </R_TextBox>
+                            </R_ItemLayout>
+                            <R_ItemLayout col="3">
+                                <R_TextBox @bind-Value="@_GSM01000ViewModel._cglName"
+                                           R_ConductorGridSource="@_conductorGridCoAUserRef"
+                                           Enabled="false">
+                                </R_TextBox>
+                            </R_ItemLayout>
+                        </R_StackLayout>
+                    </R_StackLayout>
+                
+                    <R_StackLayout Class="mb-3">
+                        <R_Grid @ref="@_gridCoAUserRef"
+                                DataSource="@_GSM01100ViewModel.loGridCoAUserList"
+                                Pageable="true"
+                                R_ConductorGridSource="@_conductorGridCoAUserRef"
+                                R_GridType="@R_eGridType.Original"
+                                AllowAddNewRow="false"
+                                AllowDeleteRow="false"
+                                AllowEditRow="false"
+                                R_ServiceGetListRecord="@GridCoAUser_R_ServiceGetListRecord">
+                    
+                            <R_GridColumns>
+                                <R_GridTextColumn FieldName="CUSER_ID" HeaderText=@_localizer["_userID"] />
+                                <R_GridTextColumn FieldName="CUSER_NAME" HeaderText=@_localizer["_username"] />
+                                <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] />
+                                <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] />
+                            </R_GridColumns>
+                        </R_Grid>
+                    </R_StackLayout>
+                    
+                    <R_StackLayout Row="true" Spacing="3">
+                        <R_ItemLayout col="1">
+                            <R_Popup R_Before_Open_Popup="R_Before_Open_PopupUserAssign" R_After_Open_Popup="R_After_Open_PopupUserAssign" Enabled="@AssignUserButton">
+                        @_localizer["_assignUser"]
+                            </R_Popup>
+                        </R_ItemLayout>
+                    </R_StackLayout>
+                </R_StackLayout>
+                
+                <R_ConductorGrid  @ref="@_conductorGridCoAUserRef"
+                              R_ViewModel="@_GSM01100ViewModel"
+                              R_DisableCancelConfirmation="false"
+                              R_ConvertToGridEntity="@R_ConvertToGridEntity">
+                </R_ConductorGrid>
+        </R_TabStripTab>
+<R_TabStripTab Title="Center" Id="TabCenter">
+    <R_StackLayout>
+        <R_StackLayout Spacing="3" Class="mt-2">
+            <R_StackLayout Row="true">
+                <R_ItemLayout col="1" >
+                    <R_Label>@_localizer["_account"]</R_Label>
+                </R_ItemLayout>
+                <R_ItemLayout col="2">
+                    <R_TextBox @bind-Value="@_GSM01000ViewModel._cglCode"
+                               R_ConductorGridSource="@_conductorGridCoACenterRef"
+                               Enabled="false">
+                    </R_TextBox>
+                </R_ItemLayout>
+                <R_ItemLayout col="3">
+                    <R_TextBox @bind-Value="@_GSM01000ViewModel._cglName"
+                               R_ConductorGridSource="@_conductorGridCoACenterRef"
+                               Enabled="false">
+                    </R_TextBox>
+                </R_ItemLayout>
+            </R_StackLayout>
+        </R_StackLayout>
+            
+        <R_StackLayout Class="mb-3">
+            <R_Grid @ref="@_gridCoACenterRef"
+                    DataSource="@_GSM01200ViewModel.loGridCoACenterList"
+                    Pageable="true"
+                    R_ConductorGridSource="@_conductorGridCoACenterRef"
+                    R_GridType="@R_eGridType.Original"
+                    AllowAddNewRow="false"
+                    AllowDeleteRow="false"
+                    AllowEditRow="false"
+                    R_ServiceGetListRecord="@GridCoACenter_R_ServiceGetListRecord">
+                
+                <R_GridColumns>
+                        <R_GridTextColumn FieldName="CCENTER_CODE" HeaderText=@_localizer["_centerCode"] />
+                        <R_GridTextColumn FieldName="CCENTER_NAME" HeaderText=@_localizer["_centerName"] />
+                        <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] />
+                        <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] />
+                </R_GridColumns>
+            </R_Grid>
+        </R_StackLayout>
+                
+        <R_StackLayout Row="true" Spacing="3">
+            <R_ItemLayout col="1">
+                    <R_Popup R_Before_Open_Popup="R_Before_Open_PopupCenter" R_After_Open_Popup="R_After_Open_PopupCenter" Enabled="@AssignCenterButton">
+                        @_localizer["_assignCenter"]
+                </R_Popup>
+            </R_ItemLayout>
+        </R_StackLayout>
+            
+    </R_StackLayout>
+            
+    <R_ConductorGrid  @ref="@_conductorGridCoACenterRef"
+                      R_ViewModel="@_GSM01200ViewModel"
+                      R_DisableCancelConfirmation="false"
+                      R_ConvertToGridEntity="@R_ConvertToGridEntity">
+    </R_ConductorGrid>
+</R_TabStripTab>
+</R_TabStrip>
+

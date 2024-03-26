@@ -5,6 +5,8 @@ namespace GLT00600Common.DTOs
 {
     public class GLT00600JournalGridDetailDTO
     {
+        public string CDEPT_CODE { get; set; }
+
         public string CREC_ID { get; set; }
         public int INO { get; set; }
         public string CGLACCOUNT_NO { get; set; }

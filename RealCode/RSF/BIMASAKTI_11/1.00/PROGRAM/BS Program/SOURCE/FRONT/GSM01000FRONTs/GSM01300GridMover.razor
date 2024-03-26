@@ -1,0 +1,96 @@
+@using GSM01000Common.DTOs;
+@inherits R_Page
+@using GSM01000FrontResources;
+@using R_BlazorFrontEnd.Interfaces;
+@inject R_ILocalizer<ResourcesDummyCls> _localizer
+
+<R_StackLayout Style="width: 700px">
+    <R_StackLayout Row>
+        <R_ItemLayout col="5">
+            <R_GroupBox Title="Available ">
+                <R_Grid @ref="@_SourceAvailableCOA_gridRef"
+                        DataSource="@_GSM01310ViewModel.CoAToAssignList"
+                        R_ConductorGridSource="@_SourceAvailableCOA_conGrid"
+                        R_GridType="@R_eGridType.Batch"
+                        R_ServiceGetListRecord="@AvailableCOA_ServiceGetListRecord"
+                        DragClueField="@nameof(GSM01310DTO.CGLACCOUNT_NO)"
+                        DragDrop="true"
+                        AllowAddNewRow="false"
+                        AllowEditRow
+                        AllowDeleteRow
+                        TargetGridDrop="@_SelectedCOA_gridRef"
+                        Pageable="true"
+                        R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
+                        R_GridRowAfterDrop="@R_GridRowAfterDrop"
+                        Height="300px">
+                    <R_GridColumns>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
+                    </R_GridColumns>
+                </R_Grid>
+                </R_GroupBox>
+                </R_ItemLayout>
+        <R_ItemLayout col="2" >
+            @*Spasing*@
+            <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
+            <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
+            <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
+            <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
+            <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
+
+            <R_StackLayout Row Class="d-flex justify-content-center">
+                    <R_Button R_ConductorGridSource="@_SourceAvailableCOA_conGrid" OnClick="@Allocation_BtnAllMoveRight"> >> </R_Button>
+            </R_StackLayout>
+            <R_StackLayout Row Class="d-flex justify-content-center">
+                    <R_Button R_ConductorGridSource="@_SourceAvailableCOA_conGrid" OnClick="@Allocation_BtnMoveRight"> > </R_Button>
+            </R_StackLayout>
+            <R_StackLayout Row Class="d-flex justify-content-center">
+                    <R_Button R_ConductorGridSource="@_SelectedCOA_conGrid" OnClick="@Allocation_BtnAllMoveLeft"> @label1 </R_Button>
+            </R_StackLayout>
+            <R_StackLayout Row Class="d-flex justify-content-center">
+                    <R_Button R_ConductorGridSource="@_SelectedCOA_conGrid" OnClick="@Allocation_BtnMoveLeft"> @label2 </R_Button>
+            </R_StackLayout>
+        </R_ItemLayout>
+        <R_ItemLayout col="5">
+            <R_GroupBox Title="Selected Account">
+                <R_Grid @ref="@_SelectedCOA_gridRef"
+                         DataSource="@_GSM01310ViewModel.loGridGoACoAList"
+                        R_GridType="@R_eGridType.Batch"
+                        R_ConductorGridSource="@_SelectedCOA_conGrid"
+                        R_ServiceGetListRecord="@SelectedCoA_ServiceGetListRecord"
+                        DragClueField="@nameof(AssignCoADTO.CGLACCOUNT_NO)"
+                        DragDrop="true"
+                        AllowAddNewRow="false"
+                        AllowEditRow
+                        AllowDeleteRow
+                        TargetGridDrop="@_SourceAvailableCOA_gridRef"
+                        Pageable="true"
+                        R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
+                        R_GridRowAfterDrop="@R_GridRowAfterDrop"
+                        Height="300px">
+                    <R_GridColumns>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
+                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
+                    </R_GridColumns>
+                </R_Grid>
+                </R_GroupBox>
+                </R_ItemLayout>
+                </R_StackLayout>
+
+    <R_StackLayout Row Class="mt-2">
+        <R_ItemLayout col="4">
+             <R_Button Enabled="@HasMove" OnClick="@BtnProcess">@_localizer["_process"]</R_Button>
+             <R_Button OnClick="@BtnClose">@_localizer["_close"]</R_Button>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>
+<R_ConductorGrid @ref="@_SourceAvailableCOA_conGrid"
+                 R_ViewModel="@_GSM01310ViewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@R_ServiceGetRecord" />
+
+<R_ConductorGrid @ref="@_SelectedCOA_conGrid"
+                 R_ViewModel="@_GSM1300ViewModel"
+                 R_IsHeader
+                 R_ServiceGetRecord="@R_ServiceGetRecord"
+                 R_ServiceSaveBatch="@R_ServiceSaveBatch" />

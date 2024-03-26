@@ -6,19 +6,16 @@ namespace GLT00600Common.DTOs
 {
     public class GLT00600JournalGridDTO
     {
-        public string CCOMPANY_ID { get; set; }
-        public string CUSER_ID { get; set; }
-        
+        public string CCOMPANY_ID { get ; set; }
+        public string CUSER_ID { get; set; }    
         public bool LSELECTED { get; set; }
         public string CSEARCH_TEXT { get; set; }
         public string CPERIOD { get; set; }
-        public DateTime DREVERSE_DATE { get; set; }
         public string CSOFT_PERIOD_MM { get; set; }
         public int ISOFT_PERIOD_YY { get; set; }
         public string CTRANS_CODE { get; set; }
         public string CDEPT_CODE { get; set; }
         public string CDEPT_NAME { get; set; }
-        public string CREVERSE_DATE { get; set; }
 
         public string CREF_DATE { get; set; }
         public DateTime DREF_DATE { get; set; }
@@ -46,6 +43,12 @@ namespace GLT00600Common.DTOs
         public DateTime DCREATE_DATE { get; set; }
         public bool LCOMMIT_APRJRN { get; set; }
         public bool LUNDO_COMMIT { get; set; }
+        public string CURRENCY_CODE { get; set; }
+        public string CRATETYPE_CODE { get; set; }
+        public decimal NLBASE_RATE_AMOUNT { get; set; }
+        public decimal NLCURRENCY_RATE_AMOUNT { get; set; }
+        public decimal NBBASE_RATE_AMOUNT { get; set; }
+        public decimal NBCURRENCY_RATE_AMOUNT { get; set; }
     }
 
     public class GLT00600JournalGridListDTO : R_APIResultBaseDTO

@@ -21,31 +21,34 @@ namespace GLT00600Model.ViewModel
         private GLT00600Model _JournalListModel = new GLT00600Model();
         public ObservableCollection<GLT00600JournalGridDTO> JournalList = new();
         public GLT00600JournalGridDTO JournalEntity = new();
-        public GLT00600ParameterDTO Parameter = new();
-        public List<GLT00600JournalGridDTO> loGetApprovalList = new List<GLT00600JournalGridDTO>();
-
+        public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailList { get; set; } = new();
+        public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailListTemp { get; set; } = new();
         public Action StateChangeAction { get; set; }
         public Action ShowSuccessAction { get; set; }
 
-        public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailList { get; set; } = new();
-        public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailListTemp { get; set; } = new();
-        public GLT00600DTO Journal = new();
+        public GLT00600ParameterDTO Parameter = new();
+        
+        public List<GetMonthDTO> GetMonthList { get; set; }
 
         #region Collection
         public VAR_CCURRENT_PERIOD_START_DATEDTO CurrentPeriodStartCollection = new();
         public VAR_CSOFT_PERIOD_START_DATEDTO SoftPeriodStartCollection = new();
         public VAR_GL_SYSTEM_PARAMDTO SystemParamCollection = new();
+
         public VAR_GSM_COMPANYDTO CompanyCollection = new();
         public VAR_GSM_PERIODDTO GSMPeriodCollection = new();
         public VAR_GSM_TRANSACTION_CODEDTO TransactionCodeCollection = new();
-        public GSM_TRANSACTION_APPROVALDTO TransactionApprovalCollection = new();
         public VAR_IUNDO_COMMIT_JRNDTO IundoCollection = new();
+        public List<VAR_USER_DEPARTMENTDTO> AllDeptData = new();
+        public GSM_TRANSACTION_APPROVALDTO TransactionApprovalCollection = new();
         public List<StatusDTO> allStatusData = new();
-        public List<CurrencyCodeDTO> currencyData = new();
+        public GLT00600JournalGridDTO entityCurrency = new();
+        public GLT00600JournalGridListDTO listCheck = new();
         public List<GetCenterDTO> CenterListData { get; set; } = new();
         public List<GLT00600JournalGridDTO> loProcessRapidApproveOrCommitList = new();
-        public List<GetMonthDTO> GetMonthList { get; set; }
-        public List<VAR_USER_DEPARTMENTDTO> AllDeptData = new();
+        public GLT00600DTO Journal = new();
+
+        public List<CurrencyCodeDTO> currencyData = new();
         public Dictionary<string, string> statusMappings = new Dictionary<string, string>
         {
             [""] = "All",
@@ -56,45 +59,59 @@ namespace GLT00600Model.ViewModel
             ["99"] = "Deleted"
         };
         #endregion
+
         #region property
-        public string LcCrecID = "";
-        public string lcSearch = "";
-        public string lcPeriod = "";
-        public string lcStatus = "";
-        public string lcDeptCode = "";
+        public DateTime
+            Drefdate = DateTime.Now,
+            Ddocdate = DateTime.Now;
+
+        public int ProgressBarPercentage = 0;
+        public string
+            ProgressBarMessage = "",
+            CCURRENT_PERIOD_YY = "",
+            CCURRENT_PERIOD_MM = "",
+            CSOFT_PERIOD_YY = "",
+            CSOFT_PERIOD_MM = "",
+            LcCrecID = "",
+            lcSearch = "",
+            lcPeriod = "",
+            lcStatus = "",
+            lcDeptCode = "",
+            lcDeptName = "",
+            lcRapidOrdCommit = "",
+            lcLocalCurrency = "",
+            lcBaseCurrency = "";
+
         public string COMPANYID;
         public string USERID;
-        public string CCURRENT_PERIOD_YY = "";
-        public string CCURRENT_PERIOD_MM = "";
-        public string CSOFT_PERIOD_YY = "";
-        public string CSOFT_PERIOD_MM = "";
-        public string ProgressBarMessage = "";
-        public int ProgressBarPercentage = 0;
-        public string ResultProcessList = null;
-        public string ResultFailedProcessList = null;
-
-        public DateTime Drefdate = DateTime.Now;
-        public DateTime Ddocdate = DateTime.Now;
-        public DateTime Drevdate = DateTime.Now;
-        //public bool EnableDept = false;
-        public bool EnableDept = false;
-        public bool buttonRapidApprove = true;
-        public bool buttonRapidCommit = true;
-        public bool EnableButton = false;
-        public bool PredefineJournalList = false;
-        public bool EnableDelete = false;
-        public bool EnableSubmit = false;
-        public bool EnableApprove = false;
-        public bool EnableCommit = false;
-        public bool EnablePrint = false;
-        public bool EnableCopy =false;
-        public string CSTATUS_TEMP { get; set; }
+        public string lcTransCode = "000088";
         public string CommitLabel = "Commit";
         public string SubmitLabel = "Submit";
-        public string lcRapidOrdCommit = "";
-        #endregion
+        public bool
+             EnableDept = false,
+             EnableButton = false,
+             EnableDelete = false,
+             EnableSubmit = false,
+             EnableApprove = false,
+             EnableCommit = false,
+             EnablePrint = false,
+             EnableCopy = false,
+             EnableEdit = false,
+             EnableNLBASE_RATE = false,
+             EnableNLCURRENCY_RATE = false,
+             EnableNBBASE_RATE = false,
+             EnableNBCURRENCY_RATE = false,
+             EnableRefNo = false,
+             loCopy = false;
         
-             #region initial process
+
+
+        public bool buttonRapidApprove = true;
+        public bool buttonRapidCommit = true;
+        public string CSTATUS_TEMP { get; set; }
+        #endregion
+
+        #region initial process
         public async Task GetCurrentPeriodStart(VAR_GL_SYSTEM_PARAMDTO poData)
         {
             var loEx = new R_Exception();
@@ -142,6 +159,8 @@ namespace GLT00600Model.ViewModel
                 var loreturn = await _JournalListModel.GetSystemParamAsync();
                 SystemParamCollection = loreturn;
                 SystemParamCollection.ISOFT_PERIOD_YY = Convert.ToInt32(SystemParamCollection.CSOFT_PERIOD_YY);
+                lcDeptCode = SystemParamCollection.CCLOSE_DEPT_CODE;
+                lcDeptName = SystemParamCollection.CCLOSE_DEPT_NAME;
                 CCURRENT_PERIOD_MM = SystemParamCollection.CCURRENT_PERIOD_MM;
                 CCURRENT_PERIOD_YY = SystemParamCollection.CCURRENT_PERIOD_YY;
                 CSOFT_PERIOD_MM = SystemParamCollection.CSOFT_PERIOD_MM;
@@ -201,6 +220,7 @@ namespace GLT00600Model.ViewModel
             {
                 var loReturn = await _JournalListModel.GetLincementLapprovalAsync();
                 TransactionCodeCollection = loReturn;
+                EnableRefNo = TransactionCodeCollection.LINCREMENT_FLAG;
 
             }
             catch (Exception ex)
@@ -323,25 +343,13 @@ namespace GLT00600Model.ViewModel
 
                 Journal.DREF_DATE = DateTime.ParseExact(Journal.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 Journal.DDOC_DATE = DateTime.ParseExact(Journal.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                if (!string.IsNullOrWhiteSpace(Journal.CREVERSE_DATE))
-                {
-                    // Membersihkan spasi di sekitar nilai tanggal sebelum parsing
-                    string cleanedDate = Journal.CREVERSE_DATE.Trim();
-
-                    if (DateTime.TryParseExact(cleanedDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime reverseDate))
-                    {
-                        Journal.DREVERSE_DATE = reverseDate;
-                    }
-                    else
-                    {
-                        Journal.DREVERSE_DATE = DateTime.MinValue;
-                    }
-                }
-
                 Journal.CUPDATE_DATE = Journal.DUPDATE_DATE.ToLongDateString();
                 Journal.CCREATE_DATE = Journal.DCREATE_DATE.ToLongDateString();
+                Journal.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
+                Journal.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
                 LcCrecID = Journal.CREC_ID;
                 Data.CSTATUS = Journal.CSTATUS;
+                Data.CTRANS_CODE = lcTransCode;
                 await GetJournalDetailList();
             }
             catch (Exception ex)
@@ -356,8 +364,7 @@ namespace GLT00600Model.ViewModel
             var loEx = new R_Exception();
             try
             {
-                poNewEntity.CTRANS_CODE = "000088";
-                poNewEntity.CREVERSE_DATE = "";
+                poNewEntity.CTRANS_CODE = lcTransCode;
                 poNewEntity.LREVERSE = false;
                 var loResult = await _JournalListModel.R_ServiceSaveAsync(poNewEntity, peCRUDMode);
                 Journal = loResult;
@@ -369,6 +376,7 @@ namespace GLT00600Model.ViewModel
 
             loEx.ThrowExceptionIfErrors();
         }
+
         public async Task ShowAllJournals()
         {
             R_Exception loEx = new R_Exception();
@@ -379,7 +387,7 @@ namespace GLT00600Model.ViewModel
                 lcDeptCode = Data.CDEPT_CODE;
                 lcStatus = Data.CSTATUS ?? "";
 
-                var loResult = await _JournalListModel.GetJournalListAsync(lcPeriod, lcSearch, lcDeptCode, lcStatus);
+                var loResult = await _JournalListModel.GetJournalListAsync(lcPeriod, lcTransCode, lcSearch, lcDeptCode, lcStatus);
                 JournalList = new ObservableCollection<GLT00600JournalGridDTO>(loResult.Data);
                 foreach (var item in JournalList)
                 {
@@ -387,11 +395,6 @@ namespace GLT00600Model.ViewModel
                     if (DateTime.TryParseExact(item.CREF_DATE, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out parsedCrefDate))
                     {
                         item.DREF_DATE = parsedCrefDate;
-                    }
-                    DateTime parsedReverseDate;
-                    if (DateTime.TryParseExact(item.CREVERSE_DATE, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out parsedReverseDate))
-                    {
-                        item.DREVERSE_DATE = parsedReverseDate;
                     }
                 }
 
@@ -427,7 +430,7 @@ namespace GLT00600Model.ViewModel
                         }
                         return m;
                     }).ToList();
-                    
+
                     JournaDetailList = new ObservableCollection<GLT00600JournalGridDetailDTO>(modifiedList);
                 }
 
@@ -541,6 +544,46 @@ namespace GLT00600Model.ViewModel
             try
             {
                 await _JournalListModel.UndoReversingJournalProcessAsync(poData);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public async Task RefreshCurrencyRate()
+        {
+            R_Exception loEx = new R_Exception();
+            try
+            {
+                var now = DateTime.Now;
+                GLT00600JournalGridDTO param = new GLT00600JournalGridDTO()
+                {
+                    CURRENCY_CODE = Journal.CCURRENCY_CODE,
+                    CRATETYPE_CODE = SystemParamCollection.CRATETYPE_CODE,
+                    CREF_DATE = Journal.CREF_DATE != null ? now.ToString("yyyyMMdd") : DateTime.Now.ToString("yyyyMMdd")
+                };
+
+                listCheck = await _JournalListModel.RefreshCurrencyRateAsync(param);
+
+                var data = Data;
+                if (listCheck.Data != null)
+                {
+                    var entity = listCheck.Data.FirstOrDefault(); // Mengambil entitas pertama atau null jika tidak ada
+                    // Menggunakan data dari entitas yang diambil
+                    data.NLBASE_RATE = entity.NLBASE_RATE_AMOUNT;
+                    data.NLCURRENCY_RATE = entity.NLCURRENCY_RATE_AMOUNT;
+                    data.NBBASE_RATE = entity.NBBASE_RATE_AMOUNT;
+                    data.NBCURRENCY_RATE = entity.NBCURRENCY_RATE_AMOUNT;
+                }
+                else
+                {
+                    data.NLBASE_RATE = 1;
+                    data.NLCURRENCY_RATE = 1;
+                    data.NBBASE_RATE = 1;
+                    data.NBCURRENCY_RATE = 1;
+                }
             }
             catch (Exception ex)
             {
@@ -662,6 +705,8 @@ namespace GLT00600Model.ViewModel
             await Task.CompletedTask;
         }
         #endregion
+
+
 
         public async Task RapidApprove (string pcIdSelectedCREF_NOCombinedWithCommaSeparator)
         {

@@ -15,7 +15,8 @@
         <R_ItemLayout col="1">
             <R_TextBox @bind-Value="_JournalListViewModel.Data.CDEPT_CODE"
                        R_ConductorSource="_conductorRef"
-                       Enabled="false" />
+                       Enabled="true"
+                       OnLostFocus="OnLostFocus_LookupDept" />
         </R_ItemLayout>
         <R_ItemLayout>
             <R_Lookup @ref="R_LookupBtnDept" R_Before_Open_Lookup="@Before_Open_lookupDept" R_After_Open_Lookup="@After_Open_lookupDept">...</R_Lookup>
@@ -35,7 +36,7 @@
                               Min=_JournalListViewModel.GSMPeriodCollection.IMIN_YEAR
                               Max=_JournalListViewModel.GSMPeriodCollection.IMAX_YEAR
                               ThousandSeparator="false"
-                              Arrows="false"/>
+                              Arrows="true"/>
         </R_ItemLayout>
      
 
@@ -67,11 +68,11 @@
         R_ConductorGridSource="_conductorGridRef"
         R_ServiceGetListRecord="JournalGrid_ServiceGetListRecord"
         R_GridType="R_eGridType.Original"
-        Pageable    s
-        AllowAddNewRow="true"
-        AllowDeleteRow="true"
-        AllowEditRow="true"
-        Height="200px"
+        Pageable    
+        AllowAddNewRow="false"
+        AllowDeleteRow="false"
+        AllowEditRow="false"
+        Height="270px"
        
         R_ViewModel="_JournalListViewModel"
         R_IsHeader
@@ -92,7 +93,11 @@
 
     </R_GridColumns>
 </R_Grid>
- <R_ConductorGrid @ref="_conductorGridRef">
+ <R_ConductorGrid @ref="_conductorGridRef"
+                  R_ViewModel="_JournalListViewModel"
+                  R_IsHeader
+                  R_ServiceGetRecord="JournalGrid_ServiceGetRecord"
+                  R_Display="JournalGrid_Display">
 
 </R_ConductorGrid>
 

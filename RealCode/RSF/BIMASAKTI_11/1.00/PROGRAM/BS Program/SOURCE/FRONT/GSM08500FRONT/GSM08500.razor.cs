@@ -26,6 +26,8 @@ using Microsoft.JSInterop;
 using R_BlazorFrontEnd.Controls.Popup;
 using GFF00900COMMON.DTOs;
 using System.Globalization;
+using R_BlazorFrontEnd.Controls.Enums;
+using R_LockingFront;
 
 namespace GSM08500Front;
 
@@ -45,6 +47,8 @@ public partial class GSM08500 : R_Page
     [Inject] private R_ContextHeader _contextHeader { get; set; }
     [Inject] private IJSRuntime JS { get; set; }
     [Inject] private R_PopupService PopupService { get; set; }
+    [Inject] private IClientHelper _clientHelper { get; set; }
+
 
 
     protected override async Task R_Init_From_Master(object poParam)
@@ -91,6 +95,68 @@ public partial class GSM08500 : R_Page
 
         R_DisplayException(loEx);
     }
+    
+     #region LockUnlock
+
+        private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
+        private const string DEFAULT_MODULE_NAME = "GS";
+        protected async override Task<bool> R_LockUnlock(R_LockUnlockEventArgs eventArgs)
+        {
+            var loEx = new R_Exception();
+            var llRtn = false;
+            R_LockingFrontResult loLockResult = null;
+
+            try
+            {
+                var loData = (GSM08500DTO)eventArgs.Data;
+
+                var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
+                    plSendWithContext: true,
+                    plSendWithToken: true,
+                    pcHttpClientName: DEFAULT_HTTP_NAME);
+
+                if (eventArgs.Mode == R_eLockUnlock.Lock)
+                {
+                    var loLockPar = new R_ServiceLockingLockParameterDTO
+                    {
+                        Company_Id = _clientHelper.CompanyId,
+                        User_Id = _clientHelper.UserId,
+                        Program_Id = "GSM08500",
+                        Table_Name = "GSM_COA",
+                        Key_Value = string.Join("|", _clientHelper.CompanyId, loData.CCOMPANY_ID, loData.CGLACCOUNT_NO)
+                    };
+
+                    loLockResult = await loCls.R_Lock(loLockPar);
+                }
+                else
+                {
+                    var loUnlockPar = new R_ServiceLockingUnLockParameterDTO
+                    {
+                        Company_Id = _clientHelper.CompanyId,
+                        User_Id = _clientHelper.UserId,
+                        Program_Id = "GSM08500",
+                        Table_Name = "GSM_COA",
+                        Key_Value = string.Join("|", _clientHelper.CompanyId, loData.CCOMPANY_ID, loData.CGLACCOUNT_NO)
+                    };
+
+                    loLockResult = await loCls.R_UnLock(loUnlockPar);
+                }
+
+                llRtn = loLockResult.IsSuccess;
+                if (!loLockResult.IsSuccess && loLockResult.Exception != null)
+                    throw loLockResult.Exception;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return llRtn;
+        }
+
+    #endregion
     
     private async Task Grid_R_ServiceGetListRecord(R_ServiceGetListRecordEventArgs arg)
     {

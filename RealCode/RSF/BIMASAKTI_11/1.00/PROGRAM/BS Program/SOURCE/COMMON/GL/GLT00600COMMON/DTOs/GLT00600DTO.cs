@@ -8,12 +8,10 @@ namespace GLT00600Common.DTOs
         public string CCREATE_DATE { get; set; }
         public string CUPDATE_DATE { get; set; }
         public string CSOFT_PERIOD_YY { get; set; }
-        public string NTRANS_AMOUNT { get; set; }
+        public decimal NTRANS_AMOUNT { get; set; }
         public bool LUNDO_COMMIT { get; set; }
         public bool LALLOW_APPROVE { get; set; }
         public string CSTATUS_NAME { get; set; }
-        public string CREVERSE_DATE { get; set; }
-        public DateTime DREVERSE_DATE { get; set; }
         public decimal NCREDIT_AMOUNT { get; set; }
         public decimal NDEBIT_AMOUNT { get; set; }
         public string CSOFT_PERIOD_MM { get; set; }
@@ -39,6 +37,8 @@ namespace GLT00600Common.DTOs
         public string CLAST_DATE { get; set; }
         public string CTRANS_DESC { get; set; }
         public string CCURRENCY_CODE { get; set; }
+        public string CLOCAL_CURRENCY_CODE { get; set; }
+        public string CBASE_CURRENCY_CODE { get; set; }
         public bool LFIX_RATE { get; set; }
         public Decimal NLBASE_RATE { get; set; }
         public Decimal NLCURRENCY_RATE { get; set; }

@@ -37,7 +37,7 @@ namespace LMM05000Service
                 // poParameter.Entity.CVALID_DATE = "20230605";
 
                 //poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
-                poParameter.Entity.CUSER_ID= "ADMIN";
+                // poParameter.Entity.CUSER_ID= "ADMIN";
                 loRtn.data = loCls.R_GetRecord(poParameter.Entity);
             }
             catch (Exception ex)

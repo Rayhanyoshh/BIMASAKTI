@@ -8,13 +8,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\COMMON\GS\GSM07500Common\GSM07500Common.csproj" />
-	  <ProjectReference Include="..\..\..\RSP_GS_MAINTAIN_PERIODResources\RSP_GS_MAINTAIN_PERIODResources.csproj" />
+	  <ProjectReference Include="..\GS_SPR\RSP_GS_MAINTAIN_PERIODResources\RSP_GS_MAINTAIN_PERIODResources.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="BackCollectionLibrary">
-	    <HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\BackCollectionLibrary.dll</HintPath>
-	  </Reference>
 	  <Reference Include="R_APIBackEnd">
 	    <HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_APIBackEnd.dll</HintPath>
 	  </Reference>

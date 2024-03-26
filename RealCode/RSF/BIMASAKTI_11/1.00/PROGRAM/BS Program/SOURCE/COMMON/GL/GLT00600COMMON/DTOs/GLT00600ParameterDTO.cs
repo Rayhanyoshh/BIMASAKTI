@@ -5,7 +5,6 @@ namespace GLT00600Common.DTOs
     public class GLT00600ParameterDTO: R_APIResultBaseDTO
     {
         public string CSTATUS_NAME { get; set; }
-        
         public string CCOMPANY_ID { get; set; }
         public string CUSER_ID { get; set; }
         public string CTRANS_CODE { get; set; }
@@ -27,5 +26,7 @@ namespace GLT00600Common.DTOs
         public bool LCOMMIT_APRJRN { get; set; }
         public string CREF_NO { get; set; }
         public bool LUNDO_COMMIT { get; set; }
+        public string CURRENCY_CODE { get; set; }
+        public string CRATETYPE_CODE { get; set; }
     }
 }

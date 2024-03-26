@@ -11,7 +11,9 @@ namespace GLT00600Common
         GLT00600JournalGridDTO ProcessReversingJournal(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO UndoReversingJournal(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO JournalProcesStatus(GLT00600JournalGridDTO poData);
-      
+        GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData);
+
+
         #region INIT
         VAR_GSM_COMPANYDTO GetCompanyDTO();
         VAR_GL_SYSTEM_PARAMDTO GetSystemParam();

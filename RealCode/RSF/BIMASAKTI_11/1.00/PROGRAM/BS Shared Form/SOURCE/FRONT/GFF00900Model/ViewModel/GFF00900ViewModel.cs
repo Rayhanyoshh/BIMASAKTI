@@ -17,8 +17,8 @@ namespace GFF00900Model.ViewModel
         public RSP_ACTIVITY_VALIDITYResultDTO loRspActivityValidityResult = null;
 
         public List<RSP_ACTIVITY_VALIDITYDataDTO> loRspActivityValidityList = null;
-        /*
-                public RSP_ACTIVITY_VALIDITYDataDTO loSelectedUser = null;*/
+/*
+        public RSP_ACTIVITY_VALIDITYDataDTO loSelectedUser = null;*/
 
         public string ACTIVATE_INACTIVE_ACTIVITY_CODE = "";
 
