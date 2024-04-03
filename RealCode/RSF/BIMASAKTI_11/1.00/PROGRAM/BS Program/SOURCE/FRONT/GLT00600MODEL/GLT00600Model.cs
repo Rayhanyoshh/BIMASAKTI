@@ -91,7 +91,7 @@ namespace GLT00600Model
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
                 loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridListDTO, GLT00600JournalGridDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IGLT00600.ProcessReversingJournal),
+                    nameof(IGLT00600.ProcessAuditJournal),
                     poData,
                     DEFAULT_MODULE,
                     _SendWithContext,
@@ -161,7 +161,7 @@ namespace GLT00600Model
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
                 loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridListDTO, GLT00600JournalGridDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IGLT00600.UndoReversingJournal),
+                    nameof(IGLT00600.UndoAuditJournal),
                     poData,
                     DEFAULT_MODULE,
                     _SendWithContext,
@@ -519,6 +519,16 @@ namespace GLT00600Model
         }
 
         public GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GLT00600JournalGridDTO ProcessAuditJournal(GLT00600JournalGridDTO poData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GLT00600JournalGridDTO UndoAuditJournal(GLT00600JournalGridDTO poData)
         {
             throw new NotImplementedException();
         }

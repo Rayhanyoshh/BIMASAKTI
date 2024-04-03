@@ -3,6 +3,7 @@
 @using GSM07500Common.DTOs
 @using System.Globalization
 @using GSM07500FrontResources;
+@using R_BlazorFrontEnd.Controls;
 @using R_BlazorFrontEnd.Interfaces;
 @inject R_ILocalizer<ResourcesDummyCls> _localizer;
 
@@ -12,7 +13,7 @@
 <R_StackLayout Style="width: 1000px">
 
 <R_StackLayout Row="true">
-    <R_StackLayout Class="me-5 mt-5">
+    <R_StackLayout Class="me-3 mt-5">
         <R_Grid @ref="@_gridPeriodRef"
                 DataSource="@_GSM07510ViewModel.loGridPeriodList"
                 Pageable="true"
@@ -23,9 +24,9 @@
                 AllowDeleteRow="false"
                 AllowEditRow="false"
                 Enabled="true"
-                Width="150px">
+                Width="230px">
             <R_GridColumns>
-                    <R_GridTextColumn FieldName="CYEAR" HeaderText=@_localizer["_yearPeriod"] R_EnableAdd="false" R_EnableEdit="false" />
+                    <R_GridTextColumn FieldName="CYEAR" HeaderText=@_localizer["_yearPeriod"] R_EnableAdd="false" R_EnableEdit="false" TextAlignment="R_eTextAlignment.Center"/>
             </R_GridColumns>
         </R_Grid>
     </R_StackLayout>

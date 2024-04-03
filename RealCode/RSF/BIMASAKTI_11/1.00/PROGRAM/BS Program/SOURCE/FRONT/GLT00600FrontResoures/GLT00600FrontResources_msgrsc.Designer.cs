@@ -340,7 +340,7 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document Date.
+        ///   Looks up a localized string similar to Doc. Date.
         /// </summary>
         internal static string _docDate {
             get {
@@ -439,7 +439,7 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reference Date.
+        ///   Looks up a localized string similar to Ref. Date.
         /// </summary>
         internal static string _referenceDate {
             get {

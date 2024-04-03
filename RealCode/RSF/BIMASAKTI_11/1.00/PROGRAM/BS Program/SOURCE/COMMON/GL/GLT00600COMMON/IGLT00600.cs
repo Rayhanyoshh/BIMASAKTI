@@ -8,8 +8,8 @@ namespace GLT00600Common
     {
         IAsyncEnumerable<GLT00600JournalGridDTO> GetJournalList();
         IAsyncEnumerable<GLT00600JournalGridDetailDTO> GetAllJournalDetailList();
-        GLT00600JournalGridDTO ProcessReversingJournal(GLT00600JournalGridDTO poData);
-        GLT00600JournalGridDTO UndoReversingJournal(GLT00600JournalGridDTO poData);
+        GLT00600JournalGridDTO ProcessAuditJournal(GLT00600JournalGridDTO poData);
+        GLT00600JournalGridDTO UndoAuditJournal(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO JournalProcesStatus(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData);
 

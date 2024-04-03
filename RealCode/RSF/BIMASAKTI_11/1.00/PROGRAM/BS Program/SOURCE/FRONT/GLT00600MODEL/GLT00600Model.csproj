@@ -9,10 +9,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\COMMON\GL\GLT00600COMMON\GLT00600Common.csproj" />
 	</ItemGroup>
-
-	<!--<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="6.0.0" />
-	</ItemGroup>-->
 	
 	<ItemGroup>
 		<Reference Include="R_APIClient">

@@ -127,13 +127,13 @@ namespace GLT00600Service
         }
         
         [HttpPost]
-        public GLT00600JournalGridDTO ProcessReversingJournal(GLT00600JournalGridDTO poData)
+        public GLT00600JournalGridDTO ProcessAuditJournal(GLT00600JournalGridDTO poData)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public GLT00600JournalGridDTO UndoReversingJournal(GLT00600JournalGridDTO poData)
+        public GLT00600JournalGridDTO UndoAuditJournal(GLT00600JournalGridDTO poData)
         {
             throw new NotImplementedException();
         }

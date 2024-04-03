@@ -211,7 +211,7 @@
     <value>Description</value>
   </data>
   <data name="_docDate" xml:space="preserve">
-    <value>Document Date</value>
+    <value>Doc. Date</value>
   </data>
   <data name="_docNo." xml:space="preserve">
     <value>Document No.</value>
@@ -244,7 +244,7 @@
     <value>Rapid Commit</value>
   </data>
   <data name="_referenceDate" xml:space="preserve">
-    <value>Reference Date</value>
+    <value>Ref. Date</value>
   </data>
   <data name="_referenceNo" xml:space="preserve">
     <value>Reference No.</value>

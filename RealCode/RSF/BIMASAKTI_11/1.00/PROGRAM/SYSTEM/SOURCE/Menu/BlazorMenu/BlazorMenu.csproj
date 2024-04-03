@@ -91,6 +91,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\CBT01200FRONT\CBT01200FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLT00600FRONT\GLT00600Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLTR00100FRONT\GLTR00100FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM01000FRONTs\GSM01000Front.csproj" />
@@ -100,5 +101,6 @@
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM01500Front\LMM01500Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM03700Front\LMM03700Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM05000FRONT\LMM05000Front.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMM05000Front\PMM05000Front.csproj" />
 	</ItemGroup>
 </Project>
