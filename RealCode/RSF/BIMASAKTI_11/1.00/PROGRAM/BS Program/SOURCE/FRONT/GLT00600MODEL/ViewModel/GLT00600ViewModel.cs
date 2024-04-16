@@ -43,7 +43,7 @@ namespace GLT00600Model.ViewModel
         public GSM_TRANSACTION_APPROVALDTO TransactionApprovalCollection = new();
         public List<StatusDTO> allStatusData = new();
         public GLT00600JournalGridDTO entityCurrency = new();
-        public GLT00600JournalGridListDTO listCheck = new();
+        public GLT00600JournalGridDTO listCheck = new();
         public List<GetCenterDTO> CenterListData { get; set; } = new();
         public List<GLT00600JournalGridDTO> loProcessRapidApproveOrCommitList = new();
         public GLT00600DTO Journal = new();
@@ -343,8 +343,8 @@ namespace GLT00600Model.ViewModel
 
                 Journal.DREF_DATE = DateTime.ParseExact(Journal.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 Journal.DDOC_DATE = DateTime.ParseExact(Journal.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                Journal.CUPDATE_DATE = Journal.DUPDATE_DATE.ToLongDateString();
-                Journal.CCREATE_DATE = Journal.DCREATE_DATE.ToLongDateString();
+                Journal.CUPDATE_DATE = Journal.DUPDATE_DATE.Value.ToLongDateString();
+                Journal.CCREATE_DATE = Journal.DCREATE_DATE.Value.ToLongDateString();
                 Journal.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
                 Journal.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
                 LcCrecID = Journal.CREC_ID;
@@ -560,7 +560,8 @@ namespace GLT00600Model.ViewModel
                 var now = DateTime.Now;
                 GLT00600JournalGridDTO param = new GLT00600JournalGridDTO()
                 {
-                    CURRENCY_CODE = Journal.CCURRENCY_CODE,
+
+                    CCURRENCY_CODE = Journal.CCURRENCY_CODE,
                     CRATETYPE_CODE = SystemParamCollection.CRATETYPE_CODE,
                     CREF_DATE = Journal.CREF_DATE != null ? now.ToString("yyyyMMdd") : DateTime.Now.ToString("yyyyMMdd")
                 };
@@ -568,9 +569,9 @@ namespace GLT00600Model.ViewModel
                 listCheck = await _JournalListModel.RefreshCurrencyRateAsync(param);
 
                 var data = Data;
-                if (listCheck.Data != null)
+                if (listCheck != null)
                 {
-                    var entity = listCheck.Data.FirstOrDefault(); // Mengambil entitas pertama atau null jika tidak ada
+                    var entity = listCheck; // Mengambil entitas pertama atau null jika tidak ada
                     // Menggunakan data dari entitas yang diambil
                     data.NLBASE_RATE = entity.NLBASE_RATE_AMOUNT;
                     data.NLCURRENCY_RATE = entity.NLCURRENCY_RATE_AMOUNT;

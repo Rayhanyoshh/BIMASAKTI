@@ -459,11 +459,11 @@ namespace GLT00600Front
                 var loHeaderData = _JournalListViewModel.Journal;
                 if (data != null)
                 {
-                    if (_JournalListViewModel.CenterListData != null)
-                    {
-                        var firstCenter = _JournalListViewModel.CenterListData.FirstOrDefault();
-                        data.CCENTER_CODE = firstCenter.CCENTER_CODE;
-                    }
+                    //if (_JournalListViewModel.CenterListData != null)
+                    //{
+                    //    var firstCenter = _JournalListViewModel.CenterListData.FirstOrDefault();
+                    //    data.CCENTER_CODE = firstCenter.CCENTER_CODE;
+                    //}
                     data.CDBCR = data.NDEBIT > 0 ? "D" : "C";
                     data.NAMOUNT = data.NDEBIT + data.NCREDIT;
 
@@ -523,6 +523,10 @@ namespace GLT00600Front
                         loEx.Add("", $"{@_localizer["_validationAccountNo"]} {data.CGLACCOUNT_NO} {@_localizer["_validationAlreadyExist"]}");
                     }
                 }
+                if (string.IsNullOrWhiteSpace(data.CDETAIL_DESC))
+                {
+                    loEx.Add("", @_localizer["_validationDescReq"]);
+                }
              
             }
             catch (Exception ex)
@@ -544,8 +548,8 @@ namespace GLT00600Front
 
             if (_JournalListViewModel.CenterListData != null)
             {
-                //var firstCenter = _JournalListViewModel.CenterListData.FirstOrDefault();
-                //data.CCENTER_CODE = firstCenter.CCENTER_CODE;
+                var firstCenter = _JournalListViewModel.CenterListData.FirstOrDefault();
+                data.CCENTER_CODE = firstCenter.CCENTER_CODE;
             }
 
             if (_JournalListViewModel.JournaDetailList.Any())

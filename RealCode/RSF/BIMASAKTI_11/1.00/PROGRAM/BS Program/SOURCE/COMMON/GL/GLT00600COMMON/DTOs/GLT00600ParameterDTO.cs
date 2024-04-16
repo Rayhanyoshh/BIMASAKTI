@@ -26,7 +26,7 @@ namespace GLT00600Common.DTOs
         public bool LCOMMIT_APRJRN { get; set; }
         public string CREF_NO { get; set; }
         public bool LUNDO_COMMIT { get; set; }
-        public string CURRENCY_CODE { get; set; }
+        public string CCURRENCY_CODE { get; set; }
         public string CRATETYPE_CODE { get; set; }
     }
 }

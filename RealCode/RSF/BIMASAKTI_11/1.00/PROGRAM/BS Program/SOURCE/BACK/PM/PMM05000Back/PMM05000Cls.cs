@@ -70,7 +70,7 @@ public class PMM05000Cls : R_BusinessObject<PMM05000DTO>
                     lcAction = "EDIT";
                 }
 
-                lcQuery = "RSP_LM_MAINTAIN_UNIT_TYPE_PRICE";
+                lcQuery = "RSP_PM_MAINTAIN_UNIT_TYPE_PRICE";
                 loCmd.CommandType = CommandType.StoredProcedure;
                 loCmd.CommandText = lcQuery;
 
@@ -135,7 +135,7 @@ public class PMM05000Cls : R_BusinessObject<PMM05000DTO>
             loConn = loDb.GetConnection("R_DefaultConnectionString");
             loCmd = loDb.GetCommand();
 
-            lcQuery = "RSP_LM_MAINTAIN_UNIT_TYPE_PRICE";
+            lcQuery = "RSP_PM_MAINTAIN_UNIT_TYPE_PRICE";
             loCmd.CommandType = CommandType.StoredProcedure;
             loCmd.CommandText = lcQuery;
 
@@ -263,7 +263,7 @@ public class PMM05000Cls : R_BusinessObject<PMM05000DTO>
         {
             //R_Db loDb = new R_Db();
             //DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
-            string lcQuery = $"EXEC RSP_LM_ACTIVE_INACTIVE_UNIT_PRICE" +
+            string lcQuery = $"EXEC RSP_PM_ACTIVE_INACTIVE_UNIT_PRICE" +
                              $"'{poEntity.CCOMPANY_ID}', " +
                              $"'{poEntity.CPROPERTY_ID}', " +
                              $"'{poEntity.CUNIT_TYPE_ID}', " +

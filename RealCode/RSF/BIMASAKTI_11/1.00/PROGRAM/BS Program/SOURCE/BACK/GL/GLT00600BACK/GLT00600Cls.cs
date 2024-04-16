@@ -329,6 +329,7 @@ namespace GLT00600Back
             //_loggerGLT00600.LogInfo("Start RefreshCurrencyRate GLT00600");
             DbCommand loCmd;
             string lcQuery = "";
+            GLT00600JournalGridDTO loResult = new GLT00600JournalGridDTO();
             try
             {
                 R_Db loDb = new R_Db();
@@ -339,13 +340,18 @@ namespace GLT00600Back
                 loCmd.CommandType = CommandType.StoredProcedure;
                 loCmd.CommandText = lcQuery;
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poParameter.CCOMPANY_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CURRENCY_CODE", DbType.String, 50, poParameter.CURRENCY_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CCURRENCY_CODE", DbType.String, 50, poParameter.CCURRENCY_CODE);
                 loDb.R_AddCommandParameter(loCmd, "@CRATETYPE_CODE", DbType.String, 50, poParameter.CRATETYPE_CODE);
                 loDb.R_AddCommandParameter(loCmd, "@CRATE_DATE", DbType.String, 50, poData.CREF_DATE);
 
                 var loDbParam = loCmd.Parameters.Cast<DbParameter>()
                     .Where(x => x != null && x.ParameterName.StartsWith("@"))
                     .ToDictionary(x => x.ParameterName, x => x.Value);
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                loResult = R_Utility.R_ConvertTo<GLT00600JournalGridDTO>(loDataTable).FirstOrDefault();
+
+                
+
                 //_loggerGLT00400.LogDebug("{@ObjectQuery} {@Parameter}", loCmd.CommandText, loDbParam);
 
             }

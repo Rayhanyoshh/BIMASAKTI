@@ -150,6 +150,7 @@ namespace GLT00600Service
             try
             {
                 loParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                loParam.CCURRENCY_CODE = R_Utility.R_GetContext<string>(ContextConstant.CCURRENCY_CODE);
                 loParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 //_loggerGLT00600.LogDebug("Go To GLT00400Cls.RefreshCurrencyRate");
                 loRtn = loCls.RefreshCurrencyRate(loParam, poData);

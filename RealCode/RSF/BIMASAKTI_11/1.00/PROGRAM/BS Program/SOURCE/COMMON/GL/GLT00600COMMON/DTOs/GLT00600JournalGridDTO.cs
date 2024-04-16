@@ -4,7 +4,7 @@ using R_APICommonDTO;
 
 namespace GLT00600Common.DTOs
 {
-    public class GLT00600JournalGridDTO
+    public class GLT00600JournalGridDTO : R_APIResultBaseDTO
     {
         public string CCOMPANY_ID { get ; set; }
         public string CUSER_ID { get; set; }    

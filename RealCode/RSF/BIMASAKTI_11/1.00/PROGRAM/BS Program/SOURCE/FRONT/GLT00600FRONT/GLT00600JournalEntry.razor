@@ -273,7 +273,7 @@
                                        Enabled="false" />
                         </R_ItemLayout>
                         <R_ItemLayout Style="width: auto">
-                           <R_DateInput @bind-Value="_JournalListViewModel.Data.DUPDATE_DATE"
+                           <R_DateTimePicker @bind-Value="_JournalListViewModel.Data.DUPDATE_DATE"
                                         R_ConductorSource="_conductorRef"
                                         Enabled="false" />
                         </R_ItemLayout>
@@ -291,7 +291,7 @@
                                        Enabled="false" />
                         </R_ItemLayout>
                         <R_ItemLayout Style="width: auto">
-                            <R_DateInput @bind-Value="_JournalListViewModel.Data.DCREATE_DATE"
+                            <R_DateTimePicker @bind-Value="_JournalListViewModel.Data.DCREATE_DATE"
                                          R_ConductorSource="_conductorRef"
                                          Enabled="false" />
                         </R_ItemLayout>
@@ -308,11 +308,10 @@
             <R_Grid @ref="_gridDetailRef"
                     DataSource="_JournalListViewModel.JournaDetailList"
                     Pageable
-                     R_ConductorSource="_conductorRef"
-                     R_GridType="R_eGridType.Batch"
+                    R_ConductorSource="_conductorRef"R_GridType="R_eGridType.Batch"
                      R_ServiceGetListRecord="JournalDet_ServiceGetListRecord"
                      R_EnableAdd="true"
-                     R_EnableEdit="true"
+                    R_EnableEdit="true"
                     AllowAddNewRow
                     AllowEditRow
                     AllowDeleteRow
@@ -320,9 +319,10 @@
                      R_Before_Open_Grid_Lookup="Before_Open_Lookup"
                      R_After_Open_Grid_Lookup="After_Open_Lookup"
                      R_ServiceGetRecord="JournalDet_ServiceGetRecord"
-                     R_Display="JournalDet_RDisplay"
-                     R_AfterAdd="JournalDet_AfterAdd"
-                     R_Validation="JournalDet_Validation">
+                    R_Display="JournalDet_RDisplay"
+                    R_Validation="JournalDet_Validation"
+                    R_AfterAdd="JournalDet_AfterAdd"
+                    >
                  <R_GridColumns>
                      <R_GridNumericColumn Width="70px" FieldName="@nameof(GLT00600JournalGridDetailDTO.INO)" HeaderText="@_localizer["_no"]"></R_GridNumericColumn>
                      <R_GridLookupColumn Width="280px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NO)" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
@@ -398,4 +398,5 @@
 
  <R_ConductorGrid @ref="_conductorGridDetailRef"
                   R_ViewModel="@_JournalListViewModel"
-                  R_ConductorParent="@_conductorRef" />
+                  R_ConductorParent="@_conductorRef"
+                  />

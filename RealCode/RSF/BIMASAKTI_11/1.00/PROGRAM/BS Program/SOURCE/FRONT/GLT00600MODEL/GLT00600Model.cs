@@ -106,14 +106,16 @@ namespace GLT00600Model
 
         }
 
-        public async Task<GLT00600JournalGridListDTO> RefreshCurrencyRateAsync(GLT00600JournalGridDTO poData)
+        public async Task<GLT00600JournalGridDTO> RefreshCurrencyRateAsync(GLT00600JournalGridDTO poData)
         {
             var loEx = new R_Exception();
-            GLT00600JournalGridListDTO loResult = new GLT00600JournalGridListDTO();
+            GLT00600JournalGridDTO loResult = new GLT00600JournalGridDTO();
             try
             {
+                R_FrontContext.R_SetContext(ContextConstant.CCURRENCY_CODE, poData.CCURRENCY_CODE);
+
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
-                loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridListDTO, GLT00600JournalGridDTO>(
+                loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridDTO, GLT00600JournalGridDTO>(
                     _RequestServiceEndPoint,
                     nameof(IGLT00600.RefreshCurrencyRate),
                     poData,
