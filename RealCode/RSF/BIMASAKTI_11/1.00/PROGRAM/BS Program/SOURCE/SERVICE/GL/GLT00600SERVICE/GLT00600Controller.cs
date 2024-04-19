@@ -139,21 +139,19 @@ namespace GLT00600Service
         }
 
         [HttpPost]
-        public GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData)
+        public ResultRefreshCurrencyDTO RefreshCurrencyRate(RefreshCurrencyParameterDTO poData)
         {
             R_Exception loEx = new R_Exception();
             //_loggerGLT00400.LogInfo("Start RefreshCurrencyRate GLT00400");
-            GLT00600ParameterDTO loParam = new GLT00600ParameterDTO();
-            GLT00600JournalGridDTO loRtn = new GLT00600JournalGridDTO();
+            ResultRefreshCurrencyDTO loRtn = new ResultRefreshCurrencyDTO();
             GLT00600Cls loCls = new GLT00600Cls();
 
             try
             {
-                loParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                loParam.CCURRENCY_CODE = R_Utility.R_GetContext<string>(ContextConstant.CCURRENCY_CODE);
-                loParam.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poData.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poData.CUSER_ID = R_BackGlobalVar.USER_ID;
                 //_loggerGLT00600.LogDebug("Go To GLT00400Cls.RefreshCurrencyRate");
-                loRtn = loCls.RefreshCurrencyRate(loParam, poData);
+                loRtn = loCls.RefreshCurrencyRate(poData);
             }
             catch (Exception ex)
             {

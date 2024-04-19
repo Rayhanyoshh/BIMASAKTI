@@ -299,7 +299,7 @@ namespace CBT01200FRONT
         private void Predef_JournalEntry(R_InstantiateDockEventArgs eventArgs)
         {
             var loData = _conductorRef.R_GetCurrentData();
-            //eventArgs.TargetPageType = typeof(GLT00110);
+            eventArgs.TargetPageType = typeof(CBT01210);
             eventArgs.Parameter = loData;
         }
         private void AfterPredef_JournalEntry(R_AfterOpenPredefinedDockEventArgs eventArgs)

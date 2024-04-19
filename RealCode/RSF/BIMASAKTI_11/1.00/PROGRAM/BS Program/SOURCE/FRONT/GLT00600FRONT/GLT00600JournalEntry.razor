@@ -120,13 +120,14 @@
 
                 <R_ItemLayout col="5">
                     <R_ComboBox Data="@_JournalListViewModel.currencyData"
-                                @bind-Value="_JournalListViewModel.Data.CCURRENCY_CODE"
+                                Value="_JournalListViewModel.Data.CCURRENCY_CODE"
                                 ValueField="@nameof(CurrencyCodeDTO.CCURRENCY_CODE)"
                                 TextField="@nameof(CurrencyCodeDTO.CCURRENCY_NAME)"
                                 R_ConductorSource="@_conductorRef"
                                 R_EnableAdd
                                 R_EnableEdit
-                                 OnChanged="OnChanged_CurrencyCodeAsync">
+                                ValueChanged="((string value) => Currency_OnChange(value))">
+                                 @* OnChanged="OnChanged_CurrencyCodeAsync"> *@
                     </R_ComboBox>
                 </R_ItemLayout>
             </R_StackLayout>
@@ -159,7 +160,8 @@
                                       Arrows="false"
                                       R_EnableAdd
                                       R_EnableEdit
-                                      Enabled="_JournalListViewModel.EnableNLBASE_RATE" />
+                                      Enabled="_conductorRef.R_ConductorMode != R_eConductorMode.Normal && _JournalListViewModel.CompanyCollection.CLOCAL_CURRENCY_CODE!=_JournalListViewModel.Data.CCURRENCY_CODE"
+                                      Decimals="6" />
                  </R_ItemLayout>
                  <R_ItemLayout col="2">
                      <R_TextBox @bind-Value="_JournalListViewModel.Data.CCURRENCY_CODE"
@@ -173,7 +175,8 @@
                                        Arrows="false"
                                             R_EnableAdd
                                             R_EnableEdit
-                                       Enabled="_JournalListViewModel.EnableNLCURRENCY_RATE" />
+                                       Enabled="_conductorRef.R_ConductorMode != R_eConductorMode.Normal && _JournalListViewModel.CompanyCollection.CLOCAL_CURRENCY_CODE!=_JournalListViewModel.Data.CCURRENCY_CODE"
+                                       Decimals="6" />
                  </R_ItemLayout>
 
                  <R_ItemLayout col="2">
@@ -194,7 +197,8 @@
                                       Arrows="false"
                                         R_EnableAdd
                                         R_EnableEdit
-                                       Enabled="_JournalListViewModel.EnableNBBASE_RATE" />
+                                       Enabled="_conductorRef.R_ConductorMode != R_eConductorMode.Normal && _JournalListViewModel.CompanyCollection.CBASE_CURRENCY_CODE!=_JournalListViewModel.Data.CCURRENCY_CODE"
+                                      Decimals="6"  />
                  </R_ItemLayout>
                  <R_ItemLayout col="2">
                       <R_TextBox @bind-Value="_JournalListViewModel.Data.CCURRENCY_CODE"
@@ -208,7 +212,8 @@
                                        Arrows="false"
                                             R_EnableAdd
                                             R_EnableEdit
-                                       Enabled="_JournalListViewModel.EnableNBCURRENCY_RATE" />
+                                       Enabled="_conductorRef.R_ConductorMode != R_eConductorMode.Normal && _JournalListViewModel.CompanyCollection.CBASE_CURRENCY_CODE!=_JournalListViewModel.Data.CCURRENCY_CODE"
+                                       Decimals="6" />
                  </R_ItemLayout>
 
                  <R_ItemLayout col="2">
@@ -355,7 +360,7 @@
                 <R_Button Enabled="_JournalListViewModel.EnableCopy" OnClick="CopyJournalEntryProcess">@_localizer["_copy"]</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_EditButton R_Conductor="_conductorRef">Modify</R_EditButton>
+                <R_EditButton R_Conductor="_conductorRef" Enabled=" _JournalListViewModel.EnableEdit"></R_EditButton>
             </R_ItemLayout>
             <R_ItemLayout>
                 <R_Button Enabled="_JournalListViewModel.EnableDelete" OnClick="DeleteJournalProcess">@_localizer["_delete"]</R_Button>

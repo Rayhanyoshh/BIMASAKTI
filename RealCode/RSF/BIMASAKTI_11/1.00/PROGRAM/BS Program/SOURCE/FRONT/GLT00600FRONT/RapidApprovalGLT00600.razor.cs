@@ -58,15 +58,29 @@ namespace GLT00600Front
                 {
                     await ShowSuccessInvoke();
                 };
-                List<GLT00600JournalGridDTO> itemList = R_FrontUtility.ConvertObjectToObject<List<GLT00600JournalGridDTO>>(poParameter);
-                _JournalListViewModel.JournalList = new ObservableCollection<GLT00600JournalGridDTO>(itemList);
+                GLT00600DTO data = (GLT00600DTO)poParameter;
 
                 await _JournalListViewModel.GetDepartmentList();
-                await InititalProcess();
 
+                _JournalListViewModel.Data.ISOFT_PERIOD_YY = data.ISOFT_PERIOD_YY;
+                _JournalListViewModel.Data.CSOFT_PERIOD_MM = "88";
+                _JournalListViewModel.Data.CSEARCH_TEXT = data.CSEARCH_TEXT;
+                _JournalListViewModel.Data.CSTATUS = data.CSTATUS;
+                _JournalListViewModel.Data.CSTATUS_NAME = data.CSTATUS_NAME;
+                _JournalListViewModel.Data.CDEPT_CODE = data.CDEPT_CODE;
+                var selectedDept = (from dept in _JournalListViewModel.AllDeptData
+                                    where dept.CDEPT_CODE == data.CDEPT_CODE
+                                    select dept).FirstOrDefault();
+                if (selectedDept != null)
+                {
+                    _JournalListViewModel.Data.CDEPT_NAME = selectedDept.CDEPT_NAME;
+                }
                 _JournalListViewModel.COMPANYID = clientHelper.CompanyId;
                 _JournalListViewModel.USERID = clientHelper.UserId;
+
                 await _gridRef.R_RefreshGrid(null);
+
+                _JournalListViewModel.buttonRapidApprove = _JournalListViewModel.JournalList.Count < 1 ? false : true;
             }
             catch (Exception ex)
             {
@@ -76,152 +90,116 @@ namespace GLT00600Front
             loEx.ThrowExceptionIfErrors();
         }
 
-        private async Task InititalProcess()
-        {
-            _JournalListViewModel.lcDeptCode =
-                _JournalListViewModel.JournalList.Select(m => m.CDEPT_CODE).FirstOrDefault();
-            _JournalListViewModel.Data.CDEPT_CODE = _JournalListViewModel.lcDeptCode;
+      private async Task ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
+      {
+          var loEx = new R_Exception();
+
+          try
+          {
+              await _JournalListViewModel.ShowAllJournals();
+              eventArgs.ListEntityResult = _JournalListViewModel.JournalList;
+          }
+          catch (Exception ex)
+          {
+              loEx.Add(ex);
+          }
+          loEx.ThrowExceptionIfErrors();
+      }
 
 
-            _JournalListViewModel.Data.CDEPT_NAME = _JournalListViewModel.AllDeptData
-                .FirstOrDefault(m => m.CDEPT_CODE == _JournalListViewModel.lcDeptCode)?.CDEPT_NAME;
+      private async Task R_display(R_DisplayEventArgs eventArgs)
+      {
+      //if (eventArgs.ConductorMode == R_BlazorFrontEnd.Enums.R_eConductorMode.Normal)
+      //{
+      //    _JournalListViewModel.buttonRapidApprove = _JournalListViewModel.JournalList.Count < 1 ? false : true;
+      //}
+      }
+      private async Task OnClose()
+      {
+          await Close(false, null);
+      }
+      #region SaveBatchApprove
+      private void R_BeforeSaveBatchApprove(R_BeforeSaveBatchEventArgs events)
+      {
+          var loEx = new R_Exception();
+          try
+          {
+              var loData = (List<GLT00600JournalGridDTO>)events.Data;
+              if (loData.Count == 0)
+              {
+                  R_MessageBox.Show("", @_localizer["_validationNoDataFound"], R_eMessageBoxButtonType.OK);
+                  events.Cancel = true;
+              }
+          }
+          catch (Exception ex)
+          {
+              loEx.Add(ex);
+          }
+          loEx.ThrowExceptionIfErrors();
+      }
+      private async Task R_AfterSaveBatchApprove(R_AfterSaveBatchEventArgs eventArgs)
+      {
+          var loEx = new R_Exception();
+          try
+          {
 
+          }
+          catch (Exception ex)
+          {
+              loEx.Add(ex);
+          }
 
-            string crefPrdYY = _JournalListViewModel.JournalList.Select(m => m.CREF_PRD).FirstOrDefault();
-            string firstFourDigits = crefPrdYY.Substring(0, Math.Min(4, crefPrdYY.Length));
-            if (int.TryParse(firstFourDigits, out int isoPeriodYy))
-            {
-                _JournalListViewModel.Data.ISOFT_PERIOD_YY = isoPeriodYy;
-            }
-            string crefPrdMM = _JournalListViewModel.JournalList.Select(m => m.CREF_PRD).FirstOrDefault();
-            if (crefPrdMM.Length == 6)
-            {
-                _JournalListViewModel.Data.CSOFT_PERIOD_MM = crefPrdMM.Substring(4, 2);
-            }
+          loEx.ThrowExceptionIfErrors();
+      }
+      private async Task ServiceSaveBatchApprove(R_ServiceSaveBatchEventArgs eventArgs)
+      {
+          var loEx = new R_Exception();
+          try
+          {
+              List<GLT00600JournalGridDTO> dataList = ((IEnumerable<GLT00600JournalGridDTO>)eventArgs.Data).ToList();
+              // Mengambil dataList yang dipilih
+              List<GLT00600JournalGridDTO> selectedData = dataList.Where(dto => dto.LSELECTED).ToList();
 
+              // Mengambil nilai CREF_NO dari dataList yang dipilih
+              List<string> crefNumbers = selectedData.Select(dto => dto.CREC_ID).ToList();
 
-            bool allStatusMatch = true;
-            string referenceStatus = _JournalListViewModel.JournalList.FirstOrDefault()?.CSTATUS; // Mengambil CSTATUS pertama sebagai referensi
+              // Menggabungkan nilai CREF_NO dengan koma sebagai separator
+              string lcCombinedCREF_NOWithCommaSeparator = string.Join(",", crefNumbers);
 
-            foreach (var journalData in _JournalListViewModel.JournalList)
-            {
-                if (journalData.CSTATUS != referenceStatus)
-                {
-                    allStatusMatch = false;
-                    break;
-                }
-            }
+              await _JournalListViewModel.RapidApprove(lcCombinedCREF_NOWithCommaSeparator);
+              await _JournalListViewModel.GetJournal(new GLT00600DTO() { CREC_ID = crefNumbers.FirstOrDefault() });
 
-            _JournalListViewModel.Data.CSTATUS_NAME = allStatusMatch && _JournalListViewModel.statusMappings.ContainsKey(referenceStatus)
-                ? _JournalListViewModel.statusMappings[referenceStatus]
-                : "All";
-            _JournalListViewModel.Data.CSTATUS = allStatusMatch && _JournalListViewModel.statusMappings.ContainsKey(referenceStatus)
-                ? referenceStatus
-                : "";
-        }
-        private async Task ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
-        {
-            var loEx = new R_Exception();
+              if (_JournalListViewModel.Journal.CSTATUS == "20")
+              {
+                  R_MessageBox.Show("", "Selected Journal Approved Successfully!", R_eMessageBoxButtonType.OK);
+                  Close(true, true);
 
-            try
-            {
-                await _JournalListViewModel.ShowAllJournals();
-                eventArgs.ListEntityResult = _JournalListViewModel.JournalList;
+              }
 
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
-        private async Task OnClose()
-        {
-            await Close(false, null);
-        }
-        #region SaveBatchApprove
-        private void R_BeforeSaveBatchApprove(R_BeforeSaveBatchEventArgs events)
-        {
-            var loEx = new R_Exception();
-            try
-            {
-                var loData = (List<GLT00600JournalGridDTO>)events.Data;
-                if (loData.Count == 0)
-                {
-                    R_MessageBox.Show("", "No Data Found!", R_eMessageBoxButtonType.OK);
-                    events.Cancel = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
-        private async Task R_AfterSaveBatchApprove(R_AfterSaveBatchEventArgs eventArgs)
-        {
-            var loEx = new R_Exception();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
-        private async Task ServiceSaveBatchApprove(R_ServiceSaveBatchEventArgs eventArgs)
-        {
-            var loEx = new R_Exception();
-            try
-            {
-                List<GLT00600JournalGridDTO> dataList = ((IEnumerable<GLT00600JournalGridDTO>)eventArgs.Data).ToList();
-                // Mengambil dataList yang dipilih
-                List<GLT00600JournalGridDTO> selectedData = dataList.Where(dto => dto.LSELECTED).ToList();
-
-                // Mengambil nilai CREF_NO dari dataList yang dipilih
-                List<string> crefNumbers = selectedData.Select(dto => dto.CREC_ID).ToList();
-
-                // Menggabungkan nilai CREF_NO dengan koma sebagai separator
-                string lcCombinedCREF_NOWithCommaSeparator = string.Join(",", crefNumbers);
-
-                await _JournalListViewModel.RapidApprove(lcCombinedCREF_NOWithCommaSeparator);
-                await _JournalListViewModel.GetJournal(new GLT00600DTO() { CREC_ID = crefNumbers.FirstOrDefault() });
-
-                if (_JournalListViewModel.Journal.CSTATUS == "20")
-                {
-                    R_MessageBox.Show("", "Selected Journal Approved Successfully!", R_eMessageBoxButtonType.OK);
-                    Close(true, true);
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
-        private async Task OnChangeRapidApprove()
-        {
-            var loEx = new R_Exception();
-            try
-            {
-                var res = await R_MessageBox.Show("", "Are you sure want to process selected Journal(s)?", R_eMessageBoxButtonType.YesNo);
-                if (res == R_eMessageBoxResult.Yes)
-                {
-                    await _conductorGridRef.R_SaveBatch();
-                }
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
-        #endregion
+          }
+          catch (Exception ex)
+          {
+              loEx.Add(ex);
+          }
+          loEx.ThrowExceptionIfErrors();
+      }
+      private async Task OnChangeRapidApprove()
+      {
+          var loEx = new R_Exception();
+          try
+          {
+              var res = await R_MessageBox.Show("", "Are you sure want to process selected Journal(s)?", R_eMessageBoxButtonType.YesNo);
+              if (res == R_eMessageBoxResult.Yes)
+              {
+                  await _conductorGridRef.R_SaveBatch();
+              }
+          }
+          catch (Exception ex)
+          {
+              loEx.Add(ex);
+          }
+          loEx.ThrowExceptionIfErrors();
+      }
+      #endregion
     }
 }

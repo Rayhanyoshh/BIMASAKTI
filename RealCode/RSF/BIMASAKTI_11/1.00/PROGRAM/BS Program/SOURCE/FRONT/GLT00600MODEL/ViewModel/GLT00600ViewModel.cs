@@ -21,6 +21,8 @@ namespace GLT00600Model.ViewModel
         private GLT00600Model _JournalListModel = new GLT00600Model();
         public ObservableCollection<GLT00600JournalGridDTO> JournalList = new();
         public GLT00600JournalGridDTO JournalEntity = new();
+        public GLT00600ParamDTO JournalParam { get; set; } = new GLT00600ParamDTO();
+
         public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailList { get; set; } = new();
         public ObservableCollection<GLT00600JournalGridDetailDTO> JournaDetailListTemp { get; set; } = new();
         public Action StateChangeAction { get; set; }
@@ -43,7 +45,7 @@ namespace GLT00600Model.ViewModel
         public GSM_TRANSACTION_APPROVALDTO TransactionApprovalCollection = new();
         public List<StatusDTO> allStatusData = new();
         public GLT00600JournalGridDTO entityCurrency = new();
-        public GLT00600JournalGridDTO listCheck = new();
+        public ResultRefreshCurrencyDTO listCheck = new();
         public List<GetCenterDTO> CenterListData { get; set; } = new();
         public List<GLT00600JournalGridDTO> loProcessRapidApproveOrCommitList = new();
         public GLT00600DTO Journal = new();
@@ -558,12 +560,12 @@ namespace GLT00600Model.ViewModel
             try
             {
                 var now = DateTime.Now;
-                GLT00600JournalGridDTO param = new GLT00600JournalGridDTO()
+                RefreshCurrencyParameterDTO param = new RefreshCurrencyParameterDTO()
                 {
 
                     CCURRENCY_CODE = Journal.CCURRENCY_CODE,
                     CRATETYPE_CODE = SystemParamCollection.CRATETYPE_CODE,
-                    CREF_DATE = Journal.CREF_DATE != null ? now.ToString("yyyyMMdd") : DateTime.Now.ToString("yyyyMMdd")
+                    CRATE_DATE = Journal.CREF_DATE != null ? now.ToString("yyyyMMdd") : DateTime.Now.ToString("yyyyMMdd")
                 };
 
                 listCheck = await _JournalListModel.RefreshCurrencyRateAsync(param);
@@ -625,51 +627,7 @@ namespace GLT00600Model.ViewModel
         EndDetail:
             loEx.ThrowExceptionIfErrors();
         }
-        // public async Task ProcessDataSelected(string COMPANYID, string USERID)
-        // {
-        //     var loEx = new R_Exception();
-        //     List<GLT00600JournalGridDTO> loTemp = new List<GLT00600JournalGridDTO>();
-        //     loTemp = loProcessRapidApproveOrCommitList;
-        //     foreach (var item in loTemp)
-        //     {
-        //         if (item.CSTATUS == "80")
-        //         {
-        //             item.CSTATUS = "20";
-        //         }
-        //         else
-        //         {
-        //             item.CSTATUS = "80";
-        //         }
-        //     }
-        //
-        //     try
-        //     {
-        //         var loUserParameters = new List<R_KeyValue>();
-        //         loUserParameters.Add(new R_KeyValue() { Key = ContextConstant.CRAPIDORCOMMIT, Value = lcRapidOrdCommit });
-        //
-        //         //Instantiate ProcessClient
-        //         R_ProcessAndUploadClient loCls = new R_ProcessAndUploadClient(
-        //             pcModuleName: "GL",
-        //             plSendWithContext: true,
-        //             plSendWithToken: true,
-        //             pcHttpClientName: "R_DefaultServiceUrlGL",
-        //             poProcessProgressStatus: this);
-        //
-        //         //prepare Batch Parameter
-        //         R_BatchParameter loDbPar = new R_BatchParameter();
-        //         loDbPar.COMPANY_ID = COMPANYID;
-        //         loDbPar.USER_ID = USERID;
-        //         loDbPar.UserParameters = loUserParameters;
-        //         loDbPar.ClassName = "GLT00600Back.GLT00600RapidApproveAndCommitCls";
-        //         loDbPar.BigObject = loTemp;
-        //
-        //         await loCls.R_BatchProcess<List<GLT00600JournalGridDTO>>(loDbPar, loTemp.Count);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         loEx.Add(ex);
-        //     }
-        // }
+    
 
         public async Task ProcessComplete(string pcKeyGuid, eProcessResultMode poProcessResultMode)
         {

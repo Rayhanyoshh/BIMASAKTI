@@ -442,16 +442,40 @@ public partial class GLT00600 : R_Page
     #region RapidApprove
     private async Task R_Before_Open_PopupRapidApprove(R_BeforeOpenPopupEventArgs eventArgs)
     {
+        var loEx = new R_Exception();
 
-        if (_JournalListViewModel.JournalEntity.LALLOW_APPROVE == false)
+        try
         {
-            R_MessageBox.Show("", "You don’t have right to approve this journal type!", R_eMessageBoxButtonType.OK);
-            goto EndBlock;
+            if (_JournalListViewModel.JournalEntity.LALLOW_APPROVE == false)
+            {
+                R_MessageBox.Show("", @_localizer["_validationAllowApprove"], R_eMessageBoxButtonType.OK);
+                goto EndBlock;
+            }
+            if (string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CDEPT_CODE))
+            {
+                R_MessageBox.Show("", @_localizer["_validationDepartment"], R_eMessageBoxButtonType.OK);
+                goto EndBlock;
+            }
+
+            GLT00600DTO param = new GLT00600DTO
+            {
+                ISOFT_PERIOD_YY = _JournalListViewModel.Data.ISOFT_PERIOD_YY,
+                CSOFT_PERIOD_MM = _JournalListViewModel.Data.CSOFT_PERIOD_MM,
+                CSEARCH_TEXT = "",
+                CDEPT_CODE = _JournalListViewModel.lcDeptCode,
+                CSTATUS = "10",
+                CSTATUS_NAME = _localizer["_submitted"]
+            };
+            eventArgs.Parameter = param;
+            eventArgs.TargetPageType = typeof(RapidApprovalGLT00600);
+
         }
-        eventArgs.Parameter = _JournalListViewModel.JournalList;
-        eventArgs.TargetPageType = typeof(RapidApprovalGLT00600);
-    
-    EndBlock:;
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+        EndBlock:
+        loEx.ThrowExceptionIfErrors();
     }
     private async Task R_After_Open_PopupRapidApprove(R_AfterOpenPopupEventArgs eventArgs)
     {
@@ -482,8 +506,40 @@ public partial class GLT00600 : R_Page
     private async Task R_Before_Open_PopupRapidCommit(R_BeforeOpenPopupEventArgs eventArgs)
     {
 
-        eventArgs.Parameter = _JournalListViewModel.JournalList;
-        eventArgs.TargetPageType = typeof(RapidCommitGLT00600);
+        var loEx = new R_Exception();
+
+        try
+        {
+            if (_JournalListViewModel.JournalEntity.LALLOW_APPROVE == false)
+            {
+                R_MessageBox.Show("", @_localizer["_validationAllowApprove"], R_eMessageBoxButtonType.OK);
+                goto EndBlock;
+            }
+            if (string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CDEPT_CODE))
+            {
+                R_MessageBox.Show("", @_localizer["_validationDepartment"], R_eMessageBoxButtonType.OK);
+                goto EndBlock;
+            }
+
+            GLT00600DTO param = new GLT00600DTO
+            {
+                ISOFT_PERIOD_YY = _JournalListViewModel.Data.ISOFT_PERIOD_YY,
+                CSOFT_PERIOD_MM = _JournalListViewModel.Data.CSOFT_PERIOD_MM,
+                CSEARCH_TEXT = "",
+                CDEPT_CODE = _JournalListViewModel.lcDeptCode,
+                CSTATUS = "20",
+                CSTATUS_NAME = _localizer["_approved"]
+            };
+            eventArgs.Parameter = param;
+            eventArgs.TargetPageType = typeof(RapidCommitGLT00600);
+
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+        EndBlock:
+        loEx.ThrowExceptionIfErrors();
     }
     private async Task R_After_Open_PopupRapidCommit(R_AfterOpenPopupEventArgs eventArgs)
     {

@@ -19,6 +19,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.26" />
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_GSFRONT\Lookup_GSFRONT.csproj" />
 		<ProjectReference Include="..\..\COMMON\CB\CBT01200COMMON\CBT01200COMMON.csproj" />
+		<ProjectReference Include="..\CBT01200FrontResources\CBT01200FrontResources\CBT01200FrontResources.csproj" />
 		<ProjectReference Include="..\CBT01200MODEL\CBT01200MODEL.csproj" />
 	
 		<Reference Include="BlazorClientHelper">

@@ -1,7 +1,9 @@
 ﻿@page "/CBT01200"
 @inherits R_Page
 @using CBT01200Common;
+@using CBT01200FrontResources;
 @using CBT01200Common.DTOs;
+@attribute [R_Page(Title = "Transaction List")]
 
 <R_StackLayout Row>
     <R_ItemLayout>
@@ -132,7 +134,7 @@
     </R_ItemLayout>
 </R_StackLayout>
 
-@* <R_PredefinedDock Title="Journal Entry" R_InstantiateDock="@Predef_JournalEntry" R_AfterOpenPredefinedDock="@AfterPredef_JournalEntry"></R_PredefinedDock> *@
+<R_PredefinedDock Title="Transaction Entry" R_InstantiateDock="@Predef_JournalEntry" R_AfterOpenPredefinedDock="@AfterPredef_JournalEntry"></R_PredefinedDock>
 
 <R_Conductor @ref="_conductorRef"
              R_ViewModel="_JournalEntryViewModel"

@@ -132,6 +132,9 @@
   <data name="_approve" xml:space="preserve">
     <value>Approve</value>
   </data>
+  <data name="_approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
   <data name="_baseCurrency" xml:space="preserve">
     <value>Base Currency</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="_status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="_submitted" xml:space="preserve">
+    <value>Submitted</value>
   </data>
   <data name="_totalCredit" xml:space="preserve">
     <value>Total Credit</value>

@@ -15,5 +15,6 @@ namespace CBT01200Common.DTOs
         public string CBASE_CURRENCY_NAME { get; set; }
         public string CLOCAL_CURRENCY_CODE { get; set; }
         public string CLOCAL_CURRENCY_NAME { get; set; }
+        public bool LCASH_FLOW { get; set; }
     }
 }

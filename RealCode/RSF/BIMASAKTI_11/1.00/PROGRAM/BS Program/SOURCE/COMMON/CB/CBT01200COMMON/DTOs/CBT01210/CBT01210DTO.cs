@@ -6,8 +6,9 @@ namespace CBT01200Common.DTOs
 {
     public class CBT01210DTO
     {
+        public int INO {  get; set; }    
         public string CINPUT_TYPE { get; set; }
-        public string CCB_CODE { get; set; }
+        public string CCB_CODE { get; set; } = "";
         public string CCB_NAME { get; set; }
         public string CCB_ACCOUNT_NO { get; set; }
 

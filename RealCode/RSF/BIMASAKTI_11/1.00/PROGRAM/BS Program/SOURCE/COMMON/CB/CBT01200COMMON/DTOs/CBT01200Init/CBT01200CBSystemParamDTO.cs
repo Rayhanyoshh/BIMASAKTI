@@ -30,8 +30,8 @@ namespace CBT01200Common.DTOs
         public string CCURRENT_PERIOD { get; set; }
         public string CCURRENT_PERIOD_YY { get; set; }
         public string CCURRENT_PERIOD_MM { get; set; }
-        public string LCB_NUMBERING { get; set; }
-        public string LPRD_END_FLAG { get; set; }
+        public bool LCB_NUMBERING { get; set; }
+        public bool LPRD_END_FLAG { get; set; }
         public string CLPRD_END_BY { get; set; }
         public DateTime DLPRD_END_DATE { get; set; }
         public string CCREATE_BY { get; set; }

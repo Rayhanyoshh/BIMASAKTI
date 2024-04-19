@@ -57,65 +57,38 @@ namespace GLT00600Front
                 {
                     await ShowSuccessInvoke();
                 };
-                List<GLT00600JournalGridDTO> itemList = R_FrontUtility.ConvertObjectToObject<List<GLT00600JournalGridDTO>>(poParameter);
-                _JournalListViewModel.JournalList = new ObservableCollection<GLT00600JournalGridDTO>(itemList);
+                GLT00600DTO data = (GLT00600DTO)poParameter;
 
                 await _JournalListViewModel.GetDepartmentList();
-                await InititalProcess();
-                
+
+                _JournalListViewModel.Data.ISOFT_PERIOD_YY = data.ISOFT_PERIOD_YY;
+                _JournalListViewModel.Data.CSOFT_PERIOD_MM = "88";
+                _JournalListViewModel.Data.CSEARCH_TEXT = data.CSEARCH_TEXT;
+                _JournalListViewModel.Data.CSTATUS = data.CSTATUS;
+                _JournalListViewModel.Data.CSTATUS_NAME = data.CSTATUS_NAME;
+                _JournalListViewModel.Data.CDEPT_CODE = data.CDEPT_CODE;
+                var selectedDept = (from dept in _JournalListViewModel.AllDeptData
+                    where dept.CDEPT_CODE == data.CDEPT_CODE
+                    select dept).FirstOrDefault();
+                if (selectedDept != null)
+                {
+                    _JournalListViewModel.Data.CDEPT_NAME = selectedDept.CDEPT_NAME;
+                }
                 _JournalListViewModel.COMPANYID = clientHelper.CompanyId;
                 _JournalListViewModel.USERID = clientHelper.UserId;
+
                 await _gridRef.R_RefreshGrid(null);
+
+                _JournalListViewModel.buttonRapidApprove = _JournalListViewModel.JournalList.Count < 1 ? false : true;
             }
             catch (Exception ex)
             {
                 loEx.Add(ex);
             }
 
-            R_DisplayException(loEx);
+            loEx.ThrowExceptionIfErrors();
         }
-        private async Task InititalProcess()
-        {
-            _JournalListViewModel.lcDeptCode =
-                _JournalListViewModel.JournalList.Select(m => m.CDEPT_CODE).FirstOrDefault();
-            _JournalListViewModel.Data.CDEPT_CODE = _JournalListViewModel.lcDeptCode;
-
-
-            _JournalListViewModel.Data.CDEPT_NAME = _JournalListViewModel.AllDeptData
-                .FirstOrDefault(m => m.CDEPT_CODE == _JournalListViewModel.lcDeptCode)?.CDEPT_NAME;
-
-            string crefPrdYY = _JournalListViewModel.JournalList.Select(m => m.CREF_PRD).FirstOrDefault();
-            string firstFourDigits = crefPrdYY.Substring(0, Math.Min(4, crefPrdYY.Length));
-            if (int.TryParse(firstFourDigits, out int isoPeriodYy))
-            {
-                _JournalListViewModel.Data.ISOFT_PERIOD_YY = isoPeriodYy;
-            }
-            string crefPrdMM = _JournalListViewModel.JournalList.Select(m => m.CREF_PRD).FirstOrDefault();
-            if (crefPrdMM.Length == 6)
-            {
-                _JournalListViewModel.Data.CSOFT_PERIOD_MM = crefPrdMM.Substring(4, 2);
-            }
-
-
-            bool allStatusMatch = true;
-            string referenceStatus = _JournalListViewModel.JournalList.FirstOrDefault()?.CSTATUS; // Mengambil CSTATUS pertama sebagai referensi
-
-            foreach (var journalData in _JournalListViewModel.JournalList)
-            {
-                if (journalData.CSTATUS != referenceStatus)
-                {
-                    allStatusMatch = false;
-                    break;
-                }
-            }
-
-            _JournalListViewModel.Data.CSTATUS_NAME = allStatusMatch && _JournalListViewModel.statusMappings.ContainsKey(referenceStatus)
-                ? _JournalListViewModel.statusMappings[referenceStatus]
-                : "All";
-            _JournalListViewModel.Data.CSTATUS = allStatusMatch && _JournalListViewModel.statusMappings.ContainsKey(referenceStatus)
-                ? referenceStatus
-                : "";
-        }
+    
         private async Task ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -192,6 +165,7 @@ namespace GLT00600Front
                 if (_JournalListViewModel.Journal.CSTATUS == "80")
                 {
                     R_MessageBox.Show("", "Selected Journal Commited Successfully!", R_eMessageBoxButtonType.OK);
+                    Close(true, true);
 
                 }
 

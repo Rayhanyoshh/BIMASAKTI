@@ -81,7 +81,7 @@ namespace GLT00600Front
                     _conductorRef.R_GetEntity(_JournalListViewModel.Journal.CREC_ID);
 
                     _JournalListViewModel.EnableDept = _JournalListViewModel.EnableDelete =
-                        _JournalListViewModel.EnableEdit = _JournalListViewModel.EnablePrint =
+                         _JournalListViewModel.EnablePrint =
                             _JournalListViewModel.EnableCopy = true;
                 }
             }
@@ -144,6 +144,7 @@ namespace GLT00600Front
             data.CCREATE_BY = data.CUPDATE_BY = clientHelper.UserId;
             data.CUPDATE_DATE = data.CCREATE_DATE = DateTime.Now.ToLongDateString();
             await _JournalListViewModel.RefreshCurrencyRate();
+            data.CCURRENCY_CODE = _JournalListViewModel.lcLocalCurrency;
             data.CLOCAL_CURRENCY_CODE = _JournalListViewModel.lcLocalCurrency;
             data.CBASE_CURRENCY_CODE = _JournalListViewModel.lcBaseCurrency;
             _JournalListViewModel.JournaDetailListTemp = _JournalListViewModel.JournaDetailList;
@@ -153,7 +154,7 @@ namespace GLT00600Front
                 data.CSTATUS = _JournalListViewModel.allStatusData.FirstOrDefault()?.CCODE;
 
             if (_JournalListViewModel.currencyData != null)
-                data.CCURRENCY_CODE = _JournalListViewModel.currencyData.FirstOrDefault()?.CCURRENCY_CODE;
+                data.CCURRENCY_CODE = _JournalListViewModel.Data.CCURRENCY_CODE = data.CCURRENCY_CODE;
 
             data.CCREATE_BY = data.CUPDATE_BY = clientHelper.UserId;
             data.DCREATE_DATE = data.DUPDATE_DATE = DateTime.Now;
@@ -274,6 +275,7 @@ namespace GLT00600Front
                     if (data.CSTATUS == "00" || data.CSTATUS == "10")
                     {
                         _JournalListViewModel.EnableSubmit = true;
+                        _JournalListViewModel.EnableEdit = true;
                         if (data.CSTATUS == "10")
                         {
                             _JournalListViewModel.SubmitLabel = @_localizer["_btnUndoSubmit"];
@@ -307,8 +309,7 @@ namespace GLT00600Front
                     {
                         _JournalListViewModel.EnableDept = false;
                         _JournalListViewModel.EnableDelete = _JournalListViewModel.EnableCopy =
-                            _JournalListViewModel.EnablePrint = _JournalListViewModel.EnableSubmit =
-                                _JournalListViewModel.EnableEdit = true;
+                            _JournalListViewModel.EnablePrint = _JournalListViewModel.EnableSubmit;
                     }
                 }
 
@@ -430,6 +431,23 @@ namespace GLT00600Front
             }
             loEx.ThrowExceptionIfErrors();
         }
+        
+        private async Task Currency_OnChange(string poParam)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                _JournalListViewModel.Data.CCURRENCY_CODE = poParam;
+                await _JournalListViewModel.RefreshCurrencyRate();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
 
         #endregion
 
@@ -858,76 +876,6 @@ namespace GLT00600Front
         }
 
         #endregion
-        //#region Onchange Value
-
-        //private async Task RefreshLastCurrency()
-        //{
-        //    var loEx = new R_Exception();
-        //    try
-        //    {
-        //        var loData = (GLT00600JournalGridDetailDTO)_conductorRef.R_GetCurrentData();
-        //        //var loParam = R_FrontUtility.ConvertObjectToObject<GLT00110LastCurrencyRateDTO>(loData);
-        //        var loResult = await _JournalListViewModel.GetLastCurrency(loParam);
-
-        //        if (loResult is null)
-        //        {
-        //            loData.NLBASE_RATE = 1;
-        //            loData.NLCURRENCY_RATE = 1;
-        //            loData.NBBASE_RATE = 1;
-        //            loData.NBCURRENCY_RATE = 1;
-        //        }
-        //        else
-        //        {
-        //            loData.NLBASE_RATE = loResult.NLBASE_RATE_AMOUNT;
-        //            loData.NLCURRENCY_RATE = loResult.NLCURRENCY_RATE_AMOUNT;
-        //            loData.NBBASE_RATE = loResult.NBBASE_RATE_AMOUNT;
-        //            loData.NBCURRENCY_RATE = loResult.NBCURRENCY_RATE_AMOUNT;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        loEx.Add(ex);
-        //    }
-
-        //    loEx.ThrowExceptionIfErrors();
-        //}
-
-        //private async Task RefDate_OnChange(DateTime poParam)
-        //{
-        //    var loEx = new R_Exception();
-        //    try
-        //    {
-        //        _JournalEntryViewModel.RefDate = poParam;
-        //        if (_JournalEntryViewModel.Data.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-        //            || _JournalEntryViewModel.Data.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE)
-        //        {
-        //            await RefreshLastCurrency();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        loEx.Add(ex);
-        //    }
-
-        //    loEx.ThrowExceptionIfErrors();
-        //}
-
-        //private async Task Currency_OnChange(string poParam)
-        //{
-        //    var loEx = new R_Exception();
-        //    try
-        //    {
-        //        _JournalEntryViewModel.Data.CCURRENCY_CODE = poParam;
-        //        await RefreshLastCurrency();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        loEx.Add(ex);
-        //    }
-
-        //    loEx.ThrowExceptionIfErrors();
-        //}
-
-        //#endregion
+       
     }
 }

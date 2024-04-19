@@ -106,6 +106,15 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approved.
+        /// </summary>
+        internal static string _approved {
+            get {
+                return ResourceManager.GetString("_approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Base Currency.
         /// </summary>
         internal static string _baseCurrency {
@@ -498,6 +507,15 @@ namespace GLT00600FrontResources {
         internal static string _status {
             get {
                 return ResourceManager.GetString("_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitted.
+        /// </summary>
+        internal static string _submitted {
+            get {
+                return ResourceManager.GetString("_submitted", resourceCulture);
             }
         }
         

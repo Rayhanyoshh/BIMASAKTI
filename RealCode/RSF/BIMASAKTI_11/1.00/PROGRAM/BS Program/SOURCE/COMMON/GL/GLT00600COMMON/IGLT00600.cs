@@ -11,7 +11,7 @@ namespace GLT00600Common
         GLT00600JournalGridDTO ProcessAuditJournal(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO UndoAuditJournal(GLT00600JournalGridDTO poData);
         GLT00600JournalGridDTO JournalProcesStatus(GLT00600JournalGridDTO poData);
-        GLT00600JournalGridDTO RefreshCurrencyRate(GLT00600JournalGridDTO poData);
+        ResultRefreshCurrencyDTO RefreshCurrencyRate(RefreshCurrencyParameterDTO poData);
 
 
         #region INIT
