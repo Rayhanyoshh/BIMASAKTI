@@ -9,8 +9,6 @@ namespace CBT01200Common.DTOs
     public class CBT01200DTO
     {
         private DateTime _REF_DATE;
-
-        public bool LSELECTED { get; set; }
         public string CREC_ID { get; set; }
         public int INO { get; set; }
         public string CCOMPANY_ID { get; set; }
@@ -20,10 +18,10 @@ namespace CBT01200Common.DTOs
         public string CREF_NO { get; set; }
         public string CREF_DATE { get; set; }
         public DateTime DREF_DATE
-        {
-            get => _REF_DATE;
-            set => _REF_DATE = string.IsNullOrEmpty(CREF_DATE) ? DateTime.Now : DateTime.ParseExact(CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-        }
+                 {
+                     get => _REF_DATE;
+                     set => _REF_DATE = string.IsNullOrEmpty(CREF_DATE) ? DateTime.Now : DateTime.ParseExact(CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                 }
         public string CDOC_NO { get; set; }
         public string CDOC_DATE { get; set; }
         public string CREF_PRD { get; set; }

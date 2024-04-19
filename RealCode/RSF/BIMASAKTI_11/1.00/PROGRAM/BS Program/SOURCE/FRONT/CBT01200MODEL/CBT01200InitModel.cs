@@ -141,7 +141,7 @@ namespace CBT01200MODEL
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
                 var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<CBT01200RecordResult<CBT01200CBSystemParamDTO>>(
                     _RequestServiceEndPoint,
-                    nameof(ICBT01200Init.GetGLSystemParam),
+                    nameof(ICBT01200Init.GetCBSystemParam),
                     DEFAULT_MODULE,
                     _SendWithContext,
                     _SendWithToken);

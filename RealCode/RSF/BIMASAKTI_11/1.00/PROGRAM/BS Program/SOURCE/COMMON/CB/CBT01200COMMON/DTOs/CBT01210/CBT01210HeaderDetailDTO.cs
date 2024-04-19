@@ -6,6 +6,6 @@ namespace CBT01200Common.DTOs.CBT01210
 {
     public class CBT01110HeaderDetailDTO
     {
-        public CBT01210DTO HeaderData { get; set; }
+        public CBT01200TransHDRecordDTO HeaderData { get; set; }
     }
 }

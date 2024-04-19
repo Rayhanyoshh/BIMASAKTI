@@ -69,7 +69,7 @@ namespace CBT01200FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account No..
+        ///   Looks up a localized string similar to Account No.
         /// </summary>
         internal static string _AccountNo {
             get {
@@ -78,848 +78,803 @@ namespace CBT01200FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account No.*.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string _AccountNo_ {
+        internal static string _add {
             get {
-                return ResourceManager.GetString("_AccountNo*", resourceCulture);
+                return ResourceManager.GetString("_add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount.
+        ///   Looks up a localized string similar to Ammount.
         /// </summary>
-        internal static string _Amount {
+        internal static string _ammount {
             get {
-                return ResourceManager.GetString("_Amount", resourceCulture);
+                return ResourceManager.GetString("_ammount", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Approve.
         /// </summary>
-        internal static string _Approve {
+        internal static string _approve {
             get {
-                return ResourceManager.GetString("_Approve", resourceCulture);
+                return ResourceManager.GetString("_approve", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bank Code.
+        ///   Looks up a localized string similar to Approved.
         /// </summary>
-        internal static string _BankCode {
+        internal static string _approved {
             get {
-                return ResourceManager.GetString("_BankCode", resourceCulture);
+                return ResourceManager.GetString("_approved", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Base Currency.
         /// </summary>
-        internal static string _BaseCurrency {
+        internal static string _baseCurrency {
             get {
-                return ResourceManager.GetString("_BaseCurrency", resourceCulture);
+                return ResourceManager.GetString("_baseCurrency", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Base Rate.
         /// </summary>
-        internal static string _BaseRate {
+        internal static string _baseRate {
             get {
-                return ResourceManager.GetString("_BaseRate", resourceCulture);
+                return ResourceManager.GetString("_baseRate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash Flow Code.
+        ///   Looks up a localized string similar to Approve.
         /// </summary>
-        internal static string _CashFlowCode {
+        internal static string _btnApprove {
             get {
-                return ResourceManager.GetString("_CashFlowCode", resourceCulture);
+                return ResourceManager.GetString("_btnApprove", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash Flow Name.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string _CashFlowName {
+        internal static string _btnCancel {
             get {
-                return ResourceManager.GetString("_CashFlowName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Center.
-        /// </summary>
-        internal static string _Center {
-            get {
-                return ResourceManager.GetString("_Center", resourceCulture);
+                return ResourceManager.GetString("_btnCancel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Commit.
         /// </summary>
-        internal static string _Commit {
+        internal static string _btnCommit {
             get {
-                return ResourceManager.GetString("_Commit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy.
-        /// </summary>
-        internal static string _Copy {
-            get {
-                return ResourceManager.GetString("_Copy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CR (Base).
-        /// </summary>
-        internal static string _CrBase {
-            get {
-                return ResourceManager.GetString("_CrBase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Created By.
-        /// </summary>
-        internal static string _CreatedBy {
-            get {
-                return ResourceManager.GetString("_CreatedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Created Date.
-        /// </summary>
-        internal static string _CreatedDate {
-            get {
-                return ResourceManager.GetString("_CreatedDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Credit.
-        /// </summary>
-        internal static string _Credit {
-            get {
-                return ResourceManager.GetString("_Credit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CR (Local).
-        /// </summary>
-        internal static string _CrLocal {
-            get {
-                return ResourceManager.GetString("_CrLocal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Currency.
-        /// </summary>
-        internal static string _Currency {
-            get {
-                return ResourceManager.GetString("_Currency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Currency Rate.
-        /// </summary>
-        internal static string _CurrencyRate {
-            get {
-                return ResourceManager.GetString("_CurrencyRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DB (Base).
-        /// </summary>
-        internal static string _DbBase {
-            get {
-                return ResourceManager.GetString("_DbBase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DB (Local).
-        /// </summary>
-        internal static string _DbLocal {
-            get {
-                return ResourceManager.GetString("_DbLocal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Debit.
-        /// </summary>
-        internal static string _Debit {
-            get {
-                return ResourceManager.GetString("_Debit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        internal static string _Delete {
-            get {
-                return ResourceManager.GetString("_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Department.
-        /// </summary>
-        internal static string _Departement {
-            get {
-                return ResourceManager.GetString("_Departement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        internal static string _Description {
-            get {
-                return ResourceManager.GetString("_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doc Date.
-        /// </summary>
-        internal static string _DocDate {
-            get {
-                return ResourceManager.GetString("_DocDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document No..
-        /// </summary>
-        internal static string _DocumentNo {
-            get {
-                return ResourceManager.GetString("_DocumentNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transaction Entry.
-        /// </summary>
-        internal static string _grpBoxTitleTransEntry {
-            get {
-                return ResourceManager.GetString("_grpBoxTitleTransEntry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transaction List.
-        /// </summary>
-        internal static string _grpBoxTitleTransList {
-            get {
-                return ResourceManager.GetString("_grpBoxTitleTransList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transaction Entry.
-        /// </summary>
-        internal static string _JournalEntry {
-            get {
-                return ResourceManager.GetString("_JournalEntry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Journal Period.
-        /// </summary>
-        internal static string _JournalPeriod {
-            get {
-                return ResourceManager.GetString("_JournalPeriod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Local Currency.
-        /// </summary>
-        internal static string _LocalCurrency {
-            get {
-                return ResourceManager.GetString("_LocalCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No..
-        /// </summary>
-        internal static string _No {
-            get {
-                return ResourceManager.GetString("_No", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Print.
-        /// </summary>
-        internal static string _Print {
-            get {
-                return ResourceManager.GetString("_Print", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Receipt Amount.
-        /// </summary>
-        internal static string _ReceiptAmount {
-            get {
-                return ResourceManager.GetString("_ReceiptAmount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ref Date.
-        /// </summary>
-        internal static string _RefDate {
-            get {
-                return ResourceManager.GetString("_RefDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference Date.
-        /// </summary>
-        internal static string _ReferenceDate {
-            get {
-                return ResourceManager.GetString("_ReferenceDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference No..
-        /// </summary>
-        internal static string _ReferenceNo {
-            get {
-                return ResourceManager.GetString("_ReferenceNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        internal static string _Search {
-            get {
-                return ResourceManager.GetString("_Search", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show All.
-        /// </summary>
-        internal static string _ShowAll {
-            get {
-                return ResourceManager.GetString("_ShowAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        internal static string _Status {
-            get {
-                return ResourceManager.GetString("_Status", resourceCulture);
+                return ResourceManager.GetString("_btnCommit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
-        internal static string _Submit {
+        internal static string _btnSubmit {
             get {
-                return ResourceManager.GetString("_Submit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transaction Entry.
-        /// </summary>
-        internal static string _tabTitleTransEntry {
-            get {
-                return ResourceManager.GetString("_tabTitleTransEntry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transaction List.
-        /// </summary>
-        internal static string _tabTitleTransList {
-            get {
-                return ResourceManager.GetString("_tabTitleTransList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Credit.
-        /// </summary>
-        internal static string _TotalCredit {
-            get {
-                return ResourceManager.GetString("_TotalCredit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Debit.
-        /// </summary>
-        internal static string _TotalDebit {
-            get {
-                return ResourceManager.GetString("_TotalDebit", resourceCulture);
+                return ResourceManager.GetString("_btnSubmit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Undo Commit.
         /// </summary>
-        internal static string _UndoCommit {
+        internal static string _btnUndoCommit {
             get {
-                return ResourceManager.GetString("_UndoCommit", resourceCulture);
+                return ResourceManager.GetString("_btnUndoCommit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Undo Submit.
         /// </summary>
-        internal static string _UndoSubmit {
+        internal static string _btnUndoSubmit {
             get {
-                return ResourceManager.GetString("_UndoSubmit", resourceCulture);
+                return ResourceManager.GetString("_btnUndoSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string _cancel {
+            get {
+                return ResourceManager.GetString("_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        internal static string _center {
+            get {
+                return ResourceManager.GetString("_center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commit.
+        /// </summary>
+        internal static string _commit {
+            get {
+                return ResourceManager.GetString("_commit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string _copy {
+            get {
+                return ResourceManager.GetString("_copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CR (Base).
+        /// </summary>
+        internal static string _crBase {
+            get {
+                return ResourceManager.GetString("_crBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created By.
+        /// </summary>
+        internal static string _createdBy {
+            get {
+                return ResourceManager.GetString("_createdBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        internal static string _createdDate {
+            get {
+                return ResourceManager.GetString("_createdDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credit.
+        /// </summary>
+        internal static string _credit {
+            get {
+                return ResourceManager.GetString("_credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CR (Local).
+        /// </summary>
+        internal static string _crlocal {
+            get {
+                return ResourceManager.GetString("_crlocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        internal static string _currency {
+            get {
+                return ResourceManager.GetString("_currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency Rate.
+        /// </summary>
+        internal static string _currencyRate {
+            get {
+                return ResourceManager.GetString("_currencyRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DB (Base).
+        /// </summary>
+        internal static string _dbBase {
+            get {
+                return ResourceManager.GetString("_dbBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DB (Local).
+        /// </summary>
+        internal static string _dblocal {
+            get {
+                return ResourceManager.GetString("_dblocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D/C.
+        /// </summary>
+        internal static string _dc {
+            get {
+                return ResourceManager.GetString("_dc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debit.
+        /// </summary>
+        internal static string _debit {
+            get {
+                return ResourceManager.GetString("_debit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string _delete {
+            get {
+                return ResourceManager.GetString("_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        internal static string _department {
+            get {
+                return ResourceManager.GetString("_department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string _desc {
+            get {
+                return ResourceManager.GetString("_desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doc. Date.
+        /// </summary>
+        internal static string _docDate {
+            get {
+                return ResourceManager.GetString("_docDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document No..
+        /// </summary>
+        internal static string _docNo_ {
+            get {
+                return ResourceManager.GetString("_docNo.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freq..
+        /// </summary>
+        internal static string _freq_ {
+            get {
+                return ResourceManager.GetString("_freq.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journal Period.
+        /// </summary>
+        internal static string _journalPeriod {
+            get {
+                return ResourceManager.GetString("_journalPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Currency.
+        /// </summary>
+        internal static string _localCurrency {
+            get {
+                return ResourceManager.GetString("_localCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master Ref. No..
+        /// </summary>
+        internal static string _masterRefNo {
+            get {
+                return ResourceManager.GetString("_masterRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify.
+        /// </summary>
+        internal static string _modify {
+            get {
+                return ResourceManager.GetString("_modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        internal static string _no {
+            get {
+                return ResourceManager.GetString("_no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prelist.
+        /// </summary>
+        internal static string _prelist {
+            get {
+                return ResourceManager.GetString("_prelist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid Approval.
+        /// </summary>
+        internal static string _rapidApprove {
+            get {
+                return ResourceManager.GetString("_rapidApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid Commit.
+        /// </summary>
+        internal static string _rapidCommit {
+            get {
+                return ResourceManager.GetString("_rapidCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref. Date.
+        /// </summary>
+        internal static string _referenceDate {
+            get {
+                return ResourceManager.GetString("_referenceDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference No..
+        /// </summary>
+        internal static string _referenceNo {
+            get {
+                return ResourceManager.GetString("_referenceNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string _save {
+            get {
+                return ResourceManager.GetString("_save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string _search {
+            get {
+                return ResourceManager.GetString("_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seq..
+        /// </summary>
+        internal static string _seq {
+            get {
+                return ResourceManager.GetString("_seq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show All.
+        /// </summary>
+        internal static string _showAll {
+            get {
+                return ResourceManager.GetString("_showAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string _status {
+            get {
+                return ResourceManager.GetString("_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitted.
+        /// </summary>
+        internal static string _submitted {
+            get {
+                return ResourceManager.GetString("_submitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Credit.
+        /// </summary>
+        internal static string _totalCredit {
+            get {
+                return ResourceManager.GetString("_totalCredit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Debit.
+        /// </summary>
+        internal static string _totalDebit {
+            get {
+                return ResourceManager.GetString("_totalDebit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Updated By.
         /// </summary>
-        internal static string _UpdatedBy {
+        internal static string _updateBy {
             get {
-                return ResourceManager.GetString("_UpdatedBy", resourceCulture);
+                return ResourceManager.GetString("_updateBy", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Updated Date.
         /// </summary>
-        internal static string _UpdatedDate {
+        internal static string _updateDate {
             get {
-                return ResourceManager.GetString("_UpdatedDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voucher Date.
-        /// </summary>
-        internal static string _VoucherDate {
-            get {
-                return ResourceManager.GetString("_VoucherDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voucher No..
-        /// </summary>
-        internal static string _VoucherNo {
-            get {
-                return ResourceManager.GetString("_VoucherNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data Not Found!.
-        /// </summary>
-        internal static string N01 {
-            get {
-                return ResourceManager.GetString("N01", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please input keyword to search!.
-        /// </summary>
-        internal static string N02 {
-            get {
-                return ResourceManager.GetString("N02", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimum search keyword is 3 characters!.
-        /// </summary>
-        internal static string N03 {
-            get {
-                return ResourceManager.GetString("N03", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You don’t have right to approve this journal!.
-        /// </summary>
-        internal static string N04 {
-            get {
-                return ResourceManager.GetString("N04", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selected Journal cannot be deleted!.
-        /// </summary>
-        internal static string N05 {
-            get {
-                return ResourceManager.GetString("N05", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selected Journal cannot be edited!.
-        /// </summary>
-        internal static string N06 {
-            get {
-                return ResourceManager.GetString("N06", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to undo committed this journal?.
-        /// </summary>
-        internal static string Q01 {
-            get {
-                return ResourceManager.GetString("Q01", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to commit this journal?.
-        /// </summary>
-        internal static string Q02 {
-            get {
-                return ResourceManager.GetString("Q02", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to delete this journal?.
-        /// </summary>
-        internal static string Q03 {
-            get {
-                return ResourceManager.GetString("Q03", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You haven’t saved your changes. Are you sure want to cancel?.
-        /// </summary>
-        internal static string Q04 {
-            get {
-                return ResourceManager.GetString("Q04", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to undo submit this journal?.
-        /// </summary>
-        internal static string Q05 {
-            get {
-                return ResourceManager.GetString("Q05", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure want to submit this journal?.
-        /// </summary>
-        internal static string Q06 {
-            get {
-                return ResourceManager.GetString("Q06", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete Selected Journal Detail?.
-        /// </summary>
-        internal static string Q07 {
-            get {
-                return ResourceManager.GetString("Q07", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please Select Department!.
-        /// </summary>
-        internal static string V01 {
-            get {
-                return ResourceManager.GetString("V01", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference No. is required!.
-        /// </summary>
-        internal static string V02 {
-            get {
-                return ResourceManager.GetString("V02", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference Date is required!.
-        /// </summary>
-        internal static string V03 {
-            get {
-                return ResourceManager.GetString("V03", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference Date cannot be after today!.
-        /// </summary>
-        internal static string V04 {
-            get {
-                return ResourceManager.GetString("V04", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference Date cannot be before CB Link Date!.
-        /// </summary>
-        internal static string V05 {
-            get {
-                return ResourceManager.GetString("V05", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reference Date cannot be before Soft Period!.
-        /// </summary>
-        internal static string V06 {
-            get {
-                return ResourceManager.GetString("V06", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select Cash Code!.
-        /// </summary>
-        internal static string V07 {
-            get {
-                return ResourceManager.GetString("V07", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Payment Amount must be &gt; 0!.
-        /// </summary>
-        internal static string V08 {
-            get {
-                return ResourceManager.GetString("V08", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document No. is required!.
-        /// </summary>
-        internal static string V09 {
-            get {
-                return ResourceManager.GetString("V09", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document Date is required!.
-        /// </summary>
-        internal static string V10 {
-            get {
-                return ResourceManager.GetString("V10", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document Date cannot be after Reference Date!.
-        /// </summary>
-        internal static string V11 {
-            get {
-                return ResourceManager.GetString("V11", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document Date cannot be before Soft Period!.
-        /// </summary>
-        internal static string V12 {
-            get {
-                return ResourceManager.GetString("V12", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description is required!.
-        /// </summary>
-        internal static string V13 {
-            get {
-                return ResourceManager.GetString("V13", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Local Currency Base Rate must be greater than 0!.
-        /// </summary>
-        internal static string V14 {
-            get {
-                return ResourceManager.GetString("V14", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Local Currency Rate must be greater than 0!.
-        /// </summary>
-        internal static string V15 {
-            get {
-                return ResourceManager.GetString("V15", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Base Currency Base Rate must be greater than 0!.
-        /// </summary>
-        internal static string V16 {
-            get {
-                return ResourceManager.GetString("V16", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Base Currency Rate must be greater than 0!.
-        /// </summary>
-        internal static string V17 {
-            get {
-                return ResourceManager.GetString("V17", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot Submit Journal with date before Soft Close Period!.
-        /// </summary>
-        internal static string V18 {
-            get {
-                return ResourceManager.GetString("V18", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Debit Amount must be equal to Total Credit Amount.
-        /// </summary>
-        internal static string V19 {
-            get {
-                return ResourceManager.GetString("V19", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Debit Amount or Total Credit Amount cannot be 0!.
-        /// </summary>
-        internal static string V20 {
-            get {
-                return ResourceManager.GetString("V20", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Debit/Credit must be equal to Payment Amount!.
-        /// </summary>
-        internal static string V21 {
-            get {
-                return ResourceManager.GetString("V21", resourceCulture);
+                return ResourceManager.GetString("_updateDate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Account No. is required!.
         /// </summary>
-        internal static string V22 {
+        internal static string _validationAccountNo {
             get {
-                return ResourceManager.GetString("V22", resourceCulture);
+                return ResourceManager.GetString("_validationAccountNo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account No. [Input Account No.] already exists!.
+        ///   Looks up a localized string similar to Please input Document Date first before input Journal Detail!.
         /// </summary>
-        internal static string V23 {
+        internal static string _validationAddEditDocDate {
             get {
-                return ResourceManager.GetString("V23", resourceCulture);
+                return ResourceManager.GetString("_validationAddEditDocDate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Center Code is required for Account No. [Input Account No.]!.
+        ///   Looks up a localized string similar to Please input Document No. first before input Journal Detail!.
         /// </summary>
-        internal static string V24 {
+        internal static string _validationAddEditDocNo {
             get {
-                return ResourceManager.GetString("V24", resourceCulture);
+                return ResourceManager.GetString("_validationAddEditDocNo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cash Flow Code is required!.
+        ///   Looks up a localized string similar to You don’t have right to approve this journal!.
         /// </summary>
-        internal static string V25 {
+        internal static string _validationAllowApprove {
             get {
-                return ResourceManager.GetString("V25", resourceCulture);
+                return ResourceManager.GetString("_validationAllowApprove", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journal amount cannot be 0!.
+        ///   Looks up a localized string similar to already exists!.
         /// </summary>
-        internal static string V26 {
+        internal static string _validationAlreadyExist {
             get {
-                return ResourceManager.GetString("V26", resourceCulture);
+                return ResourceManager.GetString("_validationAlreadyExist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Journal amount can only be either Debit or Credit!.
+        ///   Looks up a localized string similar to Base Currency Base Rate must be greater than 0!.
         /// </summary>
-        internal static string V27 {
+        internal static string _validationBaseCurrencyBase {
             get {
-                return ResourceManager.GetString("V27", resourceCulture);
+                return ResourceManager.GetString("_validationBaseCurrencyBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base Currency Rate must be greater than 0!.
+        /// </summary>
+        internal static string _validationBaseCurrencyRate {
+            get {
+                return ResourceManager.GetString("_validationBaseCurrencyRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center Code is required for Account No..
+        /// </summary>
+        internal static string _validationCenterCode {
+            get {
+                return ResourceManager.GetString("_validationCenterCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to commit this journal? [Yes/No].
+        /// </summary>
+        internal static string _validationCommit {
+            get {
+                return ResourceManager.GetString("_validationCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Not Found!.
+        /// </summary>
+        internal static string _validationDataNotFound {
+            get {
+                return ResourceManager.GetString("_validationDataNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete this journal?’[Yes/No].
+        /// </summary>
+        internal static string _validationDelete {
+            get {
+                return ResourceManager.GetString("_validationDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select Department!.
+        /// </summary>
+        internal static string _validationDeptMandatory {
+            get {
+                return ResourceManager.GetString("_validationDeptMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input Description first before input Journal Detail!.
+        /// </summary>
+        internal static string _validationDescMandatory {
+            get {
+                return ResourceManager.GetString("_validationDescMandatory", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Description is required!.
         /// </summary>
-        internal static string V28 {
+        internal static string _validationDescReq {
             get {
-                return ResourceManager.GetString("V28", resourceCulture);
+                return ResourceManager.GetString("_validationDescReq", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voucher No. is required!.
+        ///   Looks up a localized string similar to Invalid Document Date! Document Date cannot be before Current Period!.
         /// </summary>
-        internal static string V29 {
+        internal static string _validationDocumentDateCannot {
             get {
-                return ResourceManager.GetString("V29", resourceCulture);
+                return ResourceManager.GetString("_validationDocumentDateCannot", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voucher Date is required!.
+        ///   Looks up a localized string similar to Please input Document No.!.
         /// </summary>
-        internal static string V30 {
+        internal static string _validationInputDocumentNo {
             get {
-                return ResourceManager.GetString("V30", resourceCulture);
+                return ResourceManager.GetString("_validationInputDocumentNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journal amount is not equal to Prelist!.
+        /// </summary>
+        internal static string _validationJournalAmount {
+            get {
+                return ResourceManager.GetString("_validationJournalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Journal amount cannot be 0!.
+        /// </summary>
+        internal static string _validationJournalAmountCannotZero {
+            get {
+                return ResourceManager.GetString("_validationJournalAmountCannotZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Currency Base Rate must be greater than 0!.
+        /// </summary>
+        internal static string _validationLocalCurrencyBase {
+            get {
+                return ResourceManager.GetString("_validationLocalCurrencyBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Currency Rate must be greater than 0!.
+        /// </summary>
+        internal static string _validationLocalCurrencyRate {
+            get {
+                return ResourceManager.GetString("_validationLocalCurrencyRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Data Found!.
+        /// </summary>
+        internal static string _validationNoDataFound {
+            get {
+                return ResourceManager.GetString("_validationNoDataFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to process selected Journal(s)?.
+        /// </summary>
+        internal static string _validationProcess {
+            get {
+                return ResourceManager.GetString("_validationProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference Date cannot be before Current Period!.
+        /// </summary>
+        internal static string _validationReferenceDateCannot {
+            get {
+                return ResourceManager.GetString("_validationReferenceDateCannot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference No. is required!.
+        /// </summary>
+        internal static string _validationReferenceRequired {
+            get {
+                return ResourceManager.GetString("_validationReferenceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input keyword to search!.
+        /// </summary>
+        internal static string _validationSearchText {
+            get {
+                return ResourceManager.GetString("_validationSearchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum search keyword is 3 characters!.
+        /// </summary>
+        internal static string _validationSearchTextMinimum {
+            get {
+                return ResourceManager.GetString("_validationSearchTextMinimum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to submit this journal? [Yes/No].
+        /// </summary>
+        internal static string _validationSubmit {
+            get {
+                return ResourceManager.GetString("_validationSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Journal Approved Successfully!.
+        /// </summary>
+        internal static string _validationSuccesApprove {
+            get {
+                return ResourceManager.GetString("_validationSuccesApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Journal Committed Successfully!.
+        /// </summary>
+        internal static string _validationSuccesCommit {
+            get {
+                return ResourceManager.GetString("_validationSuccesCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Journal Undo Commit Successfully!.
+        /// </summary>
+        internal static string _validationSuccesUndoCommit {
+            get {
+                return ResourceManager.GetString("_validationSuccesUndoCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Debit Amount must be equal to Total Credit Amount.
+        /// </summary>
+        internal static string _validationTotalDebitTotalAmount {
+            get {
+                return ResourceManager.GetString("_validationTotalDebitTotalAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to undo commit this journal? [Yes/No].
+        /// </summary>
+        internal static string _validationUndoCommit {
+            get {
+                return ResourceManager.GetString("_validationUndoCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to undo submit this journal? [Yes/No].
+        /// </summary>
+        internal static string _validationUndoSubmit {
+            get {
+                return ResourceManager.GetString("_validationUndoSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven’t saved your changes. Are you sure want to cancel? [Yes/No].
+        /// </summary>
+        internal static string _validationYouHaventSave {
+            get {
+                return ResourceManager.GetString("_validationYouHaventSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voucher Date.
+        /// </summary>
+        internal static string _voucherDate {
+            get {
+                return ResourceManager.GetString("_voucherDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voucher No..
+        /// </summary>
+        internal static string _voucherNo {
+            get {
+                return ResourceManager.GetString("_voucherNo", resourceCulture);
             }
         }
     }

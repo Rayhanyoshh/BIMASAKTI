@@ -33,10 +33,15 @@ namespace CBT01200FRONT
         private R_Conductor _conductorRef;
         private R_ConductorGrid _conductorDetailRef;
         private R_Grid<CBT01201DTO> _gridDetailRef;
-
+        
         [Inject] IClientHelper clientHelper { get; set; }
         [Inject] private R_ILocalizer<CBT01200FrontResources.Resources_Dummy_Class> _localizer { get; set; }
 
+        private R_Lookup R_LookupBtnPrint;
+
+        private R_Lookup R_LookupBtnDept;
+
+        private R_TextBox _txt_CDEPT_CODE;
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -48,6 +53,11 @@ namespace CBT01200FRONT
                 if (!string.IsNullOrWhiteSpace(loParam.CREC_ID))
                 {
                     await _conductorRef.R_GetEntity(loParam);
+                }
+                else
+                {
+                    _JournalEntryViewModel.RefDate = _JournalEntryViewModel.VAR_TODAY.DTODAY;
+                    _JournalEntryViewModel.DocDate = _JournalEntryViewModel.VAR_TODAY.DTODAY;
                 }
             }
             catch (Exception ex)

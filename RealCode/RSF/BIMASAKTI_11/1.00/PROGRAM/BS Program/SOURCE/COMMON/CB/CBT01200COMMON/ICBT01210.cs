@@ -3,18 +3,13 @@ using CBT01200Common.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using R_CommonFrontBackAPI;
 
 namespace CBT01200Common
 {
-    public interface ICBT01210
+    public interface ICBT01210  : R_IServiceCRUDBase<CBT01210ParamDTO>
     {
-        CBT01200RecordResult<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity);
-        CBT01200RecordResult<CBT01210DTO> GetJournalRecord(CBT01210DTO poEntity);
-        CBT01200RecordResult<CBT01211DTO> GetJournalDetailRecord(CBT01211DTO poEntity);
-        CBT01200RecordResult<CBT01210DTO> SaveJournal(CBT01210DTO poEntity);
-        CBT01200RecordResult<CBT01210DTO> SaveJournalDetail(CBT01211DTO poEntity);
-        CBT01200RecordResult<CBT01210DTO> DeleteJournalDetail(CBT01211DTO poEntity);
-
-
+        IAsyncEnumerable<CBT01201DTO> GetJournalDetailList();
+        
     }
 }

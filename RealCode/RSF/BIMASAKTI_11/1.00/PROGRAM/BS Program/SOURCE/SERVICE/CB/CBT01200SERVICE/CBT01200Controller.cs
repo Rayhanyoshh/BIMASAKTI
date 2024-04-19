@@ -12,18 +12,20 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using CBT01200Common;
 using CBT01200Back;
+using R_BackEnd;
+using R_CommonFrontBackAPI;
 
 namespace CBT01100SERVICE
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class CBT01100Controller : ControllerBase, ICBT01200
+    public class CBT01200Controller : ControllerBase, ICBT01200
     {
         private LoggerCBT01200 _logger;
 
         private readonly ActivitySource _activitySource;
 
-        public CBT01100Controller(ILogger<LoggerCBT01200> logger)
+        public CBT01200Controller(ILogger<LoggerCBT01200> logger)
         {
             //Initial and Get Logger
             LoggerCBT01200.R_InitializeLogger(logger);
@@ -31,33 +33,7 @@ namespace CBT01100SERVICE
             _activitySource = CBT01200Activity.R_InitializeAndGetActivitySource(GetType().Name);
 
         }
-
-        [HttpPost]
-        public IAsyncEnumerable<CBT01201DTO> GetJournalDetailList()
-        {
-            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
-            ShowLogStart();
-            var loEx = new R_Exception();
-            IAsyncEnumerable<CBT01201DTO> loRtn = null;
-
-            try
-            {
-                var loRecId = R_Utility.R_GetStreamingContext<string>(ContextConstant.CREC_ID);
-                var loCls = new CBT01200Cls();
-                var loTempRtn = loCls.GetJournalDetailList(loRecId);
-                ShowLogExecute();
-                loRtn = StreamListData<CBT01201DTO>(loTempRtn);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-                ShowLogError(loEx);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-            ShowLogEnd();
-            return loRtn;
-        }
+        
 
         [HttpPost]
         public IAsyncEnumerable<CBT01200DTO> GetJournalList()
@@ -121,6 +97,129 @@ namespace CBT01100SERVICE
             return loRtn;
         }
 
+        public CBT01200RecordResult<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            var loEx = new R_Exception();
+            CBT01200RecordResult<CBT01210LastCurrencyRateDTO> loRtn = new CBT01200RecordResult<CBT01210LastCurrencyRateDTO>();
+
+            try
+            {
+                var loCls = new CBT01200Cls();
+                ShowLogExecute();
+                loRtn.Data = loCls.GetLastCurrency(poEntity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            ShowLogEnd();
+
+            return loRtn;
+        }
+
+
+        public R_ServiceGetRecordResultDTO<CBT1200JournalHDParam> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT1200JournalHDParam> poParameter)
+        {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
+            _logger.LogInfo("Start - GetRecord");
+
+            R_Exception loEx = new R_Exception();
+            R_ServiceGetRecordResultDTO<CBT1200JournalHDParam> loRtn = null;
+            CBT01200Cls loCls;
+
+            try
+            {
+                loCls = new CBT01200Cls();
+                loRtn = new R_ServiceGetRecordResultDTO<CBT1200JournalHDParam>();
+
+                _logger.LogInfo("Set Parameter");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CREC_ID = R_Utility.R_GetContext<string>(ContextConstant.CREC_ID);
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poParameter.Entity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+
+                _logger.LogInfo("Get Account Record");
+                loRtn.data = loCls.R_GetRecord(poParameter.Entity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            EndBlock:
+            loEx.ThrowExceptionIfErrors();
+            _logger.LogInfo("End - Get Account Record");
+            return loRtn;
+        }
+
+        public R_ServiceSaveResultDTO<CBT1200JournalHDParam> R_ServiceSave(R_ServiceSaveParameterDTO<CBT1200JournalHDParam> poParameter)
+        {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
+            _logger.LogInfo("Start - Save Transaction Record");
+            R_Exception loEx = new R_Exception();
+            R_ServiceSaveResultDTO<CBT1200JournalHDParam> loRtn = null;
+            CBT01200Cls loCls;
+
+            try
+            {
+                loCls = new CBT01200Cls();
+                loRtn = new R_ServiceSaveResultDTO<CBT1200JournalHDParam>();
+                _logger.LogInfo("Set Parameter");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+
+                _logger.LogInfo("Save Transaction Entity");
+                loRtn.data = loCls.R_Save(poParameter.Entity, poParameter.CRUDMode);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            EndBlock:
+            loEx.ThrowExceptionIfErrors();
+            _logger.LogInfo("End - Save Account Entity");
+            return loRtn;
+        }
+
+        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT1200JournalHDParam> poParameter)
+        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            R_ServiceDeleteResultDTO loRtn = new R_ServiceDeleteResultDTO();
+            var loEx = new R_Exception();
+            try
+            {
+                _logger.LogInfo("Set Parameter");
+                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+                var loCls = new CBT01200Cls();
+                _logger.LogInfo("Delete Transaction Entity");
+                loCls.R_Delete(poParameter.Entity);
+
+                ShowLogExecute();
+               
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _logger.LogInfo("End - Delete Account Entity");
+            ShowLogEnd();
+            return loRtn;
+        }
+        
+        
         #region Stream List Data
 
         private async IAsyncEnumerable<T> StreamListData<T>(List<T> poParameter)
