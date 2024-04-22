@@ -15,7 +15,7 @@ using CBT01200Common.DTOs;
 
 namespace CBT01200MODEL
 {
-    public class CBT01210ViewModel : R_ViewModel<CBT01211DTO>
+    public class CBT01210ViewModel : R_ViewModel<CBT01210ParamDTO>
     {
         #region Model
         private CBT01200InitModel _CBT01200InitModel = new CBT01200InitModel();
@@ -39,10 +39,12 @@ namespace CBT01200MODEL
         #endregion
 
         #region Public Property ViewModel
+
+        public string _CREC_ID { get; set; } = "";
         public DateTime? RefDate { get; set; }
         public DateTime? DocDate { get; set; }
-        public CBT01210DTO Journal { get; set; } = new CBT01210DTO();
-        public CBT01211DTO JournalDetail { get; set; } = new CBT01211DTO();
+        public CBT01210ParamDTO Journal { get; set; } = new CBT01210ParamDTO();
+        public CBT01210JournalDetailDTO JournalDetail { get; set; } = new CBT01210JournalDetailDTO();
         public ObservableCollection<CBT01201DTO> JournalDetailGrid { get; set; } = new ObservableCollection<CBT01201DTO>();
         public ObservableCollection<CBT01201DTO> JournalDetailGridTemp { get; set; } = new ObservableCollection<CBT01201DTO>();
         #endregion
@@ -66,6 +68,8 @@ namespace CBT01200MODEL
                 VAR_IUNDO_COMMIT_JRN = await _CBT01200InitModel.GetGSSystemEnableOptionInfoAsync();
                 VAR_GSM_PERIOD = await _CBT01200InitModel.GetGSPeriodYearRangeAsync();
                 VAR_GSB_CODE_LIST = await _CBT01200InitModel.GetGSBCodeListAsync();
+                
+                
 
                 var loParam = new CBT01200ParamGSPeriodDTInfoDTO() { CCYEAR = VAR_CB_SYSTEM_PARAM.CCURRENT_PERIOD_YY, CPERIOD_NO = VAR_CB_SYSTEM_PARAM.CCURRENT_PERIOD_MM };
                 VAR_SOFT_PERIOD_START_DATE = await _CBT01200InitModel.GetGSPeriodDTInfoAsync(loParam);
@@ -79,13 +83,33 @@ namespace CBT01200MODEL
         }
 
         #region Journal
-        public async Task GetJournal(CBT01210DTO poEntity)
+        
+        public async Task GetJournalDetailList()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = await _CBT01210Model.GetJournalRecordAsync(poEntity);
+                R_FrontContext.R_SetContext(ContextConstant.CREC_ID, _CREC_ID);
+                var loResult = await _CBT01210Model.GetJournalDetailListAsync();
+
+                JournalDetailGrid = new ObservableCollection<CBT01201DTO>(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+        
+        public async Task GetJournal(CBT01210ParamDTO poEntity)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loResult = await _CBT01210Model.R_ServiceGetRecordAsync(poEntity);
 
                 RefDate = DateTime.ParseExact(loResult.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 DocDate = DateTime.ParseExact(loResult.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
@@ -98,26 +122,7 @@ namespace CBT01200MODEL
 
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity)
-        {
-            var loEx = new R_Exception();
-            CBT01210LastCurrencyRateDTO loRtn = null;
-            try
-            {
-                poEntity.CRATE_DATE = RefDate.Value.ToString("yyyyMMdd");
-                poEntity.CRATETYPE_CODE = VAR_GL_SYSTEM_PARAM.CRATETYPE_CODE;
-                var loResult = await _CBT01210Model.GetLastCurrencyAsync(poEntity);
-
-                loRtn = loResult;
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-            return loRtn;
-        }
+       
         public async Task UpdateJournalStatus(CBT01200UpdateStatusDTO poEntity)
         {
             var loEx = new R_Exception();
@@ -133,123 +138,11 @@ namespace CBT01200MODEL
 
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task DeleteJournal(CBT01210DTO poEntity)
-        {
-            var loEx = new R_Exception();
-
-            try
-            {
-                var loData = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(poEntity);
-                loData.LUNDO_COMMIT = false;
-                loData.LAUTO_COMMIT = false;
-                loData.CNEW_STATUS = "99";
-
-                await UpdateJournalStatus(loData);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
-        public async Task SaveJournal(CBT01210DTO poEntity, eCRUDMode poCRUDMode)
-        {
-            var loEx = new R_Exception();
-
-            try
-            {
-                if (poCRUDMode == eCRUDMode.AddMode)
-                {
-                    poEntity.CACTION = "NEW";
-                    poEntity.CREC_ID = "";
-                    poEntity.CREF_NO = VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG == false && VAR_CB_SYSTEM_PARAM.LCB_NUMBERING == false ? poEntity.CREF_NO :"" ;
-                }
-                else if (poCRUDMode == eCRUDMode.EditMode)
-                {
-                    poEntity.CACTION = "EDIT";
-                }
-                poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
-                poEntity.CREF_DATE = RefDate.Value.ToString("yyyyMMdd");
-                poEntity.CTRANS_CODE = ContextConstant.VAR_TRANS_CODE;
-
-                var loResult = await _CBT01210Model.SaveJournalAsync(poEntity);
-
-                Journal = loResult;
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
+      
         #endregion
 
-        #region Detail Journal
-        public async Task GetJournalDetailListAsync(CBT01201DTO poEntity)
-        {
-            var loEx = new R_Exception();
 
-            try
-            {
-                var loResult = await _CBT01200Model.GetJournalDetailListAsync(poEntity);
-                JournalDetailGrid = new ObservableCollection<CBT01201DTO>(loResult);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-        }
-
-        public async Task GetJournaldetailAsync(CBT01211DTO poEntity)
-        {
-            var loEx = new R_Exception();
-            try
-            {
-                var loResult = await _CBT01210Model.GetJournalDetailRecordAsync(poEntity);
-                JournalDetail = loResult;
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-                
-            }loEx.ThrowExceptionIfErrors();
-        }
-
-        public async Task SaveJournalDetail(CBT01211DTO poEntity)
-        {
-            R_Exception loEx = new R_Exception();
-            try
-            {
-                var loResult = _CBT01210Model.SaveJournalDetailAsync(poEntity);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
-
-        public async Task DeleteJournalDetail(CBT01211DTO loData)
-        {
-            R_Exception loEx = new R_Exception();
-            try
-            {
-                await _CBT01210Model.DeleteJournalDetailAsync(loData);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
-
-        #endregion
+    
 
     }
 }

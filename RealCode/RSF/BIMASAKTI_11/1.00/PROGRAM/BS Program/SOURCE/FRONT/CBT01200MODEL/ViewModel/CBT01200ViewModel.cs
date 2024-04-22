@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using R_BlazorFrontEnd.Helpers;
+using R_CommonFrontBackAPI;
 
 namespace CBT01200MODEL
 {
@@ -17,6 +19,7 @@ namespace CBT01200MODEL
     {
         #region Model
         private CBT01200InitModel _CBT01200InitModel = new CBT01200InitModel();
+        private CBT01210ViewModel _CBT01210ViewModel = new CBT01210ViewModel();
         private PublicLookupModel _PublicLookupModel = new PublicLookupModel();
         private CBT01200Model _CBT01200Model = new CBT01200Model();
         #endregion
@@ -31,14 +34,75 @@ namespace CBT01200MODEL
         public List<CBT01200GSGSBCodeDTO> VAR_GSB_CODE_LIST { get; set; } = new List<CBT01200GSGSBCodeDTO>();
         public List<GSL00700DTO> VAR_DEPARTEMENT_LIST { get; set; } = new List<GSL00700DTO>();
         #endregion
+        
+        #region property
+        public DateTime
+            Drefdate = DateTime.Now,
+            Ddocdate = DateTime.Now;
+
+        public int ProgressBarPercentage = 0;
+        public string
+            ProgressBarMessage = "",
+            CCURRENT_PERIOD_YY = "",
+            CCURRENT_PERIOD_MM = "",
+            CSOFT_PERIOD_YY = "",
+            CSOFT_PERIOD_MM = "",
+            LcCrecID = "",
+            lcSearch = "",
+            lcPeriod = "",
+            lcStatus = "",
+            lcDeptCode = "",
+            lcDeptName = "",
+            lcRapidOrdCommit = "",
+            lcLocalCurrency = "",
+            lcBaseCurrency = "";
+
+        public string COMPANYID;
+        public string USERID;
+        public string lcTransCode = "000088";
+        public string CommitLabel = "Commit";
+        public string SubmitLabel = "Submit";
+        public bool
+            EnableDept = false,
+            EnableButton = false,
+            EnableDelete = false,
+            EnableSubmit = false,
+            EnableApprove = false,
+            EnableCommit = false,
+            EnablePrint = false,
+            EnableCopy = false,
+            EnableEdit = false,
+            EnableNLBASE_RATE = false,
+            EnableNLCURRENCY_RATE = false,
+            EnableNBBASE_RATE = false,
+            EnableNBCURRENCY_RATE = false,
+            EnableRefNo = false,
+            loCopy = false;
+        
+
+
+        public bool buttonRapidApprove = true;
+        public bool buttonRapidCommit = true;
+        public string CSTATUS_TEMP { get; set; }
+        #endregion
 
         #region Public Property ViewModel
         public int JournalPeriodYear { get; set; }
         public string JournalPeriodMonth { get; set; }
         public CBT01200ParamDTO JournalParam { get; set; } = new CBT01200ParamDTO();
         public ObservableCollection<CBT01200DTO> JournalGrid { get; set; } = new ObservableCollection<CBT01200DTO>();
+        
+        public CBT1200JournalHDParam JournalRecord = new();
         public ObservableCollection<CBT01201DTO> JournalDetailGrid { get; set; } = new ObservableCollection<CBT01201DTO>();
+        public DateTime? RefDate { get; set; }
+        public DateTime? DocDate { get; set; }
         #endregion
+        
+        #region Universal DTO
+        
+        public CBT01200GSCompanyInfoDTO CompanyCollection = new();
+        
+        #endregion  
 
         #region ComboBox ViewModel
 
@@ -114,16 +178,86 @@ namespace CBT01200MODEL
 
             loEx.ThrowExceptionIfErrors();
         }
-
-        public async Task GetJournalDetailList(CBT01201DTO poEntity)
+        
+        public async Task GetJournalRecord(CBT1200JournalHDParam poParam)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = await _CBT01200Model.GetJournalDetailListAsync(poEntity);
+                var loResult = await _CBT01200Model.R_ServiceGetRecordAsync(poParam);
+                JournalRecord = loResult;
+                
 
-                JournalDetailGrid = new ObservableCollection<CBT01201DTO>(loResult);
+                //JournalRecord.DREF_DATE = DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                //JournalRecord.DDOC_DATE = DateTime.ParseExact(JournalRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                //JournalRecord.CUPDATE_DATE = JournalRecord.DUPDATE_DATE.Value.ToLongDateString();
+                //JournalRecord.CCREATE_DATE = JournalRecord.DCREATE_DATE.Value.ToLongDateString();
+                //JournalRecord.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
+                //JournalRecord.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
+                //LcCrecID = JournalRecord.CREC_ID;
+                //Data.CSTATUS = JournalRecord.CSTATUS;
+                //Data.CTRANS_CODE = lcTransCode;
+
+                //var loParam = new CBT01201DTO()
+                //{
+                //    CREC_ID = JournalRecord.CREC_ID
+                //};
+                //await _CBT01210ViewModel.GetJournalDetailList(loParam);
+
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            }
+
+        public async Task SaveJournal(CBT1200JournalHDParam poEntity, eCRUDMode poCRUDMode)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                if (poCRUDMode == eCRUDMode.AddMode)
+                {
+                    poEntity.CACTION = "NEW";
+                    poEntity.CREC_ID = "";
+                    poEntity.CREF_NO = VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG ? "" : poEntity.CREF_NO;
+                }
+                else if (poCRUDMode == eCRUDMode.EditMode)
+                {
+                    poEntity.CACTION = "EDIT";
+                }
+                poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
+                poEntity.CREF_DATE = RefDate.Value.ToString("yyyyMMdd");
+                poEntity.CTRANS_CODE = ContextConstant.VAR_TRANS_CODE;
+
+                var loResult = await _CBT01200Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
+
+                JournalRecord = loResult;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+        
+        public async Task DeleteJournal(CBT1200JournalHDParam poEntity)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT1200JournalHDParam>(poEntity);
+                poEntity.LUNDO_COMMIT = false;
+                loData.LAUTO_COMMIT = false;
+                loData.CNEW_STATUS = "99";
+
+                await _CBT01200Model.R_ServiceDeleteAsync(poEntity);
             }
             catch (Exception ex)
             {
@@ -147,6 +281,27 @@ namespace CBT01200MODEL
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+        
+        public async Task<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity)
+        {
+            var loEx = new R_Exception();
+            CBT01210LastCurrencyRateDTO loRtn = null;
+            try
+            {
+                poEntity.CRATE_DATE = RefDate.Value.ToString("yyyyMMdd");
+                poEntity.CRATETYPE_CODE = VAR_GL_SYSTEM_PARAM.CRATETYPE_CODE;
+                var loResult = await _CBT01200Model.GetLastCurrencyAsync(poEntity);
+
+                loRtn = loResult;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
         }
     }
 }

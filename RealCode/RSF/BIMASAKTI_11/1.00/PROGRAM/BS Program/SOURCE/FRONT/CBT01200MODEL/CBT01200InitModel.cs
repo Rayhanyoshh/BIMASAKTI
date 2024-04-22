@@ -13,7 +13,7 @@ namespace CBT01200MODEL
     public class CBT01200InitModel : R_BusinessObjectServiceClientBase<CBT01200InitDTO>, ICBT01200Init
     {
         private const string DEFAULT_HTTP = "R_DefaultServiceUrlCB";
-        private const string DEFAULT_ENDPOINT = "api/CBT01100Init";
+        private const string DEFAULT_ENDPOINT = "api/CBT01200Init";
         private const string DEFAULT_MODULE = "CB";
 
         public CBT01200InitModel

@@ -28,8 +28,8 @@ namespace CBT01200FRONT
 {
     public partial class CBT01210 : R_Page
     {
-        private CBT01210ViewModel _JournalEntryViewModel = new();
-        private CBT01200ViewModel _JournalListViewModel = new();
+        private CBT01200ViewModel _TransactionListViewModel = new();
+        private CBT01210ViewModel _TransactionEntryViewModel = new();
         private R_Conductor _conductorRef;
         private R_ConductorGrid _conductorDetailRef;
         private R_Grid<CBT01201DTO> _gridDetailRef;
@@ -48,16 +48,16 @@ namespace CBT01200FRONT
 
             try
             {
-                await _JournalEntryViewModel.GetAllUniversalData();
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01210DTO>(poParameter);
+                await _TransactionEntryViewModel.GetAllUniversalData();
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(poParameter);
                 if (!string.IsNullOrWhiteSpace(loParam.CREC_ID))
                 {
                     await _conductorRef.R_GetEntity(loParam);
                 }
                 else
                 {
-                    _JournalEntryViewModel.RefDate = _JournalEntryViewModel.VAR_TODAY.DTODAY;
-                    _JournalEntryViewModel.DocDate = _JournalEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionEntryViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionEntryViewModel.DocDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 }
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210DTO)eventArgs.Data;
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
 
                 var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
                     plSendWithContext: true,
@@ -133,8 +133,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                await _JournalEntryViewModel.GetJournal((CBT01210DTO)eventArgs.Data);
-                eventArgs.Result = _JournalEntryViewModel.Journal;
+                await _TransactionEntryViewModel.GetJournal((CBT01210ParamDTO)eventArgs.Data);
+                eventArgs.Result = _TransactionEntryViewModel.Journal;
             }
             catch (Exception ex)
             {
@@ -149,8 +149,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                await _JournalEntryViewModel.SaveJournal((CBT01210DTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
-                eventArgs.Result = _JournalEntryViewModel.Journal;
+                await _TransactionListViewModel.SaveJournal((CBT1200JournalHDParam)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
+                eventArgs.Result = _TransactionEntryViewModel.Journal;
             }
             catch (Exception ex)
             {
@@ -169,13 +169,13 @@ namespace CBT01200FRONT
                 if (loValidate == R_eMessageBoxResult.No)
                     goto EndBlock;
 
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
                 loParam.LAUTO_COMMIT = false;
                 loParam.LUNDO_COMMIT = false;
                 loParam.CNEW_STATUS = "99";
 
-                await _JournalListViewModel.UpdateJournalStatus(loParam);
+                await _TransactionListViewModel.UpdateJournalStatus(loParam);
                 await _conductorRef.R_GetEntity(loData);
             }
             catch (Exception ex)
@@ -193,21 +193,21 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                _JournalEntryViewModel.JournalDetailGridTemp = new(_gridDetailRef.DataSource.ToList()); ;//store detail to temp
+                _TransactionEntryViewModel.JournalDetailGridTemp = new(_gridDetailRef.DataSource.ToList()); ;//store detail to temp
                 await _DeptCode_TextBox.FocusAsync();
-                var data = (CBT01210DTO)eventArgs.Data;
+                var data = (CBT1200JournalHDParam)eventArgs.Data;
 
                 data.CCREATE_BY = clientHelper.UserId;
                 data.CUPDATE_BY = clientHelper.UserId;
-                data.DUPDATE_DATE = _JournalEntryViewModel.VAR_TODAY.DTODAY;
-                data.DCREATE_DATE = _JournalEntryViewModel.VAR_TODAY.DTODAY;
-                _JournalEntryViewModel.RefDate = _JournalEntryViewModel.VAR_TODAY.DTODAY;
+                data.DUPDATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                data.DCREATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                _TransactionEntryViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 data.NLBASE_RATE = 1;
                 data.NLCURRENCY_RATE = 1;
                 data.NBBASE_RATE = 1;
                 data.NBCURRENCY_RATE = 1;
-                data.CDEPT_CODE = _JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE;
-                data.CDEPT_NAME = _JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME;
+                data.CDEPT_CODE = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE;
+                data.CDEPT_NAME = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME;
 
                 if (!string.IsNullOrWhiteSpace(data.CDEPT_CODE))
                 {
@@ -222,12 +222,12 @@ namespace CBT01200FRONT
             R_DisplayException(loEx);
         }
 
-        private void ValidationFormGLT00100JournalEntry(R_ValidationEventArgs eventArgs)
+        private void ValidationFormCNT01200TransactionEntry(R_ValidationEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
             {
-                var loParam = (CBT01210DTO)eventArgs.Data;
+                var loParam = (CBT1200JournalHDParam)eventArgs.Data;
                 if (string.IsNullOrWhiteSpace(loParam.CDEPT_CODE))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
@@ -235,14 +235,14 @@ namespace CBT01200FRONT
                         "V01"));
                 }
 
-                if (string.IsNullOrWhiteSpace(loParam.CDEPT_CODE) && _JournalEntryViewModel.VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG == false)
+                if (string.IsNullOrWhiteSpace(loParam.CDEPT_CODE) && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG == false)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
                         "V03"));
                 }
 
-                if (_JournalEntryViewModel.RefDate == DateTime.MinValue)
+                if (_TransactionEntryViewModel.RefDate == DateTime.MinValue)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -250,21 +250,21 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (_JournalEntryViewModel.RefDate > _JournalEntryViewModel.VAR_TODAY.DTODAY)
+                    if (_TransactionEntryViewModel.RefDate > _TransactionEntryViewModel.VAR_TODAY.DTODAY)
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V04"));
                     }
 
-                    if (int.Parse(_JournalEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_JournalEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
+                    if (int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V05"));
                     }
 
-                    if (int.Parse(_JournalEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_JournalEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -293,7 +293,7 @@ namespace CBT01200FRONT
                         "V09"));
                 }
 
-                if (_JournalEntryViewModel.DocDate.HasValue == false)
+                if (_TransactionEntryViewModel.DocDate.HasValue == false)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -301,14 +301,14 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (int.Parse(_JournalEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) > int.Parse(_JournalEntryViewModel.RefDate.Value.ToString("yyyyMMdd")))
+                    if (int.Parse(_TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) > int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V11"));
                     }
 
-                    if (int.Parse(_JournalEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) < int.Parse(_JournalEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -375,7 +375,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var data = (CBT01210DTO)eventArgs.Data;
+                var data = (CBT1200JournalHDParam)eventArgs.Data;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
                     if (!string.IsNullOrWhiteSpace(data.CSTATUS))
@@ -386,10 +386,10 @@ namespace CBT01200FRONT
                         EnableEdit = data.CSTATUS == "00";
                         EnableDelete = data.CSTATUS != "00";
                         EnableSubmit = data.CSTATUS == "00" || data.CSTATUS == "10";
-                        EnableApprove = data.CSTATUS == "10" && _JournalEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == true;
-                        EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" && _JournalEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == false)) ||
+                        EnableApprove = data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == true;
+                        EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == false)) ||
                                        (data.CSTATUS == "80") &&
-                                       int.Parse(data.CREF_PRD) >= int.Parse(_JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD);
+                                       int.Parse(data.CREF_PRD) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD);
                         EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
 
                     }
@@ -415,7 +415,7 @@ namespace CBT01200FRONT
             eventArgs.Cancel = res == R_eMessageBoxResult.No;
             if (res != R_eMessageBoxResult.No)
             {
-                _JournalEntryViewModel.JournalDetailGrid = _JournalEntryViewModel.JournalDetailGridTemp; //assign detail back from temp
+                _TransactionEntryViewModel.JournalDetailGrid = _TransactionEntryViewModel.JournalDetailGridTemp; //assign detail back from temp
                 if (eventArgs.ConductorMode == R_eConductorMode.Add)
                 {
                     _gridDetailRef.DataSource.Clear();
@@ -429,17 +429,17 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loOldData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loOldData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 await _conductorRef.Add();
                 if (_conductorRef.R_ConductorMode == R_eConductorMode.Add)
                 {
-                    var loNewData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                    var loNewData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                     loNewData.CREF_PRD = loOldData.CREF_PRD;
                     loNewData.LALLOW_APPROVE = loOldData.LALLOW_APPROVE;
                     loNewData.CINPUT_TYPE = loOldData.CINPUT_TYPE;
                     loNewData.CDEPT_CODE = loOldData.CDEPT_CODE;
-                    _JournalEntryViewModel.RefDate = DateTime.ParseExact(loOldData.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionEntryViewModel.RefDate = DateTime.ParseExact(loOldData.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     loNewData.CCB_CODE = loOldData.CCB_CODE;
                     loNewData.CCB_NAME = loOldData.CCB_NAME;
                     loNewData.CCB_ACCOUNT_NO = loOldData.CCB_ACCOUNT_NO;
@@ -453,7 +453,7 @@ namespace CBT01200FRONT
                     loNewData.NDEBIT_AMOUNT = loOldData.NDEBIT_AMOUNT;
                     loNewData.NCREDIT_AMOUNT = loOldData.NCREDIT_AMOUNT;
                     loNewData.CDOC_NO = loOldData.CDOC_NO;
-                    _JournalEntryViewModel.DocDate = DateTime.ParseExact(loOldData.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionEntryViewModel.DocDate = DateTime.ParseExact(loOldData.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     loNewData.CTRANS_DESC = loOldData.CTRANS_DESC;
                     loNewData.CSTATUS_NAME = loOldData.CSTATUS_NAME;
                     loNewData.CSTATUS = loOldData.CSTATUS;
@@ -479,21 +479,22 @@ namespace CBT01200FRONT
             try
             {
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01210LastCurrencyRateDTO>(_conductorRef.R_GetCurrentData());
-                var loResult = await _JournalEntryViewModel.GetLastCurrency(loParam);
+                var loResult = await _TransactionListViewModel.GetLastCurrency(loParam);
 
                 if (loResult is null)
                 {
-                    _JournalEntryViewModel.Data.NLBASE_RATE = 1;
-                    _JournalEntryViewModel.Data.NLCURRENCY_RATE = 1;
-                    _JournalEntryViewModel.Data.NBBASE_RATE = 1;
-                    _JournalEntryViewModel.Data.NBCURRENCY_RATE = 1;
+                    _TransactionListViewModel.Data.NLBASE_RATE = 1;
+                    _TransactionListViewModel.Data.NLBASE_RATE = 1;
+                    _TransactionListViewModel.Data.NLCURRENCY_RATE = 1;
+                    _TransactionListViewModel.Data.NBBASE_RATE = 1;
+                    _TransactionListViewModel.Data.NBCURRENCY_RATE = 1;
                 }
                 else
                 {
-                    _JournalEntryViewModel.Data.NLBASE_RATE = loResult.NLBASE_RATE_AMOUNT;
-                    _JournalEntryViewModel.Data.NLCURRENCY_RATE = loResult.NLCURRENCY_RATE_AMOUNT;
-                    _JournalEntryViewModel.Data.NBBASE_RATE = loResult.NBBASE_RATE_AMOUNT;
-                    _JournalEntryViewModel.Data.NBCURRENCY_RATE = loResult.NBCURRENCY_RATE_AMOUNT;
+                    _TransactionListViewModel.Data.NLBASE_RATE = loResult.NLBASE_RATE_AMOUNT;
+                    _TransactionListViewModel.Data.NLCURRENCY_RATE = loResult.NLCURRENCY_RATE_AMOUNT;
+                    _TransactionListViewModel.Data.NBBASE_RATE = loResult.NBBASE_RATE_AMOUNT;
+                    _TransactionListViewModel.Data.NBCURRENCY_RATE = loResult.NBCURRENCY_RATE_AMOUNT;
                 }
             }
             catch (Exception ex)
@@ -512,19 +513,19 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                _JournalEntryViewModel.RefDate = (DateTime)poParam;
-                if (!string.IsNullOrWhiteSpace(_JournalEntryViewModel.Data.CCURRENCY_CODE) &&
-                    (_JournalEntryViewModel.Data.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || _JournalEntryViewModel.Data.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                _TransactionEntryViewModel.RefDate = (DateTime)poParam;
+                if (!string.IsNullOrWhiteSpace(_TransactionEntryViewModel.Data.CCURRENCY_CODE) &&
+                    (_TransactionEntryViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || _TransactionEntryViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
                 {
                     await RefreshCurrency();
                 }
                 else
                 {
-                    _JournalEntryViewModel.Data.NLBASE_RATE = 1;
-                    _JournalEntryViewModel.Data.NLCURRENCY_RATE = 1;
-                    _JournalEntryViewModel.Data.NBBASE_RATE = 1;
-                    _JournalEntryViewModel.Data.NBCURRENCY_RATE = 1;
+                    _TransactionListViewModel.Data.NLBASE_RATE = 1;
+                    _TransactionListViewModel.Data.NLCURRENCY_RATE = 1;
+                    _TransactionListViewModel.Data.NBBASE_RATE = 1;
+                    _TransactionListViewModel.Data.NBCURRENCY_RATE = 1;
                 }
             }
             catch (Exception ex)
@@ -543,9 +544,9 @@ namespace CBT01200FRONT
             try
             {
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01201DTO>(eventArgs.Parameter);
-                await _JournalListViewModel.GetJournalDetailList(loParam);
+                await _TransactionEntryViewModel.GetJournalDetailList();
 
-                eventArgs.ListEntityResult = _JournalListViewModel.JournalDetailGrid;
+                eventArgs.ListEntityResult = _TransactionListViewModel.JournalDetailGrid;
             }
             catch (Exception ex)
             {
@@ -559,10 +560,10 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
-                await _JournalEntryViewModel.GetJournaldetailAsync(loData);
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                await _TransactionEntryViewModel.GetJournal(loData);
 
-                eventArgs.Result = _JournalEntryViewModel.JournalDetail;
+                eventArgs.Result = _TransactionEntryViewModel.JournalDetail;
             }
             catch (Exception ex)
             {
@@ -577,12 +578,12 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var data = (CBT01211DTO)eventArgs.Data;
-                var loHeaderData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var data = (CBT01210ParamDTO)eventArgs.Data;
+                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                 if (data != null)
                 {
-                    EnableCenterList = (data.CBSIS == "B" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS == true) || (data.CBSIS == "I" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS == true);
+                    EnableCenterList = (data.CBSIS == "B" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS == true) || (data.CBSIS == "I" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS == true);
                 }
 
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
@@ -606,17 +607,17 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loHeaderData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
-                var loData = (CBT01211DTO)eventArgs.Data;
-                var loFirstCenter = _JournalEntryViewModel.VAR_CENTER_LIST.FirstOrDefault();
+                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                var loFirstCenter = _TransactionEntryViewModel.VAR_CENTER_LIST.FirstOrDefault();
 
                 loData.INO = _gridDetailRef.DataSource.Count + 1;
                 loData.CDETAIL_DESC = loHeaderData.CTRANS_DESC;
                 loData.CCENTER_CODE = loFirstCenter.CCENTER_CODE;
                 loData.CCENTER_NAME = loFirstCenter.CCENTER_NAME;
                 loData.CDOCUMENT_NO = string.IsNullOrWhiteSpace(loHeaderData.CDOC_NO) ? "" : loHeaderData.CDOC_NO;
-                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) ? "" : _JournalEntryViewModel.DocDate.Value.ToString("yyyyMMdd");
-                loData.DDOCUMENT_DATE = _JournalEntryViewModel.DocDate.Value;
+                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) ? "" : _TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd");
+                loData.DDOCUMENT_DATE = _TransactionEntryViewModel.DocDate.Value;
             }
             catch (Exception ex)
             {
@@ -627,7 +628,7 @@ namespace CBT01200FRONT
         }
         private void Before_Open_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
         {
-            if (eventArgs.ColumnName == nameof(CBT01211DTO.CGLACCOUNT_NO))
+            if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CGLACCOUNT_NO))
             {
                 eventArgs.Parameter = new GSL00500ParameterDTO()
                 {
@@ -635,7 +636,7 @@ namespace CBT01200FRONT
                 };
                 eventArgs.TargetPageType = typeof(GSL00500);
             }
-            else if (eventArgs.ColumnName == nameof(CBT01211DTO.CCASH_FLOW_CODE))
+            else if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CCASH_FLOW_CODE))
             {
                 eventArgs.Parameter = new GSL01500ParameterGroupDTO()
                 {
@@ -645,8 +646,8 @@ namespace CBT01200FRONT
         }
         private void After_Open_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
         {
-            CBT01211DTO loGetData = (CBT01211DTO)eventArgs.ColumnData;
-            if (eventArgs.ColumnName == nameof(CBT01211DTO.CGLACCOUNT_NO))
+            CBT01210ParamDTO loGetData = (CBT01210ParamDTO)eventArgs.ColumnData;
+            if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CGLACCOUNT_NO))
             {
                 GSL00500DTO loTempResult = (GSL00500DTO)eventArgs.Result;
                 if (loTempResult == null)
@@ -660,13 +661,13 @@ namespace CBT01200FRONT
                 loGetData.CGLACCOUNT_NO = loTempResult.CGLACCOUNT_NO;
                 loGetData.CGLACCOUNT_NAME = loTempResult.CGLACCOUNT_NAME;
                 loGetData.CBSIS = loTempResult.CBSIS;
-                if (loTempResult.CBSIS == "I" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS == false || loTempResult.CBSIS == "B" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS == false)
+                if (loTempResult.CBSIS == "I" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS == false || loTempResult.CBSIS == "B" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS == false)
                 {
                     loGetData.CCENTER_CODE = "";
                     loGetData.CCENTER_NAME = "";
                 }
             }
-            else if (eventArgs.ColumnName == nameof(CBT01211DTO.CCASH_FLOW_CODE))
+            else if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CCASH_FLOW_CODE))
             {
                 GSL01500DTO loTempResult = R_FrontUtility.ConvertObjectToObject<GSL01500DTO>(eventArgs.Result);
                 if (loTempResult == null)
@@ -685,9 +686,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
+                var loData = (CBT1200JournalHDParam)eventArgs.Data;
 
-                await _JournalEntryViewModel.DeleteJournalDetail(loData);
+                await _TransactionListViewModel.DeleteJournal(loData);
             }
             catch (Exception ex)
             {
@@ -701,7 +702,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
                 if (string.IsNullOrWhiteSpace(loData.CGLACCOUNT_NO))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
@@ -717,14 +718,14 @@ namespace CBT01200FRONT
                         "V23"));
                 }
 
-                if (string.IsNullOrWhiteSpace(loData.CCENTER_CODE) && (loData.CBSIS == "B" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS) || (loData.CBSIS == "I" && _JournalEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS))
+                if (string.IsNullOrWhiteSpace(loData.CCENTER_CODE) && (loData.CBSIS == "B" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_BS) || (loData.CBSIS == "I" && _TransactionEntryViewModel.VAR_GSM_COMPANY.LENABLE_CENTER_IS))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
                         "V24"));
                 }
 
-                if (string.IsNullOrWhiteSpace(loData.CCASH_FLOW_CODE) && _JournalEntryViewModel.VAR_GSM_COMPANY.LCASH_FLOW)
+                if (string.IsNullOrWhiteSpace(loData.CCASH_FLOW_CODE) && _TransactionEntryViewModel.VAR_GSM_COMPANY.LCASH_FLOW)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -778,8 +779,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loHeaderData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
-                var loData = (CBT01211DTO)eventArgs.Data;
+                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
 
                 loData.CDOCUMENT_DATE = loData.DDOCUMENT_DATE.Value.ToString("yyyyMMdd");
                 loData.CDBCR = loData.NDEBIT > 0 && loData.NCREDIT == 0 ? "D" : loData.NCREDIT > 0 && loData.NDEBIT == 0 ? "C" : "";
@@ -803,10 +804,10 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
-                await _JournalEntryViewModel.SaveJournalDetail(loData);
+                var loData = (CBT1200JournalHDParam)eventArgs.Data;
+                await _TransactionListViewModel.SaveJournal(loData, (eCRUDMode)eventArgs.ConductorMode);
 
-                eventArgs.Result = _JournalEntryViewModel.JournalDetail;
+                eventArgs.Result = _TransactionEntryViewModel.JournalDetail;
             }
             catch (Exception ex)
             {
@@ -823,7 +824,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
                 if (loData.CINPUT_TYPE == "A")
                 {
                     await R_MessageBox.Show("", _localizer["N06"], R_eMessageBoxButtonType.OK);
@@ -847,7 +848,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01211DTO)eventArgs.Data;
+                var loData = (CBT01210ParamDTO)eventArgs.Data;
                 if (loData.CINPUT_TYPE == "A")
                 {
                     await R_MessageBox.Show("", _localizer["N05"], R_eMessageBoxButtonType.OK);
@@ -874,7 +875,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 if (!loData.LALLOW_APPROVE)
                 {
                     loEx.Add("", _localizer["N01"]);
@@ -886,7 +887,7 @@ namespace CBT01200FRONT
                 loParam.LUNDO_COMMIT = false;
                 loParam.CNEW_STATUS = "20";
 
-                await _JournalListViewModel.UpdateJournalStatus(loParam);
+                await _TransactionListViewModel.UpdateJournalStatus(loParam);
                 await _conductorRef.R_GetEntity(loData);
             }
             catch (Exception ex)
@@ -903,7 +904,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                 if (loData.CSTATUS == "80")
                 {
@@ -923,7 +924,7 @@ namespace CBT01200FRONT
                 loParam.LUNDO_COMMIT = loData.CSTATUS == "80" ? true : false;
                 loParam.CNEW_STATUS = loData.CSTATUS == "80" ? "10" : "80";
 
-                await _JournalListViewModel.UpdateJournalStatus(loParam);
+                await _TransactionListViewModel.UpdateJournalStatus(loParam);
                 await _conductorRef.R_GetEntity(loData);
             }
             catch (Exception ex)
@@ -940,9 +941,9 @@ namespace CBT01200FRONT
             bool llValidate = false;
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
 
-                if (loData.CSTATUS == "00" && int.Parse(loData.CREF_PRD) < int.Parse(_JournalEntryViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD))
+                if (loData.CSTATUS == "00" && int.Parse(loData.CREF_PRD) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -998,7 +999,7 @@ namespace CBT01200FRONT
                     loParam.LUNDO_COMMIT = false;
                     loParam.CNEW_STATUS = loData.CSTATUS == "00" ? "10" : "00";
 
-                    await _JournalListViewModel.UpdateJournalStatus(loParam);
+                    await _TransactionListViewModel.UpdateJournalStatus(loParam);
                     await _conductorRef.R_GetEntity(loData);
                 }
             }
@@ -1032,7 +1033,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 if (loData.CDEPT_CODE.Length > 0)
                 {
                     GSL00700ParameterDTO loParam = new GSL00700ParameterDTO()
@@ -1083,7 +1084,7 @@ namespace CBT01200FRONT
                 return;
             }
 
-            var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
             loData.CDEPT_CODE = loTempResult.CDEPT_CODE;
             loData.CDEPT_NAME = loTempResult.CDEPT_NAME;
         }
@@ -1096,7 +1097,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 if (loData.CCB_CODE.Length > 0)
                 {
                     GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
@@ -1127,8 +1128,8 @@ namespace CBT01200FRONT
                     loData.CCB_ACCOUNT_NO = loResult.CCB_ACCOUNT_NO;
 
                     if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
-                    (loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                    (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
                     {
                         await RefreshCurrency();
                     }
@@ -1156,7 +1157,7 @@ namespace CBT01200FRONT
         }
         private void BeforeOpenLookup_BankCode(R_BeforeOpenLookupEventArgs eventArgs)
         {
-            var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
             GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
             {
                 CDEPT_CODE = loData.CDEPT_CODE,
@@ -1174,14 +1175,14 @@ namespace CBT01200FRONT
                 return;
             }
 
-            var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
             loData.CCB_CODE = loTempResult.CCB_CODE;
             loData.CCB_NAME = loTempResult.CCB_NAME;
             loData.CCURRENCY_CODE = loTempResult.CCURRENCY_CODE;
             loData.CCB_ACCOUNT_NO = loTempResult.CCB_ACCOUNT_NO;
             if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
-                    (loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                    (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
             {
                 await RefreshCurrency();
             }
@@ -1200,7 +1201,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
                 if (loData.CCB_CODE.Length > 0)
                 {
                     GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
@@ -1231,8 +1232,8 @@ namespace CBT01200FRONT
                     loData.CCB_ACCOUNT_NO = loResult.CCB_ACCOUNT_NO;
 
                     if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
-                    (loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                    (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
                     {
                         await RefreshCurrency();
                     }
@@ -1260,7 +1261,7 @@ namespace CBT01200FRONT
         }
         private void BeforeOpenLookup_GLAccountNo(R_BeforeOpenLookupEventArgs eventArgs)
         {
-            var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
             GSL02600ParameterDTO loParam = new GSL02600ParameterDTO()
             {
                 CDEPT_CODE = loData.CDEPT_CODE,
@@ -1281,14 +1282,14 @@ namespace CBT01200FRONT
                 return;
             }
 
-            var loData = (CBT01210DTO)_conductorRef.R_GetCurrentData();
+            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
             loData.CCB_CODE = loTempResult.CCB_CODE;
             loData.CCB_NAME = loTempResult.CCB_NAME;
             loData.CCURRENCY_CODE = loTempResult.CCURRENCY_CODE;
             loData.CCB_ACCOUNT_NO = loTempResult.CCB_ACCOUNT_NO;
             if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
-                    (loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || loData.CCURRENCY_CODE != _JournalEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                    (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
             {
                 await RefreshCurrency();
             }

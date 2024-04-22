@@ -45,7 +45,7 @@ namespace CBT01200BACK
         }
         #endregion
         
-        public List<CBT01201DTO> GetJournalDetailList(string poRecId)
+        public List<CBT01201DTO> GetJournalDetailList(CBT01210ParamDTO poParam)
         {
             using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
             var loEx = new R_Exception();
@@ -61,8 +61,8 @@ namespace CBT01200BACK
                 loCmd.CommandText = lcQuery;
                 loCmd.CommandType = CommandType.StoredProcedure;
 
-                loDb.R_AddCommandParameter(loCmd, "@CPARENT_ID", DbType.String, int.MaxValue, poRecId);
-                loDb.R_AddCommandParameter(loCmd, "@CLANGUAGE_ID", DbType.String, 50, R_BackGlobalVar.CULTURE);
+                loDb.R_AddCommandParameter(loCmd, "@CPARENT_ID", DbType.String, int.MaxValue, poParam.CREC_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CLANGUAGE_ID", DbType.String, 50, poParam.CLANGUAGE_ID);
 
                 //Debug Logs
                 ShowLogDebug(lcQuery, loCmd.Parameters);

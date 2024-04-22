@@ -32,7 +32,7 @@ namespace CBT01200Back
             _activitySource = CBT01200Activity.R_GetInstanceActivitySource();
         }
 
-        public List<CBT01200DTO> GetJournalList(CBT01200ParamDTO poEntity)
+        public List<CBT01200DTO> GetJournalList(CBT1200JournalHDParam poEntity)
         {
             using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
             var loEx = new R_Exception();

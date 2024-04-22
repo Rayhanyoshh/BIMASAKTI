@@ -15,7 +15,7 @@ using CBT01200Back;
 using R_BackEnd;
 using R_CommonFrontBackAPI;
 
-namespace CBT01100SERVICE
+namespace CBT01200SERVICE
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -45,7 +45,7 @@ namespace CBT01100SERVICE
 
             try
             {
-                var loParam = new CBT01200ParamDTO();
+                var loParam = new CBT1200JournalHDParam();
                 loParam.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CDEPT_CODE);
                 loParam.CPERIOD = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPERIOD);
                 loParam.CSTATUS = R_Utility.R_GetStreamingContext<string>(ContextConstant.CSTATUS);
@@ -140,7 +140,6 @@ namespace CBT01100SERVICE
 
                 _logger.LogInfo("Set Parameter");
                 poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                poParameter.Entity.CREC_ID = R_Utility.R_GetContext<string>(ContextConstant.CREC_ID);
                 poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.Entity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
 
@@ -190,33 +189,33 @@ namespace CBT01100SERVICE
 
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT1200JournalHDParam> poParameter)
         {
-            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
-            ShowLogStart();
-            R_ServiceDeleteResultDTO loRtn = new R_ServiceDeleteResultDTO();
-            var loEx = new R_Exception();
-            try
-            {
-                _logger.LogInfo("Set Parameter");
-                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
-                var loCls = new CBT01200Cls();
-                _logger.LogInfo("Delete Transaction Entity");
-                loCls.R_Delete(poParameter.Entity);
+                using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+                ShowLogStart();
+                R_ServiceDeleteResultDTO loRtn = new R_ServiceDeleteResultDTO();
+                var loEx = new R_Exception();
+                try
+                {
+                    _logger.LogInfo("Set Parameter");
+                    poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                    poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+                    var loCls = new CBT01200Cls();
+                    _logger.LogInfo("Delete Transaction Entity");
+                    loCls.R_Delete(poParameter.Entity);
 
-                ShowLogExecute();
-               
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-                ShowLogError(loEx);
+                    ShowLogExecute();
+                   
+                }
+                catch (Exception ex)
+                {
+                    loEx.Add(ex);
+                    ShowLogError(loEx);
 
-            }
+                }
 
-            loEx.ThrowExceptionIfErrors();
-            _logger.LogInfo("End - Delete Account Entity");
-            ShowLogEnd();
-            return loRtn;
+                loEx.ThrowExceptionIfErrors();
+                _logger.LogInfo("End - Delete Account Entity");
+                ShowLogEnd();
+                return loRtn;
         }
         
         

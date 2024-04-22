@@ -12,10 +12,10 @@ using CBT01200Common;
 
 namespace CBT01200MODEL
 {
-    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT01200DTO>, ICBT01200
+    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT1200JournalHDParam>, ICBT01200
     {
         private const string DEFAULT_HTTP = "R_DefaultServiceUrlCB";
-        private const string DEFAULT_ENDPOINT = "api/CBT01100";
+        private const string DEFAULT_ENDPOINT = "api/CBT01200";
         private const string DEFAULT_MODULE = "CB";
 
         public CBT01200Model(string pcHttpClientName = DEFAULT_HTTP,
@@ -59,35 +59,7 @@ namespace CBT01200MODEL
 
             return loResult;
         }
-
-        public async Task<List<CBT01201DTO>> GetJournalDetailListAsync(CBT01201DTO poEntity)
-        {
-            var loEx = new R_Exception();
-            List<CBT01201DTO> loResult = null;
-
-            try
-            {
-                R_FrontContext.R_SetStreamingContext(ContextConstant.CREC_ID, poEntity.CREC_ID);
-
-
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
-                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<CBT01201DTO>(
-                    _RequestServiceEndPoint,
-                    nameof(ICBT01200.GetJournalDetailList),
-                    DEFAULT_MODULE,
-                    _SendWithContext,
-                    _SendWithToken);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-
-            return loResult;
-        }
-
+        
         public async Task UpdateJournalStatusAsync(CBT01200UpdateStatusDTO poEntity)
         {
             var loEx = new R_Exception();
@@ -108,28 +80,53 @@ namespace CBT01200MODEL
             }
             loEx.ThrowExceptionIfErrors();
         }
+        public async Task<CBT01210LastCurrencyRateDTO> GetLastCurrencyAsync(CBT01210LastCurrencyRateDTO poEntity)
+        {
+            var loEx = new R_Exception();
+            CBT01210LastCurrencyRateDTO loRtn = null;
 
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<CBT01200RecordResult<CBT01210LastCurrencyRateDTO>, CBT01210LastCurrencyRateDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(ICBT01200.GetLastCurrency),
+                    poEntity,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loRtn = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+        
+        
         #region Not Implement
+        public IAsyncEnumerable<CBT01200DTO> GetJournalList()
+        {
+            throw new NotImplementedException();
+        }
 
         public CBT01200RecordResult<CBT01200UpdateStatusDTO> UpdateJournalStatus(CBT01200UpdateStatusDTO poEntity)
         {
             throw new NotImplementedException();
         }
 
-        public IAsyncEnumerable<CBT01201DTO> GetJournalDetailList()
-        {
-            throw new NotImplementedException();
-        }
-        public IAsyncEnumerable<CBT01200DTO> GetJournalList()
+        public CBT01200RecordResult<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity)
         {
             throw new NotImplementedException();
         }
 
-        public CBT01200RecordResult<CBT01200RapidApprovalValidationDTO> ValidationRapidApproval(CBT01200RapidApprovalValidationDTO poEntity)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
+
+
     }
 }

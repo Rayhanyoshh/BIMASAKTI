@@ -8,9 +8,7 @@ namespace CBT01200Common.DTOs
     {
         public string CTRANSACTION_NAME { get; set; }
         public string CPAYMENT_TYPE { get; set; }
-        public string CCB_CODE { get; set; } = "";
-        public string CCB_NAME { get; set; }
-        public string CCB_ACCOUNT_NO { get; set; }
+     
         public string CCB_ACCOUNT_NAME { get; set; }
         public string CCUST_SUPP_ID { get; set; }
         public string CINFO_SEQ_NO { get; set; }
@@ -24,10 +22,7 @@ namespace CBT01200Common.DTOs
         public string CSREF_NO { get; set; }
         public string CFRTO_BANK_ACCOUNT_NO { get; set; }
         
-        public decimal NLBASE_RATE { get; set; }
-        public decimal NLCURRENCY_RATE { get; set; }
-        public decimal NBBASE_RATE { get; set; }
-        public decimal NBCURRENCY_RATE { get; set; }
+    
         public decimal NLTRANS_AMOUNT { get; set; }
         public decimal NBTRANS_AMOUNT { get; set; }
         public decimal NBANK_CHARGES { get; set; }
@@ -48,8 +43,7 @@ namespace CBT01200Common.DTOs
         public bool LREVERSE { get; set; }
         public string CLOCAL_CURRENCY_CODE { get; set; }
         public string CBASE_CURRENCY_CODE { get; set; }
-        public decimal NDEBIT_AMOUNT { get; set; }
-        public decimal NCREDIT_AMOUNT { get; set; }
+       
         public decimal NLDEBIT_AMOUNT { get; set; }
         public decimal NLCREDIT_AMOUNT { get; set; }
         public decimal NBDEBIT_AMOUNT { get; set; }

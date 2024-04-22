@@ -13,7 +13,7 @@
         <R_Label>@_localizer["_department"]</R_Label>
     </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_TextBox @bind-Value="_JournalEntryViewModel.JournalParam.CDEPT_CODE"
+        <R_TextBox @bind-Value="_TransactionListViewModel.JournalParam.CDEPT_CODE"
                    R_ConductorSource="_conductorRef"
                    Enabled="true"
                    OnLostFocus="OnLostFocus_LookupDept" />
@@ -24,7 +24,7 @@
         </R_Lookup>
     </R_ItemLayout>
     <R_ItemLayout col="2">
-        <R_TextBox @bind-Value="_JournalEntryViewModel.JournalParam.CDEPT_NAME"
+        <R_TextBox @bind-Value="_TransactionListViewModel.JournalParam.CDEPT_NAME"
                    R_ConductorSource="_conductorRef"
                    Enabled="false" />
     </R_ItemLayout>
@@ -33,15 +33,15 @@
             <R_Label>@_localizer["_journalPeriod"]</R_Label>
         </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_NumericTextBox @bind-Value="_JournalEntryViewModel.JournalPeriodYear"
-                          Min=_JournalEntryViewModel.VAR_GSM_PERIOD.IMIN_YEAR
-                          Max=_JournalEntryViewModel.VAR_GSM_PERIOD.IMAX_YEAR
+        <R_NumericTextBox @bind-Value="_TransactionListViewModel.JournalPeriodYear"
+                          Min=_TransactionListViewModel.VAR_GSM_PERIOD.IMIN_YEAR
+                          Max=_TransactionListViewModel.VAR_GSM_PERIOD.IMAX_YEAR
                          ThousandSeparator="false"
                           Arrows="true"/>
     </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_ComboBox Data="@_JournalEntryViewModel.PeriodMonthList"
-                    @bind-Value="_JournalEntryViewModel.JournalPeriodMonth"
+        <R_ComboBox Data="@_TransactionListViewModel.PeriodMonthList"
+                    @bind-Value="_TransactionListViewModel.JournalPeriodMonth"
                     ValueField="Key"
                     TextField="Value" />
     </R_ItemLayout>
@@ -50,14 +50,14 @@
         <R_Label>Status</R_Label>
     </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_ComboBox Data="@_JournalEntryViewModel.VAR_GSB_CODE_LIST"
-                    @bind-Value="_JournalEntryViewModel.JournalParam.CSTATUS"
+        <R_ComboBox Data="@_TransactionListViewModel.VAR_GSB_CODE_LIST"
+                    @bind-Value="_TransactionListViewModel.JournalParam.CSTATUS"
                     ValueField="@nameof(CBT01200GSGSBCodeDTO.CCODE)"
                     TextField="@nameof(CBT01200GSGSBCodeDTO.CNAME)">
         </R_ComboBox>
     </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_TextBox @bind-Value="_JournalEntryViewModel.JournalParam.CSEARCH_TEXT" />
+        <R_TextBox @bind-Value="_TransactionListViewModel.JournalParam.CSEARCH_TEXT" />
     </R_ItemLayout>
     <R_ItemLayout >
         <R_Button OnClick="OnclickSearch">Search</R_Button>
@@ -69,7 +69,7 @@
 
 <R_StackLayout Row>
     <R_Grid @ref="_gridRef"
-            DataSource="@_JournalEntryViewModel.JournalGrid"
+            DataSource="@_TransactionListViewModel.JournalGrid"
             R_ConductorSource="_conductorRef"
             R_ServiceGetListRecord="JournalGrid_ServiceGetListRecord"
             R_GridType="R_eGridType.Navigator"
@@ -97,7 +97,7 @@
 
 <R_StackLayout Row>
     <R_Grid @ref="_gridDetailRef"
-            DataSource="@_JournalEntryViewModel.JournalDetailGrid"
+            DataSource="@_TransactionEntryViewModel.JournalDetailGrid"
             Pageable
             R_ServiceGetListRecord="JournalGridDetail_ServiceGetListRecord"
             Height="240px"
@@ -124,16 +124,16 @@
 </R_StackLayout>
 <R_StackLayout Row>
     <R_ItemLayout>
-        <R_Button Enabled="@(_JournalEntryViewModel.JournalGrid.Count > 0 && (_JournalEntryViewModel.Data.CSTATUS == "10" && _JournalEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG))"
+        <R_Button Enabled="@(_TransactionListViewModel.JournalGrid.Count > 0 && (_TransactionListViewModel.Data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG))"
                   OnClick="ApproveJournalProcess">
             Approve
         </R_Button>
     </R_ItemLayout>
     <R_ItemLayout>
         <R_Button Enabled="@(
-                            (_JournalEntryViewModel.Data.CSTATUS == "20" || (_JournalEntryViewModel.Data.CSTATUS == "10" && _JournalEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG)) ||
-                            (_JournalEntryViewModel.Data.CSTATUS == "80" && !_JournalEntryViewModel.VAR_IUNDO_COMMIT_JRN.LWARNING) &&
-                            (int.Parse(_JournalEntryViewModel.JournalPeriodYear + _JournalEntryViewModel.JournalPeriodMonth) >= int.Parse(_JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD)) )"
+                            (_TransactionListViewModel.Data.CSTATUS == "20" || (_TransactionListViewModel.Data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG)) ||
+                            (_TransactionListViewModel.Data.CSTATUS == "80" && !_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.LWARNING) &&
+                            (int.Parse(_TransactionListViewModel.JournalPeriodYear + _TransactionListViewModel.JournalPeriodMonth) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD)) )"
                   OnClick="CommitJournalProcess">
             Commit
         </R_Button>
@@ -142,7 +142,7 @@
 
 
 <R_Conductor @ref="_conductorRef"
-             R_ViewModel="_JournalEntryViewModel"
+             R_ViewModel="_TransactionListViewModel"
              R_IsHeader
              R_ServiceGetRecord="JournalGrid_ServiceGetRecord"
              R_Display="JournalGrid_Display" />

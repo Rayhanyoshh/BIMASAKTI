@@ -15,7 +15,7 @@ using CBT01200Back;
 using R_BackEnd;
 using R_CommonFrontBackAPI;
 
-namespace CBT01100SERVICE
+namespace CBT01200SERVICE
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -132,7 +132,32 @@ namespace CBT01100SERVICE
         [HttpPost]
         public IAsyncEnumerable<CBT01201DTO> GetJournalDetailList()
         {
-            throw new NotImplementedException();
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            var loEx = new R_Exception();
+            IAsyncEnumerable<CBT01201DTO> loRtn = null;
+
+            try
+            {
+                var loPar = new CBT01210ParamDTO()
+                {
+                    CREC_ID = R_Utility.R_GetContext<string>(ContextConstant.CREC_ID),
+                    CLANGUAGE_ID = R_BackGlobalVar.CULTURE
+                };
+                var loCls = new CBT01210Cls();
+                var loTempRtn = loCls.GetJournalDetailList(loPar);
+                ShowLogExecute();
+                loRtn = StreamListData<CBT01201DTO>(loTempRtn);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            ShowLogEnd();
+            return loRtn;
         }
         
         

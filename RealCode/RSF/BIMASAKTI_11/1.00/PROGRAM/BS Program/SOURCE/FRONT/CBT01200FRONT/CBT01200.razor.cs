@@ -23,7 +23,8 @@ namespace CBT01200FRONT
 {
     public partial class CBT01200 : R_Page
     {
-        private CBT01200ViewModel _JournalEntryViewModel = new();
+        private CBT01200ViewModel _TransactionListViewModel = new();
+        private CBT01210ViewModel _TransactionEntryViewModel = new();
         private R_Conductor _conductorRef;
         private R_Grid<CBT01200DTO> _gridRef;
         private R_Grid<CBT01201DTO> _gridDetailRef;
@@ -36,7 +37,7 @@ namespace CBT01200FRONT
 
             try
             {
-                await _JournalEntryViewModel.GetAllUniversalData();
+                await _TransactionListViewModel.GetAllUniversalData();
             }
             catch (Exception ex)
             {
@@ -52,23 +53,23 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                if (string.IsNullOrEmpty(_JournalEntryViewModel.JournalParam.CDEPT_CODE))
+                if (string.IsNullOrEmpty(_TransactionListViewModel.JournalParam.CDEPT_CODE))
                 {
                     loEx.Add(new Exception("Please input keyword to search!"));
                     goto EndBlock;
                 }
-                if (string.IsNullOrEmpty(_JournalEntryViewModel.JournalParam.CSEARCH_TEXT))
+                if (string.IsNullOrEmpty(_TransactionListViewModel.JournalParam.CSEARCH_TEXT))
                 {
                     loEx.Add(new Exception("Please input keyword to search!"));
                     goto EndBlock;
                 }
-                if (!string.IsNullOrEmpty(_JournalEntryViewModel.JournalParam.CSEARCH_TEXT)
-                    && _JournalEntryViewModel.JournalParam.CSEARCH_TEXT.Length < 3)
+                if (!string.IsNullOrEmpty(_TransactionListViewModel.JournalParam.CSEARCH_TEXT)
+                    && _TransactionListViewModel.JournalParam.CSEARCH_TEXT.Length < 3)
                 {
                     loEx.Add(new Exception("Minimum search keyword is 3 characters!"));
                     goto EndBlock;
                 }
-                _JournalEntryViewModel.JournalDetailGrid.Clear();
+                _TransactionEntryViewModel.JournalDetailGrid.Clear();
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -85,7 +86,7 @@ namespace CBT01200FRONT
             try
             {
                 //reset detail
-                _JournalEntryViewModel.JournalDetailGrid.Clear();
+                _TransactionEntryViewModel.JournalDetailGrid.Clear();
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -103,9 +104,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                await _JournalEntryViewModel.GetJournalList();
-                eventArgs.ListEntityResult = _JournalEntryViewModel.JournalGrid;
-                if (_JournalEntryViewModel.JournalGrid.Count <= 0)
+                await _TransactionListViewModel.GetJournalList();
+                eventArgs.ListEntityResult = _TransactionListViewModel.JournalGrid;
+                if (_TransactionListViewModel.JournalGrid.Count <= 0)
                 {
                     loEx.Add("", "Data Not Found!");
                 }
@@ -116,9 +117,19 @@ namespace CBT01200FRONT
             }
             R_DisplayException(loEx);
         }
-        private void JournalGrid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
+        private async Task JournalGrid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
-            eventArgs.Result = eventArgs.Data;
+            R_Exception loEx = new R_Exception();
+
+            try
+            {
+                eventArgs.Result = (CBT01200DTO)eventArgs.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            R_DisplayException(loEx);
         }
         private async Task JournalGrid_Display(R_DisplayEventArgs eventArgs)
         {
@@ -130,7 +141,8 @@ namespace CBT01200FRONT
                 {
                     if (!string.IsNullOrWhiteSpace(loData.CREC_ID))
                     {
-                        await _gridDetailRef.R_RefreshGrid(eventArgs.Data);
+                        _TransactionEntryViewModel._CREC_ID=loData.CREC_ID;
+                        await _gridDetailRef.R_RefreshGrid(null);
                     }
                 }
             }
@@ -153,11 +165,11 @@ namespace CBT01200FRONT
                 }
 
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
-                loParam.LAUTO_COMMIT = _JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.LCOMMIT_APVJRN;
+                loParam.LAUTO_COMMIT = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.LCOMMIT_APVJRN;
                 loParam.LUNDO_COMMIT = false;
                 loParam.CNEW_STATUS = "20";
 
-                await _JournalEntryViewModel.UpdateJournalStatus(loParam);
+                await _TransactionEntryViewModel.UpdateJournalStatus(loParam);
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -178,7 +190,7 @@ namespace CBT01200FRONT
 
                 if (loData.CSTATUS == "80")
                 {
-                    if (_JournalEntryViewModel.VAR_IUNDO_COMMIT_JRN.IOPTION == 3)
+                    if (_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.IOPTION == 3)
                     {
                         loValidate = await R_MessageBox.Show("", "Are you sure want to undo committed this journal? ", R_eMessageBoxButtonType.YesNo);
                         if (loValidate == R_eMessageBoxResult.No)
@@ -193,11 +205,11 @@ namespace CBT01200FRONT
                 }
 
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
-                loParam.LAUTO_COMMIT = _JournalEntryViewModel.VAR_GL_SYSTEM_PARAM.LCOMMIT_APVJRN;
+                loParam.LAUTO_COMMIT = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.LCOMMIT_APVJRN;
                 loParam.LUNDO_COMMIT = loData.CSTATUS == "80" ? true : false;
                 loParam.CNEW_STATUS = loData.CSTATUS == "80" ? "20" : "80";
 
-                await _JournalEntryViewModel.UpdateJournalStatus(loParam);
+                await _TransactionEntryViewModel.UpdateJournalStatus(loParam);
                 await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
@@ -215,9 +227,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01201DTO>(eventArgs.Parameter);
-                await _JournalEntryViewModel.GetJournalDetailList(loParam);
-                eventArgs.ListEntityResult = _JournalEntryViewModel.JournalDetailGrid;
+                // var loParam = R_FrontUtility.ConvertObjectToObject<CBT01201DTO>(eventArgs.Parameter);
+                await _TransactionEntryViewModel.GetJournalDetailList();
+                eventArgs.ListEntityResult = _TransactionEntryViewModel.JournalDetailGrid;
             }
             catch (Exception ex)
             {
@@ -256,8 +268,8 @@ namespace CBT01200FRONT
                 return;
             }
 
-            _JournalEntryViewModel.JournalParam.CDEPT_CODE = loTempResult.CDEPT_CODE;
-            _JournalEntryViewModel.JournalParam.CDEPT_NAME = loTempResult.CDEPT_NAME;
+            _TransactionListViewModel.JournalParam.CDEPT_CODE = loTempResult.CDEPT_CODE;
+            _TransactionListViewModel.JournalParam.CDEPT_NAME = loTempResult.CDEPT_NAME;
         }
         private async Task OnLostFocus_LookupDept()
         {
@@ -268,7 +280,7 @@ namespace CBT01200FRONT
                 LookupGSL00700ViewModel loLookupViewModel = new LookupGSL00700ViewModel(); //use GSL's model
                 var loParam = new GSL00700ParameterDTO // use match param as GSL's dto, send as type in search texbox
                 {
-                    CSEARCH_TEXT = _JournalEntryViewModel.JournalParam.CDEPT_CODE, // property that bindded to search textbox
+                    CSEARCH_TEXT = _TransactionListViewModel.JournalParam.CDEPT_CODE, // property that bindded to search textbox
                 };
 
 
@@ -280,11 +292,11 @@ namespace CBT01200FRONT
                     loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                             "_ErrLookup01"));
-                    _JournalEntryViewModel.JournalParam.CDEPT_NAME = ""; //kosongin bind textbox name kalo gaada
+                    _TransactionListViewModel.JournalParam.CDEPT_NAME = ""; //kosongin bind textbox name kalo gaada
                     //await GLAccount_TextBox.FocusAsync();
                 }
                 else
-                    _JournalEntryViewModel.JournalParam.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
+                    _TransactionListViewModel.JournalParam.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
             }
             catch (Exception ex)
             {
@@ -302,12 +314,12 @@ namespace CBT01200FRONT
             eventArgs.TargetPageType = typeof(CBT01210);
             eventArgs.Parameter = loData;
         }
-        private void AfterPredef_JournalEntry(R_AfterOpenPredefinedDockEventArgs eventArgs)
+        private async Task AfterPredef_JournalEntry(R_AfterOpenPredefinedDockEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
             {
-                //await _gridRef.R_RefreshGrid(null);
+                await _gridRef.R_RefreshGrid(null);
             }
             catch (Exception ex)
             {

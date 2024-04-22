@@ -9,16 +9,16 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using CBT01200Common.DTOs;
 
-namespace CBT01100SERVICE
+namespace CBT01200SERVICE
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class CBT01100InitController : ControllerBase, ICBT01200Init
+    public class CBT01200InitController : ControllerBase, ICBT01200Init
     {
         private LoggerInitCBT01200 _logger;
         private readonly ActivitySource _activitySource;
 
-        public CBT01100InitController(ILogger<LoggerInitCBT01200> logger)
+        public CBT01200InitController(ILogger<LoggerInitCBT01200> logger)
         {
             //Initial and Get Logger
             LoggerInitCBT01200.R_InitializeLogger(logger);
