@@ -13,7 +13,7 @@ using R_CommonFrontBackAPI;
 
 namespace CBT01200Back
 {
-    public class CBT01200Cls  : R_BusinessObject<CBT1200JournalHDParam>
+    public class CBT01200Cls  : R_BusinessObject<CBT01200JournalHDParam>
     {
         private RSP_CB_DELETE_TRANS_JRNResources.Resources_Dummy_Class loDeleteCBTransJRNRes = new();
         private RSP_CB_SAVE_TRANS_JRNResources.Resources_Dummy_Class loSaveCBTransJRNRes = new();
@@ -32,7 +32,7 @@ namespace CBT01200Back
             _activitySource = CBT01200Activity.R_GetInstanceActivitySource();
         }
 
-        public List<CBT01200DTO> GetJournalList(CBT1200JournalHDParam poEntity)
+        public List<CBT01200DTO> GetJournalList(CBT01200JournalHDParam poEntity)
         {
             using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
             var loEx = new R_Exception();
@@ -238,10 +238,10 @@ namespace CBT01200Back
         }
         #endregion
 
-        protected override CBT1200JournalHDParam R_Display(CBT1200JournalHDParam poEntity)
+        protected override CBT01200JournalHDParam R_Display(CBT01200JournalHDParam poEntity)
         {
             var loEx = new R_Exception();
-            CBT1200JournalHDParam loResult = null;
+            CBT01200JournalHDParam loResult = null;
 
             try
             {
@@ -259,7 +259,7 @@ namespace CBT01200Back
 
 
                 var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
-                loResult = R_Utility.R_ConvertTo<CBT1200JournalHDParam>(loDataTable).FirstOrDefault();
+                loResult = R_Utility.R_ConvertTo<CBT01200JournalHDParam>(loDataTable).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -271,7 +271,7 @@ namespace CBT01200Back
             return loResult;
         }
 
-        protected override void R_Saving(CBT1200JournalHDParam poNewEntity, eCRUDMode poCRUDMode)
+        protected override void R_Saving(CBT01200JournalHDParam poNewEntity, eCRUDMode poCRUDMode)
         {
             using Activity activity = _activitySource.StartActivity("R_Saving");
 
@@ -306,20 +306,21 @@ namespace CBT01200Back
                 _logger.LogDebug("QueryExecuting stored procedure: {lcQuery}", lcQuery);
 
                 // Add command parameters
-                loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, poNewEntity.CUSER_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, 5, lcAction);
-                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 10, poNewEntity.CCOMPANY_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CREC_ID", DbType.String, 20, poNewEntity.CREC_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, 20, poNewEntity.CDEPT_CODE);
-                loDb.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 20, poNewEntity.CTRANS_CODE);
-                loDb.R_AddCommandParameter(loCmd, "@CPAYMENT_TYPE", DbType.String, 20, poNewEntity.CPAYMENT_TYPE);
-                loDb.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, 20, poNewEntity.CREF_NO);
-                loDb.R_AddCommandParameter(loCmd, "@CREF_DATE", DbType.String, 20, poNewEntity.CREF_DATE);
-                loDb.R_AddCommandParameter(loCmd, "@CDOC_NO", DbType.String, 20, poNewEntity.CDOC_NO);
-                loDb.R_AddCommandParameter(loCmd, "@CDOC_DATE", DbType.String, 20, poNewEntity.CDOC_DATE);
-                loDb.R_AddCommandParameter(loCmd, "@CCB_ACCOUNT_NO", DbType.String, 20, poNewEntity.CCB_ACCOUNT_NO);
-                loDb.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 20, poNewEntity.CTRANS_CODE);
-                loDb.R_AddCommandParameter(loCmd, "@CCURRENCY_CODE", DbType.String, 20, poNewEntity.CCURRENCY_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poNewEntity.CUSER_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, int.MaxValue, lcAction);
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poNewEntity.CCOMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CREC_ID", DbType.String, int.MaxValue, poNewEntity.CREC_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, int.MaxValue, poNewEntity.CDEPT_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, int.MaxValue, poNewEntity.CTRANS_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CPAYMENT_TYPE", DbType.String, int.MaxValue, poNewEntity.CPAYMENT_TYPE);
+                loDb.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, int.MaxValue, poNewEntity.CREF_NO);
+                loDb.R_AddCommandParameter(loCmd, "@CREF_DATE", DbType.String, int.MaxValue, poNewEntity.CREF_DATE);
+                loDb.R_AddCommandParameter(loCmd, "@CDOC_NO", DbType.String, int.MaxValue, poNewEntity.CDOC_NO);
+                loDb.R_AddCommandParameter(loCmd, "@CDOC_DATE", DbType.String, int.MaxValue, poNewEntity.CDOC_DATE);
+                loDb.R_AddCommandParameter(loCmd, "@CCB_CODE", DbType.String, int.MaxValue, poNewEntity.CCB_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CCB_ACCOUNT_NO", DbType.String, int.MaxValue, poNewEntity.CCB_ACCOUNT_NO);
+                loDb.R_AddCommandParameter(loCmd, "@CTRANS_DESC", DbType.String, int.MaxValue, poNewEntity.CTRANS_DESC);
+                loDb.R_AddCommandParameter(loCmd, "@CCURRENCY_CODE", DbType.String, int.MaxValue, poNewEntity.CCURRENCY_CODE);
                 loDb.R_AddCommandParameter(loCmd, "@NTRANS_AMOUNT", DbType.Decimal, int.MaxValue, poNewEntity.NTRANS_AMOUNT);
                 loDb.R_AddCommandParameter(loCmd, "@NLBASE_RATE", DbType.Decimal, int.MaxValue, poNewEntity.NLBASE_RATE);
                 loDb.R_AddCommandParameter(loCmd, "@NLCURRENCY_RATE", DbType.Decimal, int.MaxValue, poNewEntity.NLCURRENCY_RATE);
@@ -328,7 +329,11 @@ namespace CBT01200Back
               
                 try
                 {
-                    loDb.SqlExecNonQuery(loConn, loCmd, false);
+                    // loDb.SqlExecNonQuery(loConn, loCmd, false);
+                    var loDataTable = loDb.SqlExecQuery(loConn, loCmd, false);
+                    var loTempResult = R_Utility.R_ConvertTo<CBT01200JournalHDParam>(loDataTable).FirstOrDefault();
+                    poNewEntity.CREC_ID = loTempResult.CREC_ID;
+                    
                 }
                 catch (Exception ex)
                 {
@@ -362,7 +367,7 @@ namespace CBT01200Back
             loEx.ThrowExceptionIfErrors();
         }
 
-        protected override void R_Deleting(CBT1200JournalHDParam poEntity)
+        protected override void R_Deleting(CBT01200JournalHDParam poEntity)
         {
             using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
             R_Exception loEx = new R_Exception();

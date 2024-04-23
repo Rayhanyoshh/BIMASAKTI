@@ -45,7 +45,7 @@ namespace CBT01200SERVICE
 
             try
             {
-                var loParam = new CBT1200JournalHDParam();
+                var loParam = new CBT01200JournalHDParam();
                 loParam.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CDEPT_CODE);
                 loParam.CPERIOD = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPERIOD);
                 loParam.CSTATUS = R_Utility.R_GetStreamingContext<string>(ContextConstant.CSTATUS);
@@ -123,20 +123,20 @@ namespace CBT01200SERVICE
         }
 
 
-        public R_ServiceGetRecordResultDTO<CBT1200JournalHDParam> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT1200JournalHDParam> poParameter)
+        public R_ServiceGetRecordResultDTO<CBT01200JournalHDParam> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT01200JournalHDParam> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
 
             _logger.LogInfo("Start - GetRecord");
 
             R_Exception loEx = new R_Exception();
-            R_ServiceGetRecordResultDTO<CBT1200JournalHDParam> loRtn = null;
+            R_ServiceGetRecordResultDTO<CBT01200JournalHDParam> loRtn = null;
             CBT01200Cls loCls;
 
             try
             {
                 loCls = new CBT01200Cls();
-                loRtn = new R_ServiceGetRecordResultDTO<CBT1200JournalHDParam>();
+                loRtn = new R_ServiceGetRecordResultDTO<CBT01200JournalHDParam>();
 
                 _logger.LogInfo("Set Parameter");
                 poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
@@ -157,21 +157,22 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
-        public R_ServiceSaveResultDTO<CBT1200JournalHDParam> R_ServiceSave(R_ServiceSaveParameterDTO<CBT1200JournalHDParam> poParameter)
+        public R_ServiceSaveResultDTO<CBT01200JournalHDParam> R_ServiceSave(R_ServiceSaveParameterDTO<CBT01200JournalHDParam> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceSave");
             _logger.LogInfo("Start - Save Transaction Record");
             R_Exception loEx = new R_Exception();
-            R_ServiceSaveResultDTO<CBT1200JournalHDParam> loRtn = null;
+            R_ServiceSaveResultDTO<CBT01200JournalHDParam> loRtn = null;
             CBT01200Cls loCls;
 
             try
             {
                 loCls = new CBT01200Cls();
-                loRtn = new R_ServiceSaveResultDTO<CBT1200JournalHDParam>();
+                loRtn = new R_ServiceSaveResultDTO<CBT01200JournalHDParam>();
                 _logger.LogInfo("Set Parameter");
                 poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
                 poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poParameter.Entity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
 
                 _logger.LogInfo("Save Transaction Entity");
                 loRtn.data = loCls.R_Save(poParameter.Entity, poParameter.CRUDMode);
@@ -187,7 +188,7 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
-        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT1200JournalHDParam> poParameter)
+        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT01200JournalHDParam> poParameter)
         {
                 using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
                 ShowLogStart();

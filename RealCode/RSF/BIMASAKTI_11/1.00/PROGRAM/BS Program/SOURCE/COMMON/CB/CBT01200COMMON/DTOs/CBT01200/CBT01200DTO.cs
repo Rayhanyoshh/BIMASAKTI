@@ -42,6 +42,7 @@ namespace CBT01200Common.DTOs
         public string CCB_CODE { get; set; } = "";
         public string CCB_NAME { get; set; }
         public string CCB_ACCOUNT_NO { get; set; }
+        public string CCB_ACCOUNT_NAME { get; set; }
         public decimal NDEBIT_AMOUNT { get; set; }
         public decimal NCREDIT_AMOUNT { get; set; }
 

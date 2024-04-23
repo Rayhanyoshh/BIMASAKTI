@@ -49,15 +49,15 @@ namespace CBT01200FRONT
             try
             {
                 await _TransactionEntryViewModel.GetAllUniversalData();
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(poParameter);
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(poParameter);
                 if (!string.IsNullOrWhiteSpace(loParam.CREC_ID))
                 {
                     await _conductorRef.R_GetEntity(loParam);
                 }
                 else
                 {
-                    _TransactionEntryViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
-                    _TransactionEntryViewModel.DocDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionListViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionListViewModel.DocDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 }
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                var loData = (CBT01200JournalHDParam)eventArgs.Data;
 
                 var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
                     plSendWithContext: true,
@@ -91,7 +91,7 @@ namespace CBT01200FRONT
                     {
                         Company_Id = clientHelper.CompanyId,
                         User_Id = clientHelper.UserId,
-                        Program_Id = "CBT01100",
+                        Program_Id = "CBT01200",
                         Table_Name = "CBT_TRANS_HD",
                         Key_Value = string.Join("|", clientHelper.CompanyId, loData.CDEPT_CODE, loData.CTRANS_CODE, loData.CREF_NO)
                     };
@@ -104,7 +104,7 @@ namespace CBT01200FRONT
                     {
                         Company_Id = clientHelper.CompanyId,
                         User_Id = clientHelper.UserId,
-                        Program_Id = "CBT01100",
+                        Program_Id = "CBT01200",
                         Table_Name = "CBT_TRANS_HD",
                         Key_Value = string.Join("|", clientHelper.CompanyId, loData.CDEPT_CODE, loData.CTRANS_CODE, loData.CREF_NO)
                     };
@@ -133,8 +133,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                await _TransactionEntryViewModel.GetJournal((CBT01210ParamDTO)eventArgs.Data);
-                eventArgs.Result = _TransactionEntryViewModel.Journal;
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(eventArgs.Data);
+                await _TransactionListViewModel.GetJournalRecord(loParam);
+                eventArgs.Result = _TransactionListViewModel.JournalRecord;
             }
             catch (Exception ex)
             {
@@ -149,8 +150,10 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                await _TransactionListViewModel.SaveJournal((CBT1200JournalHDParam)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
-                eventArgs.Result = _TransactionEntryViewModel.Journal;
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(eventArgs.Data);
+                _TransactionListViewModel.VAR_GSM_TRANSACTION_CODE = _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE;
+                await _TransactionListViewModel.SaveJournal(loParam, (eCRUDMode)eventArgs.ConductorMode);
+                eventArgs.Result = _TransactionListViewModel.JournalRecord;
             }
             catch (Exception ex)
             {
@@ -169,7 +172,7 @@ namespace CBT01200FRONT
                 if (loValidate == R_eMessageBoxResult.No)
                     goto EndBlock;
 
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
                 loParam.LAUTO_COMMIT = false;
                 loParam.LUNDO_COMMIT = false;
@@ -195,13 +198,13 @@ namespace CBT01200FRONT
             {
                 _TransactionEntryViewModel.JournalDetailGridTemp = new(_gridDetailRef.DataSource.ToList()); ;//store detail to temp
                 await _DeptCode_TextBox.FocusAsync();
-                var data = (CBT1200JournalHDParam)eventArgs.Data;
+                var data = (CBT01200DTO)eventArgs.Data;
 
                 data.CCREATE_BY = clientHelper.UserId;
                 data.CUPDATE_BY = clientHelper.UserId;
                 data.DUPDATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 data.DCREATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
-                _TransactionEntryViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                _TransactionListViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 data.NLBASE_RATE = 1;
                 data.NLCURRENCY_RATE = 1;
                 data.NBBASE_RATE = 1;
@@ -222,12 +225,12 @@ namespace CBT01200FRONT
             R_DisplayException(loEx);
         }
 
-        private void ValidationFormCNT01200TransactionEntry(R_ValidationEventArgs eventArgs)
+        private void ValidationFormCBT01200TransactionEntry(R_ValidationEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
             {
-                var loParam = (CBT1200JournalHDParam)eventArgs.Data;
+                var loParam = (CBT01200DTO)eventArgs.Data;
                 if (string.IsNullOrWhiteSpace(loParam.CDEPT_CODE))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
@@ -242,7 +245,7 @@ namespace CBT01200FRONT
                         "V03"));
                 }
 
-                if (_TransactionEntryViewModel.RefDate == DateTime.MinValue)
+                if (_TransactionListViewModel.RefDate == DateTime.MinValue)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -250,21 +253,21 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (_TransactionEntryViewModel.RefDate > _TransactionEntryViewModel.VAR_TODAY.DTODAY)
+                    if (_TransactionListViewModel.RefDate > _TransactionEntryViewModel.VAR_TODAY.DTODAY)
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V04"));
                     }
 
-                    if (int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
+                    if (int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V05"));
                     }
 
-                    if (int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -293,7 +296,7 @@ namespace CBT01200FRONT
                         "V09"));
                 }
 
-                if (_TransactionEntryViewModel.DocDate.HasValue == false)
+                if (_TransactionListViewModel.DocDate.HasValue == false)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -301,14 +304,14 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (int.Parse(_TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) > int.Parse(_TransactionEntryViewModel.RefDate.Value.ToString("yyyyMMdd")))
+                    if (int.Parse(_TransactionListViewModel.DocDate.Value.ToString("yyyyMMdd")) > int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V11"));
                     }
 
-                    if (int.Parse(_TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionListViewModel.DocDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -375,7 +378,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var data = (CBT1200JournalHDParam)eventArgs.Data;
+                var data = (CBT01200DTO)eventArgs.Data;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
                     if (!string.IsNullOrWhiteSpace(data.CSTATUS))
@@ -391,11 +394,11 @@ namespace CBT01200FRONT
                                        (data.CSTATUS == "80") &&
                                        int.Parse(data.CREF_PRD) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD);
                         EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
-
+                        _TransactionEntryViewModel._CREC_ID = data.CREC_ID;
                     }
-                    if (!string.IsNullOrWhiteSpace(data.CREC_ID))
+                    if (!string.IsNullOrWhiteSpace(_TransactionEntryViewModel._CREC_ID))
                     {
-                        await _gridDetailRef.R_RefreshGrid(data);
+                        await _gridDetailRef.R_RefreshGrid(null);
                     }
                 }
             }
@@ -429,17 +432,17 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loOldData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loOldData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
                 await _conductorRef.Add();
                 if (_conductorRef.R_ConductorMode == R_eConductorMode.Add)
                 {
-                    var loNewData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                    var loNewData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                     loNewData.CREF_PRD = loOldData.CREF_PRD;
                     loNewData.LALLOW_APPROVE = loOldData.LALLOW_APPROVE;
                     loNewData.CINPUT_TYPE = loOldData.CINPUT_TYPE;
                     loNewData.CDEPT_CODE = loOldData.CDEPT_CODE;
-                    _TransactionEntryViewModel.RefDate = DateTime.ParseExact(loOldData.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionListViewModel.RefDate = DateTime.ParseExact(loOldData.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     loNewData.CCB_CODE = loOldData.CCB_CODE;
                     loNewData.CCB_NAME = loOldData.CCB_NAME;
                     loNewData.CCB_ACCOUNT_NO = loOldData.CCB_ACCOUNT_NO;
@@ -453,7 +456,7 @@ namespace CBT01200FRONT
                     loNewData.NDEBIT_AMOUNT = loOldData.NDEBIT_AMOUNT;
                     loNewData.NCREDIT_AMOUNT = loOldData.NCREDIT_AMOUNT;
                     loNewData.CDOC_NO = loOldData.CDOC_NO;
-                    _TransactionEntryViewModel.DocDate = DateTime.ParseExact(loOldData.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionListViewModel.DocDate = DateTime.ParseExact(loOldData.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                     loNewData.CTRANS_DESC = loOldData.CTRANS_DESC;
                     loNewData.CSTATUS_NAME = loOldData.CSTATUS_NAME;
                     loNewData.CSTATUS = loOldData.CSTATUS;
@@ -478,9 +481,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
+                _TransactionListViewModel.VAR_CB_SYSTEM_PARAM=_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM;
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01210LastCurrencyRateDTO>(_conductorRef.R_GetCurrentData());
                 var loResult = await _TransactionListViewModel.GetLastCurrency(loParam);
-
                 if (loResult is null)
                 {
                     _TransactionListViewModel.Data.NLBASE_RATE = 1;
@@ -513,10 +516,10 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                _TransactionEntryViewModel.RefDate = (DateTime)poParam;
-                if (!string.IsNullOrWhiteSpace(_TransactionEntryViewModel.Data.CCURRENCY_CODE) &&
-                    (_TransactionEntryViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
-                    || _TransactionEntryViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
+                _TransactionListViewModel.RefDate = poParam;
+                if (!string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE) &&
+                    (_TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
+                    || _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
                 {
                     await RefreshCurrency();
                 }
@@ -543,10 +546,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01201DTO>(eventArgs.Parameter);
                 await _TransactionEntryViewModel.GetJournalDetailList();
 
-                eventArgs.ListEntityResult = _TransactionListViewModel.JournalDetailGrid;
+                eventArgs.ListEntityResult = _TransactionEntryViewModel.JournalDetailGrid;
             }
             catch (Exception ex)
             {
@@ -560,10 +562,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
-                await _TransactionEntryViewModel.GetJournal(loData);
-
-                eventArgs.Result = _TransactionEntryViewModel.JournalDetail;
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(eventArgs.Data);
+                await _TransactionEntryViewModel.GetJournalDetailRecord(loData);
+                eventArgs.Result = _TransactionEntryViewModel.Journal;
             }
             catch (Exception ex)
             {
@@ -578,8 +579,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var data = (CBT01210ParamDTO)eventArgs.Data;
-                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var data = (CBT01201DTO)eventArgs.Data;
+                var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
 
                 if (data != null)
                 {
@@ -607,8 +608,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01201DTO)eventArgs.Data;
                 var loFirstCenter = _TransactionEntryViewModel.VAR_CENTER_LIST.FirstOrDefault();
 
                 loData.INO = _gridDetailRef.DataSource.Count + 1;
@@ -628,7 +629,7 @@ namespace CBT01200FRONT
         }
         private void Before_Open_Lookup(R_BeforeOpenGridLookupColumnEventArgs eventArgs)
         {
-            if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CGLACCOUNT_NO))
+            if (eventArgs.ColumnName == nameof(CBT01201DTO.CGLACCOUNT_NO))
             {
                 eventArgs.Parameter = new GSL00500ParameterDTO()
                 {
@@ -636,7 +637,7 @@ namespace CBT01200FRONT
                 };
                 eventArgs.TargetPageType = typeof(GSL00500);
             }
-            else if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CCASH_FLOW_CODE))
+            else if (eventArgs.ColumnName == nameof(CBT01201DTO.CCASH_FLOW_CODE))
             {
                 eventArgs.Parameter = new GSL01500ParameterGroupDTO()
                 {
@@ -646,8 +647,8 @@ namespace CBT01200FRONT
         }
         private void After_Open_Lookup(R_AfterOpenGridLookupColumnEventArgs eventArgs)
         {
-            CBT01210ParamDTO loGetData = (CBT01210ParamDTO)eventArgs.ColumnData;
-            if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CGLACCOUNT_NO))
+            CBT01201DTO loGetData = (CBT01201DTO)eventArgs.ColumnData;
+            if (eventArgs.ColumnName == nameof(CBT01201DTO.CGLACCOUNT_NO))
             {
                 GSL00500DTO loTempResult = (GSL00500DTO)eventArgs.Result;
                 if (loTempResult == null)
@@ -667,7 +668,7 @@ namespace CBT01200FRONT
                     loGetData.CCENTER_NAME = "";
                 }
             }
-            else if (eventArgs.ColumnName == nameof(CBT01210ParamDTO.CCASH_FLOW_CODE))
+            else if (eventArgs.ColumnName == nameof(CBT01201DTO.CCASH_FLOW_CODE))
             {
                 GSL01500DTO loTempResult = R_FrontUtility.ConvertObjectToObject<GSL01500DTO>(eventArgs.Result);
                 if (loTempResult == null)
@@ -686,9 +687,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT1200JournalHDParam)eventArgs.Data;
-
-                await _TransactionListViewModel.DeleteJournal(loData);
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(eventArgs.Data);
+                await _TransactionEntryViewModel.DeleteJournalDetail(loData);
             }
             catch (Exception ex)
             {
@@ -702,7 +702,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                var loData = (CBT01201DTO)eventArgs.Data;
                 if (string.IsNullOrWhiteSpace(loData.CGLACCOUNT_NO))
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
@@ -779,7 +779,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loHeaderData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 var loData = (CBT01210ParamDTO)eventArgs.Data;
 
                 loData.CDOCUMENT_DATE = loData.DDOCUMENT_DATE.Value.ToString("yyyyMMdd");
@@ -804,8 +804,8 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT1200JournalHDParam)eventArgs.Data;
-                await _TransactionListViewModel.SaveJournal(loData, (eCRUDMode)eventArgs.ConductorMode);
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(eventArgs.Data);
+                await _TransactionEntryViewModel.SaveJournalDetail(loData, (eCRUDMode)eventArgs.ConductorMode);
 
                 eventArgs.Result = _TransactionEntryViewModel.JournalDetail;
             }
@@ -875,7 +875,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
                 if (!loData.LALLOW_APPROVE)
                 {
                     loEx.Add("", _localizer["N01"]);
@@ -904,7 +904,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                 if (loData.CSTATUS == "80")
                 {
@@ -941,7 +941,7 @@ namespace CBT01200FRONT
             bool llValidate = false;
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
 
                 if (loData.CSTATUS == "00" && int.Parse(loData.CREF_PRD) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD))
                 {
@@ -1033,7 +1033,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 if (loData.CDEPT_CODE.Length > 0)
                 {
                     GSL00700ParameterDTO loParam = new GSL00700ParameterDTO()
@@ -1084,7 +1084,7 @@ namespace CBT01200FRONT
                 return;
             }
 
-            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+            var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             loData.CDEPT_CODE = loTempResult.CDEPT_CODE;
             loData.CDEPT_NAME = loTempResult.CDEPT_NAME;
         }
@@ -1097,7 +1097,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 if (loData.CCB_CODE.Length > 0)
                 {
                     GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
@@ -1146,6 +1146,8 @@ namespace CBT01200FRONT
                     loData.CCB_NAME = "";
                     loData.CCURRENCY_CODE = "";
                     loData.CCB_ACCOUNT_NO = "";
+                    loData.CCB_ACCOUNT_NAME = "";
+
                 }
             }
             catch (Exception ex)
@@ -1157,7 +1159,7 @@ namespace CBT01200FRONT
         }
         private void BeforeOpenLookup_BankCode(R_BeforeOpenLookupEventArgs eventArgs)
         {
-            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+            var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
             {
                 CDEPT_CODE = loData.CDEPT_CODE,
@@ -1175,7 +1177,7 @@ namespace CBT01200FRONT
                 return;
             }
 
-            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+            var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             loData.CCB_CODE = loTempResult.CCB_CODE;
             loData.CCB_NAME = loTempResult.CCB_NAME;
             loData.CCURRENCY_CODE = loTempResult.CCURRENCY_CODE;
@@ -1201,7 +1203,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 if (loData.CCB_CODE.Length > 0)
                 {
                     GSL02500ParameterDTO loParam = new GSL02500ParameterDTO()
@@ -1226,10 +1228,9 @@ namespace CBT01200FRONT
                         loData.CCB_ACCOUNT_NO = "";
                         goto EndBlock;
                     }
-                    loData.CCB_CODE = loResult.CCB_CODE;
-                    loData.CCB_NAME = loResult.CCB_NAME;
                     loData.CCURRENCY_CODE = loResult.CCURRENCY_CODE;
                     loData.CCB_ACCOUNT_NO = loResult.CCB_ACCOUNT_NO;
+                    loData.CCB_ACCOUNT_NAME = loResult.CCB_ACCOUNT_NAME;
 
                     if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
                     (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
@@ -1250,6 +1251,7 @@ namespace CBT01200FRONT
                     loData.CCB_NAME = "";
                     loData.CCURRENCY_CODE = "";
                     loData.CCB_ACCOUNT_NO = "";
+                    loData.CCB_ACCOUNT_NAME = "";
                 }
             }
             catch (Exception ex)
@@ -1261,7 +1263,7 @@ namespace CBT01200FRONT
         }
         private void BeforeOpenLookup_GLAccountNo(R_BeforeOpenLookupEventArgs eventArgs)
         {
-            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
+            var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             GSL02600ParameterDTO loParam = new GSL02600ParameterDTO()
             {
                 CDEPT_CODE = loData.CDEPT_CODE,
@@ -1276,17 +1278,16 @@ namespace CBT01200FRONT
         private async Task AfterOpenLookup_GLAccountNo(R_AfterOpenLookupEventArgs eventArgs)
         {
             //IF Currency Code Not Empty AND(Currency Code<> VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE OR selected Currency Code<> VAR_GSM_COMPANY.CBASE_CURRENCY_CODE)
-            var loTempResult = (GSL02500DTO)eventArgs.Result;
+            var loTempResult = (GSL02600DTO)eventArgs.Result;
             if (loTempResult == null)
             {
                 return;
             }
 
-            var loData = (CBT1200JournalHDParam)_conductorRef.R_GetCurrentData();
-            loData.CCB_CODE = loTempResult.CCB_CODE;
-            loData.CCB_NAME = loTempResult.CCB_NAME;
-            loData.CCURRENCY_CODE = loTempResult.CCURRENCY_CODE;
+            var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             loData.CCB_ACCOUNT_NO = loTempResult.CCB_ACCOUNT_NO;
+            loData.CCB_ACCOUNT_NAME = loTempResult.CCB_ACCOUNT_NAME;
+            loData.CCURRENCY_CODE = loTempResult.CCURRENCY_CODE;
             if (!string.IsNullOrWhiteSpace(loData.CCURRENCY_CODE) &&
                     (loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
                     || loData.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))

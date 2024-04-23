@@ -59,7 +59,6 @@ namespace CBT01200MODEL
 
         public string COMPANYID;
         public string USERID;
-        public string lcTransCode = "000088";
         public string CommitLabel = "Commit";
         public string SubmitLabel = "Submit";
         public bool
@@ -92,7 +91,9 @@ namespace CBT01200MODEL
         public CBT01200ParamDTO JournalParam { get; set; } = new CBT01200ParamDTO();
         public ObservableCollection<CBT01200DTO> JournalGrid { get; set; } = new ObservableCollection<CBT01200DTO>();
         
-        public CBT1200JournalHDParam JournalRecord = new();
+        public CBT01200DTO Journal = new();
+
+        public CBT01200JournalHDParam JournalRecord = new();
         public ObservableCollection<CBT01201DTO> JournalDetailGrid { get; set; } = new ObservableCollection<CBT01201DTO>();
         public DateTime? RefDate { get; set; }
         public DateTime? DocDate { get; set; }
@@ -179,7 +180,7 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
         }
         
-        public async Task GetJournalRecord(CBT1200JournalHDParam poParam)
+        public async Task GetJournalRecord(CBT01200JournalHDParam poParam)
         {
             var loEx = new R_Exception();
 
@@ -187,23 +188,22 @@ namespace CBT01200MODEL
             {
                 var loResult = await _CBT01200Model.R_ServiceGetRecordAsync(poParam);
                 JournalRecord = loResult;
-                
 
-                //JournalRecord.DREF_DATE = DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                //JournalRecord.DDOC_DATE = DateTime.ParseExact(JournalRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                //JournalRecord.CUPDATE_DATE = JournalRecord.DUPDATE_DATE.Value.ToLongDateString();
-                //JournalRecord.CCREATE_DATE = JournalRecord.DCREATE_DATE.Value.ToLongDateString();
-                //JournalRecord.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
-                //JournalRecord.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
-                //LcCrecID = JournalRecord.CREC_ID;
-                //Data.CSTATUS = JournalRecord.CSTATUS;
-                //Data.CTRANS_CODE = lcTransCode;
+
+                RefDate = DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                DocDate= DateTime.ParseExact(JournalRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                JournalRecord.CUPDATE_DATE = JournalRecord.DUPDATE_DATE.Value.ToLongDateString();
+                JournalRecord.CCREATE_DATE = JournalRecord.DCREATE_DATE.Value.ToLongDateString();
+                JournalRecord.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
+                JournalRecord.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
+                LcCrecID = JournalRecord.CREC_ID;
+                Data.CSTATUS = JournalRecord.CSTATUS;
 
                 //var loParam = new CBT01201DTO()
                 //{
                 //    CREC_ID = JournalRecord.CREC_ID
                 //};
-                //await _CBT01210ViewModel.GetJournalDetailList(loParam);
+                //await _CBT01210ViewModel.GetJournalDetailList();
 
             }
             catch (Exception ex)
@@ -214,7 +214,7 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
             }
 
-        public async Task SaveJournal(CBT1200JournalHDParam poEntity, eCRUDMode poCRUDMode)
+        public async Task SaveJournal(CBT01200JournalHDParam poEntity, eCRUDMode poCRUDMode)
         {
             var loEx = new R_Exception();
 
@@ -233,6 +233,7 @@ namespace CBT01200MODEL
                 poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
                 poEntity.CREF_DATE = RefDate.Value.ToString("yyyyMMdd");
                 poEntity.CTRANS_CODE = ContextConstant.VAR_TRANS_CODE;
+                poEntity.CPAYMENT_TYPE = ContextConstant.CPAYMENT_TYPE;
 
                 var loResult = await _CBT01200Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
 
@@ -246,13 +247,13 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
         }
         
-        public async Task DeleteJournal(CBT1200JournalHDParam poEntity)
+        public async Task DeleteJournal(CBT01200JournalHDParam poEntity)
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loData = R_FrontUtility.ConvertObjectToObject<CBT1200JournalHDParam>(poEntity);
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(poEntity);
                 poEntity.LUNDO_COMMIT = false;
                 loData.LAUTO_COMMIT = false;
                 loData.CNEW_STATUS = "99";
@@ -290,7 +291,7 @@ namespace CBT01200MODEL
             try
             {
                 poEntity.CRATE_DATE = RefDate.Value.ToString("yyyyMMdd");
-                poEntity.CRATETYPE_CODE = VAR_GL_SYSTEM_PARAM.CRATETYPE_CODE;
+                poEntity.CRATETYPE_CODE = VAR_CB_SYSTEM_PARAM.CRATETYPE_CODE;
                 var loResult = await _CBT01200Model.GetLastCurrencyAsync(poEntity);
 
                 loRtn = loResult;

@@ -24,7 +24,7 @@ namespace CBT01200Common.DTOs
         public string CDETAIL_DESC { get; set; }
         public string CDOCUMENT_NO { get; set; }
         public string CDOCUMENT_DATE { get; set; }
-        public DateTime DDOCUMENT_DATE { get; set; }
+        public DateTime? DDOCUMENT_DATE { get; set; }
         public decimal NDEBIT { get; set; }
         public decimal NCREDIT { get; set; }
         public decimal NLDEBIT { get; set; }

@@ -68,9 +68,8 @@ namespace CBT01200MODEL
                 VAR_IUNDO_COMMIT_JRN = await _CBT01200InitModel.GetGSSystemEnableOptionInfoAsync();
                 VAR_GSM_PERIOD = await _CBT01200InitModel.GetGSPeriodYearRangeAsync();
                 VAR_GSB_CODE_LIST = await _CBT01200InitModel.GetGSBCodeListAsync();
-                
-                
-
+                VAR_CENTER_LIST.Add(new CBT01200GSCenterDTO { CCENTER_CODE = "", CCENTER_NAME = "" });
+                VAR_CENTER_LIST= await _CBT01200InitModel.GetCenterListAsync();
                 var loParam = new CBT01200ParamGSPeriodDTInfoDTO() { CCYEAR = VAR_CB_SYSTEM_PARAM.CCURRENT_PERIOD_YY, CPERIOD_NO = VAR_CB_SYSTEM_PARAM.CCURRENT_PERIOD_MM };
                 VAR_SOFT_PERIOD_START_DATE = await _CBT01200InitModel.GetGSPeriodDTInfoAsync(loParam);
             }
@@ -103,7 +102,7 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
         }
         
-        public async Task GetJournal(CBT01210ParamDTO poEntity)
+        public async Task GetJournalDetailRecord(CBT01210ParamDTO poEntity)
         {
             var loEx = new R_Exception();
 
@@ -138,11 +137,42 @@ namespace CBT01200MODEL
 
             loEx.ThrowExceptionIfErrors();
         }
-      
+
+        public async Task DeleteJournalDetail(CBT01210ParamDTO poEntity)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {           
+                await _CBT01210Model.R_ServiceDeleteAsync(poEntity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public async Task SaveJournalDetail(CBT01210ParamDTO poEntity, eCRUDMode poCRUDMode)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                await _CBT01210Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
         #endregion
 
 
-    
+
 
     }
 }

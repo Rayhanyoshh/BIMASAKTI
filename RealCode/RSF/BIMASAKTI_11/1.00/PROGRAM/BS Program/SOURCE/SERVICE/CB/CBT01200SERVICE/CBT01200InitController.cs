@@ -57,7 +57,6 @@ namespace CBT01200SERVICE
             {
                 loEx.Add(ex);
                 ShowLogError(loEx);
-
             }
 
             loEx.ThrowExceptionIfErrors();

@@ -12,7 +12,7 @@ using CBT01200Common;
 
 namespace CBT01200MODEL
 {
-    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT1200JournalHDParam>, ICBT01200
+    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT01200JournalHDParam>, ICBT01200
     {
         private const string DEFAULT_HTTP = "R_DefaultServiceUrlCB";
         private const string DEFAULT_ENDPOINT = "api/CBT01200";

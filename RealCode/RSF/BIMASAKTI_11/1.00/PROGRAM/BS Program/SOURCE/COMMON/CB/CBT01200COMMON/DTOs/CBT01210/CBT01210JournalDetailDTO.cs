@@ -1,6 +1,6 @@
 namespace CBT01200Common.DTOs
 {
-    public class CBT01210JournalDetailDTO
+    public class CBT01210JournalDetailDTO : CBT01201DTO
     {
         public int INO { get; set; }
         public string CREC_ID { get; set; }

@@ -310,9 +310,9 @@ namespace CBT01200FRONT
         #region Predefine Journal Entry
         private void Predef_JournalEntry(R_InstantiateDockEventArgs eventArgs)
         {
-            var loData = _conductorRef.R_GetCurrentData();
+            var loParam = (CBT01200DTO)_conductorRef.R_GetCurrentData();
             eventArgs.TargetPageType = typeof(CBT01210);
-            eventArgs.Parameter = loData;
+            eventArgs.Parameter = loParam;
         }
         private async Task AfterPredef_JournalEntry(R_AfterOpenPredefinedDockEventArgs eventArgs)
         {
