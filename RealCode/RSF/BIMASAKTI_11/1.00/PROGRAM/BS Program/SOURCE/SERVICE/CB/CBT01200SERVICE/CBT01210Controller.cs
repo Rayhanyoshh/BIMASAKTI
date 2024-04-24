@@ -51,7 +51,6 @@ namespace CBT01200SERVICE
                 loRtn = new R_ServiceGetRecordResultDTO<CBT01210ParamDTO>();
 
                 _logger.LogInfo("Set Parameter");
-                poParameter.Entity.CREC_ID = R_Utility.R_GetContext<string>(ContextConstant.CREC_ID);
                 poParameter.Entity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
 
                 _logger.LogInfo("Get Account Record");

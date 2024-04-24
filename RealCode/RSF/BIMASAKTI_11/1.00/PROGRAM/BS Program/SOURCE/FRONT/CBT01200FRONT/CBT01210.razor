@@ -376,7 +376,8 @@
                 R_Saving="@JournalDet_Saving"
                 R_ServiceSave="@JournalDet_ServiceSave"
                 R_Before_Open_Grid_Lookup="Before_Open_Lookup"
-                R_After_Open_Grid_Lookup="After_Open_Lookup">
+                R_After_Open_Grid_Lookup="After_Open_Lookup"
+                 R_DisableCancelConfirmation>
             <R_GridColumns>
                 <R_GridNumericColumn Width="67px" FieldName="@nameof(CBT01210ParamDTO.INO)" HeaderText="@_localizer["_No"]"></R_GridNumericColumn>
                 <R_GridLookupColumn Width="200px" FieldName="@nameof(CBT01210ParamDTO.CGLACCOUNT_NO)" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
@@ -420,4 +421,4 @@
 
 <R_ConductorGrid @ref="@_conductorDetailRef"
                  R_ConductorParent="_conductorRef"
-                 R_DisableDeleteConfirmation /> 
+                      /> 

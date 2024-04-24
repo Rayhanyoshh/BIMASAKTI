@@ -613,6 +613,8 @@ namespace CBT01200FRONT
                 var loFirstCenter = _TransactionEntryViewModel.VAR_CENTER_LIST.FirstOrDefault();
 
                 loData.INO = _gridDetailRef.DataSource.Count + 1;
+                loData.CREF_NO = loHeaderData.CREF_NO;
+                loData.CREF_DATE = loHeaderData.CREF_DATE;
                 loData.CDETAIL_DESC = loHeaderData.CTRANS_DESC;
                 loData.CCENTER_CODE = loFirstCenter.CCENTER_CODE;
                 loData.CCENTER_NAME = loFirstCenter.CCENTER_NAME;
@@ -850,7 +852,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(eventArgs.Data);
                 if (loData.CINPUT_TYPE == "A")
                 {
                     await R_MessageBox.Show("", _localizer["N05"], R_eMessageBoxButtonType.OK);
@@ -869,6 +871,7 @@ namespace CBT01200FRONT
 
             loEx.ThrowExceptionIfErrors();
         }
+
         #endregion
 
         #region Process

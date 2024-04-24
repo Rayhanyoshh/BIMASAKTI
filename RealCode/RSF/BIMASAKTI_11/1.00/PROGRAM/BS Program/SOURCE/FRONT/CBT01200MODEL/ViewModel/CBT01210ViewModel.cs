@@ -110,8 +110,8 @@ namespace CBT01200MODEL
             {
                 var loResult = await _CBT01210Model.R_ServiceGetRecordAsync(poEntity);
 
-                RefDate = DateTime.ParseExact(loResult.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                DocDate = DateTime.ParseExact(loResult.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                //RefDate = DateTime.ParseExact(loResult.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                //DocDate = DateTime.ParseExact(loResult.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 Journal = loResult;
             }
             catch (Exception ex)
@@ -164,7 +164,6 @@ namespace CBT01200MODEL
                 {
                     poEntity.CACTION = "NEW";
                     poEntity.CREC_ID = "";
-                    poEntity.CREF_NO = VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG ? "" : poEntity.CREF_NO;
                 }
                 else if (poCRUDMode == eCRUDMode.EditMode)
                 {
