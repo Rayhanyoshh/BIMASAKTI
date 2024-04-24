@@ -579,7 +579,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var data = (CBT01201DTO)eventArgs.Data;
+                var data = R_FrontUtility.ConvertObjectToObject<CBT01201DTO>(eventArgs.Data);
                 var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
 
                 if (data != null)
@@ -617,12 +617,9 @@ namespace CBT01200FRONT
                 loData.CCENTER_CODE = loFirstCenter.CCENTER_CODE;
                 loData.CCENTER_NAME = loFirstCenter.CCENTER_NAME;
                 loData.CDOCUMENT_NO = string.IsNullOrWhiteSpace(loHeaderData.CDOC_NO) ? "" : loHeaderData.CDOC_NO;
-                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) 
-                    ? "" 
-                    : _TransactionEntryViewModel.DocDate.HasValue 
-                        ? _TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd") 
-                        : "";
-                loData.DDOCUMENT_DATE = _TransactionEntryViewModel.DocDate.Value;
+                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) ? "" : loHeaderData.CDOC_DATE ?? ""; // Menangani nilai nullable dengan operator ??
+                loData.DDOCUMENT_DATE = _TransactionEntryViewModel.DocDate ?? DateTime.MinValue;
+
             }
             catch (Exception ex)
             {
@@ -783,17 +780,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
-                var loData = (CBT01210ParamDTO)eventArgs.Data;
-
-                loData.CDOCUMENT_DATE = loData.DDOCUMENT_DATE.Value.ToString("yyyyMMdd");
-                loData.CDBCR = loData.NDEBIT > 0 && loData.NCREDIT == 0 ? "D" : loData.NCREDIT > 0 && loData.NDEBIT == 0 ? "C" : "";
-                loData.NTRANS_AMOUNT = loData.NDEBIT > 0 ? loData.NDEBIT : loData.NCREDIT;
-                loData.CPARENT_ID = loHeaderData.CREC_ID;
-                loData.CDEPT_CODE = loHeaderData.CDEPT_CODE;
-                loData.CREF_NO = loHeaderData.CREF_NO;
-                loData.CREF_DATE = loHeaderData.CREF_DATE;
-                loData.CCURRENCY_CODE = loHeaderData.CCURRENCY_CODE;
+                
             }
             catch (Exception ex)
             {
@@ -808,10 +795,21 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
+                var loHeaderData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 var loData = R_FrontUtility.ConvertObjectToObject<CBT01210ParamDTO>(eventArgs.Data);
+                
+                loData.CDOCUMENT_DATE = loData.DDOCUMENT_DATE.Value.ToString("yyyyMMdd");
+                loData.CDBCR = loData.NDEBIT > 0 && loData.NCREDIT == 0 ? "D" : loData.NCREDIT > 0 && loData.NDEBIT == 0 ? "C" : "";
+                loData.NTRANS_AMOUNT = loData.NDEBIT > 0 ? loData.NDEBIT : loData.NCREDIT;
+                loData.CPARENT_ID= loHeaderData.CREC_ID;
+                loData.CDEPT_CODE = loHeaderData.CDEPT_CODE;
+                loData.CREF_NO = loHeaderData.CREF_NO;
+                loData.CREF_DATE = loHeaderData.CREF_DATE;
+                loData.CCURRENCY_CODE = loHeaderData.CCURRENCY_CODE;
+           
                 await _TransactionEntryViewModel.SaveJournalDetail(loData, (eCRUDMode)eventArgs.ConductorMode);
 
-                eventArgs.Result = _TransactionEntryViewModel.JournalDetail;
+                eventArgs.Result = _TransactionEntryViewModel.Journal;
             }
             catch (Exception ex)
             {

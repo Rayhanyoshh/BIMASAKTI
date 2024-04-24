@@ -159,8 +159,21 @@ namespace CBT01200MODEL
             var loEx = new R_Exception();
 
             try
-            {
-                await _CBT01210Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
+            {     
+                if (poCRUDMode == eCRUDMode.AddMode)
+                {
+                    poEntity.CACTION = "NEW";
+                    poEntity.CREC_ID = "";
+                    poEntity.CREF_NO = VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG ? "" : poEntity.CREF_NO;
+                }
+                else if (poCRUDMode == eCRUDMode.EditMode)
+                {
+                    poEntity.CACTION = "EDIT";
+                }
+                var loResult = await _CBT01210Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
+
+                Journal = loResult;
+
             }
             catch (Exception ex)
             {

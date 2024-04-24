@@ -150,7 +150,7 @@ namespace CBT01200BACK
                 loCmd.CommandType = CommandType.StoredProcedure;
 
                 loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poNewEntity.CUSER_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, int.MaxValue, poNewEntity.CACTION);
+                loDb.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, int.MaxValue, lcAction);
                 loDb.R_AddCommandParameter(loCmd, "@CPARENT_ID", DbType.String, int.MaxValue, poNewEntity.CPARENT_ID);
                 loDb.R_AddCommandParameter(loCmd, "@CREC_ID", DbType.String, int.MaxValue, poNewEntity.CREC_ID);
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, R_BackGlobalVar.COMPANY_ID);
@@ -172,7 +172,9 @@ namespace CBT01200BACK
                 loDb.R_AddCommandParameter(loCmd, "@LSUSPENSE_ACCOUNT", DbType.Boolean, int.MaxValue, false);
                 try
                 {
-                    loDb.SqlExecNonQuery(loConn, loCmd, false);
+                    var loDataTable = loDb.SqlExecQuery(loConn, loCmd, false);
+                    var loTempResult = R_Utility.R_ConvertTo<CBT01200JournalHDParam>(loDataTable).FirstOrDefault();
+                    poNewEntity.CREC_ID = loTempResult.CREC_ID;
                 }
                 catch (Exception ex)
                 {

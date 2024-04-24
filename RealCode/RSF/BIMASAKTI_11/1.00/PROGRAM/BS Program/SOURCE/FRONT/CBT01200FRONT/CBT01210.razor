@@ -193,7 +193,7 @@
                                         && _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
                                         && !string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE))" />
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
+                <R_ItemLayout Style="width:75">
                     <R_TextBox @bind-Value="_TransactionListViewModel.Data.CCURRENCY_CODE" Enabled="false"></R_TextBox>
                 </R_ItemLayout>
                 <R_ItemLayout>
@@ -208,7 +208,7 @@
                                         && _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
                                         && !string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE))" />
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
+                <R_ItemLayout Style="width:75">
                     <R_TextBox @bind-Value="_TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE" Enabled="false"></R_TextBox>
                 </R_ItemLayout>
                 <R_ItemLayout col="2" Class="d-flex justify-content-end">
@@ -233,7 +233,7 @@
                                         && _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE
                                         && !string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE))" />
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
+                <R_ItemLayout Style="width:75">
                     <R_TextBox @bind-Value="_TransactionListViewModel.Data.CCURRENCY_CODE" Enabled="false"></R_TextBox>
                 </R_ItemLayout>
                 <R_ItemLayout>
@@ -248,7 +248,7 @@
                                         && _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE
                                         && !string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE))" />
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
+                <R_ItemLayout Style="width:75">
                     <R_TextBox @bind-Value="_TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE" Enabled="false"></R_TextBox>
                 </R_ItemLayout>
                 <R_ItemLayout col="2" Class="d-flex justify-content-end">
@@ -282,7 +282,7 @@
                 </R_ItemLayout>
             </R_StackLayout>
             @* Status *@
-            <R_StackLayout Row>
+            <R_StackLayout Row Class="pt-2">
                 <R_ItemLayout col="3">
                     <R_Label>@(_localizer["_Status"])</R_Label>
                 </R_ItemLayout>

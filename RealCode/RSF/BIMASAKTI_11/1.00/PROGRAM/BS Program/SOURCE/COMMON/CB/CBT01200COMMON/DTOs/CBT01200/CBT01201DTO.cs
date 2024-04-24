@@ -10,6 +10,9 @@ namespace CBT01200Common.DTOs
         public string CREC_ID { get; set; }
         public int INO { get; set; }
         public string CSEQ_NO { get; set; }
+        public string CDEPT_CODE { get; set; }
+        public string CREF_NO { get; set; }
+        public string CREF_DATE { get; set; }
         public string CGLACCOUNT_NO { get; set; }
         public string CGLACCOUNT_NAME { get; set; }
         public string CCENTER_CODE { get; set; }
@@ -23,7 +26,7 @@ namespace CBT01200Common.DTOs
         public decimal NAMOUNT { get; set; }
         public string CDETAIL_DESC { get; set; }
         public string CDOCUMENT_NO { get; set; }
-        public string CDOCUMENT_DATE { get; set; }
+        public string? CDOCUMENT_DATE { get; set; }
         public DateTime? DDOCUMENT_DATE { get; set; }
         public decimal NDEBIT { get; set; }
         public decimal NCREDIT { get; set; }
