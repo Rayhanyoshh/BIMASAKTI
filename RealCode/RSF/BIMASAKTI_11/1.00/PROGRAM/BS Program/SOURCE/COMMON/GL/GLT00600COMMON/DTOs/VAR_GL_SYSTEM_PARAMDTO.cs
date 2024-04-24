@@ -21,6 +21,8 @@ namespace GLT00600Common.DTOs
         public string CSTART_PERIOD { get; set; }
         public string CSTART_PERIOD_YY { get; set; }
         public string CSTART_PERIOD_MM { get; set; }
+        public string CSOFT_PERIOD { get; set; }
+
         public string CSOFT_PERIOD_YY { get; set; }
         public int ISOFT_PERIOD_YY { get; set; }
         public string CSOFT_PERIOD_MM { get; set; }

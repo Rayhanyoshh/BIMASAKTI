@@ -161,8 +161,8 @@ namespace GLT00600Model.ViewModel
                 var loreturn = await _JournalListModel.GetSystemParamAsync();
                 SystemParamCollection = loreturn;
                 SystemParamCollection.ISOFT_PERIOD_YY = Convert.ToInt32(SystemParamCollection.CSOFT_PERIOD_YY);
-                lcDeptCode = SystemParamCollection.CCLOSE_DEPT_CODE;
-                lcDeptName = SystemParamCollection.CCLOSE_DEPT_NAME;
+                Data.CDEPT_CODE = SystemParamCollection.CCLOSE_DEPT_CODE;
+                Data.CDEPT_NAME = SystemParamCollection.CCLOSE_DEPT_NAME;
                 CCURRENT_PERIOD_MM = SystemParamCollection.CCURRENT_PERIOD_MM;
                 CCURRENT_PERIOD_YY = SystemParamCollection.CCURRENT_PERIOD_YY;
                 CSOFT_PERIOD_MM = SystemParamCollection.CSOFT_PERIOD_MM;

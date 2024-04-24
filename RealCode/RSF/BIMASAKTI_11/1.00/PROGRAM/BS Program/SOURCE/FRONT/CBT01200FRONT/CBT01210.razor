@@ -361,9 +361,11 @@
                 R_ServiceGetListRecord="JournalDet_ServiceGetListRecord"
                 Height="230px"
                 Enabled="@(EnableHaveRecId && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)"
-                AllowAddNewRow="true"
-                AllowDeleteRow="true"
-                AllowEditRow="true"
+                R_EnableAdd="true"
+                R_EnableEdit="true"
+                AllowAddNewRow
+                AllowEditRow
+                AllowDeleteRow
                 R_ServiceGetRecord="@JournalDet_ServiceGetRecord"
                 R_Display="@JournalDet_RDisplay"
                 R_AfterAdd="@JournalDet_AfterAdd"

@@ -617,7 +617,11 @@ namespace CBT01200FRONT
                 loData.CCENTER_CODE = loFirstCenter.CCENTER_CODE;
                 loData.CCENTER_NAME = loFirstCenter.CCENTER_NAME;
                 loData.CDOCUMENT_NO = string.IsNullOrWhiteSpace(loHeaderData.CDOC_NO) ? "" : loHeaderData.CDOC_NO;
-                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) ? "" : _TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd");
+                loData.CDOCUMENT_DATE = string.IsNullOrWhiteSpace(loHeaderData.CDOC_DATE) 
+                    ? "" 
+                    : _TransactionEntryViewModel.DocDate.HasValue 
+                        ? _TransactionEntryViewModel.DocDate.Value.ToString("yyyyMMdd") 
+                        : "";
                 loData.DDOCUMENT_DATE = _TransactionEntryViewModel.DocDate.Value;
             }
             catch (Exception ex)

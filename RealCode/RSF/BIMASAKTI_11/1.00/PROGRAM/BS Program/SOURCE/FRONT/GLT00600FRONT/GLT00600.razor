@@ -137,10 +137,10 @@
 
  <R_StackLayout Row>
      <R_ItemLayout>
-         <R_Button Enabled="_JournalListViewModel.EnableButton" OnClick="ApproveJournalProcess">@_localizer["_approve"]</R_Button>
+         <R_Button Enabled="@_EnableApprove" OnClick="ApproveJournalProcess">@_localizer["_approve"]</R_Button>
      </R_ItemLayout>
      <R_ItemLayout>
-         <R_Button Enabled="_JournalListViewModel.EnableButton" OnClick="CommitJournalProcess">@_localizer["_commit"]</R_Button>
+         <R_Button Enabled="@_EnableSubmit" OnClick="CommitJournalProcess">@_localizer["_commit"]</R_Button>
      </R_ItemLayout>
      <R_ItemLayout>
          <R_Popup Enabled="_JournalListViewModel.EnableButton" R_Before_Open_Popup="R_Before_Open_PopupRapidApprove"

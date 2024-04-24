@@ -97,6 +97,7 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
+        [HttpPost]
         public CBT01200RecordResult<CBT01210LastCurrencyRateDTO> GetLastCurrency(CBT01210LastCurrencyRateDTO poEntity)
         {
             using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
@@ -122,7 +123,7 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
-
+        [HttpPost]
         public R_ServiceGetRecordResultDTO<CBT01200JournalHDParam> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT01200JournalHDParam> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
@@ -157,6 +158,7 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
+        [HttpPost]
         public R_ServiceSaveResultDTO<CBT01200JournalHDParam> R_ServiceSave(R_ServiceSaveParameterDTO<CBT01200JournalHDParam> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceSave");
@@ -188,6 +190,7 @@ namespace CBT01200SERVICE
             return loRtn;
         }
 
+        [HttpPost]
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT01200JournalHDParam> poParameter)
         {
                 using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");

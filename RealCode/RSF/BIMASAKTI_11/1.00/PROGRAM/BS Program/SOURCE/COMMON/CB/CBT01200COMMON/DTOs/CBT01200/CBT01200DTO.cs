@@ -25,7 +25,7 @@ namespace CBT01200Common.DTOs
         public string CDOC_NO { get; set; }
         public DateTime DDOC_DATE { get; set; }
 
-        public string CDOC_DATE { get; set; }
+        public string? CDOC_DATE { get; set; }
         public string CREF_PRD { get; set; }
         public string CTRANS_DESC { get; set; }
         public string CCURRENCY_CODE { get; set; }

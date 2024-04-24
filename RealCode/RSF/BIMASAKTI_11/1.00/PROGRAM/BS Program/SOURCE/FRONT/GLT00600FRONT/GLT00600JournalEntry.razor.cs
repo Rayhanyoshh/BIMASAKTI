@@ -133,8 +133,8 @@ namespace GLT00600Front
         {
             var data = (GLT00600DTO)eventArgs.Data;
 
-            data.CDEPT_CODE = _JournalListViewModel.lcDeptCode;
-            data.CDEPT_NAME = _JournalListViewModel.lcDeptName;
+            data.CDEPT_CODE = _JournalListViewModel.Data.CDEPT_CODE;
+            data.CDEPT_NAME = _JournalListViewModel.Data.CDEPT_NAME;
 
             _JournalListViewModel.allStatusData = _JournalListViewModel.allStatusData
                 .Where(item => !string.IsNullOrEmpty(item.CCODE))

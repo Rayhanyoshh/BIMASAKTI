@@ -49,6 +49,7 @@ public partial class GLT00600 : R_Page
             await _JournalListViewModel.GetSystemParam();
             VAR_GL_SYSTEM_PARAMDTO systemparamData = new VAR_GL_SYSTEM_PARAMDTO()
             {
+                CCLOSE_DEPT_CODE = _JournalListViewModel.Data.CDEPT_CODE,
                 CSTART_PERIOD = _JournalListViewModel.CurrentPeriodStartCollection.CSTART_DATE,
                 CCURRENT_PERIOD_MM = _JournalListViewModel.SystemParamCollection.CSTART_PERIOD_MM,
                 CCURRENT_PERIOD_YY = _JournalListViewModel.SystemParamCollection.CSTART_PERIOD_YY,
@@ -187,6 +188,9 @@ public partial class GLT00600 : R_Page
         }
         loEx.ThrowExceptionIfErrors();
     }
+    
+    private bool _EnableApprove = false;
+    private bool _EnableSubmit = false;
     private async Task JournalGrid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
     {
         var loEx = new R_Exception();
@@ -194,6 +198,8 @@ public partial class GLT00600 : R_Page
         {
             var loParam = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
             await _JournalListViewModel.GetJournal(loParam);
+
+          
             eventArgs.Result = _JournalListViewModel.Journal;
         }
         catch (Exception ex)
@@ -202,6 +208,8 @@ public partial class GLT00600 : R_Page
         }
         loEx.ThrowExceptionIfErrors();
     }
+    
+    private string lcCommitLabel = "Commit";
     private async Task JournalGrid_Display(R_DisplayEventArgs eventArgs)
     {
         R_Exception loEx = new R_Exception();
@@ -224,6 +232,23 @@ public partial class GLT00600 : R_Page
                 else
                 {
                     _JournalListViewModel.EnableButton = true;
+                }
+            }
+
+            var loData = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
+            
+            _EnableApprove = _gridRef.DataSource.Count > 0 && loData.CSTATUS == "10" &&
+                             _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG;
+            _EnableSubmit = (loData.CSTATUS == "20" || (loData.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
+                            (loData.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
+                            int.Parse(loData.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
+            
+            if (eventArgs.ConductorMode == R_eConductorMode.Normal)
+            {
+                lcCommitLabel = loData.CSTATUS == "80" ? "Undo Commit" : "Commit";
+                if (!string.IsNullOrWhiteSpace(loData.CREC_ID))
+                {
+                    await _gridDetailRef.R_RefreshGrid(eventArgs.Data);
                 }
             }
         }

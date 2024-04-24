@@ -42,7 +42,7 @@
                                R_ConductorSource="_conductorRef"
                                MaxLength="30"
                                R_EnableAdd
-                               Enabled="@(!_JournalListViewModel.EnableRefNo && _conductorRef.R_ConductorMode != R_eConductorMode.Normal)" />
+                              Enabled="@(!_JournalListViewModel.TransactionCodeCollection.LINCREMENT_FLAG && _conductorRef.R_ConductorMode != R_eConductorMode.Normal && _conductorRef.R_ConductorMode != R_eConductorMode.Add && _conductorRef.R_ConductorMode != R_eConductorMode.Edit)" />
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                      <R_Label>@_localizer["_referenceDate"]*</R_Label>
@@ -105,8 +105,9 @@
                          ValueField="@nameof(StatusDTO.CCODE)"
                          TextField="@nameof(StatusDTO.CNAME)"
                          R_ConductorSource="@_conductorRef"
-                         R_EnableAdd
-                         R_EnableEdit/>
+                         Enabled="(_conductorRef.R_ConductorMode != R_eConductorMode.Normal && _conductorRef.R_ConductorMode != R_eConductorMode.Add && _conductorRef.R_ConductorMode != R_eConductorMode.Edit)"
+                         R_EnableAdd = "false"
+                         R_EnableEdit = "false"/>
                  </R_ItemLayout>
              </R_StackLayout>
         </R_ItemLayout>
@@ -313,7 +314,8 @@
             <R_Grid @ref="_gridDetailRef"
                     DataSource="_JournalListViewModel.JournaDetailList"
                     Pageable
-                    R_ConductorSource="_conductorRef"R_GridType="R_eGridType.Batch"
+                    R_ConductorSource="_conductorRef"
+                    R_GridType="R_eGridType.Batch"
                      R_ServiceGetListRecord="JournalDet_ServiceGetListRecord"
                      R_EnableAdd="true"
                     R_EnableEdit="true"
