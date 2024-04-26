@@ -188,8 +188,9 @@ namespace CBT01200FRONT
             {
                 var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
 
-                if (loData.CSTATUS == "80")
+                if (loData.CSTATUS == "80" )
                 {
+                    _TransactionListViewModel.CommitLabel = @_localizer["_btnCommit"];
                     if (_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.IOPTION == 3)
                     {
                         loValidate = await R_MessageBox.Show("", "Are you sure want to undo committed this journal? ", R_eMessageBoxButtonType.YesNo);
@@ -199,6 +200,7 @@ namespace CBT01200FRONT
                 }
                 else
                 {
+                    _TransactionListViewModel.CommitLabel = @_localizer["_btnUndoCommit"];
                     loValidate = await R_MessageBox.Show("", "Are you sure want to commit this journal? ", R_eMessageBoxButtonType.YesNo);
                     if (loValidate == R_eMessageBoxResult.No)
                         goto EndBlock;

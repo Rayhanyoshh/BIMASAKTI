@@ -82,7 +82,7 @@ namespace GLT00600Model
         }
         
 
-        public async Task ProcessReversingJournalAsync(GLT00600JournalGridDTO poData)
+        public async Task ProcessAuditJournalStatusAsync(GLT00600JournalGridDTO poData)
         {
             R_Exception loEx = new R_Exception();
             GLT00600JournalGridListDTO loResult = new GLT00600JournalGridListDTO();
@@ -91,7 +91,7 @@ namespace GLT00600Model
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
                 loResult = await R_HTTPClientWrapper.R_APIRequestObject<GLT00600JournalGridListDTO, GLT00600JournalGridDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IGLT00600.ProcessAuditJournal),
+                    nameof(IGLT00600.JournalProcesStatus),
                     poData,
                     DEFAULT_MODULE,
                     _SendWithContext,

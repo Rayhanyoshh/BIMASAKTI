@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BlazorClientHelper;
 using GLT00600Common.DTOs;
 using GLT00600Model;
@@ -38,6 +39,8 @@ namespace GLT00600Front
         private R_ConductorGrid _conductorGridDetailRef;
 
         [Inject] IClientHelper clientHelper { get; set; }
+        private bool _EnableApprove = false;
+        private bool _EnableSubmit = false;
 
         private R_TextBox loCrefNo;
 
@@ -166,6 +169,7 @@ namespace GLT00600Front
 
             try
             {
+
                 ((GLT00600DTO)eventArgs.Data).CREF_DATE = _JournalListViewModel.Drefdate.ToString("yyyyMMdd");
                 ((GLT00600DTO)eventArgs.Data).CDOC_DATE = _JournalListViewModel.Ddocdate.ToString("yyyyMMdd");
                 //await _JournalListViewModel.RefreshCurrencyRate();
@@ -185,10 +189,10 @@ namespace GLT00600Front
                 var loParam = (GLT00600DTO)eventArgs.Data;
                 if (eventArgs.ConductorMode != R_eConductorMode.Normal)
                 {
-                    if (loParam.CREF_NO == null && _JournalListViewModel.TransactionCodeCollection.LINCREMENT_FLAG == false)
-                    {
-                        loEx.Add("", @_localizer["_validationReferenceRequired"]);
-                    }
+                    //if (loParam.CREF_NO == null && _JournalListViewModel.TransactionCodeCollection.LINCREMENT_FLAG == false)
+                    //{
+                    //    loEx.Add("", @_localizer["_validationReferenceRequired"]);
+                    //}
 
                     if (_JournalListViewModel.Drefdate < DateTime.ParseExact(_JournalListViewModel.CurrentPeriodStartCollection.CSTART_DATE, "yyyyMMdd", CultureInfo.InvariantCulture))
                     {
@@ -290,6 +294,18 @@ namespace GLT00600Front
                     {
                         _JournalListViewModel.EnableApprove = true;
                     }
+
+                    if (data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
+                    {
+                        _EnableApprove = true;
+                    }
+                    else
+                    {
+                        _EnableApprove = false;
+                    }
+                    _EnableSubmit = (data.CSTATUS == "20" || (data.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
+                    (data.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
+                                    int.Parse(data.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
 
                     data.IPERIOD = int.Parse(_JournalListViewModel.CSOFT_PERIOD_YY);
                     if ((data.CSTATUS == "20" || data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG == false) || (data.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) && data.IPERIOD >= _JournalListViewModel.SystemParamCollection.ISOFT_PERIOD_YY)
@@ -563,6 +579,7 @@ namespace GLT00600Front
         private void JournalDet_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
             var data = (GLT00600JournalGridDetailDTO)eventArgs.Data;
+            var loHeaderData = _JournalListViewModel.Journal;
 
             if (_JournalListViewModel.CenterListData != null)
             {
@@ -581,6 +598,8 @@ namespace GLT00600Front
                 // If the list is empty, set INO to 1 (or another initial value)
                 data.INO = 1;
             }
+
+            data.CDETAIL_DESC = loHeaderData.CTRANS_DESC;
 
             eventArgs.Data = data;
         }
@@ -696,10 +715,10 @@ namespace GLT00600Front
                     LCOMMIT_APRJRN = _JournalListViewModel.Journal.LCOMMIT_APRJRN,
                     LUNDO_COMMIT = _JournalListViewModel.Journal.LUNDO_COMMIT
                 };
-                if (_JournalListViewModel.Journal.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION == 2)
+                if (_JournalListViewModel.Journal.CSTATUS == "80")
                 {
                     var result = await R_MessageBox.Show("", @_localizer["_validationUndoCommit"], R_eMessageBoxButtonType.YesNo);
-                    await _JournalListViewModel.UndoReversingJournal(lcdata);
+                    await _JournalListViewModel.UndoCommitJournal(lcdata);
                     if (result == R_eMessageBoxResult.Yes)
                     {
                         goto commit;

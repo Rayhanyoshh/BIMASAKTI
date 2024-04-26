@@ -236,16 +236,26 @@ public partial class GLT00600 : R_Page
             }
 
             var loData = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
-            
+
             _EnableApprove = _gridRef.DataSource.Count > 0 && loData.CSTATUS == "10" &&
-                             _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG;
+                  _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG;
+
+            if (loData.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
+            {
+                _EnableApprove = true;
+            }
+            else
+            {
+                _EnableApprove = false;
+            }
             _EnableSubmit = (loData.CSTATUS == "20" || (loData.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
                             (loData.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
                             int.Parse(loData.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
             
             if (eventArgs.ConductorMode == R_eConductorMode.Normal)
             {
-                lcCommitLabel = loData.CSTATUS == "80" ? "Undo Commit" : "Commit";
+                _JournalListViewModel.CommitLabel = (_JournalListViewModel.JournalEntity.CSTATUS == "80") ? @_localizer["_btnUndoCommit"] : @_localizer["_btnCommit"];
+                ;
                 if (!string.IsNullOrWhiteSpace(loData.CREC_ID))
                 {
                     await _gridDetailRef.R_RefreshGrid(eventArgs.Data);
@@ -305,10 +315,10 @@ public partial class GLT00600 : R_Page
                 CREF_NO = _JournalListViewModel.JournalEntity.CREF_NO,
                 CREC_ID = _JournalListViewModel.JournalEntity.CREC_ID
             };
-            if (_JournalListViewModel.JournalEntity.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION == 2)
+            if (_JournalListViewModel.JournalEntity.CSTATUS == "80")
             {
                 var result = await R_MessageBox.Show("", "Are you sure want to undo commit this journal? [Yes/No]", R_eMessageBoxButtonType.YesNo);
-                await _JournalListViewModel.UndoReversingJournal(lcdata);
+                await _JournalListViewModel.UndoCommitJournal(lcdata);
                 if (result == R_eMessageBoxResult.Yes)
                 {
                     goto commit;
@@ -323,7 +333,7 @@ public partial class GLT00600 : R_Page
                     if (_JournalListViewModel.SystemParamCollection.IREVERSE_JRN_POST == 1)
                     {
 
-                        await _JournalListViewModel.ProcessCommitJournal(lcdata);
+                        await _JournalListViewModel.CommitJournal(lcdata);
                     }
                 }
                 else

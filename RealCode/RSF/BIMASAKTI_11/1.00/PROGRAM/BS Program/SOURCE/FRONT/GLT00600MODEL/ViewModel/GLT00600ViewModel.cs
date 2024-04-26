@@ -450,7 +450,7 @@ namespace GLT00600Model.ViewModel
             R_Exception loEx = new R_Exception();
             try
             {
-                await _JournalListModel.ProcessReversingJournalAsync(poData);
+                await _JournalListModel.ProcessAuditJournalStatusAsync(poData);
             }
             catch (Exception ex)
             {
@@ -484,8 +484,15 @@ namespace GLT00600Model.ViewModel
                 poData.CREC_ID = JournalEntity.CREC_ID;
                 if (Journal.CSTATUS == "80")
                 {
-                    poData.CSTATUS = "20";
                     poData.LUNDO_COMMIT = true;
+                    if (TransactionCodeCollection.LAPPROVAL_FLAG == true )
+                    {
+                        poData.CSTATUS = "10";
+                    }
+                    else
+                    {
+                        poData.CSTATUS = "00";
+                    }
                 }
                 else
                 {
@@ -493,6 +500,7 @@ namespace GLT00600Model.ViewModel
                     poData.LUNDO_COMMIT = false;
                 }
                 await _JournalListModel.JournalProcessAsync(poData);
+
             }
             catch (Exception ex)
             {
@@ -540,12 +548,32 @@ namespace GLT00600Model.ViewModel
             }
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task UndoReversingJournal(GLT00600JournalGridDTO poData)
+        public async Task UndoCommitJournal(GLT00600JournalGridDTO poData)
         {
             R_Exception loEx = new R_Exception();
             try
             {
-                await _JournalListModel.UndoReversingJournalProcessAsync(poData);
+                CSTATUS_TEMP = Journal.CSTATUS;
+                poData.CREC_ID = JournalEntity.CREC_ID;
+
+            
+                if (Journal.CSTATUS == "80")
+                {
+                  if (TransactionCodeCollection.LAPPROVAL_FLAG == true)
+                    {
+                        poData.CSTATUS = "10";
+                    }
+                  else
+                   {
+                        poData.CSTATUS = "00";
+                   }
+                }
+                else
+                {
+                    poData.CSTATUS = "80";
+                }
+                
+                await _JournalListModel.JournalProcessAsync(poData);
             }
             catch (Exception ex)
             {
@@ -553,6 +581,7 @@ namespace GLT00600Model.ViewModel
             }
             loEx.ThrowExceptionIfErrors();
         }
+
 
         public async Task RefreshCurrencyRate()
         {

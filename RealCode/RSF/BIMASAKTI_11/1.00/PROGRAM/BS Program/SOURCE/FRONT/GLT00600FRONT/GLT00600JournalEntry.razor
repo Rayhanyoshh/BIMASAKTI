@@ -21,7 +21,7 @@
                                 OnLostFocus="OnLostFocus_LookupDept"/>
                  </R_ItemLayout>
                  <R_ItemLayout Class="d-flex justify-content-center">
-                     <R_Lookup R_ConductorSource="_conductorRef" R_Before_Open_Lookup="@Before_Open_lookupDept" R_After_Open_Lookup="@After_Open_lookupDept" R_EnableAdd R_EnableEdit>...</R_Lookup>
+                     <R_Lookup R_ConductorSource="_conductorRef" R_Before_Open_Lookup="@Before_Open_lookupDept" R_After_Open_Lookup="@After_Open_lookupDept" R_EnableAdd R_EnableEdit="false" >...</R_Lookup>
                 </R_ItemLayout>
                 <R_ItemLayout col="6">
                     <R_TextBox @bind-Value="_JournalListViewModel.Data.CDEPT_NAME"
@@ -382,10 +382,10 @@
                 <R_Button Enabled="_JournalListViewModel.EnableSubmit" OnClick="SubmitJournalProcess">@_JournalListViewModel.SubmitLabel</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="_JournalListViewModel.EnableApprove" OnClick="ApproveJournalProcess">@_localizer["_btnApprove"]</R_Button>
+                <R_Button Enabled="@_EnableApprove" OnClick="ApproveJournalProcess">@_localizer["_btnApprove"]</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="_JournalListViewModel.EnableCommit" OnClick="CommitJournalProcess">@_JournalListViewModel.CommitLabel</R_Button>
+                <R_Button Enabled="@_EnableSubmit" OnClick="CommitJournalProcess">@_JournalListViewModel.CommitLabel</R_Button>
             </R_ItemLayout>
         </R_StackLayout>
     </R_StackLayout>

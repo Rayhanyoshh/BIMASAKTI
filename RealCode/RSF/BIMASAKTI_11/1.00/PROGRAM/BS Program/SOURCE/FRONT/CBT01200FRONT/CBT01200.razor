@@ -135,7 +135,7 @@
                             (_TransactionListViewModel.Data.CSTATUS == "80" && !_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.LWARNING) &&
                             (int.Parse(_TransactionListViewModel.JournalPeriodYear + _TransactionListViewModel.JournalPeriodMonth) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD)) )"
                   OnClick="CommitJournalProcess">
-            Commit
+            @_TransactionListViewModel.CommitLabel
         </R_Button>
     </R_ItemLayout>
 </R_StackLayout>
