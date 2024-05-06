@@ -59,7 +59,7 @@ namespace CBT01200MODEL
 
         public string COMPANYID;
         public string USERID;
-        public string CommitLabel = "Commit";
+        public string CommitLabel { get; set; }
         public string SubmitLabel = "Submit";
         public bool
             EnableDept = false,

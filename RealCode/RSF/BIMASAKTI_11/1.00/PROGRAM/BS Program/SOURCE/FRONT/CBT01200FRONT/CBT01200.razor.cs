@@ -156,6 +156,7 @@ namespace CBT01200FRONT
 
                     EnableCommit = (loData.CSTATUS == "20" || loData.CSTATUS == "80")
                         && int.Parse(loData.CREF_PRD) >= int.Parse(_TransactionListViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD);
+                    _TransactionListViewModel.CommitLabel = (loData.CSTATUS == "80") ? @_localizer["_btnUndoCommit"] : @_localizer["_btnCommit"];
                 }
 
             }
