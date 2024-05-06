@@ -73,31 +73,26 @@
         AllowDeleteRow="false"
         AllowEditRow="false"
         Height="270px"
-       
+        R_Display="JournalGrid_Display"
         R_ViewModel="_JournalListViewModel"
-        R_IsHeader
-        R_ServiceGetRecord="JournalGrid_ServiceGetRecord"
-        R_Display="JournalGrid_Display">
+        R_ServiceGetRecord="JournalGrid_ServiceGetRecord">
     <R_GridColumns>
-        <R_GridTextColumn Width="146px" FieldName="@nameof(GLT00600JournalGridDTO.CREF_NO)" HeaderText=@_localizer["_referenceNo"]></R_GridTextColumn>
-        <R_GridDatePickerColumn Width="140px" FieldName="@nameof(GLT00600JournalGridDTO.DREF_DATE)" HeaderText=@_localizer["_referenceDate"] ></R_GridDatePickerColumn>
-        <R_GridTextColumn Width="132px" FieldName="@nameof(GLT00600JournalGridDTO.CDOC_NO)" HeaderText=@_localizer["_docNo."]></R_GridTextColumn>
-        <R_GridTextColumn Width="500px" FieldName="@nameof(GLT00600JournalGridDTO.CTRANS_DESC)" HeaderText=@_localizer["_desc"]></R_GridTextColumn>
-        <R_GridTextColumn Width="100px" FieldName="@nameof(GLT00600JournalGridDTO.CCURRENCY_CODE)" HeaderText=@_localizer["_currency"]></R_GridTextColumn>
-        <R_GridNumericColumn Width="97px" FieldName="@nameof(GLT00600JournalGridDTO.NTRANS_AMOUNT)" HeaderText=@_localizer["_ammount"]></R_GridNumericColumn>
-        <R_GridTextColumn Width="86px" FieldName="@nameof(GLT00600JournalGridDTO.CSTATUS_NAME)" HeaderText=@_localizer["_status"]></R_GridTextColumn>
-        <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.CUPDATE_BY)" HeaderText=@_localizer["_updateBy"]></R_GridTextColumn>
-        <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.DUPDATE_DATE)" HeaderText=@_localizer["_updateDate"]></R_GridTextColumn>
-        <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.CCREATE_BY)" HeaderText=@_localizer["_createdBy"]></R_GridTextColumn>
-        <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.DCREATE_DATE)" HeaderText=@_localizer["_createdDate"]></R_GridTextColumn>
-
-    </R_GridColumns>
+    <R_GridTextColumn Width="146px" FieldName="@nameof(GLT00600JournalGridDTO.CREF_NO)" HeaderText=@_localizer["_referenceNo"]></R_GridTextColumn>
+    <R_GridDatePickerColumn Width="140px" FieldName="@nameof(GLT00600JournalGridDTO.DREF_DATE)" HeaderText=@_localizer["_referenceDate"] ></R_GridDatePickerColumn>
+    <R_GridTextColumn Width="132px" FieldName="@nameof(GLT00600JournalGridDTO.CDOC_NO)" HeaderText=@_localizer["_docNo."]></R_GridTextColumn>
+    <R_GridTextColumn Width="450px" FieldName="@nameof(GLT00600JournalGridDTO.CTRANS_DESC)" HeaderText=@_localizer["_desc"]></R_GridTextColumn>
+    <R_GridTextColumn Width="100px" FieldName="@nameof(GLT00600JournalGridDTO.CCURRENCY_CODE)" HeaderText=@_localizer["_currency"]></R_GridTextColumn>
+    <R_GridNumericColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDTO.NTRANS_AMOUNT)" HeaderText=@_localizer["_ammount"]></R_GridNumericColumn>
+    <R_GridTextColumn Width="86px" FieldName="@nameof(GLT00600JournalGridDTO.CSTATUS_NAME)" HeaderText=@_localizer["_status"]></R_GridTextColumn>
+    <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.CUPDATE_BY)" HeaderText=@_localizer["_updateBy"]></R_GridTextColumn>
+    <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.DUPDATE_DATE)" HeaderText=@_localizer["_updateDate"]></R_GridTextColumn>
+    <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.CCREATE_BY)" HeaderText=@_localizer["_createdBy"]></R_GridTextColumn>
+    <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.DCREATE_DATE)" HeaderText=@_localizer["_createdDate"]></R_GridTextColumn>
+</R_GridColumns>
 </R_Grid>
  <R_ConductorGrid @ref="_conductorGridRef"
-                  R_ViewModel="_JournalListViewModel"
                   R_IsHeader
-                  R_ServiceGetRecord="JournalGrid_ServiceGetRecord"
-                  R_Display="JournalGrid_Display">
+                 >
 
 </R_ConductorGrid>
 

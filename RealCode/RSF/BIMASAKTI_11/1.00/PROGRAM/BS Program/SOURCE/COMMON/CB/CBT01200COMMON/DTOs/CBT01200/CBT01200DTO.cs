@@ -53,6 +53,8 @@ namespace CBT01200Common.DTOs
         public string CUPDATE_BY { get; set; }
         public string CUPDATE_DATE { get; set; }
         public DateTime? DUPDATE_DATE { get; set; }
+        public string CINPUT_TYPE { get; set; }
+
     }
     public class CBT01200ParamDTO
     {
@@ -61,5 +63,6 @@ namespace CBT01200Common.DTOs
         public string CPERIOD { get; set; }
         public string CSTATUS { get; set; } = "";
         public string CSEARCH_TEXT { get; set; } = "";
+
     }
 }

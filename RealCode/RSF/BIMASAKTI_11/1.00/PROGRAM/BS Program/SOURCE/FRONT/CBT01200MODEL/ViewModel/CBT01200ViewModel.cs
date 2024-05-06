@@ -146,8 +146,30 @@ namespace CBT01200MODEL
                 VAR_DEPARTEMENT_LIST = await _PublicLookupModel.GSL00700GetDepartmentListAsync(new GSL00700ParameterDTO());
 
                 //Set default Dept Code
-                JournalParam.CDEPT_CODE = VAR_DEPARTEMENT_LIST.Any(loDeptList => loDeptList.CDEPT_CODE == VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE) ? VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE : "";
-                JournalParam.CDEPT_NAME = VAR_DEPARTEMENT_LIST.Any(loDeptList => loDeptList.CDEPT_NAME == VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME) ? VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME : "";
+                if (VAR_DEPARTEMENT_LIST != null && VAR_DEPARTEMENT_LIST.Any() && VAR_GL_SYSTEM_PARAM != null)
+                {
+                    JournalParam.CDEPT_CODE = VAR_DEPARTEMENT_LIST.Any(loDeptList => loDeptList.CDEPT_CODE == VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE)
+                                                ? VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE
+                                                : "";
+                }
+                else
+                {
+                    // Penanganan kesalahan, misalnya mengatur nilai default untuk JournalParam.CDEPT_CODE
+                    JournalParam.CDEPT_CODE = "";
+                }
+
+                if (VAR_DEPARTEMENT_LIST != null && VAR_DEPARTEMENT_LIST.Any() && VAR_GL_SYSTEM_PARAM != null)
+                {
+                    JournalParam.CDEPT_NAME = VAR_DEPARTEMENT_LIST.Any(loDeptList => loDeptList.CDEPT_NAME == VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME)
+                                                ? VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME
+                                                : "";
+                }
+                else
+                {
+                    // Penanganan kesalahan, misalnya mengatur nilai default untuk JournalParam.CDEPT_CODE
+                    JournalParam.CDEPT_CODE = "";
+                }
+
 
                 //Set default Journal Period
                 JournalPeriodYear = int.Parse(VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD_YY);
@@ -190,8 +212,10 @@ namespace CBT01200MODEL
                 JournalRecord = loResult;
 
 
-                RefDate = DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 DocDate= DateTime.ParseExact(JournalRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                RefDate = JournalRecord?.CREF_DATE != null
+                    ? DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture)
+                    : default(DateTime);
                 JournalRecord.CUPDATE_DATE = JournalRecord.DUPDATE_DATE.Value.ToLongDateString();
                 JournalRecord.CCREATE_DATE = JournalRecord.DCREATE_DATE.Value.ToLongDateString();
                 JournalRecord.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;

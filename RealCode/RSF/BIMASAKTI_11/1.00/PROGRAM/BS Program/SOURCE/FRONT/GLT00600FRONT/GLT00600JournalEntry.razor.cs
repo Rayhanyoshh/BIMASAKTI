@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Linq;
@@ -41,6 +42,17 @@ namespace GLT00600Front
         [Inject] IClientHelper clientHelper { get; set; }
         private bool _EnableApprove = false;
         private bool _EnableSubmit = false;
+        
+        #region Private Property
+        private string lcLabelSubmit = "Submit";
+        private string lcLabelCommit = "Commit";
+        private bool EnableEdit = false;
+        private bool EnableDelete = false;
+        private bool EnableSubmit = false;
+        private bool EnableApprove = false;
+        private bool EnableCommit = false;
+        private bool EnableHaveRecId = false;
+        #endregion
 
         private R_TextBox loCrefNo;
 
@@ -55,6 +67,8 @@ namespace GLT00600Front
                 await _JournalListViewModel.GetCurrencyList();
                 await _JournalListViewModel.GetStatusList();
                 await _JournalListViewModel.GetCenterList();
+                await _JournalListViewModel.GetTransactionCode();
+
 
                 _JournalListViewModel.lcLocalCurrency = _JournalListViewModel.CompanyCollection.CLOCAL_CURRENCY_CODE;
                 _JournalListViewModel.lcBaseCurrency = _JournalListViewModel.CompanyCollection.CBASE_CURRENCY_CODE;
@@ -144,6 +158,8 @@ namespace GLT00600Front
                 .ToList();
 
             _JournalListViewModel.Drefdate = _JournalListViewModel.Ddocdate = DateTime.Now;
+            //data.CDOC_NO = _JournalListViewModel.Data.CDOC_NO;
+            //data.CDOC_DATE = DateTime.Now.ToLongDateString();
             data.CCREATE_BY = data.CUPDATE_BY = clientHelper.UserId;
             data.CUPDATE_DATE = data.CCREATE_DATE = DateTime.Now.ToLongDateString();
             await _JournalListViewModel.RefreshCurrencyRate();
@@ -262,78 +278,41 @@ namespace GLT00600Front
         private async Task JournalForm_RDisplay(R_DisplayEventArgs eventArgs)
         {
             var loEx = new R_Exception();
-            var data = (GLT00600DTO)eventArgs.Data;
             try
             {
+                var data = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
-                    DateTime? ParseDate(string dateStr)
+                    if (!string.IsNullOrWhiteSpace(data.CSTATUS))
                     {
-                        if (dateStr != null && DateTime.TryParseExact(dateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
-                            return parsedDate;
-                        return null;
-                    }
-                    _JournalListViewModel.Drefdate = ParseDate(data.CREF_DATE) ?? DateTime.MinValue;
-                    _JournalListViewModel.Ddocdate = ParseDate(data.CDOC_DATE) ?? DateTime.MinValue;
+                        lcLabelCommit = data.CSTATUS == "80" ? _localizer["_UndoCommit"] : _localizer["_commit"];
+                        lcLabelSubmit = data.CSTATUS == "10" ? _localizer["_UndoSubmit"] : _localizer["_Submit"];
 
-                    if (data.CSTATUS == "00" || data.CSTATUS == "10")
-                    {
-                        _JournalListViewModel.EnableSubmit = true;
-                        _JournalListViewModel.EnableEdit = true;
-                        if (data.CSTATUS == "10")
+                        EnableEdit = data.CSTATUS == "00";
+                        EnableDelete = data.CSTATUS != "00";
+                        EnableSubmit = data.CSTATUS == "00" || data.CSTATUS == "10";
+                        if (data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
                         {
-                            _JournalListViewModel.SubmitLabel = @_localizer["_btnUndoSubmit"];
+                            EnableApprove = true;
                         }
                         else
                         {
-                            _JournalListViewModel.SubmitLabel = @_localizer["_btnSubmit"];
+                            EnableApprove = false;
                         }
+                        EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" &&
+                                                                 _JournalListViewModel.TransactionCodeCollection
+                                                                     .LAPPROVAL_FLAG == false)) ||
+                                       (data.CSTATUS == "80") &&
+                                       int.Parse(data.CREF_PRD) >=
+                                       int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
+                        EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
+                        _JournalListViewModel.Data.CREC_ID = data.CREC_ID;
                     }
 
-                    if (data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG == true)
+                    if (!string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CREC_ID))
                     {
-                        _JournalListViewModel.EnableApprove = true;
+                        await _gridDetailRef.R_RefreshGrid(null);
                     }
-
-                    if (data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
-                    {
-                        _EnableApprove = true;
-                    }
-                    else
-                    {
-                        _EnableApprove = false;
-                    }
-                    _EnableSubmit = (data.CSTATUS == "20" || (data.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
-                    (data.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
-                                    int.Parse(data.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
-
-                    data.IPERIOD = int.Parse(_JournalListViewModel.CSOFT_PERIOD_YY);
-                    if ((data.CSTATUS == "20" || data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG == false) || (data.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) && data.IPERIOD >= _JournalListViewModel.SystemParamCollection.ISOFT_PERIOD_YY)
-                    {
-                        _JournalListViewModel.EnableCommit = true;
-                    }
-                    _JournalListViewModel.CommitLabel = (data.CSTATUS == "80") ? @_localizer["_btnUndoCommit"] : _JournalListViewModel.CommitLabel;
-                    _JournalListViewModel.EnableCommit = (data.CSTATUS == "80");
-
-                    if (string.IsNullOrWhiteSpace(_JournalListViewModel.Journal.CREC_ID))
-                    {
-                        _JournalListViewModel.EnablePrint = _JournalListViewModel.EnableDelete =
-                            _JournalListViewModel.EnableEdit = _JournalListViewModel.EnableCopy =
-                                _JournalListViewModel.EnableSubmit = _JournalListViewModel.EnableDept = false;
-                    }
-                    else
-                    {
-                        _JournalListViewModel.EnableDept = false;
-                        _JournalListViewModel.EnableDelete = _JournalListViewModel.EnableCopy =
-                            _JournalListViewModel.EnablePrint = _JournalListViewModel.EnableSubmit;
-                    }
-                }
-
-                if (eventArgs.ConductorMode != R_eConductorMode.Normal)
-                {
-                    await _JournalListViewModel.RefreshCurrencyRate();
-                    _JournalListViewModel.EnableDept = false;
-                    _JournalListViewModel.EnableDelete = _JournalListViewModel.EnableCopy = _JournalListViewModel.EnablePrint = _JournalListViewModel.EnableSubmit = false;
                 }
             }
             catch (Exception ex)
@@ -364,7 +343,7 @@ namespace GLT00600Front
 
         private void JournalForm_BeforeEdit(R_BeforeEditEventArgs eventArgs)
         {
-            //_enableCrudJournalDetail = true;
+            _JournalListViewModel.EnableAddDetail = true;
         }
 
         private async Task CopyJournalEntryProcess()
@@ -402,6 +381,8 @@ namespace GLT00600Front
                     _JournalListViewModel.Drefdate = ParseDate(Data.CREF_DATE) ?? DateTime.MinValue;
                     _JournalListViewModel.Ddocdate = ParseDate(Data.CDOC_DATE) ?? DateTime.MinValue;
                     loCrefNo.FocusAsync();
+                    
+                    
 
                 }
             }
@@ -573,7 +554,62 @@ namespace GLT00600Front
         private void JournalDet_BeforeAdd(R_BeforeAddEventArgs eventArgs)
         {
             _JournalListViewModel.EnableDept = false;
+            _JournalListViewModel.EnableAddDetail = false;
+
+            R_Exception loEx = new R_Exception();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CTRANS_DESC) || string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CDOC_NO))
+                {
+                    _JournalListViewModel.EnableAddDetail = false;
+                    loEx.Add("", "Journal Description is requred");
+                }
+                else
+                {
+                    _JournalListViewModel.EnableAddDetail = true;
+                }
+
+                if (string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CDOC_NO))
+                {
+                    _JournalListViewModel.EnableAddDetail = false;
+                    loEx.Add("", "Please input Document No. first before input Journal Detail!");
+                }
+            
+
+                if (_JournalListViewModel.Ddocdate == null)
+                {
+                    loEx.Add("", "Please input Document Date first before input Journal Detail!");
+                }
+
+                if (_JournalListViewModel.Ddocdate < DateTime.ParseExact(_JournalListViewModel.CurrentPeriodStartCollection.CSTART_DATE, "yyyyMMdd", CultureInfo.InvariantCulture))
+                {
+                    loEx.Add("", "Document Date cannot be before Current Period!");
+                }
+
+                if (string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CTRANS_DESC))
+                {
+                    loEx.Add("", "Please input Document No. first before input Journal Detail!");
+                }
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
    
+        }
+        private void JournalDet_BeforeEdit(R_BeforeEditEventArgs eventArgs)
+        {
+            R_Exception loEx = new R_Exception();
+            try
+            {
+                _JournalListViewModel.EnableAddDetail = true;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
         }
 
         private void JournalDet_AfterAdd(R_AfterAddEventArgs eventArgs)
@@ -600,6 +636,8 @@ namespace GLT00600Front
             }
 
             data.CDETAIL_DESC = loHeaderData.CTRANS_DESC;
+            data.CDOCUMENT_NO = loHeaderData.CDOC_NO;
+            data.CDOCUMENT_DATE = loHeaderData.CDOC_DATE;
 
             eventArgs.Data = data;
         }
@@ -689,9 +727,8 @@ namespace GLT00600Front
                     R_MessageBox.Show("", @_localizer["_validationSuccesApprove"], R_eMessageBoxButtonType.OK);
                 }
                 var param = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(_JournalListViewModel.JournalEntity);
-                await _JournalListViewModel.GetJournal(param);
+                await _conductorRef.R_GetEntity(param);
                 _JournalListViewModel.EnableDelete = true;
-                _JournalListViewModel.SubmitLabel = @_localizer["_btnSubmit"];
             EndBlock:;
             }
             catch (Exception ex)
@@ -739,7 +776,7 @@ namespace GLT00600Front
                 }
             commit:;
                 await _JournalListViewModel.CommitJournal(lcdata);
-                await _JournalListViewModel.GetJournal(new GLT00600DTO()
+                await _conductorRef.R_GetEntity(new GLT00600DTO()
                 {
                     CREC_ID = _JournalListViewModel.Journal.CREC_ID,
                 });
@@ -778,7 +815,6 @@ namespace GLT00600Front
                         R_eMessageBoxButtonType.YesNo);
                     if (result == R_eMessageBoxResult.Yes)
                     {
-                        _JournalListViewModel.SubmitLabel = @_localizer["_btnSubmit"];
                         goto Submit;
                     }
 
@@ -787,7 +823,6 @@ namespace GLT00600Front
                     R_eMessageBoxButtonType.YesNo);
                 if (res == R_eMessageBoxResult.Yes)
                 {
-                    _JournalListViewModel.SubmitLabel = @_localizer["_btnUndoSubmit"];
                     goto Submit;
 
                 }
@@ -796,7 +831,7 @@ namespace GLT00600Front
             Submit:;
                 await _JournalListViewModel.SubmitJournal(_JournalListViewModel.JournalEntity);
                 var param = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(_JournalListViewModel.JournalEntity);
-                await _JournalListViewModel.GetJournal(param);
+                await _conductorRef.R_GetEntity(param);
             End:;
                 _JournalListViewModel.EnableDelete = true;
             }
@@ -824,7 +859,7 @@ namespace GLT00600Front
             Delete:;
                 await _JournalListViewModel.DeleteJournal(_JournalListViewModel.JournalEntity);
                 var param = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(_JournalListViewModel.JournalEntity);
-                await _JournalListViewModel.GetJournal(param);
+                await _conductorRef.R_GetEntity(param);
             EndBlock:;
                 _JournalListViewModel.EnableDelete = false;
                 _JournalListViewModel.SubmitLabel = @_localizer["_btnSubmit"];

@@ -319,7 +319,7 @@
                      R_ServiceGetListRecord="JournalDet_ServiceGetListRecord"
                      R_EnableAdd="true"
                     R_EnableEdit="true"
-                    AllowAddNewRow
+                     AllowAddNewRow="_JournalListViewModel.EnableAddDetail"
                     AllowEditRow
                     AllowDeleteRow
                      Height="280px"
@@ -329,6 +329,8 @@
                     R_Display="JournalDet_RDisplay"
                     R_Validation="JournalDet_Validation"
                     R_AfterAdd="JournalDet_AfterAdd"
+                     R_BeforeAdd="JournalDet_BeforeAdd"
+                    R_BeforeEdit="JournalDet_BeforeEdit"
                     >
                  <R_GridColumns>
                      <R_GridNumericColumn Width="70px" FieldName="@nameof(GLT00600JournalGridDetailDTO.INO)" HeaderText="@_localizer["_no"]"></R_GridNumericColumn>
@@ -345,6 +347,8 @@
                      <R_GridNumericColumn Width="180px" Decimals="2" FieldName="@nameof(GLT00600JournalGridDetailDTO.NDEBIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_debit"]"></R_GridNumericColumn>
                      <R_GridNumericColumn Width="180px" Decimals="2" FieldName="@nameof(GLT00600JournalGridDetailDTO.NCREDIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_credit"]"></R_GridNumericColumn>
                      <R_GridTextColumn Width="500px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDETAIL_DESC)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_desc"]"></R_GridTextColumn>
+                     <R_GridTextColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDOCUMENT_NO)" HeaderText=@_localizer["_voucherNo"]></R_GridTextColumn>
+                     <R_GridTextColumn Width="130px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDOCUMENT_DATE)" HeaderText=@_localizer["_voucherDate"]></R_GridTextColumn>
                      <R_GridNumericColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLDEBIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_dblocal"]"></R_GridNumericColumn>
                      <R_GridNumericColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLCREDIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_crlocal"]"></R_GridNumericColumn>
                      <R_GridNumericColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NBDEBIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_dbBase"]"></R_GridNumericColumn>
@@ -359,13 +363,13 @@
                 <R_AddButton R_Conductor="_conductorRef">@_localizer["_add"]</R_AddButton>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="_JournalListViewModel.EnableCopy" OnClick="CopyJournalEntryProcess">@_localizer["_copy"]</R_Button>
+                <R_Button Enabled="@(EnableHaveRecId && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)" OnClick="CopyJournalEntryProcess">@_localizer["_copy"]</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_EditButton R_Conductor="_conductorRef" Enabled=" _JournalListViewModel.EnableEdit"></R_EditButton>
+                <R_EditButton R_Conductor="_conductorRef" Enabled="@(EnableEdit && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)"></R_EditButton>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="_JournalListViewModel.EnableDelete" OnClick="DeleteJournalProcess">@_localizer["_delete"]</R_Button>
+                <R_Button Enabled="@(EnableEdit && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)" OnClick="DeleteJournalProcess">@_localizer["_delete"]</R_Button>
             </R_ItemLayout>
             <R_ItemLayout Class="ms-2">
                 <R_CancelButton R_Conductor="_conductorRef">Cancel</R_CancelButton>
@@ -379,13 +383,13 @@
         </R_StackLayout>
         <R_StackLayout Row>
             <R_ItemLayout>
-                <R_Button Enabled="_JournalListViewModel.EnableSubmit" OnClick="SubmitJournalProcess">@_JournalListViewModel.SubmitLabel</R_Button>
+                <R_Button Enabled="@(EnableSubmit && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)" OnClick="SubmitJournalProcess">@lcLabelSubmit</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="@_EnableApprove" OnClick="ApproveJournalProcess">@_localizer["_btnApprove"]</R_Button>
+                <R_Button Enabled="@(EnableApprove && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)" OnClick="ApproveJournalProcess">@_localizer["_btnApprove"]</R_Button>
             </R_ItemLayout>
             <R_ItemLayout>
-                <R_Button Enabled="@_EnableSubmit" OnClick="CommitJournalProcess">@_JournalListViewModel.CommitLabel</R_Button>
+                <R_Button Enabled="@(EnableCommit && _conductorRef.R_ConductorMode == R_eConductorMode.Normal)" OnClick="CommitJournalProcess">@lcLabelCommit</R_Button>
             </R_ItemLayout>
         </R_StackLayout>
     </R_StackLayout>
@@ -403,7 +407,8 @@
               R_BeforeEdit="JournalForm_BeforeEdit"
               R_Validation="ValidationFormGLT00600JournalEntry" />
 
- <R_ConductorGrid @ref="_conductorGridDetailRef"
+<R_ConductorGrid @ref="_conductorGridDetailRef"
+                 
                   R_ViewModel="@_JournalListViewModel"
                   R_ConductorParent="@_conductorRef"
                   />

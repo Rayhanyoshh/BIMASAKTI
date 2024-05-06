@@ -71,6 +71,10 @@ namespace CBT01200FRONT
                 }
                 _TransactionEntryViewModel.JournalDetailGrid.Clear();
                 await _gridRef.R_RefreshGrid(null);
+                if (_TransactionListViewModel.JournalGrid.Count <= 0)
+                {
+                    loEx.Add("", "Data Not Found!");
+                }
             }
             catch (Exception ex)
             {
@@ -87,7 +91,13 @@ namespace CBT01200FRONT
             {
                 //reset detail
                 _TransactionEntryViewModel.JournalDetailGrid.Clear();
+
+                
                 await _gridRef.R_RefreshGrid(null);
+                if (_TransactionListViewModel.JournalGrid.Count <= 0)
+                {
+                    loEx.Add("", "Data Not Found!");
+                }
             }
             catch (Exception ex)
             {
@@ -106,10 +116,7 @@ namespace CBT01200FRONT
             {
                 await _TransactionListViewModel.GetJournalList();
                 eventArgs.ListEntityResult = _TransactionListViewModel.JournalGrid;
-                if (_TransactionListViewModel.JournalGrid.Count <= 0)
-                {
-                    loEx.Add("", "Data Not Found!");
-                }
+      
             }
             catch (Exception ex)
             {
@@ -131,20 +138,26 @@ namespace CBT01200FRONT
             }
             R_DisplayException(loEx);
         }
+
+        private bool EnableCommit = false;
         private async Task JournalGrid_Display(R_DisplayEventArgs eventArgs)
         {
             R_Exception loEx = new R_Exception();
             try
             {
-                var loData = (CBT01200DTO)eventArgs.Data;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
+                    var loData = (CBT01200DTO)eventArgs.Data;
                     if (!string.IsNullOrWhiteSpace(loData.CREC_ID))
                     {
                         _TransactionEntryViewModel._CREC_ID=loData.CREC_ID;
                         await _gridDetailRef.R_RefreshGrid(null);
                     }
+
+                    EnableCommit = (loData.CSTATUS == "20" || loData.CSTATUS == "80")
+                        && int.Parse(loData.CREF_PRD) >= int.Parse(_TransactionListViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD);
                 }
+
             }
             catch (Exception ex)
             {
@@ -322,6 +335,7 @@ namespace CBT01200FRONT
             try
             {
                 await _gridRef.R_RefreshGrid(null);
+
             }
             catch (Exception ex)
             {

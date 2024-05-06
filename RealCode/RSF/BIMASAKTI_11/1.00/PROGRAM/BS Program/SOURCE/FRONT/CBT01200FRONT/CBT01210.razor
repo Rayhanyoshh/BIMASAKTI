@@ -7,7 +7,7 @@
             @*Department*@
             <R_StackLayout Row>
                 <R_ItemLayout col="3">
-                    <R_Label>@_localizer["_Departement"]</R_Label>
+                    <R_Label>@_localizer["_Departement"]*</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="3">
                     <R_TextBox @ref="_DeptCode_TextBox"
@@ -376,6 +376,7 @@
                 R_BeforeDelete="@JournalDet_BeforeDelete"
                 R_Saving="@JournalDet_Saving"
                 R_ServiceSave="@JournalDet_ServiceSave"
+                R_AfterSave="@JournalDetail_AfterSave"
                 R_Before_Open_Grid_Lookup="Before_Open_Lookup"
                 R_After_Open_Grid_Lookup="After_Open_Lookup"
                  R_DisableCancelConfirmation>

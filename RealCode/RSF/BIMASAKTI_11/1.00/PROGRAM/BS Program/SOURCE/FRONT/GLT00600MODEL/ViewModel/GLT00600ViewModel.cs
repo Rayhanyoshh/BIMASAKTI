@@ -66,6 +66,9 @@ namespace GLT00600Model.ViewModel
         public DateTime
             Drefdate = DateTime.Now,
             Ddocdate = DateTime.Now;
+        
+       
+
 
         public int ProgressBarPercentage = 0;
         public string
@@ -90,6 +93,7 @@ namespace GLT00600Model.ViewModel
         public string CommitLabel = "Commit";
         public string SubmitLabel = "Submit";
         public bool
+            EnableAddDetail = false,
              EnableDept = false,
              EnableButton = false,
              EnableDelete = false,

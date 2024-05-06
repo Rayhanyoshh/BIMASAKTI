@@ -267,6 +267,9 @@
   <data name="_status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
   <data name="_submitted" xml:space="preserve">
     <value>Submitted</value>
   </data>
@@ -275,6 +278,12 @@
   </data>
   <data name="_totalDebit" xml:space="preserve">
     <value>Total Debit</value>
+  </data>
+  <data name="_UndoCommit" xml:space="preserve">
+    <value>Undo Commit</value>
+  </data>
+  <data name="_UndoSubmit" xml:space="preserve">
+    <value>Undo Submit</value>
   </data>
   <data name="_updateBy" xml:space="preserve">
     <value>Updated By</value>

@@ -108,7 +108,7 @@ namespace CBT01200BACK
             }
             catch (Exception ex)
             {
-                loEx.Add(ex);
+                 loEx.Add(ex);
                 ShowLogError(loEx);
             }
 

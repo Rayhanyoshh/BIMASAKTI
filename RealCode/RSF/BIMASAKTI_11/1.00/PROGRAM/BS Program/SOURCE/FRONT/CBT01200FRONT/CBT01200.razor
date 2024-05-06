@@ -130,10 +130,7 @@
         </R_Button>
     </R_ItemLayout>
     <R_ItemLayout>
-        <R_Button Enabled="@(
-                            (_TransactionListViewModel.Data.CSTATUS == "20" || (_TransactionListViewModel.Data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG)) ||
-                            (_TransactionListViewModel.Data.CSTATUS == "80" && !_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.LWARNING) &&
-                            (int.Parse(_TransactionListViewModel.JournalPeriodYear + _TransactionListViewModel.JournalPeriodMonth) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD)) )"
+        <R_Button Enabled="@EnableCommit"
                   OnClick="CommitJournalProcess">
             @_TransactionListViewModel.CommitLabel
         </R_Button>

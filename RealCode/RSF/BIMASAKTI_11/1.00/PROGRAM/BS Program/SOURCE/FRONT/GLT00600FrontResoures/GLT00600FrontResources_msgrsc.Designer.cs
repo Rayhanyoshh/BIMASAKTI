@@ -511,6 +511,15 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        internal static string _Submit {
+            get {
+                return ResourceManager.GetString("_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submitted.
         /// </summary>
         internal static string _submitted {
@@ -534,6 +543,24 @@ namespace GLT00600FrontResources {
         internal static string _totalDebit {
             get {
                 return ResourceManager.GetString("_totalDebit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo Commit.
+        /// </summary>
+        internal static string _UndoCommit {
+            get {
+                return ResourceManager.GetString("_UndoCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo Submit.
+        /// </summary>
+        internal static string _UndoSubmit {
+            get {
+                return ResourceManager.GetString("_UndoSubmit", resourceCulture);
             }
         }
         
