@@ -1,11 +1,9 @@
+using System.Collections.Generic;
+
 namespace PMR01000Common.DTO_s.PrintDTO;
 
-public class PMR01003ResultPrintSPDTO
+public class PMR01003DataResultDetailDTO
 {
-    public string CDEPOSIT_ID  { get; set; }
-    public string CDEPOSIT_NAME  { get; set; }
-    public string CBUILDING_ID  { get; set; }
-    public string CDEPOSIT_TYPE  { get; set; }
     public string CCUSTOMER_NAME  { get; set; }
     public string CTRANSACTION_TYPE  { get; set; }
     public string CREFERENCE_NO  { get; set; }
@@ -21,12 +19,6 @@ public class PMR01003ResultPrintSPDTO
     public decimal NREFUND  { get; set; }
     public decimal NDEPOSIT_BALANCE  { get; set; }
     
-    //DETAIL
-    public string CDETAIL_DEPOSIT_TYPE  { get; set; }
-    public string CDETAIL_TRANSACTION_NO  { get; set; }
-    public string CDETAIL_DEPOSIT_DATE  { get; set; }
-    public string CDETAIL_PAYMENT_STATUS  { get; set; }
-    public string CDETAIL_CURRENCY_CODE  { get; set; }
-    public decimal NDETAIL_AMOUNT  { get; set; }
-    public decimal NDETAIL_DEPOSIT_AMOUNT  { get; set; }
+    public List<PMR01003DataResultDetailChildDTO> DetailDeposit { get; set; }
+
 }

@@ -8,5 +8,5 @@ public class PMR01002DataResultDTO
     public string CACCOUNT_NAME  { get; set; }
     public string CBUILDING_ID  { get; set; }
     public string CDEPOSIT_TYPE  { get; set; }
-    public List<PMR01002DataResultChildDTO> PMR01002DataResultDetailDTO { get; set; }
+    public List<PMR01002DataResultChildDTO> Detail { get; set; }
 }
