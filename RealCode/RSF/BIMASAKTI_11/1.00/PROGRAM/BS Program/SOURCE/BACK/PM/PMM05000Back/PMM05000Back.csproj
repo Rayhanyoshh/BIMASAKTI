@@ -8,6 +8,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\COMMON\PM\PMM05000Common\PMM05000Common.csproj" />
+	  <ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources.csproj" />
+	  <ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

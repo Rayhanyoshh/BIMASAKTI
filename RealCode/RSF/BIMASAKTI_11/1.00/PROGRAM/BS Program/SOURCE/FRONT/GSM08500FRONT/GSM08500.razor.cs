@@ -291,10 +291,6 @@ public partial class GSM08500 : R_Page
         loEx.ThrowExceptionIfErrors();
     }
     
-    private async Task R_ConvertToGridEntity(R_ConvertToGridEntityEventArgs arg)
-    {
-        arg.GridData = R_FrontUtility.ConvertObjectToObject<GSM08500DTO>(arg.Data);
-    }
 
     #region Active/Inactive
     private async Task R_Before_Open_Popup_ActivateInactive(R_BeforeOpenPopupEventArgs eventArgs)

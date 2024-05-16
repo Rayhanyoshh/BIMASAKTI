@@ -12,7 +12,7 @@ using CBT01200Common;
 
 namespace CBT01200MODEL
 {
-    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT01200JournalHDParam>, ICBT01200
+    public class CBT01200Model : R_BusinessObjectServiceClientBase<CBT01200DTO>, ICBT01200
     {
         private const string DEFAULT_HTTP = "R_DefaultServiceUrlCB";
         private const string DEFAULT_ENDPOINT = "api/CBT01200";
@@ -29,7 +29,7 @@ namespace CBT01200MODEL
                                  plSendWithToken)
         { }
 
-        public async Task<List<CBT01200DTO>> GetJournalListAsync(CBT01200ParamDTO poEntity)
+        public async Task<List<CBT01200DTO>> GetJournalListAsync(CBT01200JournalHDParam poEntity)
         {
             var loEx = new R_Exception();
             List<CBT01200DTO> loResult = null;

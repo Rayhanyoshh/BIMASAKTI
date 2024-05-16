@@ -88,7 +88,7 @@ namespace CBT01200MODEL
         #region Public Property ViewModel
         public int JournalPeriodYear { get; set; }
         public string JournalPeriodMonth { get; set; }
-        public CBT01200ParamDTO JournalParam { get; set; } = new CBT01200ParamDTO();
+        public CBT01200JournalHDParam JournalParam { get; set; } = new CBT01200JournalHDParam();
         public ObservableCollection<CBT01200DTO> JournalGrid { get; set; } = new ObservableCollection<CBT01200DTO>();
         
         public CBT01200DTO Journal = new();
@@ -202,26 +202,25 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
         }
         
-        public async Task GetJournalRecord(CBT01200JournalHDParam poParam)
+        public async Task GetJournalRecord(CBT01200DTO poParam)
         {
             var loEx = new R_Exception();
 
             try
             {
                 var loResult = await _CBT01200Model.R_ServiceGetRecordAsync(poParam);
-                JournalRecord = loResult;
+                Journal = loResult;
 
 
-                DocDate= DateTime.ParseExact(JournalRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                RefDate = JournalRecord?.CREF_DATE != null
-                    ? DateTime.ParseExact(JournalRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture)
-                    : default(DateTime);
-                JournalRecord.CUPDATE_DATE = JournalRecord.DUPDATE_DATE.Value.ToLongDateString();
-                JournalRecord.CCREATE_DATE = JournalRecord.DCREATE_DATE.Value.ToLongDateString();
-                JournalRecord.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
-                JournalRecord.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
-                LcCrecID = JournalRecord.CREC_ID;
-                Data.CSTATUS = JournalRecord.CSTATUS;
+                DocDate= DateTime.ParseExact(Journal.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                RefDate = DateTime.ParseExact(Journal.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                Journal.CUPDATE_DATE = Journal.DUPDATE_DATE.Value.ToLongDateString();
+                Journal.CCREATE_DATE = Journal.DCREATE_DATE.Value.ToLongDateString();
+                Journal.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
+                Journal.CBASE_CURRENCY_CODE = CompanyCollection.CBASE_CURRENCY_CODE;
+                LcCrecID = Journal.CREC_ID;
+                Data.CSTATUS = Journal.CSTATUS;
+                Data.CCB_ACCOUNT_NAME = Journal.CCB_ACCOUNT_NAME;
 
                 //var loParam = new CBT01201DTO()
                 //{
@@ -238,30 +237,22 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
             }
 
-        public async Task SaveJournal(CBT01200JournalHDParam poEntity, eCRUDMode poCRUDMode)
+        public async Task SaveJournal(CBT01200DTO poEntity, eCRUDMode poCRUDMode)
         {
             var loEx = new R_Exception();
 
             try
             {
-                if (poCRUDMode == eCRUDMode.AddMode)
-                {
-                    poEntity.CACTION = "NEW";
-                    poEntity.CREC_ID = "";
-                    poEntity.CREF_NO = VAR_GSM_TRANSACTION_CODE.LINCREMENT_FLAG ? "" : poEntity.CREF_NO;
-                }
-                else if (poCRUDMode == eCRUDMode.EditMode)
-                {
-                    poEntity.CACTION = "EDIT";
-                }
-                poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
+                poEntity.CREF_NO = string.IsNullOrWhiteSpace(poEntity.CREF_NO) ? "" : poEntity.CREF_NO;
                 poEntity.CREF_DATE = RefDate.Value.ToString("yyyyMMdd");
-                poEntity.CTRANS_CODE = ContextConstant.VAR_TRANS_CODE;
-                poEntity.CPAYMENT_TYPE = ContextConstant.CPAYMENT_TYPE;
-
+                poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
+                poEntity.SaveParam = new()
+                {
+                    PARAM_CALLER = new()
+                };
                 var loResult = await _CBT01200Model.R_ServiceSaveAsync(poEntity, poCRUDMode);
 
-                JournalRecord = loResult;
+                Journal = loResult;
             }
             catch (Exception ex)
             {

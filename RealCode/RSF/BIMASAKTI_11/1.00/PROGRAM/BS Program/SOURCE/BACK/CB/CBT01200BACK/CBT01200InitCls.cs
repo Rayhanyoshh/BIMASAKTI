@@ -14,12 +14,6 @@ namespace CBT01200Back
 {
     public class CBT01200InitCls
     {
-        private RSP_CB_DELETE_TRANS_JRNResources.Resources_Dummy_Class loDeleteCBTransJRNRes = new();
-        private RSP_CB_SAVE_TRANS_JRNResources.Resources_Dummy_Class loSaveCBTransJRNRes = new();
-        private RSP_CB_SAVE_CA_WT_JOURNALResources.Resources_Dummy_Class loSaveCAWTJRNRes = new();
-        private RSP_CB_SAVE_SYSTEM_PARAMResources.Resources_Dummy_Class loSaveSystemCBTransJRNRes = new();
-        private RSP_CB_UPDATE_TRANS_HD_STATUSResources.Resources_Dummy_Class loUpdateCBTransHDStatusRes
-            = new();
         private LoggerInitCBT01200 _logger;
         private readonly ActivitySource _activitySource;
 

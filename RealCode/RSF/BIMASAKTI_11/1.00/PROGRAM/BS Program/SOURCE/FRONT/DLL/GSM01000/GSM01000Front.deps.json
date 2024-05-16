@@ -225,7 +225,6 @@
       },
       "Lookup_GSFRONT/1.0.0": {
         "dependencies": {
-          "Lookup_GSCOMMON": "1.0.0",
           "Lookup_GSModel": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.21"
         },
@@ -233,9 +232,15 @@
           "Lookup_GSFRONT.dll": {}
         }
       },
+      "Lookup_GSFrontResources/1.0.0": {
+        "runtime": {
+          "Lookup_GSFrontResources.dll": {}
+        }
+      },
       "Lookup_GSModel/1.0.0": {
         "dependencies": {
-          "Lookup_GSCOMMON": "1.0.0"
+          "Lookup_GSCOMMON": "1.0.0",
+          "Lookup_GSFrontResources": "1.0.0"
         },
         "runtime": {
           "Lookup_GSModel.dll": {}
@@ -519,6 +524,11 @@
       "sha512": ""
     },
     "Lookup_GSFRONT/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Lookup_GSFrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

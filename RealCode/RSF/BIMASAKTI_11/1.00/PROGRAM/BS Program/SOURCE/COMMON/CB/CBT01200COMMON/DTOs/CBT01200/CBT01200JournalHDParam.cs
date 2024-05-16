@@ -1,10 +1,10 @@
 using CBT01200Common.DTOs;
+using R_CommonFrontBackAPI;
 
 namespace CBT01200Common.DTOs
 {
     public class CBT01200JournalHDParam : CBT01200TransHDRecordDTO
     {
-        
         public string CUSER_ID { get; set; }
         public string CLANGUAGE_ID { get; set; }
         public string CACTION { get; set; }
@@ -16,4 +16,6 @@ namespace CBT01200Common.DTOs
 
         public string CSEARCH_TEXT { get; set; } = "";
     }
+    
+    
 }

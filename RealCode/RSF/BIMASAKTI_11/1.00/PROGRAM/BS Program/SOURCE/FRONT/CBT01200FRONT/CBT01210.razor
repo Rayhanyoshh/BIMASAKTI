@@ -15,7 +15,7 @@
                                R_ConductorSource="_conductorRef"
                                R_EnableAdd
                                OnLostFocus="@DeptCode_OnLostFocus"
-                               Enabled="false"
+                               Enabled="(_conductorRef.R_ConductorMode == R_eConductorMode.Add)"
                                MaxLength="20" />
                 </R_ItemLayout>
                 <R_ItemLayout Class="col d-flex justify-content-center">
@@ -45,7 +45,7 @@
                     <R_Label>@(_localizer["_RefDate"])*</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="4">
-                    <R_DatePicker Value="@_TransactionListViewModel.RefDate"
+                    <R_DatePicker Value="@_TransactionListViewModel.Drefdate"
                                   R_ConductorSource="_conductorRef"
                                   ValueChanged="@((DateTime? value) => @RefDate_ValueChange(value))"
                                   R_EnableAdd
@@ -161,7 +161,7 @@
                     <R_Label>@(_localizer["_DocDate"])*</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="4">
-                    <R_DatePicker @bind-Value="@_TransactionListViewModel.DocDate"
+                    <R_DatePicker @bind-Value="@_TransactionListViewModel.Ddocdate"
                                   R_ConductorSource="_conductorRef"
                                   R_EnableAdd
                                   R_EnableEdit />

@@ -22,7 +22,8 @@
                         Pageable="true"
                         R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
                         R_GridRowAfterDrop="@R_GridRowAfterDrop"
-                        Height="300px">
+                        Height="300px"
+                        R_ServiceGetRecord="@R_ServiceGetRecord" >
                     <R_GridColumns>
                          <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
                          <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
@@ -67,7 +68,9 @@
                         Pageable="true"
                         R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
                         R_GridRowAfterDrop="@R_GridRowAfterDrop"
-                        Height="300px">
+                        Height="300px"
+                        R_ServiceGetRecord="@R_ServiceGetRecord"
+                        >
                     <R_GridColumns>
                          <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
                          <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
@@ -85,12 +88,9 @@
     </R_StackLayout>
 </R_StackLayout>
 <R_ConductorGrid @ref="@_SourceAvailableCOA_conGrid"
-                 R_ViewModel="@_GSM01310ViewModel"
                  R_IsHeader
-                 R_ServiceGetRecord="@R_ServiceGetRecord" />
+                 />
 
 <R_ConductorGrid @ref="@_SelectedCOA_conGrid"
-                 R_ViewModel="@_GSM1300ViewModel"
                  R_IsHeader
-                 R_ServiceGetRecord="@R_ServiceGetRecord"
                  R_ServiceSaveBatch="@R_ServiceSaveBatch" />

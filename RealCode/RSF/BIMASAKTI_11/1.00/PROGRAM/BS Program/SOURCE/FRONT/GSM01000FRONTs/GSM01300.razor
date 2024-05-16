@@ -17,7 +17,9 @@
                 AllowAddNewRow="false"
                 AllowEditRow="false"
                 AllowDeleteRow="false"
-                PageSize="10">
+                PageSize="10"
+                R_Display="@GridGoA_Display"
+                R_ServiceGetRecord="@Grid_R_ServiceGetGridGoA">
         
             <R_GridColumns>
                 <R_GridTextColumn FieldName="CGOA_CODE" HeaderText=@_localizer["_GroupOfAccount"] R_EnableAdd="false" R_EnableEdit="false"></R_GridTextColumn>
@@ -91,14 +93,10 @@
 
 
 <R_ConductorGrid @ref="@_conductorGridGoARef"
-                 R_ViewModel="@_GSM01300ViewModel"
                  R_IsHeader="true"
-                 R_Display="@GridGoA_Display"
-                 R_ServiceGetRecord="@Grid_R_ServiceGetGridGoA"
-                 R_ConvertToGridEntity="@R_ConvertToGridEntity"/>
+                 />
 
 <R_ConductorGrid  @ref="@_conductorGoACoARef"
-              R_ViewModel="@_GSM01310ViewModel"
               R_ConductorParent="@_conductorGridGoARef"
               R_DisableCancelConfirmation="false">
 </R_ConductorGrid>

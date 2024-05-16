@@ -166,6 +166,8 @@ namespace CBT01200FRONT
             }
             R_DisplayException(loEx);
         }
+        
+      
         private async Task ApproveJournalProcess()
         {
             var loEx = new R_Exception();
@@ -336,7 +338,6 @@ namespace CBT01200FRONT
             try
             {
                 await _gridRef.R_RefreshGrid(null);
-
             }
             catch (Exception ex)
             {

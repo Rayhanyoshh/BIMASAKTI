@@ -55,6 +55,22 @@ namespace GLT00600Front
         #endregion
 
         private R_TextBox loCrefNo;
+        DateTime? ParseDate(string dateStr)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                if (dateStr != null && DateTime.TryParseExact(dateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                    return parsedDate;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return null;
+        }
+
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -118,6 +134,7 @@ namespace GLT00600Front
             {
                 await _JournalListViewModel.GetJournal(_JournalListViewModel.Journal);
                 eventArgs.Result = _JournalListViewModel.Journal;
+           
             }
             catch (Exception ex)
             {
@@ -158,8 +175,6 @@ namespace GLT00600Front
                 .ToList();
 
             _JournalListViewModel.Drefdate = _JournalListViewModel.Ddocdate = DateTime.Now;
-            //data.CDOC_NO = _JournalListViewModel.Data.CDOC_NO;
-            //data.CDOC_DATE = DateTime.Now.ToLongDateString();
             data.CCREATE_BY = data.CUPDATE_BY = clientHelper.UserId;
             data.CUPDATE_DATE = data.CCREATE_DATE = DateTime.Now.ToLongDateString();
             await _JournalListViewModel.RefreshCurrencyRate();
@@ -177,6 +192,22 @@ namespace GLT00600Front
 
             data.CCREATE_BY = data.CUPDATE_BY = clientHelper.UserId;
             data.DCREATE_DATE = data.DUPDATE_DATE = DateTime.Now;
+            
+            if (ButtonCopySourceOnClick == true)
+            {
+                eventArgs.Data =
+                    R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(_JournalListViewModel.Journal);
+                var lodata = (GLT00600DTO)eventArgs.Data;
+                lodata.CREF_NO = "";
+                ButtonCopySourceOnClick = false;
+
+                if (_gridDetailRef.DataSource.Count > 0)
+                {
+                    _gridDetailRef.DataSource.Clear();
+                }
+                _JournalListViewModel.Drefdate = DateTime.ParseExact(lodata.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                _JournalListViewModel.Ddocdate = DateTime.ParseExact(lodata.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+            }
         }
         public async Task JournalForm_RSaving(R_SavingEventArgs eventArgs)
         {
@@ -274,13 +305,16 @@ namespace GLT00600Front
             }
             loEx.ThrowExceptionIfErrors();
         }
-
+        
         private async Task JournalForm_RDisplay(R_DisplayEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
             {
                 var data = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
+                var VM = _JournalListViewModel;
+                data.CLOCAL_CURRENCY_CODE = VM.lcLocalCurrency;
+                data.CBASE_CURRENCY_CODE = VM.lcBaseCurrency;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
                     if (!string.IsNullOrWhiteSpace(data.CSTATUS))
@@ -311,7 +345,11 @@ namespace GLT00600Front
 
                     if (!string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CREC_ID))
                     {
+                        _JournalListViewModel.Drefdate = ParseDate(data.CREF_DATE) ?? DateTime.Now;
+                        _JournalListViewModel.Ddocdate = ParseDate(data.CDOC_DATE) ?? DateTime.Now;
+                        /*
                         await _gridDetailRef.R_RefreshGrid(null);
+                    */
                     }
                 }
             }
@@ -323,6 +361,8 @@ namespace GLT00600Front
            
           
         }
+        
+        
 
         private async Task JournalForm_BeforeCancel(R_BeforeCancelEventArgs eventArgs)
         {
@@ -346,45 +386,14 @@ namespace GLT00600Front
             _JournalListViewModel.EnableAddDetail = true;
         }
 
+        private bool ButtonCopySourceOnClick = false;
         private async Task CopyJournalEntryProcess()
         {
             var loEx = new R_Exception();
             try
             {
-                var entity = _JournalListViewModel.Journal; ;
-                DateTime? ParseDate(string dateStr)
-                {
-                    if (dateStr != null && DateTime.TryParseExact(dateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
-                        return parsedDate;
-                    return null;
-                }
-
+                ButtonCopySourceOnClick = true;
                 await _conductorRef.Add();
-                if (_conductorRef.R_ConductorMode == R_eConductorMode.Add)
-                {
-                    var Data = (GLT00600DTO)_conductorRef.R_GetCurrentData();
-
-                    Data.CDEPT_CODE = entity.CDEPT_CODE;
-                    Data.CDEPT_NAME = entity.CDEPT_NAME;
-                    Data.CDOC_NO = entity.CDOC_NO;
-                    Data.CREF_DATE = entity.CREF_DATE;
-                    Data.CDOC_DATE = entity.CDOC_DATE;
-                    Data.CTRANS_DESC = entity.CTRANS_DESC;
-                    Data.CSTATUS = entity.CSTATUS;
-                    Data.CCURRENCY_CODE = entity.CCURRENCY_CODE;
-                    Data.NPRELIST_AMOUNT = entity.NPRELIST_AMOUNT;
-                    Data.NDEBIT_AMOUNT = entity.NDEBIT_AMOUNT;
-                    Data.NCREDIT_AMOUNT = entity.NCREDIT_AMOUNT;
-                    Data.DetailList = _JournalListViewModel.JournaDetailListTemp.ToList();
-                    _JournalListViewModel.JournaDetailList = _JournalListViewModel.JournaDetailListTemp;
-
-                    _JournalListViewModel.Drefdate = ParseDate(Data.CREF_DATE) ?? DateTime.MinValue;
-                    _JournalListViewModel.Ddocdate = ParseDate(Data.CDOC_DATE) ?? DateTime.MinValue;
-                    loCrefNo.FocusAsync();
-                    
-                    
-
-                }
             }
             catch (Exception ex)
             {
@@ -531,7 +540,8 @@ namespace GLT00600Front
                 {
                     loEx.Add("", @_localizer["_validationJournalAmountDebitCredit"]);
                 }
-                if (eventArgs.ConductorMode == R_eConductorMode.Add || eventArgs.ConductorMode == R_eConductorMode.Edit)
+                
+                if (eventArgs.ConductorMode == R_eConductorMode.Add)
                 {
                     if (_JournalListViewModel.JournaDetailList.Any(item => item.CGLACCOUNT_NO == data.CGLACCOUNT_NO))
                     {

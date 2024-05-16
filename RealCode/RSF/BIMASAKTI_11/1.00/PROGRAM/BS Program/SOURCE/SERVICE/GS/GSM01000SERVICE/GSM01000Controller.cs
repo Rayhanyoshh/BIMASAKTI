@@ -15,7 +15,7 @@ using R_BackEnd;
 namespace GSM01000Service
 {
     [ApiController]
-    [Route("api/[controller]/[action]"),AllowAnonymous]
+    [Route("api/[controller]/[action]")]
     public class GSM01000Controller : ControllerBase, IGSM01000
     {
         private readonly ActivitySource _activitySource;

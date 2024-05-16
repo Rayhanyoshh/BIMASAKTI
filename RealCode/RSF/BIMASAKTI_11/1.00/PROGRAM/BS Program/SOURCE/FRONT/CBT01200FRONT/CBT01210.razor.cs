@@ -78,7 +78,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(eventArgs.Data);
+                var loData = R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(eventArgs.Data);
 
 
                 var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
@@ -126,6 +126,35 @@ namespace CBT01200FRONT
 
             return llRtn;
         }
+
+        #region Private Property
+        private string lcLabelSubmit = "Submit";
+        private string lcLabelCommit = "Commit";
+        private bool EnableEdit = false;
+        private bool EnableDelete = false;
+        private bool EnableSubmit = false;
+        private bool EnableApprove = false;
+        private bool EnableCommit = false;
+        private bool EnableHaveRecId = false;
+        #endregion
+
+        private R_TextBox _DeptCode_TextBox;
+
+        DateTime? ParseDate(string dateStr)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                if (dateStr != null && DateTime.TryParseExact(dateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                    return parsedDate;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return null;
+        }
         #endregion
 
         #region Form
@@ -134,9 +163,9 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(eventArgs.Data);
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(eventArgs.Data);
                 await _TransactionListViewModel.GetJournalRecord(loParam);
-                eventArgs.Result = _TransactionListViewModel.JournalRecord;
+                eventArgs.Result = _TransactionListViewModel.Journal;
             }
             catch (Exception ex)
             {
@@ -151,10 +180,10 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200JournalHDParam>(eventArgs.Data);
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(eventArgs.Data);
                 _TransactionListViewModel.VAR_GSM_TRANSACTION_CODE = _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE;
                 await _TransactionListViewModel.SaveJournal(loParam, (eCRUDMode)eventArgs.ConductorMode);
-                eventArgs.Result = _TransactionListViewModel.JournalRecord;
+                eventArgs.Result = _TransactionListViewModel.Journal;
             }
             catch (Exception ex)
             {
@@ -173,7 +202,7 @@ namespace CBT01200FRONT
                 if (loValidate == R_eMessageBoxResult.No)
                     goto EndBlock;
 
-                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
                 loParam.LAUTO_COMMIT = false;
                 loParam.LUNDO_COMMIT = false;
@@ -190,29 +219,11 @@ namespace CBT01200FRONT
             loEx.ThrowExceptionIfErrors();
         }
 
-        private R_TextBox _DeptCode_TextBox;
-
         private async Task JournalForm_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
             var loEx = new R_Exception();
             try
             {
-                if (ButtonCopySourceOnClick == true)
-                {
-                    eventArgs.Data =
-                        R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(_TransactionListViewModel.JournalRecord);
-                    var lodata = (CBT01200DTO)eventArgs.Data;
-                    lodata.CREF_NO = "";
-                    ButtonCopySourceOnClick = false;
-
-                    if (_gridDetailRef.DataSource.Count > 0)
-                    {
-                        _gridDetailRef.DataSource.Clear();
-                    }
-                    _TransactionEntryViewModel.RefDate = DateTime.ParseExact(lodata.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    _TransactionEntryViewModel.DocDate = DateTime.ParseExact(lodata.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                }
-                
                 _TransactionEntryViewModel.JournalDetailGridTemp = new(_gridDetailRef.DataSource.ToList()); ;//store detail to temp
                 await _DeptCode_TextBox.FocusAsync();
                 var data = (CBT01200DTO)eventArgs.Data;
@@ -221,13 +232,30 @@ namespace CBT01200FRONT
                 data.CUPDATE_BY = clientHelper.UserId;
                 data.DUPDATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 data.DCREATE_DATE = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
-                _TransactionListViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                _TransactionListViewModel.Drefdate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                _TransactionListViewModel.Ddocdate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 data.NLBASE_RATE = 1;
                 data.NLCURRENCY_RATE = 1;
                 data.NBBASE_RATE = 1;
                 data.NBCURRENCY_RATE = 1;
                 data.CDEPT_CODE = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_CODE;
                 data.CDEPT_NAME = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CCLOSE_DEPT_NAME;
+
+                if (ButtonCopySourceOnClick == true)
+                {
+                    eventArgs.Data =
+                        R_FrontUtility.ConvertObjectToObject<CBT01200DTO>(_TransactionListViewModel.Journal);
+                    var lodata = (CBT01200DTO)eventArgs.Data;
+                    lodata.CREF_NO = "";
+                    ButtonCopySourceOnClick = false;
+
+                    if (_gridDetailRef.DataSource.Count > 0)
+                    {
+                        _gridDetailRef.DataSource.Clear();
+                    }
+                    _TransactionListViewModel.Drefdate = DateTime.ParseExact(lodata.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionListViewModel.Ddocdate = DateTime.ParseExact(lodata.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                }
 
                 if (!string.IsNullOrWhiteSpace(data.CDEPT_CODE))
                 {
@@ -378,18 +406,7 @@ namespace CBT01200FRONT
 
             loEx.ThrowExceptionIfErrors();
         }
-
-        #region Private Property
-        private string lcLabelSubmit = "Submit";
-        private string lcLabelCommit = "Commit";
-        private bool EnableEdit = false;
-        private bool EnableDelete = false;
-        private bool EnableSubmit = false;
-        private bool EnableApprove = false;
-        private bool EnableCommit = false;
-        private bool EnableHaveRecId = false;
-        #endregion
-
+        
         private async Task JournalForm_RDisplay(R_DisplayEventArgs eventArgs)
         {
             var loEx = new R_Exception();
@@ -398,6 +415,7 @@ namespace CBT01200FRONT
                 var data = (CBT01200DTO)eventArgs.Data;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
+                    
                     if (!string.IsNullOrWhiteSpace(data.CSTATUS))
                     {
                         lcLabelCommit = data.CSTATUS == "80" ? _localizer["_UndoCommit"] : _localizer["_Commit"];
@@ -415,8 +433,11 @@ namespace CBT01200FRONT
                     }
                     if (!string.IsNullOrWhiteSpace(_TransactionEntryViewModel._CREC_ID))
                     {
+                        _TransactionListViewModel.Drefdate = ParseDate(data.CREF_DATE) ?? DateTime.Now;
+                        _TransactionListViewModel.Ddocdate = ParseDate(data.CDOC_DATE) ?? DateTime.Now;
                         await _gridDetailRef.R_RefreshGrid(null);
                     }
+                 
                 }
             }
             catch (Exception ex)
@@ -437,21 +458,16 @@ namespace CBT01200FRONT
                 var res = await R_MessageBox.Show("",
                     "You haven’t saved your changes. Are you sure want to cancel? [Yes/No]",
                     R_eMessageBoxButtonType.YesNo);
-                if (res == R_eMessageBoxResult.No)
+                //var loData = _TransactionListViewModel.JournalRecord;
+                //_TransactionEntryViewModel.RefDate = DateTime.ParseExact(loData.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                eventArgs.Cancel = res == R_eMessageBoxResult.No; 
+                if (res != R_eMessageBoxResult.No)
                 {
-                    eventArgs.Cancel = true;
-                }
-                else
-                {
-                    _TransactionListViewModel.JournalDetailGrid =
-                        _TransactionEntryViewModel.JournalDetailGridTemp; //assign detail back from temp
-                    //_JournalEntryViewModel.RefDate = DateTime.ParseExact(_JournalEntryViewModel.Data.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    //_JournalEntryViewModel.DocDate = DateTime.ParseExact(_JournalEntryViewModel.Data.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                    _TransactionListViewModel.JournalDetailGrid = _TransactionEntryViewModel.JournalDetailGridTemp; //assign detail back from temp
                     if (eventArgs.ConductorMode == R_eConductorMode.Add)
                     {
                         _gridDetailRef.DataSource.Clear();
                     }
-
                     await Close(false, false);
                 }
             }

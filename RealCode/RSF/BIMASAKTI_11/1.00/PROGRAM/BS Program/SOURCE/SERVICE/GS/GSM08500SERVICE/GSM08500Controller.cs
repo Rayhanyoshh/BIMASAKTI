@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection;
 using GSM008500Common;
 using GSM008500Common.DTOs;
@@ -19,16 +20,21 @@ namespace GSM08500Service
     public class GSM08500Controller : ControllerBase, IGSM08500
     {
         private LoggerGSM08500 _logger;
+        private readonly ActivitySource _activitySource;
         
         public GSM08500Controller(ILogger<GSM08500Controller> logger)
         {
             //Initial and Get Logger
             LoggerGSM08500.R_InitializeLogger(logger);
             _logger = LoggerGSM08500.R_GetInstanceLogger();
+            _activitySource = GSM08500Activity.R_InitializeAndGetActivitySource(nameof(GSM08500Controller));
+
         }  
         [HttpPost]
         public R_ServiceGetRecordResultDTO<GSM08500DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<GSM08500DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
+
             _logger.LogInfo("Start - R_ServiceGetRecord");
 
             R_Exception loEx = new R_Exception();
@@ -64,6 +70,7 @@ namespace GSM08500Service
         [HttpPost]
         public R_ServiceSaveResultDTO<GSM08500DTO> R_ServiceSave(R_ServiceSaveParameterDTO<GSM08500DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceSave");
             _logger.LogInfo("Start - R_ServiceSave");
 
             R_Exception loEx = new R_Exception();
@@ -99,6 +106,7 @@ namespace GSM08500Service
         [HttpPost]
         public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<GSM08500DTO> poParameter)
         {
+            using Activity activity = _activitySource.StartActivity("R_ServiceDelete");
             _logger.LogInfo("Start - R_ServiceDelete");
 
             R_Exception loEx = new R_Exception();
@@ -130,6 +138,8 @@ namespace GSM08500Service
         [HttpPost]
         public GSM08500ListDTO GetStatisticAccDbList()
         {
+            using Activity activity = _activitySource.StartActivity("GetStatisticAccDbList");
+
             _logger.LogInfo("Start - GetStatisticAccDbList");
 
             R_Exception loEx = new R_Exception();
@@ -171,6 +181,7 @@ namespace GSM08500Service
         [HttpPost]
         public IAsyncEnumerable<CopyFromProcessCompanyDTO> GetCompanyList()
         {
+            using Activity activity = _activitySource.StartActivity("GetCompanyList");
             _logger.LogInfo("Start - GetCompanyList");
 
             R_Exception loException = new R_Exception();
@@ -205,6 +216,7 @@ namespace GSM08500Service
         [HttpPost]
         public CopyFromProcess CopyFromProcess()
         {
+            using Activity activity = _activitySource.StartActivity("CopyFromProcess");
             _logger.LogInfo("Start - CopyFromProcess");
 
             R_Exception loException = new R_Exception();
@@ -238,6 +250,7 @@ namespace GSM08500Service
         [HttpPost]
         public ActiveInactiveDTO RSP_GS_ACTIVE_INACTIVE_StatAccMethod()
         {
+            using Activity activity = _activitySource.StartActivity("RSP_GS_ACTIVE_INACTIVE_COAMethod");
             _logger.LogInfo("Start - RSP_GS_ACTIVE_INACTIVE_StatAccMethod");
 
             R_Exception loException = new R_Exception();
@@ -272,6 +285,7 @@ namespace GSM08500Service
         [HttpPost]
         public GSM08500CoAExcelDTO CoAExcelTemplate()
         {
+            using Activity activity = _activitySource.StartActivity("CoAExcelTemplate");
             _logger.LogInfo("Start - CoAExcelTemplate");
 
             var loEx = new R_Exception();
@@ -308,6 +322,7 @@ namespace GSM08500Service
         [HttpPost]
         public GSM08500UploadHeaderDTO CompanyDetail()
         {
+            using Activity activity = _activitySource.StartActivity("CompanyDetail");
             _logger.LogInfo("Start - CompanyDetail");
 
             R_Exception loException = new R_Exception();
@@ -336,6 +351,7 @@ namespace GSM08500Service
         [HttpPost]
         public PrimaryAccountDTO PrimaryAccountCheck()
         {
+            using Activity activity = _activitySource.StartActivity("PrimaryAccountCheck");
             _logger.LogInfo("Start - Primary account check");
 
             R_Exception loException = new R_Exception();

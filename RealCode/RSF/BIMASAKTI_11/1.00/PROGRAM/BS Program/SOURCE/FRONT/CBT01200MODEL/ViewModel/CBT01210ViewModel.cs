@@ -39,7 +39,6 @@ namespace CBT01200MODEL
         #endregion
 
         #region Public Property ViewModel
-
         public string _CREC_ID { get; set; } = "";
         public DateTime? RefDate { get; set; }
         public DateTime? DocDate { get; set; }
@@ -55,10 +54,6 @@ namespace CBT01200MODEL
 
             try
             {
-                // Get Universal Data
-                //var loResult = await _CBT01200InitModel.GetTabJournalEntryUniversalVarAsync();
-
-                //Set Universal Data
                 VAR_GSM_COMPANY = await _CBT01200InitModel.GetGSCompanyInfoAsync();
                 VAR_CB_SYSTEM_PARAM = await _CBT01200InitModel.GetCBSystemParamAsync();
                 VAR_GL_SYSTEM_PARAM = await _CBT01200InitModel.GetGLSystemParamAsync();

@@ -76,7 +76,7 @@ public partial class PMM05000 : R_Page
 
         try
         {
-            var loData = (PMM05000DTO)eventArgs.Data;
+            var loData = R_FrontUtility.ConvertObjectToObject<PMM05000DTO>(eventArgs.Data);
 
             var loCls = new R_LockingServiceClient(pcModuleName: DEFAULT_MODULE_NAME,
                 plSendWithContext: true,

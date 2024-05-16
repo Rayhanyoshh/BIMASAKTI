@@ -16,7 +16,15 @@
                  R_ServiceGetListRecord="@Grid_R_ServiceGetListRecord"
                  AllowAddNewRow="true"
                  AllowEditRow="true"
-                 AllowDeleteRow="true">
+                 AllowDeleteRow="true"
+                R_Display="@Grid_Display"
+                R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
+                R_Validation="@GridAddCOA_Validation"
+                R_AfterAdd="R_After_Add_COA"
+                R_ServiceSave="@Grid_ServiceSave"
+                R_ServiceDelete="@Grid_ServiceDelete"
+                R_Saving="Validation_Saving"
+                >
         
              <R_GridColumns>
                 <R_GridTextColumn MaxLength="20" FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false" Width="128px"></R_GridTextColumn>
@@ -79,14 +87,6 @@
          </R_ItemLayout>
      </R_StackLayout>
  </R_StackLayout>    
+ 
  <R_ConductorGrid @ref="@_conductorGridRef"
-                               R_ViewModel="@_GSM08500ViewModel"
-                               R_IsHeader="true"
-                               R_Display="@Grid_Display"
-                               R_ServiceGetRecord="@Grid_R_ServiceGetGridCoA"
-                               R_Validation="@GridAddCOA_Validation"
-                               R_AfterAdd="R_After_Add_COA"
-                               R_ServiceSave="@Grid_ServiceSave"
-                               R_ServiceDelete="@Grid_ServiceDelete"
-                               R_Saving="Validation_Saving"
-                               R_ConvertToGridEntity="@R_ConvertToGridEntity"/>
+                  R_IsHeader="true"/>

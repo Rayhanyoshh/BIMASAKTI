@@ -34,7 +34,6 @@ namespace CBT01200SERVICE
 
         }
         
-
         [HttpPost]
         public IAsyncEnumerable<CBT01200DTO> GetJournalList()
         {
@@ -124,20 +123,20 @@ namespace CBT01200SERVICE
         }
 
         [HttpPost]
-        public R_ServiceGetRecordResultDTO<CBT01200JournalHDParam> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT01200JournalHDParam> poParameter)
+        public R_ServiceGetRecordResultDTO<CBT01200DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT01200DTO> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");
 
             _logger.LogInfo("Start - GetRecord");
 
             R_Exception loEx = new R_Exception();
-            R_ServiceGetRecordResultDTO<CBT01200JournalHDParam> loRtn = null;
+            R_ServiceGetRecordResultDTO<CBT01200DTO> loRtn = null;
             CBT01200Cls loCls;
 
             try
             {
                 loCls = new CBT01200Cls();
-                loRtn = new R_ServiceGetRecordResultDTO<CBT01200JournalHDParam>();
+                loRtn = new R_ServiceGetRecordResultDTO<CBT01200DTO>();
 
                 _logger.LogInfo("Set Parameter");
                 poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
@@ -159,25 +158,29 @@ namespace CBT01200SERVICE
         }
 
         [HttpPost]
-        public R_ServiceSaveResultDTO<CBT01200JournalHDParam> R_ServiceSave(R_ServiceSaveParameterDTO<CBT01200JournalHDParam> poParameter)
+        public R_ServiceSaveResultDTO<CBT01200DTO> R_ServiceSave(R_ServiceSaveParameterDTO<CBT01200DTO> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceSave");
             _logger.LogInfo("Start - Save Transaction Record");
             R_Exception loEx = new R_Exception();
-            R_ServiceSaveResultDTO<CBT01200JournalHDParam> loRtn = null;
+            R_ServiceSaveResultDTO<CBT01200DTO> loRtn = null;
             CBT01200Cls loCls;
 
             try
             {
                 loCls = new CBT01200Cls();
-                loRtn = new R_ServiceSaveResultDTO<CBT01200JournalHDParam>();
+                loRtn = new R_ServiceSaveResultDTO<CBT01200DTO>();
                 _logger.LogInfo("Set Parameter");
                 poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
                 poParameter.Entity.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.Entity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+                poParameter.Entity.CPAYMENT_TYPE = ContextConstant.CPAYMENT_TYPE;
+                poParameter.Entity.CTRANS_CODE = ContextConstant.VAR_TRANS_CODE;
 
                 _logger.LogInfo("Save Transaction Entity");
-                loRtn.data = loCls.R_Save(poParameter.Entity, poParameter.CRUDMode);
+                loRtn.data = loCls.R_Save(
+                    poParameter.Entity,
+                    poParameter.CRUDMode);
             }
             catch (Exception ex)
             {
@@ -191,7 +194,7 @@ namespace CBT01200SERVICE
         }
 
         [HttpPost]
-        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT01200JournalHDParam> poParameter)
+        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<CBT01200DTO> poParameter)
         {
                 using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
                 ShowLogStart();
@@ -234,7 +237,6 @@ namespace CBT01200SERVICE
         }
 
         #endregion
-
         #region logger
 
         private void ShowLogStart([CallerMemberName] string pcMethodCallerName = "") => _logger.LogInfo($"Starting {pcMethodCallerName} in {GetType().Name}");

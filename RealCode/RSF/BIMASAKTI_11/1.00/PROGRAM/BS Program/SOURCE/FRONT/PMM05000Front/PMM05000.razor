@@ -26,7 +26,9 @@
                 R_GridType="@R_eGridType.Original"
                 R_ConductorGridSource="@_condUnitTypeRef"
                 R_ServiceGetListRecord="@UnitTypeGrid_ServiceGetListRecord"
-                AllowAddNewRow="false">
+                AllowAddNewRow="false"
+                R_Display="UnitTypeGrid_Display"
+                R_ServiceGetRecord="UnitTypeGrid_ServiceGetRecord">
             <R_GridColumns>
                 <R_GridTextColumn Width="120px" FieldName="CUNIT_TYPE_NAME" HeaderText=@_localizer["_unitType"] />
             </R_GridColumns>
@@ -43,7 +45,15 @@
                 AllowAddNewRow="true"
                 AllowDeleteRow="true"
                 AllowEditRow="true"
-                Height="360px">
+                Height="360px"
+                R_ServiceGetRecord="ConductorUnitPrice_ServiceGetRecord"
+                R_ServiceSave="Conductor_ServiceSave"
+                R_AfterSave="Connductor_AfterSave"
+                R_ServiceDelete="Conductor_ServiceDelete"
+                R_Display="Grid_Display"
+                R_AfterAdd="Conductor_AfterAdd"
+                R_Saving="Conductor_Saving"
+                R_Validation="@GridAddCOA_Validation">
             <R_GridColumns>
                 <R_GridTextColumn Width="90px" FieldName="CVALID_INTERNAL_ID" HeaderText=@_localizer["_validId"] R_EnableEdit="false" R_EnableAdd="false" />
                 <R_GridDatePickerColumn Width="150px" FieldName="DVALID_DATE" HeaderText=@_localizer["_validFromDate"] R_EnableEdit="false" R_EnableAdd="true" />
@@ -84,19 +94,9 @@
 
 
 <R_ConductorGrid @ref="@_condUnitTypeRef"
-                 R_ViewModel="@_PMM05010ViewModel"
                  R_IsHeader="true"
-                 R_Display="UnitTypeGrid_Display"
-                 R_ServiceGetRecord="UnitTypeGrid_ServiceGetRecord" />
+                 />
 
 <R_ConductorGrid @ref="@_conductorUnitPriceRef"
-                 R_ViewModel="_PMM05000ViewModel"
                  R_ConductorParent="_condUnitTypeRef"
-                 R_ServiceGetRecord="ConductorUnitPrice_ServiceGetRecord"
-                 R_ServiceSave="Conductor_ServiceSave"
-                 R_AfterSave="Connductor_AfterSave"
-                 R_ServiceDelete="Conductor_ServiceDelete"
-                 R_Display="Grid_Display"
-                 R_AfterAdd="Conductor_AfterAdd"
-                 R_Saving="Conductor_Saving"
-                 R_Validation="@GridAddCOA_Validation" />
+                />

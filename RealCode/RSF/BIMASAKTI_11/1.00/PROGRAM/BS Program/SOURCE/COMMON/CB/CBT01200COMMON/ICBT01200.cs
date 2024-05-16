@@ -6,7 +6,7 @@ using R_CommonFrontBackAPI;
 
 namespace CBT01200Common
 {
-    public interface ICBT01200  : R_IServiceCRUDBase<CBT01200JournalHDParam>
+    public interface ICBT01200  : R_IServiceCRUDBase<CBT01200DTO>
     {
         IAsyncEnumerable<CBT01200DTO> GetJournalList();
         CBT01200RecordResult<CBT01200UpdateStatusDTO> UpdateJournalStatus(CBT01200UpdateStatusDTO poEntity);

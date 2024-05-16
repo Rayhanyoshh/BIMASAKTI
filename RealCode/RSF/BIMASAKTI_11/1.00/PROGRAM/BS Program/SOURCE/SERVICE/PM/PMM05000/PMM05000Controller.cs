@@ -149,14 +149,10 @@ namespace PMM05000Service
             {
                 loDbPar = new BackParameter();
                 loDbPar.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                loDbPar.CUSER_ID = R_BackGlobalVar.USER_ID;
                 loDbPar.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
                 loDbPar.CUNIT_TYPE_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CUNIT_TYPE_ID);
                 loDbPar.LACTIVE = R_Utility.R_GetStreamingContext<bool>(ContextConstant.LACTIVE_ONLY);
-                // loDbPar.CCOMPANY_ID = "rcd";
-                // loDbPar.CPROPERTY_ID = "JBMPC";
-                // loDbPar.CUNIT_TYPE_ID = "1BRoom";
-                // loDbPar.LACTIVE = true;
-                loDbPar.CUSER_ID = "ADMIN";
                 loCls = new PMM05000Cls();
                 loRtn = new PMM05000ListDTO();
                 loRtn.Data = loCls.GetTypePriceListDb(loDbPar);

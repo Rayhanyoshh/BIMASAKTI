@@ -401,7 +401,7 @@ public partial class GLT00600 : R_Page
         var loEx = new R_Exception();
         try
         {
-
+            await _JournalListViewModel.ShowAllJournals();
         }
         catch (Exception ex)
         {
