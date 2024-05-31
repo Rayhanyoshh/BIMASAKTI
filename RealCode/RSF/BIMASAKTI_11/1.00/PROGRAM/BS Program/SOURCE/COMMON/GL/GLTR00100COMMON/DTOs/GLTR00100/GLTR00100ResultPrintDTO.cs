@@ -11,5 +11,6 @@ namespace GLTR00100COMMON
     public class GLTR00100ResultWithBaseHeaderPrintDTO : BaseHeaderReportCOMMON.BaseHeaderResult
     {
         public GLTR00100ResultPrintDTO GLTR { get; set; }
+        public GLTR00100ColumnDTO ColumnData { get; set; }
     }
 }

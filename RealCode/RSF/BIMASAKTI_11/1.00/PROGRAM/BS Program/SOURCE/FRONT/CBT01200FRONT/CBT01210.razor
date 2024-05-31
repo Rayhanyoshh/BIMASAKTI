@@ -15,11 +15,13 @@
                                R_ConductorSource="_conductorRef"
                                R_EnableAdd
                                OnLostFocus="@DeptCode_OnLostFocus"
-                               Enabled="(_conductorRef.R_ConductorMode == R_eConductorMode.Add)"
+                                Enabled="(_conductorRef.R_ConductorMode == R_eConductorMode.Add)"
                                MaxLength="20" />
                 </R_ItemLayout>
                 <R_ItemLayout Class="col d-flex justify-content-center">
-                    <R_Lookup R_ConductorSource="_conductorRef" R_Before_Open_Lookup="@Before_Open_lookupDept" R_After_Open_Lookup="@After_Open_lookupDept" Enabled="false" R_EnableAdd>...</R_Lookup>
+                     <R_Lookup R_ConductorSource="_conductorRef" R_Before_Open_Lookup="@Before_Open_lookupDept" R_After_Open_Lookup="@After_Open_lookupDept" 
+                       Enabled="(_conductorRef.R_ConductorMode == R_eConductorMode.Add)" R_EnableAdd>...
+                       </R_Lookup>
                 </R_ItemLayout>
                 <R_ItemLayout col="5">
                     <R_TextBox @bind-Value="_TransactionListViewModel.Data.CDEPT_NAME"
@@ -352,7 +354,7 @@
     </R_ItemLayout>
 </R_StackLayout>
 
-<R_GroupBox Title="Transaction Detail" TitleClass="text-danger">
+<R_GroupBox Title="Transaction Detail" TitleClass="text-danger pt-4">
     <R_StackLayout Row>
         <R_Grid @ref="_gridDetailRef"
                 DataSource="_TransactionEntryViewModel.JournalDetailGrid"

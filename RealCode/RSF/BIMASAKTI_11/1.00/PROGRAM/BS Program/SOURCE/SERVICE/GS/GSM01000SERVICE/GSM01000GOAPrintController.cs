@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,11 +117,14 @@ namespace GSM01000Service
             _Logger.LogInfo("Start - Get GOA Status");
             R_Exception loException = new R_Exception();
             FileStreamResult loRtn = null;
+            GSM01000GOAPrintLogKeyDTO loResultGUID = null;
             try
             {
                 // Deserialize the GUID from the cache
-                _AllGSM01000GOAParameter = R_NetCoreUtility.R_DeserializeObjectFromByte<GSM01000PrintParamGOADTO>(
+                loResultGUID = R_NetCoreUtility.R_DeserializeObjectFromByte<GSM01000GOAPrintLogKeyDTO>(
                     R_DistributedCache.Cache.Get(pcGuid));
+
+                _Logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
 
                 _Logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
                 _Logger.LogDebug("Deserialized Parameters: {@Parameters}", _AllGSM01000GOAParameter);
@@ -150,10 +154,28 @@ namespace GSM01000Service
             GSM01000PrintGOAResultWithBaseHeaderPrintDTO loRtn = new GSM01000PrintGOAResultWithBaseHeaderPrintDTO();
             var loParam = new BaseHeaderDTO();
 
+            System.Globalization.CultureInfo loCultureInfo =
+                new System.Globalization.CultureInfo(R_BackGlobalVar.REPORT_CULTURE);
             try
             {
             _Logger.LogInfo("Generating data for Group Of Account report.");
 
+               
+            //Add Resources
+            loRtn.BaseHeaderColumn.Page = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Page", loCultureInfo);
+            loRtn.BaseHeaderColumn.Of =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Of", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_Date =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Print_Date", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Print_By", loCultureInfo);
+            
+            GSM01000PrintColoumnGOADTO loColumnObject = new GSM01000PrintColoumnGOADTO();
+            var loColumn = AssignValuesWithMessages(typeof(GSM01000BackResources.Resources_Dummy_Class),
+                loCultureInfo, loColumnObject);
+            
+            
             // Set base header data
             loParam.CCOMPANY_NAME = "PT Realta Chackradarma";
             loParam.CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper();
@@ -227,7 +249,23 @@ namespace GSM01000Service
         loEx.ThrowExceptionIfErrors();
 
         return loRtn;
-            }
-            #endregion
+        
         }
+       #endregion
+       private object AssignValuesWithMessages(Type poResourceType, CultureInfo poCultureInfo, object poObject)
+       {
+           object loObj = Activator.CreateInstance(poObject.GetType());
+           var loGetPropertyObject = poObject.GetType().GetProperties();
+
+           foreach (var property in loGetPropertyObject)
+           {
+               string propertyName = property.Name;
+               string message = R_Utility.R_GetMessage(poResourceType, propertyName, poCultureInfo);
+               property.SetValue(loObj, message);
+           }
+
+           return loObj;
+       }
+    }
+    
 }

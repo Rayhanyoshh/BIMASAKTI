@@ -36,8 +36,10 @@ namespace CBT01200MODEL
         #endregion
         
         #region property
-        public DateTime
-            Drefdate = DateTime.Now,
+        public DateTime?
+            Drefdate = DateTime.Now;
+
+        public DateTime?
             Ddocdate = DateTime.Now;
 
         public int ProgressBarPercentage = 0;
@@ -90,6 +92,9 @@ namespace CBT01200MODEL
         public string JournalPeriodMonth { get; set; }
         public CBT01200JournalHDParam JournalParam { get; set; } = new CBT01200JournalHDParam();
         public ObservableCollection<CBT01200DTO> JournalGrid { get; set; } = new ObservableCollection<CBT01200DTO>();
+        
+        public List<CBT01200DTO> JournalHeaderDTO { get; set; } = new ();
+
         
         public CBT01200DTO Journal = new();
 
@@ -193,6 +198,7 @@ namespace CBT01200MODEL
                 var loResult = await _CBT01200Model.GetJournalListAsync(JournalParam);
 
                 JournalGrid = new ObservableCollection<CBT01200DTO>(loResult);
+                
             }
             catch (Exception ex)
             {
@@ -221,6 +227,7 @@ namespace CBT01200MODEL
                 LcCrecID = Journal.CREC_ID;
                 Data.CSTATUS = Journal.CSTATUS;
                 Data.CCB_ACCOUNT_NAME = Journal.CCB_ACCOUNT_NAME;
+                Data.LALLOW_APPROVE = Journal.LALLOW_APPROVE;
 
                 //var loParam = new CBT01201DTO()
                 //{
@@ -244,8 +251,8 @@ namespace CBT01200MODEL
             try
             {
                 poEntity.CREF_NO = string.IsNullOrWhiteSpace(poEntity.CREF_NO) ? "" : poEntity.CREF_NO;
-                poEntity.CREF_DATE = RefDate.Value.ToString("yyyyMMdd");
-                poEntity.CDOC_DATE = DocDate.Value.ToString("yyyyMMdd");
+                poEntity.CREF_DATE = Drefdate.Value.ToString("yyyyMMdd");
+                poEntity.CDOC_DATE = Ddocdate.Value.ToString("yyyyMMdd");
                 poEntity.SaveParam = new()
                 {
                     PARAM_CALLER = new()

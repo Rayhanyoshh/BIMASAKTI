@@ -424,7 +424,7 @@ namespace CBT01200FRONT
                         EnableEdit = data.CSTATUS == "00";
                         EnableDelete = data.CSTATUS != "00";
                         EnableSubmit = data.CSTATUS == "00" || data.CSTATUS == "10";
-                        EnableApprove = data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == true;
+                        EnableApprove = data.CSTATUS == "10" && data.LALLOW_APPROVE == true;
                         EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == false)) ||
                                        (data.CSTATUS == "80") &&
                                        int.Parse(data.CREF_PRD) >= int.Parse(_TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.CSOFT_PERIOD);
@@ -538,7 +538,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                _TransactionListViewModel.RefDate = poParam;
+                _TransactionListViewModel.Drefdate = poParam;
                 if (!string.IsNullOrWhiteSpace(_TransactionListViewModel.Data.CCURRENCY_CODE) &&
                     (_TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
                     || _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
@@ -942,7 +942,7 @@ namespace CBT01200FRONT
             var loEx = new R_Exception();
             try
             {
-                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
                 if (!loData.LALLOW_APPROVE)
                 {
                     loEx.Add("", _localizer["N01"]);
@@ -971,7 +971,7 @@ namespace CBT01200FRONT
 
             try
             {
-                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
 
                 if (loData.CSTATUS == "80")
                 {
@@ -998,7 +998,6 @@ namespace CBT01200FRONT
 
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
                 loParam.LAUTO_COMMIT = false;
-                loParam.LUNDO_COMMIT = loData.CSTATUS == "80" ? true : false;
                 loParam.CNEW_STATUS = loData.CSTATUS;
 
                 await _TransactionListViewModel.UpdateJournalStatus(loParam);
@@ -1018,7 +1017,8 @@ namespace CBT01200FRONT
             bool llValidate = false;
             try
             {
-                var loData = (CBT01200JournalHDParam)_conductorRef.R_GetCurrentData();
+                var loData = (CBT01200DTO)_conductorRef.R_GetCurrentData();
+
                 
                 if (loData.CSTATUS == "00" && int.Parse(loData.CREF_PRD) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD))
                 {

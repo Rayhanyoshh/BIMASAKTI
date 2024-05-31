@@ -136,7 +136,7 @@ namespace GLTR00100COMMON.Models
                 CUSER_ID = "FMC",
             };
 
-            GLTR00100ResultWithBaseHeaderPrintDTO loRtn = new GLTR00100ResultWithBaseHeaderPrintDTO();
+            GLTR00100ResultWithBaseHeaderPrintDTO loRtn = new GLTR00100ResultWithBaseHeaderPrintDTO() { ColumnData = new GLTR00100ColumnDTO() };
 
             loRtn.BaseHeaderData = loParam;
             loRtn.GLTR = DefaultData();

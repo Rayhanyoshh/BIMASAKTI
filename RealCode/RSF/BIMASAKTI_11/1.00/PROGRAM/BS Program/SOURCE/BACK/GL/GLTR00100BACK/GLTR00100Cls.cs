@@ -4,6 +4,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace GLTR00100BACK
 {
@@ -11,19 +12,23 @@ namespace GLTR00100BACK
     {
         private LoggerGLTR00100 _Logger;
         private LoggerGLTR00100Print _LoggerPrint;
+        private readonly ActivitySource _activitySource;
 
         public GLTR00100Cls(LoggerGLTR00100Print loggerPrint)
         {
             _LoggerPrint = LoggerGLTR00100Print.R_GetInstanceLogger();
+            _activitySource = GLTR00100PrintActivitySourceBase.R_GetInstanceActivitySource();
         }
 
         public GLTR00100Cls()
         {
             _Logger = LoggerGLTR00100.R_GetInstanceLogger();
+            _activitySource = GLTR00100ActivitySourceBase.R_GetInstanceActivitySource();
         }
 
         public GLTR00100InitialDTO GetInitial(GLTR00100InitialDTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetInitial");
             var loEx = new R_Exception();
             GLTR00100InitialDTO loResult = poEntity;
 
@@ -34,6 +39,7 @@ namespace GLTR00100BACK
                 var loCmd = loDb.GetCommand();
 
                 var lcQuery = "SELECT dbo.RFN_GET_DB_TODAY(@CCOMPANY_ID) AS DTODAY";
+                loCmd.CommandType = CommandType.Text;
                 loCmd.CommandText = lcQuery;
 
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poEntity.CCOMPANY_ID);
@@ -70,6 +76,7 @@ namespace GLTR00100BACK
         }
         public GLTR00100DTO GetGLJournalTransaction(GLTR00100DTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetGLJournalTransaction");
             var loEx = new R_Exception();
             GLTR00100DTO loResult = null;
 
@@ -113,9 +120,45 @@ namespace GLTR00100BACK
             return loResult;
         }
 
+        public GLTR00100PrintDTO GetBaseHeaderLogoCompany(GLTR00100PrintParamDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GetBaseHeaderLogoCompany");
+            var loEx = new R_Exception();
+            GLTR00100PrintDTO loResult = null;
 
+            try
+            {
+                var loDb = new R_Db();
+                var loConn = loDb.GetConnection("R_ReportConnectionString");
+                var loCmd = loDb.GetCommand();
+
+
+                var lcQuery = "SELECT dbo.RFN_GET_COMPANY_LOGO(@CCOMPANY_ID) as CLOGO";
+                loCmd.CommandText = lcQuery;
+                loCmd.CommandType = CommandType.Text;
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 15, poEntity.CCOMPANY_ID);
+
+                //Debug Logs
+                var loDbParam = loCmd.Parameters.Cast<DbParameter>()
+                .Where(x => x != null && x.ParameterName.StartsWith("@")).Select(x => x.Value);
+                _LoggerPrint.LogDebug(string.Format("SELECT dbo.RFN_GET_COMPANY_LOGO(@CCOMPANY_ID) as CLOGO", loDbParam));
+
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                loResult = R_Utility.R_ConvertTo<GLTR00100PrintDTO>(loDataTable).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _LoggerPrint.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
         public List<GLTR00100PrintDTO> GetReportJournalTransaction(GLTR00100PrintParamDTO poEntity)
         {
+            using Activity activity = _activitySource.StartActivity("GetReportJournalTransaction");
             var loEx = new R_Exception();
             List<GLTR00100PrintDTO> loResult = null;
 

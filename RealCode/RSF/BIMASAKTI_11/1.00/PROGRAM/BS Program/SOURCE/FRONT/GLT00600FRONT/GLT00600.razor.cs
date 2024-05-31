@@ -224,41 +224,36 @@ public partial class GLT00600 : R_Page
 
             if (eventArgs.ConductorMode == R_eConductorMode.Normal)
             {
+                var loData = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
+                bool llApprove = _JournalListViewModel.JournalEntity.LALLOW_APPROVE;
+                _EnableApprove = loData.CSTATUS == "10" &&
+                                 llApprove == true;
 
-                if (_JournalListViewModel.JournalList == null)
+                if (loData.CSTATUS == "10" && llApprove == true)
                 {
-                    _JournalListViewModel.EnableButton = false;
+                    _EnableApprove = true;
                 }
                 else
                 {
-                    _JournalListViewModel.EnableButton = true;
+                    _EnableApprove = false;
                 }
-            }
-
-            var loData = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Data);
-
-            _EnableApprove = _gridRef.DataSource.Count > 0 && loData.CSTATUS == "10" &&
-                  _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG;
-
-            if (loData.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
-            {
-                _EnableApprove = true;
-            }
-            else
-            {
-                _EnableApprove = false;
-            }
-            _EnableSubmit = (loData.CSTATUS == "20" || (loData.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
-                            (loData.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
-                            int.Parse(loData.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
-            
-            if (eventArgs.ConductorMode == R_eConductorMode.Normal)
-            {
+                _EnableSubmit = (loData.CSTATUS == "20" || (loData.CSTATUS == "10" && !_JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)) ||
+                                (loData.CSTATUS == "80" && _JournalListViewModel.IundoCollection.IOPTION != 1) &&
+                                int.Parse(loData.CREF_PRD) >= int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
                 _JournalListViewModel.CommitLabel = (_JournalListViewModel.JournalEntity.CSTATUS == "80") ? @_localizer["_btnUndoCommit"] : @_localizer["_btnCommit"];
                 ;
                 if (!string.IsNullOrWhiteSpace(loData.CREC_ID))
                 {
                     await _gridDetailRef.R_RefreshGrid(eventArgs.Data);
+                }
+                
+                if (!(_JournalListViewModel.JournalList == null) && _JournalListViewModel.JournalEntity.LALLOW_APPROVE == true)
+                {
+                    _JournalListViewModel.EnableButton = true;
+                }
+                else
+                {
+                    _JournalListViewModel.EnableButton = false;
                 }
             }
         }
@@ -478,9 +473,9 @@ public partial class GLT00600 : R_Page
     private async Task R_Before_Open_PopupRapidApprove(R_BeforeOpenPopupEventArgs eventArgs)
     {
         var loEx = new R_Exception();
-
         try
         {
+            var loParam = R_FrontUtility.ConvertObjectToObject<GLT00600DTO>(eventArgs.Parameter);
             if (_JournalListViewModel.JournalEntity.LALLOW_APPROVE == false)
             {
                 R_MessageBox.Show("", @_localizer["_validationAllowApprove"], R_eMessageBoxButtonType.OK);

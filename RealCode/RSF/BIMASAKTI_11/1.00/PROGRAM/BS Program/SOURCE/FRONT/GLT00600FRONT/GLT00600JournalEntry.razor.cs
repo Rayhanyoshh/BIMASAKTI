@@ -317,41 +317,40 @@ namespace GLT00600Front
                 data.CBASE_CURRENCY_CODE = VM.lcBaseCurrency;
                 if (eventArgs.ConductorMode == R_eConductorMode.Normal)
                 {
-                    if (!string.IsNullOrWhiteSpace(data.CSTATUS))
-                    {
-                        lcLabelCommit = data.CSTATUS == "80" ? _localizer["_UndoCommit"] : _localizer["_commit"];
-                        lcLabelSubmit = data.CSTATUS == "10" ? _localizer["_UndoSubmit"] : _localizer["_Submit"];
+                  
+                    lcLabelCommit = data.CSTATUS == "80" ? _localizer["_UndoCommit"] : _localizer["_commit"];
+                    lcLabelSubmit = data.CSTATUS == "10" ? _localizer["_UndoSubmit"] : _localizer["_Submit"];
 
-                        EnableEdit = data.CSTATUS == "00";
-                        EnableDelete = data.CSTATUS != "00";
-                        EnableSubmit = data.CSTATUS == "00" || data.CSTATUS == "10";
-                        if (data.CSTATUS == "10" && _JournalListViewModel.TransactionCodeCollection.LAPPROVAL_FLAG)
-                        {
-                            EnableApprove = true;
-                        }
-                        else
-                        {
-                            EnableApprove = false;
-                        }
-                        EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" &&
-                                                                 _JournalListViewModel.TransactionCodeCollection
-                                                                     .LAPPROVAL_FLAG == false)) ||
-                                       (data.CSTATUS == "80") &&
-                                       int.Parse(data.CREF_PRD) >=
-                                       int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
-                        EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
-                        _JournalListViewModel.Data.CREC_ID = data.CREC_ID;
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CREC_ID))
+                    EnableEdit = data.CSTATUS == "00";
+                    EnableDelete = data.CSTATUS != "00";
+                    EnableSubmit = data.CSTATUS == "00" || data.CSTATUS == "10";
+                    if (data.CSTATUS == "10" && data.LALLOW_APPROVE)
                     {
-                        _JournalListViewModel.Drefdate = ParseDate(data.CREF_DATE) ?? DateTime.Now;
-                        _JournalListViewModel.Ddocdate = ParseDate(data.CDOC_DATE) ?? DateTime.Now;
-                        /*
-                        await _gridDetailRef.R_RefreshGrid(null);
-                    */
+                        EnableApprove = true;
                     }
+                    else
+                    {
+                        EnableApprove = false;
+                    }
+                    EnableCommit = (data.CSTATUS == "20" || (data.CSTATUS == "10" &&
+                                                                _JournalListViewModel.TransactionCodeCollection
+                                                                    .LAPPROVAL_FLAG == false)) ||
+                                    (data.CSTATUS == "80") &&
+                                    int.Parse(data.CREF_PRD) >=
+                                    int.Parse(_JournalListViewModel.SystemParamCollection.CSOFT_PERIOD);
+                    EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
+                    _JournalListViewModel.Data.CREC_ID = data.CREC_ID;
                 }
+
+                if (!string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CREC_ID))
+                {
+                    _JournalListViewModel.Drefdate = ParseDate(data.CREF_DATE) ?? DateTime.Now;
+                    _JournalListViewModel.Ddocdate = ParseDate(data.CDOC_DATE) ?? DateTime.Now;
+                    /*
+                    await _gridDetailRef.R_RefreshGrid(null);
+                */
+                }
+                
             }
             catch (Exception ex)
             {

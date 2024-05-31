@@ -18,7 +18,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\BACK\PM\PMR01000BACK\PMR01000Back.csproj" />
+	  <ProjectReference Include="..\..\..\COMMON\PM\PMR01000Common\PMR01000Common.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMM05000\PMM05000Service.csproj" />
+	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR01000Service\PMR01000Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -52,5 +55,12 @@
 		<Reference Include="R_PluginsCommon">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_PluginsCommon.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="Report\PMR01000.frx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>

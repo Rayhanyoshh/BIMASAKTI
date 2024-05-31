@@ -119,7 +119,7 @@ namespace PMM05000Service
                 loDbPar = new BackParameter();
                 loDbPar.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
                 // loDbPar.CCOMPANY_ID = "rcd";
-                loDbPar.CUSER_ID = "Admin";
+                loDbPar.CUSER_ID = R_BackGlobalVar.USER_ID;
 
                 loCls = new PMM05000Cls();
 

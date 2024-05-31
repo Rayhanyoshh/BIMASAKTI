@@ -1,0 +1,170 @@
+@page "/PMR01000"
+@attribute [R_Page(Title = "Detail Report")]
+@using PMR01000Common.DTO_s
+@inherits R_Page
+
+
+<R_StackLayout>
+    
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Property</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.PropertyList"
+                        @bind-Value="_PMR01000ViewModel.PropertyDefault"
+                        ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
+                        TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+                        OnChanged="OnChangedProperty"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Deposit Type</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="6">
+            <R_RadioGroup Data="@_PMR01000ViewModel.DepositType"
+                          @bind-Value="@_PMR01000ViewModel.DepositTypeSelected"
+                          ValueField="@nameof(PMR01000PrintParamDTO.CDEPOSIT_TYPE)"
+                          TextField="@nameof(PMR01000PrintParamDTO.CDEPOSIT_TYPE_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Period</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" style="max-width: 77px;">
+            <R_NumericTextBox @bind-Value="_PMR01000ViewModel.ToPeriodYear"
+                              Min=_PMR01000ViewModel.VAR_GSM_PERIOD.IMIN_YEAR
+                              Max=_PMR01000ViewModel.VAR_GSM_PERIOD.IMAX_YEAR
+                              ThousandSeparator="false"
+                              Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"
+                              Arrows="true"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="2" style="max-width: 115px;">
+            <R_ComboBox Data="@_PMR01000ViewModel.PeriodDetailList"
+                        @bind-Value="_PMR01000ViewModel.FromPeriodMonth"
+                        ValueField="@nameof(PMR01000PeriodDTDTO.CPERIOD_NO)"
+                        TextField="@nameof(PMR01000PeriodDTDTO.CPERIOD_NAME)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" Style="text-align: center" >
+            <R_Label>To</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" style="max-width: 77px;">
+            <R_NumericTextBox @bind-Value="_PMR01000ViewModel.FromPeriodYear"
+                              Min=_PMR01000ViewModel.VAR_GSM_PERIOD.IMIN_YEAR
+                              Max=_PMR01000ViewModel.VAR_GSM_PERIOD.IMAX_YEAR
+                              ThousandSeparator="false"
+                              Arrows="true"
+                              Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="2" style="max-width: 115px;">
+            <R_ComboBox Data="@_PMR01000ViewModel.PeriodDetailList"
+                        @bind-Value="_PMR01000ViewModel.ToPeriodMonth"
+                        ValueField="@nameof(PMR01000PeriodDTDTO.CPERIOD_NO)"
+                        TextField="@nameof(PMR01000PeriodDTDTO.CPERIOD_NAME)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Building</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.FromBuildingList"
+                        @bind-Value="_PMR01000ViewModel.FromBuildingDefault"
+                        ValueField="@nameof(PMR01000BuildingListDTO.CBUILDING_ID)"
+                        TextField="@nameof(PMR01000BuildingListDTO.CBUILDING_NAME)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" Style="text-align: center" >
+            <R_Label>To</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.ToBuildingList"
+                        @bind-Value="_PMR01000ViewModel.ToBuildingDefault"
+                        ValueField="@nameof(PMR01000BuildingListDTO.CBUILDING_ID)"
+                        TextField="@nameof(PMR01000BuildingListDTO.CBUILDING_NAME)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "1" || _PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Cut Off Date</R_Label>
+        </R_ItemLayout>
+       
+        <R_ItemLayout col="2">
+            <R_DatePicker Value="@_PMR01000ViewModel.CutOffDate"
+                          Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "2")"
+                          R_ConductorSource="_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Type</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.FromType"
+                        @bind-Value="_PMR01000ViewModel.FromTypeSelected"
+                        ValueField="@nameof(DropDownDTO.Id)"
+                        TextField="@nameof(DropDownDTO.Text)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" Style="text-align: center" >
+            <R_Label>To</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.ToType"
+                        @bind-Value="_PMR01000ViewModel.ToTypeSelected"
+                        ValueField="@nameof(DropDownDTO.Id)"
+                        TextField="@nameof(DropDownDTO.Text)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Trans Type</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.FromTransTypeList"
+                        @bind-Value="_PMR01000ViewModel.FromTransTypeSelected"
+                        ValueField="@nameof(DropDownDTO.Id)"
+                        TextField="@nameof(DropDownDTO.Text)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1" Style="text-align: center" >
+            <R_Label>To</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_PMR01000ViewModel.ToTransTypeList"
+                        @bind-Value="_PMR01000ViewModel.ToTransTypeSelected"
+                        ValueField="@nameof(DropDownDTO.Id)"
+                        TextField="@nameof(DropDownDTO.Text)"
+                        Enabled="@(_PMR01000ViewModel.DepositTypeSelected == "3")"/>
+        </R_ItemLayout>
+
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+          
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Button OnClick="Button_OnClickProcessAsync">
+                Print
+            </R_Button>
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_StackLayout>

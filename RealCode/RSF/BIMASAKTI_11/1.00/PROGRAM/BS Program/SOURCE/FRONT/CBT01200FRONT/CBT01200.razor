@@ -124,7 +124,7 @@
 </R_StackLayout>
 <R_StackLayout Row>
     <R_ItemLayout>
-        <R_Button Enabled="@(_TransactionListViewModel.JournalGrid.Count > 0 && (_TransactionListViewModel.Data.CSTATUS == "10" && _TransactionEntryViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG))"
+        <R_Button Enabled="@EnableApprove"
                   OnClick="ApproveJournalProcess">
             Approve
         </R_Button>

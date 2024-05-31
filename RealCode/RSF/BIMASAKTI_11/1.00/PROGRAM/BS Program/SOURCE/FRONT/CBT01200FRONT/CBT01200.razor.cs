@@ -140,6 +140,9 @@ namespace CBT01200FRONT
         }
 
         private bool EnableCommit = false;
+        private bool EnableApprove = false;
+
+
         private async Task JournalGrid_Display(R_DisplayEventArgs eventArgs)
         {
             R_Exception loEx = new R_Exception();
@@ -157,6 +160,15 @@ namespace CBT01200FRONT
                     EnableCommit = (loData.CSTATUS == "20" || loData.CSTATUS == "80")
                         && int.Parse(loData.CREF_PRD) >= int.Parse(_TransactionListViewModel.VAR_CB_SYSTEM_PARAM.CSOFT_PERIOD);
                     _TransactionListViewModel.CommitLabel = (loData.CSTATUS == "80") ? @_localizer["_btnUndoCommit"] : @_localizer["_btnCommit"];
+                    EnableApprove = loData.CSTATUS == "10" && loData.LALLOW_APPROVE == true;
+                    if ((loData.CSTATUS == "10") && loData.LALLOW_APPROVE)
+                    {
+                        EnableApprove = true;
+                    }
+                    else
+                    {
+                        EnableApprove = false;
+                    }
                 }
 
             }
@@ -207,15 +219,22 @@ namespace CBT01200FRONT
                 if (loData.CSTATUS == "80" )
                 {
                     _TransactionListViewModel.CommitLabel = @_localizer["_btnCommit"];
-                    if (_TransactionEntryViewModel.VAR_IUNDO_COMMIT_JRN.IOPTION == 3)
+                    if (_TransactionListViewModel.VAR_GSM_TRANSACTION_CODE.LAPPROVAL_FLAG == true)
                     {
-                        loValidate = await R_MessageBox.Show("", "Are you sure want to undo committed this journal? ", R_eMessageBoxButtonType.YesNo);
-                        if (loValidate == R_eMessageBoxResult.No)
-                            goto EndBlock;
+                        loData.CSTATUS = "10";
                     }
+                    else
+                    {
+                        loData.CSTATUS = "00";
+                    }
+
+                    loValidate = await R_MessageBox.Show("", _localizer["Q01"], R_eMessageBoxButtonType.YesNo);
+                    if (loValidate == R_eMessageBoxResult.No)
+                        goto EndBlock;
                 }
                 else
                 {
+                    loData.CSTATUS = "80";
                     _TransactionListViewModel.CommitLabel = @_localizer["_btnUndoCommit"];
                     loValidate = await R_MessageBox.Show("", "Are you sure want to commit this journal? ", R_eMessageBoxButtonType.YesNo);
                     if (loValidate == R_eMessageBoxResult.No)
@@ -224,8 +243,7 @@ namespace CBT01200FRONT
 
                 var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
                 loParam.LAUTO_COMMIT = _TransactionEntryViewModel.VAR_GL_SYSTEM_PARAM.LCOMMIT_APVJRN;
-                loParam.LUNDO_COMMIT = loData.CSTATUS == "80" ? true : false;
-                loParam.CNEW_STATUS = loData.CSTATUS == "80" ? "20" : "80";
+                loParam.CNEW_STATUS = loData.CSTATUS;
 
                 await _TransactionEntryViewModel.UpdateJournalStatus(loParam);
                 await _gridRef.R_RefreshGrid(null);

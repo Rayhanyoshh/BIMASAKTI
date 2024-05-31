@@ -356,6 +356,7 @@ namespace GLT00600Model.ViewModel
                 LcCrecID = Journal.CREC_ID;
                 Data.CSTATUS = Journal.CSTATUS;
                 Data.CTRANS_CODE = lcTransCode;
+                Data.LALLOW_APPROVE = Journal.LALLOW_APPROVE;
                 await GetJournalDetailList();
             }
             catch (Exception ex)

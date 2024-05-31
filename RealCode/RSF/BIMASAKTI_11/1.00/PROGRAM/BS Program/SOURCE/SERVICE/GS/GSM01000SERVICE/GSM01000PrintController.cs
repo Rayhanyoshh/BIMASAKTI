@@ -144,12 +144,30 @@ public class GSM01000PrintController : R_ReportControllerBase
     private GSM01000PrintCOAResultWithBaseHeaderPrintDTO GenerateDataPrint(GSM01000PrintParamCOADTO poParam)
     {
         using Activity activity = _activitySource.StartActivity("GenerateDataPrint");
-
         var loEx = new R_Exception();
+     
         GSM01000PrintCOAResultWithBaseHeaderPrintDTO loRtn = new GSM01000PrintCOAResultWithBaseHeaderPrintDTO();
+   
 
+        System.Globalization.CultureInfo loCultureInfo =
+            new System.Globalization.CultureInfo(R_BackGlobalVar.REPORT_CULTURE);
+        
         try
         {
+            _logger.LogInfo("Generating data for Chart Of Account report.");
+            //Add Resources
+            loRtn.BaseHeaderColumn.Page = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Page", loCultureInfo);
+            loRtn.BaseHeaderColumn.Of =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Of", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_Date =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Print_Date", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Print_By", loCultureInfo);
+            
+            GSM01000PrintColoumnGOADTO loColumnObject = new GSM01000PrintColoumnGOADTO();
+            var loColumn = AssignValuesWithMessages(typeof(GSM01000BackResources.Resources_Dummy_Class),
+                loCultureInfo, loColumnObject);
             var loCls = new GSM01000Cls();
 
             var loCollection = loCls.GetPrintDataResult(poParam);
@@ -160,13 +178,19 @@ public class GSM01000PrintController : R_ReportControllerBase
             {
 
                 
-                CCOMPANY_NAME = "PT Realta Chackradarma",
-                CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper(),
+                CCOMPANY_NAME = poParam.CCOMPANY_ID.ToUpper(),
+                CPRINT_CODE = "COA",
                 CPRINT_NAME = "Chart Of Account",
                 CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper(),
             };
-            
-            var loData = new GSM01000PrintCOAResultDTo();
+            GSM01000PrintCOAResultDTo loData = new GSM01000PrintCOAResultDTo()
+            {
+                Title = "Chart Of Accounts",
+                Header = "001",
+                Column = new GSM01000PrintColoumnCOADTO(),
+                Data = new List<GSM01000ResultSPPrintCOADTO>()
+            };
+          
             _logger.LogInfo("Set Parameter");
             loData.Header = $"{poParam.CCOMPANY_ID}";
             
@@ -189,5 +213,20 @@ public class GSM01000PrintController : R_ReportControllerBase
         return loRtn;
     }
     #endregion
+    
+    private object AssignValuesWithMessages(Type poResourceType, CultureInfo poCultureInfo, object poObject)
+    {
+        object loObj = Activator.CreateInstance(poObject.GetType());
+        var loGetPropertyObject = poObject.GetType().GetProperties();
+
+        foreach (var property in loGetPropertyObject)
+        {
+            string propertyName = property.Name;
+            string message = R_Utility.R_GetMessage(poResourceType, propertyName, poCultureInfo);
+            property.SetValue(loObj, message);
+        }
+
+        return loObj;
+    }
 }
 

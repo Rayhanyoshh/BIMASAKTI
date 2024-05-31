@@ -11,11 +11,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\BACK\GS\GSM01000BackResources\GSM01000BackResources.csproj" />
 	  <ProjectReference Include="..\..\..\BACK\GS\GSM01000BACK\GSM01000Back.csproj" />
+	  <ProjectReference Include="..\..\..\COMMON\BaseHeaderCommon\BaseHeaderResources\BaseHeaderResources.csproj" />
 	  <ProjectReference Include="..\..\..\COMMON\GS\GSM01000Common\GSM01000Common.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Reference Include="BaseHeaderReportCOMMON">
+		  <HintPath>..\..\..\COMMON\BaseHeaderCommon\BaseHeaderCommonDll\BaseHeaderReportCOMMON.dll</HintPath>
+		</Reference>
 		<Reference Include="R_APIBackEnd">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_APIBackEnd.dll</HintPath>
 		</Reference>
