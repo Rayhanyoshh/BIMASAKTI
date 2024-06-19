@@ -1,9 +1,9 @@
-using System.Globalization;
-using BlazorClientHelper;
-using Microsoft.AspNetCore.Components;
 using PMR01000Common.DTO_s;
 using PMR01000Common.DTO_s.PrintDTO;
 using PMR01000MODEL;
+using System.Globalization;
+using BlazorClientHelper;
+using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
@@ -90,13 +90,8 @@ public partial class PMR01000 : R_Page
         try
         {
             await _PMR01000ViewModel.GetAllUniversalData();
-            // Set FromPeriodMonth and ToPeriodMonth to the name of the current month
-            DateTime today = DateTime.Today;
-              List<string> monthNames = CultureInfo.CurrentCulture.DateTimeFormat
-                    .MonthNames
-                    .Where(name => !string.IsNullOrEmpty(name))
-                    .ToList();
-              _PMR01000ViewModel.FromPeriodMonth = _PMR01000ViewModel.PeriodDetailList.FirstOrDefault().CPERIOD_NO;
+
+            _PMR01000ViewModel.FromPeriodMonth = _PMR01000ViewModel.PeriodDetailList.FirstOrDefault().CPERIOD_NO;
             _PMR01000ViewModel. ToPeriodMonth = _PMR01000ViewModel.PeriodDetailList.LastOrDefault().CPERIOD_NO;
             _PMR01000ViewModel.DepositTypeSelected = _PMR01000ViewModel.DepositType.FirstOrDefault().CDEPOSIT_TYPE;
             _PMR01000ViewModel.ToTypeSelected = _PMR01000ViewModel.ToType.FirstOrDefault().Id;
@@ -132,6 +127,21 @@ public partial class PMR01000 : R_Page
         loEx.ThrowExceptionIfErrors();
     }
 
+    private void ValidationPrintParam (R_ValidationEventArgs eventArgs)
+    {
+        var loEx = new R_Exception();
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+    
     private bool EnablePeriod;
     private bool EnableCutOffDate;
     private bool EnableBuilding;
@@ -163,6 +173,43 @@ public partial class PMR01000 : R_Page
 
             if (loParam.CDEPOSIT_TYPE == "1")
             {
+                if (string.IsNullOrEmpty(loParam.CPROPERTY_ID))
+                {
+                    loEx.Add("", "Please select Property!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.FromPeriodYear.ToString()))
+                {
+                    loEx.Add("", "Please select from Year period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.FromPeriodMonth.ToString()))
+                {
+                    loEx.Add("", "Please select from Month period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.ToPeriodYear.ToString()))
+                {
+                    loEx.Add("", "Please select to Year period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.ToPeriodMonth.ToString()))
+                {
+                    loEx.Add("", "Please select to Month period!");
+                    goto EndBlock;
+                }
+                
+                
+                // Konversi nilai CFROM_PERIOD dan CTO_PERIOD ke tipe data DateTime
+                DateTime fromPeriod = DateTime.ParseExact(loParam.CFROM_PERIOD, "yyyyMM", CultureInfo.InvariantCulture);
+                DateTime toPeriod = DateTime.ParseExact(loParam.CTO_PERIOD, "yyyyMM", CultureInfo.InvariantCulture);
+
+                if (fromPeriod > toPeriod)
+                {
+                    loEx.Add("","From Period cannot be after than To Period !");
+                    goto EndBlock;
+                }
+                
                 loParam.CCUT_OFF_DATE = "";
                 loParam.CTO_TYPE = "";
                 loParam.CFROM_TYPE = "";
@@ -178,6 +225,12 @@ public partial class PMR01000 : R_Page
             }
             else if (loParam.CDEPOSIT_TYPE == "2")
             {
+                if (string.IsNullOrEmpty(loParam.CCUT_OFF_DATE))
+                {
+                    loEx.Add("", "Please select Cutt Off Date!");
+                    goto EndBlock;
+                }
+                
                 loParam.CFROM_PERIOD = "";
                 loParam.CTO_PERIOD = "";
                 loParam.CFROM_BUILDING = "";
@@ -196,6 +249,42 @@ public partial class PMR01000 : R_Page
             }
             else
             {
+                if (string.IsNullOrEmpty(loParam.CPROPERTY_ID))
+                {
+                    loEx.Add("", "Please select Property!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.FromPeriodYear.ToString()))
+                {
+                    loEx.Add("", "Please select from Year period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.FromPeriodMonth.ToString()))
+                {
+                    loEx.Add("", "Please select from Month period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.ToPeriodYear.ToString()))
+                {
+                    loEx.Add("", "Please select to Year period!");
+                    goto EndBlock;
+                }
+                if (string.IsNullOrEmpty(_PMR01000ViewModel.ToPeriodMonth.ToString()))
+                {
+                    loEx.Add("", "Please select to Month period!");
+                    goto EndBlock;
+                }
+                
+                DateTime fromPeriod = DateTime.ParseExact(loParam.CFROM_PERIOD, "yyyyMM", CultureInfo.InvariantCulture);
+                DateTime toPeriod = DateTime.ParseExact(loParam.CTO_PERIOD, "yyyyMM", CultureInfo.InvariantCulture);
+
+                if (fromPeriod > toPeriod)
+                {
+                    loEx.Add("","From Period cannot be after than To Period !");
+                    goto EndBlock;
+                }
+    
+                
                 loParam.CCUT_OFF_DATE = "";
                 await _reportService.GetReport(
                     "R_DefaultServiceUrlPM",
@@ -211,7 +300,7 @@ public partial class PMR01000 : R_Page
         {
             loEx.Add(ex);
         }
-
+EndBlock:
         loEx.ThrowExceptionIfErrors();
     }
 }

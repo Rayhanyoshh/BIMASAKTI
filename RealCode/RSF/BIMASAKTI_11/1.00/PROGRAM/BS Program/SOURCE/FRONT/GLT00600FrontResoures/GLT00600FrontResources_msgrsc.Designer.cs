@@ -583,11 +583,29 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account No. [Input Account No.] already exists!.
+        /// </summary>
+        internal static string _validationAccNoAlreadyExists {
+            get {
+                return ResourceManager.GetString("_validationAccNoAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account No. is required!.
         /// </summary>
         internal static string _validationAccountNo {
             get {
                 return ResourceManager.GetString("_validationAccountNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Document Date! Document Date cannot be before Current Period!.
+        /// </summary>
+        internal static string _validationAddDocumentCurrentPerio_validationSaveDocumentCurrentPeriod {
+            get {
+                return ResourceManager.GetString("_validationAddDocumentCurrentPerio_validationSaveDocumentCurrentPeriod", resourceCulture);
             }
         }
         
@@ -646,7 +664,16 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Center Code is required for Account No..
+        ///   Looks up a localized string similar to Cannot Submit Journal with date before Soft Close Period!.
+        /// </summary>
+        internal static string _validationBeforeSubmit {
+            get {
+                return ResourceManager.GetString("_validationBeforeSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center Code is required for Account No. [Input Account No.]!.
         /// </summary>
         internal static string _validationCenterCode {
             get {
@@ -709,16 +736,7 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Document Date! Document Date cannot be before Current Period!.
-        /// </summary>
-        internal static string _validationDocumentDateCannot {
-            get {
-                return ResourceManager.GetString("_validationDocumentDateCannot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please input Document No.!.
+        ///   Looks up a localized string similar to Please input Document No. first before input Journal Detail!.
         /// </summary>
         internal static string _validationInputDocumentNo {
             get {
@@ -741,6 +759,15 @@ namespace GLT00600FrontResources {
         internal static string _validationJournalAmountCannotZero {
             get {
                 return ResourceManager.GetString("_validationJournalAmountCannotZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please input Journal Detail!.
+        /// </summary>
+        internal static string _validationJournalDetailMandatory {
+            get {
+                return ResourceManager.GetString("_validationJournalDetailMandatory", resourceCulture);
             }
         }
         
@@ -781,11 +808,11 @@ namespace GLT00600FrontResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reference Date cannot be before Current Period!.
+        ///   Looks up a localized string similar to Reference Date cannot greater than today.
         /// </summary>
-        internal static string _validationReferenceDateCannot {
+        internal static string _validationRefDateCannotGreaterThanToday {
             get {
-                return ResourceManager.GetString("_validationReferenceDateCannot", resourceCulture);
+                return ResourceManager.GetString("_validationRefDateCannotGreaterThanToday", resourceCulture);
             }
         }
         
@@ -795,6 +822,24 @@ namespace GLT00600FrontResources {
         internal static string _validationReferenceRequired {
             get {
                 return ResourceManager.GetString("_validationReferenceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document Date cannot be before Current Period!.
+        /// </summary>
+        internal static string _validationSaveDocumentCurrentPeriod {
+            get {
+                return ResourceManager.GetString("_validationSaveDocumentCurrentPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference Date cannot be before Current Period!.
+        /// </summary>
+        internal static string _validationSaveRefNoCurrentPeriod {
+            get {
+                return ResourceManager.GetString("_validationSaveRefNoCurrentPeriod", resourceCulture);
             }
         }
         

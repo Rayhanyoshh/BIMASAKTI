@@ -16,6 +16,7 @@
         <R_TextBox @bind-Value="_TransactionListViewModel.JournalParam.CDEPT_CODE"
                    R_ConductorSource="_conductorRef"
                    Enabled="true"
+                   MaxLength="20"
                    OnLostFocus="OnLostFocus_LookupDept" />
     </R_ItemLayout>
     <R_ItemLayout>
@@ -104,7 +105,7 @@
             R_GridType="R_eGridType.Navigator">
         <R_GridColumns>
             <R_GridNumericColumn Width="67px" FieldName="@nameof(CBT01201DTO.INO)" HeaderText="No."></R_GridNumericColumn>
-            <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CGLACCOUNT_NO)" HeaderText="Account No."></R_GridTextColumn>
+            <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CGLACCOUNT_NO)" MaxLength="20" HeaderText="Account No."></R_GridTextColumn>
             <R_GridTextColumn Width="165px" FieldName="@nameof(CBT01201DTO.CGLACCOUNT_NAME)" HeaderText="Account Name"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCENTER_NAME)" HeaderText="Center"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCASH_FLOW_CODE)" HeaderText="Cash Flow Code"></R_GridTextColumn>

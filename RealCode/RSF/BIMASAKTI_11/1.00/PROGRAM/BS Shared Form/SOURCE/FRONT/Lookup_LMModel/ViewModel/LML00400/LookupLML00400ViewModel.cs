@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Lookup_LMCOMMON.DTOs;
+using Lookup_PMCOMMON.DTOs;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 
-namespace Lookup_LMModel.ViewModel.LML00400
+namespace Lookup_PMModel.ViewModel.LML00400
 {
     public class LookupLML00400ViewModel
     {
@@ -19,8 +19,6 @@ namespace Lookup_LMModel.ViewModel.LML00400
 
             try
             {
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CCOMPANY_ID, poParam.CCOMPANY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CUSER_ID, poParam.CUSER_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CCHARGE_TYPE_ID, poParam.CCHARGE_TYPE_ID);
 

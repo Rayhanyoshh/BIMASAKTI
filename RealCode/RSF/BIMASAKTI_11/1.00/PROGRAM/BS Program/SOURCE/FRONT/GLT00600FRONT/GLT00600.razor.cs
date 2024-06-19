@@ -45,8 +45,8 @@ public partial class GLT00600 : R_Page
         try
         {
 
-            await _JournalListViewModel.GetDepartmentList();
             await _JournalListViewModel.GetSystemParam();
+            await _JournalListViewModel.GetDepartmentList();
             VAR_GL_SYSTEM_PARAMDTO systemparamData = new VAR_GL_SYSTEM_PARAMDTO()
             {
                 CCLOSE_DEPT_CODE = _JournalListViewModel.Data.CDEPT_CODE,
@@ -91,6 +91,8 @@ public partial class GLT00600 : R_Page
             _JournalListViewModel.GetMonthList.Add(month);
         }
     }
+    
+    
 
     public async Task OnclickSearch(object poParam)
     {
@@ -436,13 +438,12 @@ public partial class GLT00600 : R_Page
     private async Task OnLostFocus_LookupDept()
     {
         var loEx = new R_Exception();
-
         try
         {
             LookupGSL00700ViewModel loLookupViewModel = new LookupGSL00700ViewModel(); //use GSL's model
             var loParam = new GSL00700ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
-                CSEARCH_TEXT = _JournalListViewModel.Parameter.CDEPT_CODE, // property that bindded to search textbox
+                CSEARCH_TEXT = _JournalListViewModel.Data.CDEPT_CODE, // property that bindded to search textbox
             };
 
 
@@ -452,13 +453,13 @@ public partial class GLT00600 : R_Page
             if (loResult == null)
             {
                 loEx.Add(R_FrontUtility.R_GetError(
-                        typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
-                        "_ErrLookup01"));
-                _JournalListViewModel.Parameter.CDEPT_NAME = ""; //kosongin bind textbox name kalo gaada
-                                                                     //await GLAccount_TextBox.FocusAsync();
+                    typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
+                    "_ErrLookup01"));
+                _JournalListViewModel.Data.CDEPT_CODE = ""; //kosongin bind textbox name kalo gaada
+                //await GLAccount_TextBox.FocusAsync();
             }
             else
-                _JournalListViewModel.Parameter.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
+                _JournalListViewModel.Data.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
         }
         catch (Exception ex)
         {

@@ -1,12 +1,14 @@
+
 @inherits R_Page
 @attribute [R_Page(Title = "Unit Charges")]
-@inject R_ILocalizer<Resources_LookupLM_Class> _localizer
+@inject R_ILocalizer<Resources_Dummy_Class_LookupPM> _localizer
 
 
 <R_StackLayout Row>
     <R_Grid @ref="@GridRef"
             DataSource="_viewModelLML00200.UnitChargesList"
             R_ServiceGetListRecord="R_ServiceGetListRecordAsync"
+            R_GridType="@R_eGridType.Navigator"
             Pageable
             PageSize="10"
             Height="300px"

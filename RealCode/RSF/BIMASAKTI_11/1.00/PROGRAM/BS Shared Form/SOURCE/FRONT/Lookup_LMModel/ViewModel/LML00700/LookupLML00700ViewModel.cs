@@ -1,4 +1,4 @@
-﻿using Lookup_LMCOMMON.DTOs;
+﻿using Lookup_PMCOMMON.DTOs;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lookup_LMModel.ViewModel.LML00700
+namespace Lookup_PMModel.ViewModel.LML00700
 {
     public class LookupLML00700ViewModel
     {
@@ -50,7 +50,7 @@ namespace Lookup_LMModel.ViewModel.LML00700
                 loEx.Add(ex);
             }
             loEx.ThrowExceptionIfErrors();
-            return loRtn;
+            return loRtn!;
         }
     }
 }

@@ -90,12 +90,11 @@ namespace CBT01200FRONT
             try
             {
                 //reset detail
-                _TransactionEntryViewModel.JournalDetailGrid.Clear();
-
-                
+                _TransactionListViewModel.JournalParam.CSEARCH_TEXT = "";
                 await _gridRef.R_RefreshGrid(null);
                 if (_TransactionListViewModel.JournalGrid.Count <= 0)
                 {
+                    _TransactionListViewModel.JournalDetailGrid.Clear();
                     loEx.Add("", "Data Not Found!");
                 }
             }

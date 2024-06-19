@@ -1,6 +1,6 @@
 ﻿using R_APICommonDTO;
 
-namespace Lookup_LMCOMMON.DTOs
+namespace Lookup_PMCOMMON.DTOs
 {
     public class LMLGenericRecord<T> : R_APIResultBaseDTO
     {

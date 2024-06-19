@@ -1,15 +1,16 @@
-﻿using Lookup_LMBACK;
-using Lookup_LMCOMMON;
-using Lookup_LMCOMMON.DTOs;
+﻿using Lookup_PMBACK;
+using Lookup_PMCOMMON;
+using Lookup_PMCOMMON.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R_BackEnd;
 using R_Common;
-using Lookup_LMCOMMON.Logs;
+using Lookup_PMCOMMON.Logs;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Lookup_PMCOMMON.DTOs.PML01200;
 
-namespace Lookup_LMSERVICES
+namespace Lookup_PMSERVICES
 {
     [ApiController]
     [Route("api/[controller]/[action]"), AllowAnonymous]
@@ -24,40 +25,7 @@ namespace Lookup_LMSERVICES
             _loggerLookup = LoggerLookupLM.R_GetInstanceLogger();
             _activitySource = LookupLMActivity.R_InitializeAndGetActivitySource(nameof(PublicLookupLMController));
         }
-        [HttpPost]
-        public IAsyncEnumerable<LML00100DTO> LML00100GetSalesTaxList()
-        {
-            string lcMethodName = nameof(LML00100GetSalesTaxList);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
-            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
-
-            var loEx = new R_Exception();
-            IAsyncEnumerable<LML00100DTO> loRtn = null;
-            List<LML00100DTO> loReturnTemp;
-            LML00100ParameterDTO poParameter = null;
-            try
-            {
-                var loCls = new PublicLookupLMCls();
-                poParameter = new LML00100ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
-               
-                _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
-                _loggerLookup.LogDebug("DbParameter {@Parameter} ", poParameter);
-                _loggerLookup.LogInfo("Call method GetAllSalesTax");
-
-                loReturnTemp = loCls.GetAllSalesTax(poParameter);
-                loRtn = GetStreaming(loReturnTemp);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-            loEx.ThrowExceptionIfErrors();
-            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
-        }
- 
+        
         [HttpPost]
         public IAsyncEnumerable<LML00200DTO> LML00200UnitChargesList()
         {
@@ -73,11 +41,14 @@ namespace Lookup_LMSERVICES
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00200ParameterDTO();
 
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
                 poParameter.CCHARGE_TYPE_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCHARGE_TYPE_ID);
-                
+                poParameter.CTAXABLE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CTAXABLE_TYPE);
+                poParameter.CACTIVE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CACTIVE_TYPE);
+                poParameter.CTAX_DATE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CTAX_DATE);
+
                 _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
                 _loggerLookup.LogDebug("DbParameter {@Parameter} ", poParameter);
                 _loggerLookup.LogInfo("Call method GetAllUnitCharges");
@@ -88,18 +59,19 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
 
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
         }
 
         [HttpPost]
         public IAsyncEnumerable<LML00300DTO> LML00300SupervisorList()
         {
             string lcMethodName = nameof(LML00300SupervisorList);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
             _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
 
             var loEx = new R_Exception();
@@ -110,8 +82,8 @@ namespace Lookup_LMSERVICES
             {
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00300ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
 
                 _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
@@ -124,17 +96,18 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
         }
 
         [HttpPost]
         public IAsyncEnumerable<LML00400DTO> LML00400UtilityChargesList()
         {
             string lcMethodName = nameof(LML00400UtilityChargesList);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
             _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
 
             var loEx = new R_Exception();
@@ -145,8 +118,8 @@ namespace Lookup_LMSERVICES
             {
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00400ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
                 poParameter.CCHARGE_TYPE_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCHARGE_TYPE_ID);
 
@@ -160,18 +133,19 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
 
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
         }
 
         [HttpPost]
         public IAsyncEnumerable<LML00500DTO> LML00500SalesmanList()
         {
             string lcMethodName = nameof(LML00500SalesmanList);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
             _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
 
             var loEx = new R_Exception();
@@ -182,8 +156,8 @@ namespace Lookup_LMSERVICES
             {
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00500ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
 
                 _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
@@ -196,10 +170,11 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
         }
         [HttpPost]
         public IAsyncEnumerable<LML00600DTO> LML00600TenantList()
@@ -216,8 +191,8 @@ namespace Lookup_LMSERVICES
             {
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00600ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
                 poParameter.CCUSTOMER_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCUSTOMER_TYPE);
 
@@ -231,10 +206,11 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
         }
         [HttpPost]
         public IAsyncEnumerable<LML00700DTO> LML00700DiscountList()
@@ -251,8 +227,8 @@ namespace Lookup_LMSERVICES
             {
                 var loCls = new PublicLookupLMCls();
                 var poParameter = new LML00700ParameterDTO();
-                poParameter.CCOMPANY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCOMPANY_ID);
-                poParameter.CUSER_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CUSER_ID);
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
                 poParameter.CCHARGES_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCHARGE_TYPE_ID);
 
@@ -266,10 +242,158 @@ namespace Lookup_LMSERVICES
             catch (Exception ex)
             {
                 loEx.Add(ex);
+                _loggerLookup.LogError(ex);
             }
             loEx.ThrowExceptionIfErrors();
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loRtn;
+            return loRtn!;
+        }
+        [HttpPost]
+        public IAsyncEnumerable<LML00800DTO> LML00800AgreementList()
+        {
+            string lcMethodName = nameof(LML00800AgreementList);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            IAsyncEnumerable<LML00800DTO> loRtn = null;
+            List<LML00800DTO> loReturnTemp;
+
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                var poParameter = new LML00800ParameterDTO();
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
+                poParameter.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CDEPT_CODE);
+                poParameter.CAGGR_STTS = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CAGGR_STTS);
+                poParameter.CLANG_ID = R_BackGlobalVar.CULTURE;
+
+                _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
+                _loggerLookup.LogDebug("DbParameter {@Parameter} ", poParameter);
+                _loggerLookup.LogInfo("Call method GetAllAgreement");
+
+                loReturnTemp = loCls.GetAgreement(poParameter);
+                loRtn = GetStreaming(loReturnTemp);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _loggerLookup.LogError(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loRtn!;
+        }
+        [HttpPost]
+        public IAsyncEnumerable<LML00900DTO> LML00900TransactionList()
+        {
+            string lcMethodName = nameof(LML00900TransactionList);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            IAsyncEnumerable<LML00900DTO> loRtn = null;
+            List<LML00900DTO> loReturnTemp;
+
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                var poParameter = new LML00900ParameterDTO();
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
+                poParameter.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CDEPT_CODE);
+                poParameter.CTENANT_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CTENANT_ID);            
+                poParameter.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poParameter.CTRANS_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CTRANS_CODE);
+                poParameter.CPERIOD = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPERIOD);
+                poParameter.LHAS_REMAINING = R_Utility.R_GetStreamingContext<bool>(ContextConstantPublicLookup.LHAS_REMAINING);
+                poParameter.LNO_REMAINING = R_Utility.R_GetStreamingContext<bool>(ContextConstantPublicLookup.LNO_REMAINING);
+                poParameter.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+                poParameter.CCURRENCY_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCURRENCY_CODE);
+
+                _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
+                _loggerLookup.LogDebug("DbParameter {@Parameter} ", poParameter);
+                _loggerLookup.LogInfo($"Call method {0}", lcMethodName);
+
+                loReturnTemp = loCls.GetTransaction(poParameter);
+                loRtn = GetStreaming(loReturnTemp);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _loggerLookup.LogError(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loRtn!;
+        }
+        [HttpPost]
+        public IAsyncEnumerable<PML01200DTO> LML01200InvoiceGroupList()
+        {
+            string lcMethodName = nameof(LML01200InvoiceGroupList);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            IAsyncEnumerable<PML01200DTO> loRtn = null;
+            List<PML01200DTO> loReturnTemp;
+
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                var poParameter = new PML01200ParameterDTO();
+                poParameter.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
+                poParameter.CINVGRP_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CINVGRP_CODE);
+                poParameter.CACTIVE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CACTIVE_TYPE);
+                poParameter.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+
+                _loggerLookup.LogInfo(string.Format("Get Parameter {0} on Controller", lcMethodName));
+                _loggerLookup.LogDebug("DbParameter {@Parameter} ", poParameter);
+                _loggerLookup.LogInfo($"Call method {0}", lcMethodName);
+
+                loReturnTemp = loCls.InvoiceGroup(poParameter);
+                loRtn = GetStreaming(loReturnTemp);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _loggerLookup.LogError(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loRtn!;
+        }
+
+
+
+
+
+        [HttpPost]
+        public LML00900InitialProcessDTO InitialProcess()
+        {
+            string lcMethodName = nameof(InitialProcess);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+            R_Exception loException = new R_Exception();
+            LML00900InitialProcessDTO? loReturn = null;
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                string loDbParameter = R_BackGlobalVar.COMPANY_ID;
+                _loggerLookup.LogInfo("Call method IntialProcess on Controller");
+                loReturn = loCls.GetInitialProcess(loDbParameter);
+            }
+            catch (Exception ex)
+            {
+                loException.Add(loException);
+                _loggerLookup.LogError(ex);
+            }
+            loException.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+
+            return loReturn!;
         }
 
 
@@ -282,6 +406,7 @@ namespace Lookup_LMSERVICES
             }
         }
 
+  
         #endregion
     }
     

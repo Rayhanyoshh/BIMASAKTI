@@ -384,7 +384,7 @@
                  R_DisableCancelConfirmation>
             <R_GridColumns>
                 <R_GridNumericColumn Width="67px" FieldName="@nameof(CBT01210ParamDTO.INO)" HeaderText="@_localizer["_No"]"></R_GridNumericColumn>
-                <R_GridLookupColumn Width="200px" FieldName="@nameof(CBT01210ParamDTO.CGLACCOUNT_NO)" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
+                <R_GridLookupColumn Width="200px" FieldName="@nameof(CBT01210ParamDTO.CGLACCOUNT_NO)" MaxLength="20" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
                 <R_GridTextColumn Width="250px" FieldName="@nameof(CBT01210ParamDTO.CGLACCOUNT_NAME)" R_EnableAdd="false" R_EnableEdit="false" HeaderText="@_localizer["_AccountName"]"></R_GridTextColumn>
                 <R_GridComboBoxColumn Width="180px" Data="@_TransactionEntryViewModel.VAR_CENTER_LIST"
                                       FieldName="@nameof(CBT01210ParamDTO.CCENTER_CODE)"
@@ -400,7 +400,7 @@
                 <R_GridNumericColumn Width="180px" Decimals="2" FieldName="@nameof(CBT01210ParamDTO.NDEBIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_Debit"]"></R_GridNumericColumn>
                 <R_GridNumericColumn Width="180px" Decimals="2" FieldName="@nameof(CBT01210ParamDTO.NCREDIT)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_Credit"]"></R_GridNumericColumn>
                 <R_GridTextColumn Width="500px" FieldName="@nameof(CBT01210ParamDTO.CDETAIL_DESC)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_Description"]"></R_GridTextColumn>
-                <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01210ParamDTO.CDOCUMENT_NO)" MaxLength="30" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_VoucherNo"]"></R_GridTextColumn>
+                <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01210ParamDTO.CDOCUMENT_NO)" MaxLength="30" R_EnableAdd    R_EnableEdit HeaderText="@_localizer["_VoucherNo"]"></R_GridTextColumn>
                 <R_GridTextColumn Width="150px" FieldName="@nameof(CBT01210ParamDTO.CDOCUMENT_DATE)" R_EnableAdd R_EnableEdit HeaderText="@_localizer["_VoucherDate"]"></R_GridTextColumn>
                 <R_GridNumericColumn Width="150px" FieldName="@nameof(CBT01210ParamDTO.NLDEBIT)" Enabled="false" HeaderText="@_localizer["_DbLocal"]"></R_GridNumericColumn>
                 <R_GridNumericColumn Width="150px" FieldName="@nameof(CBT01210ParamDTO.NLCREDIT)" Enabled="false" HeaderText="@_localizer["_CrLocal"]"></R_GridNumericColumn>

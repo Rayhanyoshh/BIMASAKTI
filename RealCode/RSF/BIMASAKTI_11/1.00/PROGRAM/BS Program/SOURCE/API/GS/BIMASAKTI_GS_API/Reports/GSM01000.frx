@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\GS\BIMASAKTI_GS_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="05/29/2024 15:25:15" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\GS\BIMASAKTI_GS_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="06/14/2024 11:26:24" ReportInfo.CreatorVersion="2023.2.21.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -111,33 +111,33 @@ namespace FastReport
       <inherited Name="Text39"/>
       <inherited Name="Text42"/>
     </inherited>
-    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="80.93" Width="1047.06" Height="37.8" Fill.Color="DarkBlue">
-      <TextObject Name="Text43" Left="9.45" Top="9.45" Width="132.3" Height="18.9" Text="Account No" Font="MS Gothic, 10pt" TextFill.Color="White"/>
-      <TextObject Name="Text44" Left="151.2" Top="9.45" Width="170.1" Height="18.9" Text="Account Name" Font="MS Gothic, 10pt" TextFill.Color="White"/>
-      <TextObject Name="Text45" Left="519.75" Top="9.45" Width="47.25" Height="18.9" Text="BS/IS" Font="MS Gothic, 10pt" TextFill.Color="White"/>
-      <TextObject Name="Text46" Left="680.4" Top="9.45" Width="141.75" Height="18.9" Text="Cashflow" Font="MS Gothic, 10pt" TextFill.Color="White"/>
-      <TextObject Name="Text47" Left="992.25" Top="9.45" Width="103.95" Height="18.9" Text="Active" Font="MS Gothic, 10pt" TextFill.Color="White"/>
-      <TextObject Name="Text58" Left="604.8" Top="9.45" Width="47.25" Height="18.9" Text="D/C" Font="MS Gothic, 10pt" TextFill.Color="White"/>
+    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="83.6" Width="1047.06" Height="37.8" Fill.Color="DarkBlue">
+      <TextObject Name="Text43" Left="9.45" Top="9.45" Width="132.3" Height="18.9" Text="Account No" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
+      <TextObject Name="Text44" Left="151.2" Top="9.45" Width="170.1" Height="18.9" Text="Account Name" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
+      <TextObject Name="Text45" Left="519.75" Top="9.45" Width="47.25" Height="18.9" Text="BS/IS" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
+      <TextObject Name="Text46" Left="680.4" Top="9.45" Width="141.75" Height="18.9" Text="Cashflow" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
+      <TextObject Name="Text47" Left="992.25" Top="9.45" Width="103.95" Height="18.9" Text="Active" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
+      <TextObject Name="Text58" Left="604.8" Top="9.45" Width="47.25" Height="18.9" Text="D/C" Font="Arial Unicode MS, 7pt" TextFill.Color="White"/>
     </ColumnHeaderBand>
-    <DataBand Name="Data1" ZOrder="0" Top="124.07" Width="1047.06" Height="37.8" CanGrow="true" DataSource="Data">
-      <TextObject Name="Text50" Left="519.75" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CBSIS]" Font="Arial, 10pt"/>
-      <TextObject Name="Text51" Left="680.4" Top="9.45" Width="311.85" Height="18.9" CanGrow="true" CanShrink="true" Text="[ResponseDataModel.CenterData.Data.CCASH_FLOW_CODE] - [ResponseDataModel.CenterData.Data.CCASH_FLOW_NAME]" Font="Arial, 10pt">
+    <DataBand Name="Data1" ZOrder="0" Top="129.4" Width="1047.06" Height="37.8" CanGrow="true" DataSource="Data">
+      <TextObject Name="Text50" Left="519.75" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CBSIS]" Font="Arial Unicode MS, 7pt"/>
+      <TextObject Name="Text51" Left="680.4" Top="9.45" Width="311.85" Height="18.9" CanGrow="true" CanShrink="true" Text="[ResponseDataModel.CenterData.Data.CCASH_FLOW_CODE] - [ResponseDataModel.CenterData.Data.CCASH_FLOW_NAME]" Font="Arial Unicode MS, 7pt">
         <Formats>
           <GeneralFormat/>
           <GeneralFormat/>
         </Formats>
       </TextObject>
       <CheckBoxObject Name="CheckBox1" Left="1011.15" Top="9.45" Width="18.9" Height="18.9" DataColumn="ResponseDataModel.CenterData.Data.LACTIVE"/>
-      <TextObject Name="Text56" Left="9.45" Top="9.45" Width="132.3" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CGLACCOUNT_NO]" Font="Arial, 10pt"/>
-      <TextObject Name="Text57" Left="151.2" Top="9.45" Width="349.65" Height="18.9" CanGrow="true" CanShrink="true" Text="[ResponseDataModel.CenterData.Data.CGLACCOUNT_NAME]" Font="Arial, 10pt"/>
-      <TextObject Name="Text59" Left="604.8" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CDBCR]" Font="Arial, 10pt"/>
-      <DataBand Name="Data4" Top="167.2" Width="1047.06" Height="37.8" AfterDataEvent="Data4_AfterData">
-        <TextObject Name="Text52" Left="103.95" Top="9.45" Width="1776.6" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CUSER_NAME_LIST]" Font="Arial, 10pt"/>
-        <TextObject Name="Text53" Left="28.35" Top="9.45" Width="75.6" Height="18.9" Text="User	:" Font="Arial, 10pt"/>
+      <TextObject Name="Text56" Left="9.45" Top="9.45" Width="132.3" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CGLACCOUNT_NO]" Font="Arial Unicode MS, 7pt"/>
+      <TextObject Name="Text57" Left="151.2" Top="9.45" Width="349.65" Height="18.9" CanGrow="true" CanShrink="true" Text="[ResponseDataModel.CenterData.Data.CGLACCOUNT_NAME]" Font="Arial Unicode MS, 7pt"/>
+      <TextObject Name="Text59" Left="604.8" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CDBCR]" Font="Arial Unicode MS, 7pt"/>
+      <DataBand Name="Data4" Top="175.2" Width="1047.06" Height="37.8" AfterDataEvent="Data4_AfterData">
+        <TextObject Name="Text52" Left="103.95" Top="9.45" Width="1776.6" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CUSER_NAME_LIST]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text53" Left="28.35" Top="9.45" Width="75.6" Height="18.9" Text="User	:" Font="Arial Unicode MS, 7pt"/>
       </DataBand>
-      <DataBand Name="Data5" Top="210.33" Width="1047.06" Height="37.8">
-        <TextObject Name="Text55" Left="103.95" Top="9.45" Width="1786.05" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CCENTER_NAME_LIST]" Font="Arial, 10pt"/>
-        <TextObject Name="Text54" Left="28.35" Top="9.45" Width="75.6" Height="18.9" Text="Center	:" Font="Arial, 10pt"/>
+      <DataBand Name="Data5" Top="221" Width="1047.06" Height="37.8">
+        <TextObject Name="Text55" Left="103.95" Top="9.45" Width="1786.05" Height="18.9" Text="[ResponseDataModel.CenterData.Data.CCENTER_NAME_LIST]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text54" Left="28.35" Top="9.45" Width="75.6" Height="18.9" Text="Center	:" Font="Arial Unicode MS, 7pt"/>
       </DataBand>
     </DataBand>
   </inherited>

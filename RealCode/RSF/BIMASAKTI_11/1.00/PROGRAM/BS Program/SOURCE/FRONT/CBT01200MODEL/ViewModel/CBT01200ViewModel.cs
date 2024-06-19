@@ -312,7 +312,7 @@ namespace CBT01200MODEL
             CBT01210LastCurrencyRateDTO loRtn = null;
             try
             {
-                poEntity.CRATE_DATE = RefDate.Value.ToString("yyyyMMdd");
+                poEntity.CRATE_DATE = Drefdate.Value.ToString("yyyyMMdd");
                 poEntity.CRATETYPE_CODE = VAR_CB_SYSTEM_PARAM.CRATETYPE_CODE;
                 var loResult = await _CBT01200Model.GetLastCurrencyAsync(poEntity);
 

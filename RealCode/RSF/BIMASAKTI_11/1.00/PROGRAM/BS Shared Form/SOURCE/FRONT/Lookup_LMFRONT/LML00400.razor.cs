@@ -1,5 +1,5 @@
-﻿using Lookup_LMCOMMON.DTOs;
-using Lookup_LMModel.ViewModel.LML00400;
+﻿using Lookup_PMCOMMON.DTOs;
+using Lookup_PMModel.ViewModel.LML00400;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Exceptions;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lookup_LMFRONT
+namespace Lookup_PMFRONT
 {
     public partial class LML00400 : R_Page
     {

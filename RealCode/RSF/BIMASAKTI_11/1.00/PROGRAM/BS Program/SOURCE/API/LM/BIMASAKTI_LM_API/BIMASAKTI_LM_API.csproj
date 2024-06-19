@@ -51,6 +51,7 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\BS Shared Form\SOURCE\SERVICES\Lookup_LMSERVICES\Lookup_PMSERVICES.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\LM\LMM01500SERVICE\LMM01500SERVICE.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\LM\LMM05000SERVICE\LMM05000Service.csproj" />
 	</ItemGroup>

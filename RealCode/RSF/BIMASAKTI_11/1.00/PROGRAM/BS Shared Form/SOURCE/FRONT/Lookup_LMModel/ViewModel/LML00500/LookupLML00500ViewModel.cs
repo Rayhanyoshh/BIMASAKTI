@@ -1,4 +1,4 @@
-﻿using Lookup_LMCOMMON.DTOs;
+﻿using Lookup_PMCOMMON.DTOs;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lookup_LMModel.ViewModel.LML00500
+namespace Lookup_PMModel.ViewModel.LML00500
 {
     public class LookupLML00500ViewModel
     {
@@ -20,8 +20,6 @@ namespace Lookup_LMModel.ViewModel.LML00500
 
             try
             {
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CCOMPANY_ID, poParam.CCOMPANY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CUSER_ID, poParam.CUSER_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
 
                 var loResult = await _model.LML00500GetSalesmanListAsync();

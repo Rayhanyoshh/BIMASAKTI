@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Lookup_LMCOMMON.DTOs;
+using Lookup_PMCOMMON.DTOs;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 
-namespace Lookup_LMModel.ViewModel.LML00300
+namespace Lookup_PMModel.ViewModel.LML00300
 {
     public class LookupLML00300ViewModel
     {
@@ -19,8 +19,6 @@ namespace Lookup_LMModel.ViewModel.LML00300
 
             try
             {
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CCOMPANY_ID, poParam.CCOMPANY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CUSER_ID, poParam.CUSER_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
 
                 var loResult = await _model.LML00300SupervisorListAsync();
@@ -39,10 +37,6 @@ namespace Lookup_LMModel.ViewModel.LML00300
             LML00300DTO loRtn = null;
             try
             {
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CCOMPANY_ID, poParam.CCOMPANY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CUSER_ID, poParam.CUSER_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
-
                 var loResult = await _modelGetRecord.LML00300SupervisorAsync(poParam);
                 loRtn = loResult;
             }

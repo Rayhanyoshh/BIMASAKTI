@@ -64,8 +64,8 @@ namespace GLT00600Model.ViewModel
 
         #region property
         public DateTime
-            Drefdate = DateTime.Now,
-            Ddocdate = DateTime.Now;
+            DRefDate,
+            DDocDate;
         
        
 
@@ -347,8 +347,8 @@ namespace GLT00600Model.ViewModel
                 var loResult = await _JournalListModel.R_ServiceGetRecordAsync(loParam);
                 Journal = loResult;
 
-                Journal.DREF_DATE = DateTime.ParseExact(Journal.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                Journal.DDOC_DATE = DateTime.ParseExact(Journal.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                DRefDate = DateTime.ParseExact(Journal.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+                DDocDate = DateTime.ParseExact(Journal.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
                 Journal.CUPDATE_DATE = Journal.DUPDATE_DATE.Value.ToLongDateString();
                 Journal.CCREATE_DATE = Journal.DCREATE_DATE.Value.ToLongDateString();
                 Journal.CLOCAL_CURRENCY_CODE = CompanyCollection.CLOCAL_CURRENCY_CODE;
@@ -366,6 +366,26 @@ namespace GLT00600Model.ViewModel
             loEx.ThrowExceptionIfErrors();
         }
 
+        public async Task<ResultRefreshCurrencyDTO> RefreshCurrencyRate(RefreshCurrencyParameterDTO poEntity)
+        {
+            R_Exception loEx = new R_Exception();
+            ResultRefreshCurrencyDTO loRtn = null;
+            try
+            {
+                poEntity.CRATE_DATE = DRefDate.ToString("yyyyMMdd");
+                poEntity.CRATETYPE_CODE = SystemParamCollection.CRATETYPE_CODE;
+                
+                var loResult = await _JournalListModel.RefreshCurrencyRateAsync(poEntity);
+                loRtn = loResult;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+        
         public async Task SaveJournal(GLT00600DTO poNewEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
@@ -588,46 +608,7 @@ namespace GLT00600Model.ViewModel
         }
 
 
-        public async Task RefreshCurrencyRate()
-        {
-            R_Exception loEx = new R_Exception();
-            try
-            {
-                var now = DateTime.Now;
-                RefreshCurrencyParameterDTO param = new RefreshCurrencyParameterDTO()
-                {
-
-                    CCURRENCY_CODE = Journal.CCURRENCY_CODE,
-                    CRATETYPE_CODE = SystemParamCollection.CRATETYPE_CODE,
-                    CRATE_DATE = Journal.CREF_DATE != null ? now.ToString("yyyyMMdd") : DateTime.Now.ToString("yyyyMMdd")
-                };
-
-                listCheck = await _JournalListModel.RefreshCurrencyRateAsync(param);
-
-                var data = Data;
-                if (listCheck != null)
-                {
-                    var entity = listCheck; // Mengambil entitas pertama atau null jika tidak ada
-                    // Menggunakan data dari entitas yang diambil
-                    data.NLBASE_RATE = entity.NLBASE_RATE_AMOUNT;
-                    data.NLCURRENCY_RATE = entity.NLCURRENCY_RATE_AMOUNT;
-                    data.NBBASE_RATE = entity.NBBASE_RATE_AMOUNT;
-                    data.NBCURRENCY_RATE = entity.NBCURRENCY_RATE_AMOUNT;
-                }
-                else
-                {
-                    data.NLBASE_RATE = 1;
-                    data.NLCURRENCY_RATE = 1;
-                    data.NBBASE_RATE = 1;
-                    data.NBCURRENCY_RATE = 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-            loEx.ThrowExceptionIfErrors();
-        }
+        
         #endregion
 
         #region "Rapid Approve and Commit"

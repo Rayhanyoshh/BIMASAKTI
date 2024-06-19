@@ -16,6 +16,7 @@
             <R_TextBox @bind-Value="_JournalListViewModel.Data.CDEPT_CODE"
                        R_ConductorSource="_conductorRef"
                        Enabled="true"
+                       MaxLength="20"
                        OnLostFocus="OnLostFocus_LookupDept" />
         </R_ItemLayout>
         <R_ItemLayout>
@@ -53,7 +54,8 @@
         </R_ItemLayout>
         <R_ItemLayout col="1">
             <R_TextBox @bind-Value="_JournalListViewModel.Data.CSEARCH_TEXT"
-                       R_ConductorSource="_conductorRef" />
+                       R_ConductorSource="_conductorRef"
+                       MaxLength="20"/>
         </R_ItemLayout>
         <R_ItemLayout Class="ms-3">
             <R_Button OnClick="OnclickSearch">@_localizer["_search"]</R_Button>

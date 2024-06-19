@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lookup_LMCOMMON.DTOs
+namespace Lookup_PMCOMMON.DTOs
 {
     public class LMLGenericList<T> : R_APIResultBaseDTO
     {

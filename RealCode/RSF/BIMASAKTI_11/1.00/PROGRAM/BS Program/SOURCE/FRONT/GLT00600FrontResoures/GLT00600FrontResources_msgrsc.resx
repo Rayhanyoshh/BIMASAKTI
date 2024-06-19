@@ -313,7 +313,7 @@
     <value>Base Currency Rate must be greater than 0!</value>
   </data>
   <data name="_validationCenterCode" xml:space="preserve">
-    <value>Center Code is required for Account No.</value>
+    <value>Center Code is required for Account No. [Input Account No.]!</value>
   </data>
   <data name="_validationCommit" xml:space="preserve">
     <value>Are you sure want to commit this journal? [Yes/No]</value>
@@ -333,11 +333,11 @@
   <data name="_validationDescReq" xml:space="preserve">
     <value>Description is required!</value>
   </data>
-  <data name="_validationDocumentDateCannot" xml:space="preserve">
-    <value>Invalid Document Date! Document Date cannot be before Current Period!</value>
+  <data name="_validationSaveDocumentCurrentPeriod" xml:space="preserve">
+    <value>Document Date cannot be before Current Period!</value>
   </data>
   <data name="_validationInputDocumentNo" xml:space="preserve">
-    <value>Please input Document No.!</value>
+    <value>Please input Document No. first before input Journal Detail!</value>
   </data>
   <data name="_validationJournalAmount" xml:space="preserve">
     <value>Journal amount is not equal to Prelist!</value>
@@ -357,7 +357,7 @@
   <data name="_validationProcess" xml:space="preserve">
     <value>Are you sure want to process selected Journal(s)?</value>
   </data>
-  <data name="_validationReferenceDateCannot" xml:space="preserve">
+  <data name="_validationSaveRefNoCurrentPeriod" xml:space="preserve">
     <value>Reference Date cannot be before Current Period!</value>
   </data>
   <data name="_validationReferenceRequired" xml:space="preserve">
@@ -368,6 +368,9 @@
   </data>
   <data name="_validationSearchTextMinimum" xml:space="preserve">
     <value>Minimum search keyword is 3 characters!</value>
+  </data>
+  <data name="_validationBeforeSubmit" xml:space="preserve">
+    <value>Cannot Submit Journal with date before Soft Close Period!</value>
   </data>
   <data name="_validationSubmit" xml:space="preserve">
     <value>Are you sure want to submit this journal? [Yes/No]</value>
@@ -398,5 +401,17 @@
   </data>
   <data name="_voucherNo" xml:space="preserve">
     <value>Voucher No.</value>
+  </data>
+  <data name="_validationRefDateCannotGreaterThanToday" xml:space="preserve">
+    <value>Reference Date cannot greater than today</value>
+  </data>
+  <data name="_validationAddDocumentCurrentPerio_validationSaveDocumentCurrentPeriod" xml:space="preserve">
+    <value>Invalid Document Date! Document Date cannot be before Current Period!</value>
+  </data>
+  <data name="_validationAccNoAlreadyExists" xml:space="preserve">
+    <value>Account No. [Input Account No.] already exists!</value>
+  </data>
+  <data name="_validationJournalDetailMandatory" xml:space="preserve">
+    <value>Please input Journal Detail!</value>
   </data>
 </root>

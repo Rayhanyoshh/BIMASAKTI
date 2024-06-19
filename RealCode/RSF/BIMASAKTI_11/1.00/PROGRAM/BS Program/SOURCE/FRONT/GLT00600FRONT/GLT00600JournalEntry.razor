@@ -48,8 +48,9 @@
                      <R_Label>@_localizer["_referenceDate"]*</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="3">
-                     <R_DatePicker @bind-Value="_JournalListViewModel.Drefdate"
-                                  R_ConductorSource="_conductorRef"
+                     <R_DatePicker Value="_JournalListViewModel.DRefDate"
+                                   R_ConductorSource="_conductorRef"
+                                   ValueChanged="((DateTime value) => RefDate_OnChange(value))"
                                   R_EnableAdd
                                   R_EnableEdit />
                  </R_ItemLayout>
@@ -71,7 +72,7 @@
                      <R_Label>@_localizer["_docDate"]*</R_Label>
                  </R_ItemLayout>
                  <R_ItemLayout col="3">
-                     <R_DatePicker @bind-Value="_JournalListViewModel.Ddocdate"
+                     <R_DatePicker @bind-Value="_JournalListViewModel.DDocDate"
                                    R_ConductorSource="_conductorRef"
                                   R_EnableAdd
                                   R_EnableEdit />
@@ -334,7 +335,7 @@
                     >
                  <R_GridColumns>
                      <R_GridNumericColumn Width="70px" FieldName="@nameof(GLT00600JournalGridDetailDTO.INO)" HeaderText="@_localizer["_no"]"></R_GridNumericColumn>
-                     <R_GridLookupColumn Width="280px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NO)" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
+                     <R_GridLookupColumn Width="280px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NO)" MaxLength="20" R_EnableAdd="true" R_EnableEdit="true" HeaderText="@_localizer["_AccountNo"]"></R_GridLookupColumn>
                      <R_GridTextColumn Width="160px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NAME)" R_EnableAdd="false" R_EnableEdit="false" HeaderText="@_localizer["_AccountName"]"></R_GridTextColumn>
                      <R_GridComboBoxColumn Width="180px" Data="@_JournalListViewModel.CenterListData"
                                            FieldName="@nameof(GLT00600JournalGridDetailDTO.CCENTER_CODE)"

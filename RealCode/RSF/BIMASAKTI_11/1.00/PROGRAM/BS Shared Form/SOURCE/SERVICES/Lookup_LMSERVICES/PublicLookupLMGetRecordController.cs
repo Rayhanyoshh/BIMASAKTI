@@ -1,7 +1,8 @@
-﻿using Lookup_LMBACK;
-using Lookup_LMCOMMON;
-using Lookup_LMCOMMON.DTOs;
-using Lookup_LMCOMMON.Logs;
+﻿using Lookup_PMBACK;
+using Lookup_PMCOMMON;
+using Lookup_PMCOMMON.DTOs;
+using Lookup_PMCOMMON.DTOs.PML01200;
+using Lookup_PMCOMMON.Logs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lookup_LMSERVICES
+namespace Lookup_PMSERVICES
 {
     [ApiController]
     [Route("api/[controller]/[action]"), AllowAnonymous]
@@ -31,43 +32,12 @@ namespace Lookup_LMSERVICES
             _loggerLookup = LoggerLookupLM.R_GetInstanceLogger();
             _activitySource = LookupLMActivity.R_InitializeAndGetActivitySource(nameof(PublicLookupLMGetRecordController));
         }
-        [HttpPost]
-        public LMLGenericRecord<LML00100DTO> LML00100GetSalesTax(LML00100ParameterDTO poParam)
-        {
-            string lcMethodName = nameof(LML00100GetSalesTax);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
-            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
 
-            var loEx = new R_Exception();
-            LMLGenericRecord<LML00100DTO> loReturn = new();
-            try
-            {
-                var loCls = new PublicLookupLMCls();
-                _loggerLookup.LogInfo("Call method GetAllSalesTax");
-                var loTempList = loCls.GetAllSalesTax(poParam);
-
-                _loggerLookup.LogInfo("Filter Search by text Sales Tax");
-#pragma warning disable CS8601 // Possible null reference assignment.
-                loReturn.Data = loTempList.Find(x => x.CTAX_ID.Equals(poParam.CSEARCH_TEXT.Trim(), StringComparison.OrdinalIgnoreCase));
-                //   loReturn.Data = loTempList.Find(x => x.CTAX_ID == poParam.CSEARCH_TEXT.Trim());
-#pragma warning restore CS8601 // Possible null reference assignment.
-
-            }
-            catch (Exception ex)
-            {
-
-                loEx.Add(ex);
-                _loggerLookup.LogError(loEx);
-            }
-            loEx.ThrowExceptionIfErrors();
-            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
-            return loReturn;
-        }
         [HttpPost]
         public LMLGenericRecord<LML00200DTO> LML00200UnitCharges(LML00200ParameterDTO poParam)
         {
             string lcMethodName = nameof(LML00200UnitCharges);
-            using Activity activity = _activitySource.StartActivity(lcMethodName);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
             _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
 
             var loEx = new R_Exception();
@@ -75,14 +45,14 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetUnitCharges");
                 var loTempList = loCls.GetAllUnitCharges(poParam);
 
                 _loggerLookup.LogInfo("Filter Search by text Unit Charges");
 #pragma warning disable CS8601 // Possible null reference assignment.
-                loReturn.Data = loTempList.Find(x => x.CCHARGES_ID.Equals(poParam.CSEARCH_TEXT.Trim(), StringComparison.OrdinalIgnoreCase));
-
-                //  loReturn.Data = loTempList.Find(x => x.CCHARGES_ID == poParam.CSEARCH_TEXT.Trim());
+                loReturn.Data = loTempList.Find(x => x.CCHARGES_ID!.Equals(poParam.CSEARCH_TEXT!.Trim(), StringComparison.OrdinalIgnoreCase));
 #pragma warning restore CS8601 // Possible null reference assignment.
 
             }
@@ -108,6 +78,8 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetSupervisor");
                 var loTempList = loCls.GetAllSupervisor(poParam);
 
@@ -141,6 +113,8 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetUtilityCharges");
                 var loTempList = loCls.GetAllUtilityCharges(poParam);
 
@@ -174,7 +148,8 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
-
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetSalesman");
                 var loTempList = loCls.GetAllSalesman(poParam);
 
@@ -207,6 +182,8 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetAllTenant");
                 var loTempList = loCls.GetTenant(poParam);
 
@@ -237,6 +214,8 @@ namespace Lookup_LMSERVICES
             try
             {
                 var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
                 _loggerLookup.LogInfo("Call method GetAllDiscount");
                 var loTempList = loCls.GetDiscount(poParam);
 
@@ -256,5 +235,107 @@ namespace Lookup_LMSERVICES
             _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
             return loReturn;
         }
+        [HttpPost]
+        public LMLGenericRecord<LML00800DTO> LML00800Agreement(LML00800ParameterDTO poParam)
+        {
+            string lcMethodName = nameof(LML00800Agreement);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            LMLGenericRecord<LML00800DTO> loReturn = new();
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CLANG_ID = R_BackGlobalVar.CULTURE;
+                _loggerLookup.LogInfo("Call method GetAllAgreement");
+                var loTempList = loCls.GetAgreement(poParam);
+
+                _loggerLookup.LogInfo("Filter Search by text Agreement");
+#pragma warning disable CS8601 // Possible null reference assignment.
+                loReturn.Data = loTempList.Find(x => x.CREF_NO!.Equals(poParam.CSEARCH_TEXT!.Trim(), StringComparison.OrdinalIgnoreCase));
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            }
+            catch (Exception ex)
+            {
+
+                loEx.Add(ex);
+                _loggerLookup.LogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loReturn;
+        }
+        [HttpPost]
+        public LMLGenericRecord<LML00900DTO> LML00900Transaction(LML00900ParameterDTO poParam)
+        {
+            string lcMethodName = nameof(LML00900Transaction);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            LMLGenericRecord<LML00900DTO> loReturn = new();
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+                _loggerLookup.LogInfo($"Call method {0}", lcMethodName);
+                var loTempList = loCls.GetTransaction(poParam);
+
+                _loggerLookup.LogInfo("Filter Search by text Ref NO");
+#pragma warning disable CS8601 // Possible null reference assignment.
+                loReturn.Data = loTempList.Find(x => x.CREF_NO!.Equals(poParam.CSEARCH_TEXT!.Trim(), StringComparison.OrdinalIgnoreCase));
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            }
+            catch (Exception ex)
+            {
+
+                loEx.Add(ex);
+                _loggerLookup.LogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loReturn;
+        }
+        [HttpPost]
+        public LMLGenericRecord<PML01200DTO> PML01200InvoiceGroup(PML01200ParameterDTO poParam)
+        {
+            string lcMethodName = nameof(PML01200InvoiceGroup);
+            using Activity activity = _activitySource.StartActivity(lcMethodName)!;
+            _loggerLookup.LogInfo(string.Format("START process method {0} on Controller", lcMethodName));
+
+            var loEx = new R_Exception();
+            LMLGenericRecord<PML01200DTO> loReturn = new();
+            try
+            {
+                var loCls = new PublicLookupLMCls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+                _loggerLookup.LogInfo($"Call method {0}", lcMethodName);
+                var loTempList = loCls.InvoiceGroup(poParam);
+
+                _loggerLookup.LogInfo("Filter Search by text InvoiceGroupCode");
+#pragma warning disable CS8601 // Possible null reference assignment.
+                loReturn.Data = loTempList.Find(x => x.CINVGRP_CODE!.Equals(poParam.CSEARCH_TEXT!.Trim(), StringComparison.OrdinalIgnoreCase));
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            }
+            catch (Exception ex)
+            {
+
+                loEx.Add(ex);
+                _loggerLookup.LogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            _loggerLookup.LogInfo(string.Format("END process method {0} on Controller", lcMethodName));
+            return loReturn;
+        }
+
+      
     }
 }

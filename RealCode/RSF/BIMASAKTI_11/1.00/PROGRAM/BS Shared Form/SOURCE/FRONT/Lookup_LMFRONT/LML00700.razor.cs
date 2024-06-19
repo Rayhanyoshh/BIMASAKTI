@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Lookup_LMCOMMON.DTOs;
-using Lookup_LMModel.ViewModel.LML00700;
+using Lookup_PMCOMMON.DTOs;
+using Lookup_PMModel.ViewModel.LML00700;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
 
-namespace Lookup_LMFRONT
+namespace Lookup_PMFRONT
 {
     public partial class LML00700 : R_Page
     {

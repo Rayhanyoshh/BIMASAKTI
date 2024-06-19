@@ -56,8 +56,8 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    _TransactionListViewModel.RefDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
-                    _TransactionListViewModel.DocDate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionListViewModel.Drefdate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
+                    _TransactionListViewModel.Ddocdate = _TransactionEntryViewModel.VAR_TODAY.DTODAY;
                 }
             }
             catch (Exception ex)
@@ -290,7 +290,7 @@ namespace CBT01200FRONT
                         "V03"));
                 }
 
-                if (_TransactionListViewModel.RefDate == DateTime.MinValue)
+                if (_TransactionListViewModel.Drefdate == DateTime.MinValue)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -298,21 +298,21 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (_TransactionListViewModel.RefDate > _TransactionEntryViewModel.VAR_TODAY.DTODAY)
+                    if (_TransactionListViewModel.Drefdate > _TransactionEntryViewModel.VAR_TODAY.DTODAY)
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V04"));
                     }
 
-                    if (int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
+                    if (int.Parse(_TransactionListViewModel.Drefdate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_CB_SYSTEM_PARAM.CCB_LINK_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V05"));
                     }
 
-                    if (int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionListViewModel.Drefdate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -543,6 +543,7 @@ namespace CBT01200FRONT
                     (_TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CLOCAL_CURRENCY_CODE
                     || _TransactionListViewModel.Data.CCURRENCY_CODE != _TransactionEntryViewModel.VAR_GSM_COMPANY.CBASE_CURRENCY_CODE))
                 {
+                    _TransactionListViewModel.Journal.CREF_DATE = _TransactionListViewModel.Drefdate.Value.ToString();
                     await RefreshCurrency();
                 }
                 else
@@ -954,8 +955,17 @@ namespace CBT01200FRONT
                 loParam.LUNDO_COMMIT = false;
                 loParam.CNEW_STATUS = "20";
 
-                await _TransactionListViewModel.UpdateJournalStatus(loParam);
-                await _conductorRef.R_GetEntity(loData);
+                var loValidate = await R_MessageBox.Show("", "Are you sure to approve this journal?", R_eMessageBoxButtonType.YesNo);
+                if (loValidate == R_eMessageBoxResult.No)
+                {
+                    // Handle the case when the user selects No
+                    goto EndBlock;
+                }
+                else
+                {
+                    await _TransactionListViewModel.UpdateJournalStatus(loParam);
+                    await _conductorRef.R_GetEntity(loData);
+                }
             }
             catch (Exception ex)
             {
