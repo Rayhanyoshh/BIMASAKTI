@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="05/28/2024 12:00:32" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="Data3" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01003PrintResultDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Title" DataType="System.String"/>
+        <Column Name="Header" DataType="System.String"/>
+        <Column Name="Column" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01003PrintColoumnDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="HEADER_FROM_BUILDING" DataType="System.String"/>
+          <Column Name="HEADER_TO_BUILDING" DataType="System.String"/>
+          <Column Name="HEADER_FROM_TRANSACTION_TYPE" DataType="System.String"/>
+          <Column Name="HEADER_FROM_TYPE" DataType="System.String"/>
+          <Column Name="HEADER_TO_TYPE" DataType="System.String"/>
+          <Column Name="HEADER_TO_TRANSACTION_TYPE" DataType="System.String"/>
+          <Column Name="HEADER_FROM_PERIOD" DataType="System.String"/>
+          <Column Name="HEADER_TO_PERIOD" DataType="System.String"/>
+          <Column Name="COLOUMN_DEPOSIT" DataType="System.String"/>
+          <Column Name="COLOUMN_BUILDING" DataType="System.String"/>
+          <Column Name="COLOUMN_DEPOSIT_TYPE" DataType="System.String"/>
+          <Column Name="COLOUMN_CUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="COLOUMN_TRANSACTION_TYPE" DataType="System.String"/>
+          <Column Name="COLOUMN_REFERENCE_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_UNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="COLOUMN_STATUS" DataType="System.String"/>
+          <Column Name="COLOUMN_TYPE" DataType="System.String"/>
+          <Column Name="COLOUMN_INVOICE_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_DEPOSIT_DATE" DataType="System.String"/>
+          <Column Name="COLOUMN_PAYMENT_STATUS" DataType="System.String"/>
+          <Column Name="COLOUMN_CURRENCY" DataType="System.String"/>
+          <Column Name="COLOUMN_AMOUNT" DataType="System.String"/>
+          <Column Name="COLOUMN_CREDIT_NOTE" DataType="System.String"/>
+          <Column Name="COLOUMN_ADJUSTMENT" DataType="System.String"/>
+          <Column Name="COLOUMN_REFUND" DataType="System.String"/>
+          <Column Name="COLOUMN_DEPOSIT_BALANCE" DataType="System.String"/>
+          <Column Name="COLOUMN_TRANSACTION__NO" DataType="System.String"/>
+        </Column>
+        <Column Name="ColumnDetail" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01003PrintColumnDetailDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="COLOUMN_DETAIL_DEPOSIT_TYPE" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_REFERENCE_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_DEPOSIT_DATE" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_PAYMENT_STATUS" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_CURRENCY" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_UNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_AMOUNT" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_DEPOSIT_BALANCE" DataType="System.String"/>
+        </Column>
+        <Column Name="HeaderParam" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01000PrintParamDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="CCOMPANY_ID" DataType="System.String"/>
+          <Column Name="CPROPERTY_ID" DataType="System.String"/>
+          <Column Name="CDEPOSIT_TYPE" DataType="System.String"/>
+          <Column Name="CDEPOSIT_TYPE_NAME" DataType="System.String"/>
+          <Column Name="CFROM_PERIOD" DataType="System.String"/>
+          <Column Name="CFROM_YEAR" DataType="System.String"/>
+          <Column Name="CFROM_MONTH" DataType="System.String"/>
+          <Column Name="CTO_PERIOD" DataType="System.String"/>
+          <Column Name="CTO_MONTH" DataType="System.String"/>
+          <Column Name="CTO_YEAR" DataType="System.String"/>
+          <Column Name="CFROM_BUILDING" DataType="System.String"/>
+          <Column Name="CTO_BUILDING" DataType="System.String"/>
+          <Column Name="CCUT_OFF_DATE" DataType="System.String"/>
+          <Column Name="CFROM_TYPE" DataType="System.String"/>
+          <Column Name="CTO_TYPE" DataType="System.String"/>
+          <Column Name="CFROM_TRANS_TYPE" DataType="System.String"/>
+          <Column Name="CTO_TRANS_TYPE" DataType="System.String"/>
+          <Column Name="CLANGUAGE_ID" DataType="System.String"/>
+        </Column>
+        <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[PMR01000Common.DTO_s.PrintDTO.PMR01003DataResultDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CDEPOSIT_ID" DataType="System.String"/>
+          <Column Name="CDEPOSIT_NAME" DataType="System.String"/>
+          <BusinessObjectDataSource Name="Detail1" DataType="System.Collections.Generic.List`1[[PMR01000Common.DTO_s.PrintDTO.PMR01003DataResultChild1DTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <Column Name="CBUILDING_ID" DataType="System.String"/>
+            <Column Name="CDEPOSIT_TYPE" DataType="System.String"/>
+            <BusinessObjectDataSource Name="Detail2" DataType="System.Collections.Generic.List`1[[PMR01000Common.DTO_s.PrintDTO.PMR01003DataResultChild2DTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="CCUSTOMER_NAME" DataType="System.String"/>
+              <Column Name="CTRANSACTION_TYPE" DataType="System.String"/>
+              <Column Name="CREFERENCE_NO" DataType="System.String"/>
+              <Column Name="CSTATUS" DataType="System.String"/>
+              <Column Name="CTYPES" DataType="System.String"/>
+              <Column Name="CTRANSACTION_NO" DataType="System.String"/>
+              <Column Name="CUNIT_DESCRIPTION" DataType="System.String"/>
+              <Column Name="CINVOICE_NO" DataType="System.String"/>
+              <Column Name="CDEPOSIT_DATE" DataType="System.String"/>
+              <Column Name="CPAYMENT_STATUS" DataType="System.String"/>
+              <Column Name="CCURRENCY_CODE" DataType="System.String"/>
+              <Column Name="NAMOUNT" DataType="System.Decimal"/>
+              <Column Name="NCREDIT_NOTE" DataType="System.Decimal"/>
+              <Column Name="NADJUSTMENT" DataType="System.Decimal"/>
+              <Column Name="NREFUND" DataType="System.Decimal"/>
+              <Column Name="NDEPOSIT_AMOUNT" DataType="System.Decimal"/>
+              <Column Name="NDEPOSIT_BALANCE" DataType="System.Decimal"/>
+              <BusinessObjectDataSource Name="Detail3" DataType="System.Collections.Generic.List`1[[PMR01000Common.DTO_s.PrintDTO.PMR01003DataResultChild3DTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="CDETAIL_DEPOSIT_TYPE" DataType="System.String"/>
+                <Column Name="CDETAIL_TRANSACTION_NO" DataType="System.String"/>
+                <Column Name="CDETAIL_DEPOSIT_DATE" DataType="System.String"/>
+                <Column Name="CDETAIL_PAYMENT_STATUS" DataType="System.String"/>
+                <Column Name="CDETAIL_CURRENCY_CODE" DataType="System.String"/>
+                <Column Name="NDETAIL_AMOUNT" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="NDETAIL_DEPOSIT_BALANCE" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+              </BusinessObjectDataSource>
+            </BusinessObjectDataSource>
+          </BusinessObjectDataSource>
+        </BusinessObjectDataSource>
+        <Column Name="ParamDTO" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01000PrintParamDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="CCOMPANY_ID" DataType="System.String"/>
+          <Column Name="CPROPERTY_ID" DataType="System.String"/>
+          <Column Name="CDEPOSIT_TYPE" DataType="System.String"/>
+          <Column Name="CDEPOSIT_TYPE_NAME" DataType="System.String"/>
+          <Column Name="CFROM_PERIOD" DataType="System.String"/>
+          <Column Name="CFROM_YEAR" DataType="System.String"/>
+          <Column Name="CFROM_MONTH" DataType="System.String"/>
+          <Column Name="CTO_PERIOD" DataType="System.String"/>
+          <Column Name="CTO_MONTH" DataType="System.String"/>
+          <Column Name="CTO_YEAR" DataType="System.String"/>
+          <Column Name="CFROM_BUILDING" DataType="System.String"/>
+          <Column Name="CTO_BUILDING" DataType="System.String"/>
+          <Column Name="CCUT_OFF_DATE" DataType="System.String"/>
+          <Column Name="CFROM_TYPE" DataType="System.String"/>
+          <Column Name="CTO_TYPE" DataType="System.String"/>
+          <Column Name="CFROM_TRANS_TYPE" DataType="System.String"/>
+          <Column Name="CTO_TRANS_TYPE" DataType="System.String"/>
+          <Column Name="CLANGUAGE_ID" DataType="System.String"/>
+        </Column>
+      </Column>
+      <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="BLOGO_COMPANY" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="CPRINT_CODE" DataType="System.String"/>
+        <Column Name="CCOMPANY_NAME" DataType="System.String"/>
+        <Column Name="CPRINT_NAME" DataType="System.String"/>
+        <Column Name="CUSER_ID" DataType="System.String"/>
+      </Column>
+      <Column Name="BaseHeaderColumn" DataType="BaseHeaderReportCOMMON.BaseHeaderColumnDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Page" DataType="System.String"/>
+        <Column Name="Of" DataType="System.String"/>
+        <Column Name="Print_Date" DataType="System.String"/>
+        <Column Name="Print_By" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <inherited Name="Page1">
+    <inherited Name="PageHeader1">
+      <inherited Name="Picture1"/>
+      <inherited Name="Text33"/>
+      <inherited Name="Text40">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </inherited>
+      <inherited Name="Text36"/>
+      <inherited Name="Text38"/>
+      <inherited Name="Text34"/>
+      <inherited Name="Text37"/>
+      <inherited Name="Text39"/>
+      <TextObject Name="Text1" ZOrder="8" Left="718.2" Width="94.5" Height="18.9" Text="NAMOUNT" Font="Arial, 10pt"/>
+      <ChildBand Name="Child1" ZOrder="-1" Top="78.27" Width="1047.06" Height="56.7"/>
+    </inherited>
+    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="137.63" Width="1047.06" Height="18.9" Border.Lines="Top, Bottom">
+      <TextObject Name="Text50" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_DEPOSIT]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text51" Left="94.5" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_BUILDING]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text52" Left="141.75" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_DEPOSIT_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text54" Left="189" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_CUSTOMER_NAME]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text55" Left="302.4" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_TRANSACTION_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text56" Left="359.1" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_REFERENCE_NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text57" Left="415.8" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_UNIT_DESCRIPTION]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text58" Left="453.6" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text59" Left="491.4" Width="28.35" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text60" Left="519.75" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_TRANSACTION__NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text61" Left="576.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_DEPOSIT_DATE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text62" Left="623.7" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_PAYMENT_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text63" Left="670.95" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_CURRENCY]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text64" Left="718.2" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_AMOUNT]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text65" Left="774.9" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_CREDIT_NOTE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text66" Left="841.05" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_ADJUSTMENT]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text67" Left="907.2" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_REFUND]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+      <TextObject Name="Text68" Left="973.35" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Column.COLOUMN_DEPOSIT_BALANCE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" ZOrder="0" Top="159.2" Width="1047.06" Height="28.35" Visible="false" DataSource="Data">
+      <TextObject Name="Text41" Width="94.5" Height="28.35" Text="[ResponseDataModel.Data3.Data.CDEPOSIT_ID]" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt"/>
+      <DataBand Name="Data2" Top="190.22" Width="1047.06" Height="28.35" Visible="false" DataSource="Detail1">
+        <TextObject Name="Text42" Left="94.5" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <DataBand Name="Data3" Top="221.23" Width="1047.06" Height="28.35" Visible="false" DataSource="Detail2">
+          <TextObject Name="Text43" Left="189" Top="9.45" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCUSTOMER_NAME]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+          <DataBand Name="Data4" Top="252.25" Width="1047.06" Height="28.35" CanShrink="true" DataSource="Detail2">
+            <TextObject Name="Text45" Left="189" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCUSTOMER_NAME]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text46" Left="94.5" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text47" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.CDEPOSIT_ID]-[ResponseDataModel.Data3.Data.CDEPOSIT_NAME]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt">
+              <Formats>
+                <GeneralFormat/>
+                <GeneralFormat/>
+              </Formats>
+            </TextObject>
+            <TextObject Name="Text53" Left="141.75" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CDEPOSIT_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text71" Left="302.4" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text72" Left="359.1" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CREFERENCE_NO]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text73" Left="415.8" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CUNIT_DESCRIPTION]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text74" Left="453.6" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CSTATUS]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text75" Left="491.4" Width="28.35" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTYPES]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text76" Left="519.75" Width="56.7" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_NO]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text77" Left="576.45" Width="47.25" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CDEPOSIT_DATE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text78" Left="623.7" Width="47.25" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CPAYMENT_STATUS]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text80" Left="670.95" Width="47.25" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCURRENCY_CODE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+            <TextObject Name="Text81" Left="718.2" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NAMOUNT]" Duplicates="Hide" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
+            <DataBand Name="Data5" Top="283.27" Width="1047.06" Height="18.9" DataSource="Detail3">
+              <TextObject Name="Text83" Left="765.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_TYPE]" Font="Microsoft Sans Serif, 6pt"/>
+            </DataBand>
+          </DataBand>
+        </DataBand>
+      </DataBand>
+    </DataBand>
+  </inherited>
+</inherited>

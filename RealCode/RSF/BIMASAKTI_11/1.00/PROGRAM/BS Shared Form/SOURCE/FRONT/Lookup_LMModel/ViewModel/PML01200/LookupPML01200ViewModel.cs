@@ -1,0 +1,56 @@
+﻿using Lookup_PMCOMMON.DTOs;
+using Lookup_PMCOMMON.DTOs.PML01200;
+using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lookup_PMModel.ViewModel.PML01200
+{
+    public class LookupPML01200ViewModel
+    {
+        private PublicLookupLMModel _model = new PublicLookupLMModel();
+        private PublicLookupLMGetRecordModel _modelGetRecord = new PublicLookupLMGetRecordModel();
+        public ObservableCollection<PML01200DTO> InvoiceGroupList = new ObservableCollection<PML01200DTO>();
+
+
+        public async Task GetInvoiceGroupList(PML01200ParameterDTO poParam)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CINVGRP_CODE, poParam.CINVGRP_CODE);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CACTIVE_TYPE, poParam.CACTIVE_TYPE);
+
+                var loResult = await _model.PML01200InvoiceGroupListAsync();
+                InvoiceGroupList = new ObservableCollection<PML01200DTO>(loResult.Data);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
+        public async Task<PML01200DTO> GetAgreement(PML01200ParameterDTO poParam)
+        {
+            var loEx = new R_Exception();
+            PML01200DTO loRtn = null;
+            try
+            {
+                var loResult = await _modelGetRecord.PML01200GetInvoiceGroupAsync(poParam);
+                loRtn = loResult;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn!;
+        }
+    }
+}
