@@ -47,5 +47,39 @@ namespace DesignFormGS
             loReport.RegisterData(loData, "ResponseDataModel");
             loReport.Design();
         }
+
+      
+        private void PMR02101SummaryButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02101SummaryDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02102SummaryButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02102SummaryDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+
+        private void PMR02103SummaryButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02103SummaryDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02104SummaryButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02104SummaryDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
     }
 }
