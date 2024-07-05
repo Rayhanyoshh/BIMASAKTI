@@ -7,30 +7,40 @@
 <R_StackLayout Style="width: 700px">
     <R_StackLayout Row>
         <R_ItemLayout col="5">
-            <R_GroupBox Title="Available ">
-                <R_Grid @ref="@_SourceAvailableCOA_gridRef"
-                        DataSource="@_GSM01310ViewModel.CoAToAssignList"
-                        R_ConductorGridSource="@_SourceAvailableCOA_conGrid"
-                        R_GridType="@R_eGridType.Batch"
-                        R_ServiceGetListRecord="@AvailableCOA_ServiceGetListRecord"
-                        DragClueField="@nameof(GSM01310DTO.CGLACCOUNT_NO)"
-                        DragDrop="true"
-                        AllowAddNewRow="false"
-                        AllowEditRow
-                        AllowDeleteRow
-                        TargetGridDrop="@_SelectedCOA_gridRef"
-                        Pageable="true"
-                        R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                        R_GridRowAfterDrop="@R_GridRowAfterDrop"
-                        Height="300px"
-                        R_ServiceGetRecord="@R_ServiceGetRecord" >
+          
+            <R_Grid @ref="@_SourceAvailableCOA_gridRef"
+                    DataSource="@_GSM01310ViewModel.CoAToAssignList"
+                    R_ConductorGridSource="@_SourceAvailableCOA_conGrid"
+                    R_GridType="@R_eGridType.Batch"
+                    R_ServiceGetListRecord="@AvailableCOA_ServiceGetListRecord"
+                    AllowAddNewRow="false"
+                    AllowEditRow
+                    AllowDeleteRow
+                    Pageable="true"
+                    Height="300px"
+                    DragClueField="@nameof(GSM01310DTO.CGLACCOUNT_NO)"
+                    DragDrop="true"
+                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
+                    R_GridRowAfterDrop="@R_GridRowAfterDrop"
+                    TargetGridDrop="@_SelectedCOA_gridRef"
+                    R_ServiceGetRecord="@R_ServiceGetRecord"
+                    R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<GSM01310DTO> args) => R_GridRowBeforeDrop(args))"
+                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<GSM01310DTO> args) => R_GridRowAfterDrop(args))">
                     <R_GridColumns>
-                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
-                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
+                        <R_GridMultiHeaderColumn HeaderText="Available">
+                            <R_GridTextColumn FieldName="CGLACCOUNT_NO"
+                                              HeaderText=@_localizer["_accountNo"]
+                                              R_EnableAdd="false"
+                                              R_EnableEdit="false"
+                                              Width="150px"/>
+                            
+                                <R_GridTextColumn R_EnableAdd="false"
+                                                  R_EnableEdit="false" 
+                                                  FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
+                        </R_GridMultiHeaderColumn>
                     </R_GridColumns>
-                </R_Grid>
-                </R_GroupBox>
-                </R_ItemLayout>
+            </R_Grid>
+        </R_ItemLayout>
         <R_ItemLayout col="2" >
             @*Spasing*@
             <R_StackLayout Row><R_ItemLayout col="12"><R_Label>  </R_Label></R_ItemLayout></R_StackLayout>
@@ -53,32 +63,34 @@
             </R_StackLayout>
         </R_ItemLayout>
         <R_ItemLayout col="5">
-            <R_GroupBox Title="Selected Account">
-                <R_Grid @ref="@_SelectedCOA_gridRef"
-                         DataSource="@_GSM01310ViewModel.loGridGoACoAList"
-                        R_GridType="@R_eGridType.Batch"
-                        R_ConductorGridSource="@_SelectedCOA_conGrid"
-                        R_ServiceGetListRecord="@SelectedCoA_ServiceGetListRecord"
-                        DragClueField="@nameof(AssignCoADTO.CGLACCOUNT_NO)"
-                        DragDrop="true"
-                        AllowAddNewRow="false"
-                        AllowEditRow
-                        AllowDeleteRow
-                        TargetGridDrop="@_SourceAvailableCOA_gridRef"
-                        Pageable="true"
-                        R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                        R_GridRowAfterDrop="@R_GridRowAfterDrop"
-                        Height="300px"
-                        R_ServiceGetRecord="@R_ServiceGetRecord"
-                        >
-                    <R_GridColumns>
-                         <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
-                         <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
-                    </R_GridColumns>
-                </R_Grid>
-                </R_GroupBox>
-                </R_ItemLayout>
-                </R_StackLayout>
+            <R_Grid @ref="@_SelectedCOA_gridRef"
+                    DataSource="@_GSM01310ViewModel.loGridGoACoAList"
+                    R_GridType="@R_eGridType.Batch"
+                    Pageable="true"
+                    AllowAddNewRow="false"
+                    AllowEditRow="false"
+                    AllowDeleteRow="false"
+                    R_ConductorGridSource="@_SelectedCOA_conGrid"
+                    R_ServiceGetListRecord="@SelectedCoA_ServiceGetListRecord"
+                    TargetGridDrop="@_SourceAvailableCOA_gridRef"
+                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
+                    R_GridRowAfterDrop="@R_GridRowAfterDrop"
+                    Height="300px"
+                    R_ServiceGetRecord="@R_ServiceGetRecord"
+                    DragDrop="true"
+                    DragClueField="@nameof(AssignCoADTO.CGLACCOUNT_NO)"
+                    R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<GSM01310DTO> args) => R_GridRowBeforeDrop(args))"
+                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<GSM01310DTO> args) => R_GridRowAfterDrop(args))"
+            >
+                <R_GridColumns>
+                    <R_GridMultiHeaderColumn HeaderText="Selected Account">
+                        <R_GridTextColumn FieldName="CGLACCOUNT_NO" HeaderText=@_localizer["_accountNo"] Width="150px"></R_GridTextColumn>
+                        <R_GridTextColumn FieldName="CGLACCOUNT_NAME" HeaderText=@_localizer["_accountName"] Width="300px"></R_GridTextColumn>
+                    </R_GridMultiHeaderColumn>
+                </R_GridColumns>
+            </R_Grid>
+        </R_ItemLayout>
+    </R_StackLayout>
 
     <R_StackLayout Row Class="mt-2">
         <R_ItemLayout col="4">

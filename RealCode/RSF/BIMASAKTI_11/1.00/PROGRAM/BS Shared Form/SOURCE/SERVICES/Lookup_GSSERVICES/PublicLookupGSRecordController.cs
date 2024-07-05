@@ -602,6 +602,36 @@ namespace Lookup_GSSERVICES
         }
 
         [HttpPost]
+        public GSLGenericRecord<GSL01500ResultDetailDTO> GSL01500GetCashDetail(GSL01500ParameterDetailDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GSL01500GetCashDetail");
+            var loEx = new R_Exception();
+            GSLGenericRecord<GSL01500ResultDetailDTO> loRtn = new();
+            _Logger.LogInfo("Start GSL01500GetCashDetail");
+
+            try
+            {
+                var loCls = new PublicLookupCls();
+
+                _Logger.LogInfo("Call Back Method GetALLOtherCharges");
+                var loResult = loCls.GetALLCashFlowDetail(poEntity);
+
+                _Logger.LogInfo("Filter Search by text GSL01500GetCashDetail");
+                loRtn.Data = loResult.Find(x => x.CCASH_FLOW_CODE.Trim().ToUpper() == poEntity.CSEARCH_TEXT.ToUpper().Trim());
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            _Logger.LogInfo("End GSL01500GetCashDetail");
+            return loRtn;
+        }
+
+        [HttpPost]
         public GSLGenericRecord<GSL01600DTO> GSL01600GetCashFlowGroupType(GSL01600ParameterDTO poEntity)
         {
             using Activity activity = _activitySource.StartActivity("GSL01600GetCashFlowGroupType");
@@ -868,6 +898,36 @@ namespace Lookup_GSSERVICES
             loEx.ThrowExceptionIfErrors();
 
             _Logger.LogInfo("End GSL02600GetCBAccount");
+            return loRtn;
+        }
+
+        [HttpPost]
+        public GSLGenericRecord<GSL02700DTO> GSL02700GetOtherUnit(GSL02700ParameterDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GSL02700GetOtherUnit");
+            var loEx = new R_Exception();
+            GSLGenericRecord<GSL02700DTO> loRtn = new();
+            _Logger.LogInfo("Start GSL02700GetOtherUnit");
+
+            try
+            {
+                var loCls = new PublicLookupCls();
+
+                _Logger.LogInfo("Call Back Method GetALLOtherUnit");
+                var loResult = loCls.GetALLOtherUnit(poEntity);
+
+                _Logger.LogInfo("Filter Search by text GSL02700GetOtherUnit");
+                loRtn.Data = loResult.Find(x => x.COTHER_UNIT_ID.Trim().ToUpper() == poEntity.CSEARCH_TEXT.ToUpper().Trim());
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _Logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            _Logger.LogInfo("End GSL02700GetOtherUnit");
             return loRtn;
         }
     }

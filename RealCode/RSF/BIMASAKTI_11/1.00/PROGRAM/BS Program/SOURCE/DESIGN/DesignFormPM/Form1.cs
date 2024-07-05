@@ -48,7 +48,7 @@ namespace DesignFormGS
             loReport.Design();
         }
 
-      
+
         private void PMR02101SummaryButton_Click(object sender, EventArgs e)
         {
             ArrayList loData = new ArrayList();
@@ -78,6 +78,70 @@ namespace DesignFormGS
         {
             ArrayList loData = new ArrayList();
             loData.Add(PMR02200Common.Model.PMR02104SummaryDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02101Detail_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02101DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02102DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02102DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02103DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02103DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02104DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02104DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02105DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02105DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02107DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02107DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02106DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02106DetailDummyData.DefaultDataWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR02108DetailButton_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR02200Common.Model.PMR02108DetailDummyData.DefaultDataWithHeader());
             loReport.RegisterData(loData, "ResponseDataModel");
             loReport.Design();
         }

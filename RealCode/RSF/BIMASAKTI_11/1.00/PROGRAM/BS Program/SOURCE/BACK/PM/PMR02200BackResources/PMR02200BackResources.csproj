@@ -9,6 +9,9 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PMR02200BackResources_msgrsc.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="PMR02200BackResources_msgrsc.id.resx">
+        <DependentUpon>PMR02200BackResources_msgrsc.resx</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

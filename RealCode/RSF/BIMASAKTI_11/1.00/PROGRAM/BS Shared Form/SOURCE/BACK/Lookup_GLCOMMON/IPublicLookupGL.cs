@@ -1,10 +1,12 @@
-﻿using Lookup_GLCOMMON.DTO;
-using Lookup_GLCOMMON.DTOs;
+﻿using System.Collections.Generic;
+using Lookup_GLCOMMON.DTOs.GLL00100;
+using Lookup_GLCOMMON.DTOs.GLL00110;
 
 namespace Lookup_GLCOMMON
 {
     public interface IPublicLookupGL
     {
-        GLLGenericList<GLL00100DTO> GLL00100ReferenceNoLookUp(GLL00100ParameterDTO poParameter);
+        IAsyncEnumerable<GLL00100DTO> GLL00100ReferenceNoLookUp();
+        IAsyncEnumerable<GLL00110DTO> GLL00110ReferenceNoLookUpByPeriod();
     }
 }

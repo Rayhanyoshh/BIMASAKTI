@@ -1,6 +1,6 @@
 using R_CommonFrontBackAPI.Log;
 
-namespace PMR02200Common;
+namespace PMR02100Common;
 
 public class LoggerPMR02100 : R_NetCoreLoggerBase <LoggerPMR02100>
 {

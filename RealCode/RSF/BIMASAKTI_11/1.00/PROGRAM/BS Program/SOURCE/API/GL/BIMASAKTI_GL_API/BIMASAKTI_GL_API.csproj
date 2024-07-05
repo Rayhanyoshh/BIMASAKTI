@@ -11,6 +11,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\BS Shared Form\SOURCE\SERVICES\GLF00100SERVICES\GLF00100SERVICES.csproj" />
     <ProjectReference Include="..\..\..\SERVICE\GL\GLT00600Service\GLT00600Service.csproj" />
   </ItemGroup>
 

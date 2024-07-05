@@ -140,7 +140,7 @@ public class PMR02200PrintController: R_ReportControllerBase
     private PMR02200PrintResultWithBaseHeaderPrintDTO GenerateDataPrint(PMR02200PrintParamDTO poParam)
     {
         using Activity activity = _activitySource.StartActivity("GenerateDataPrint");
-
+        
         var loEx = new R_Exception();
         PMR02200PrintResultWithBaseHeaderPrintDTO loRtn = new PMR02200PrintResultWithBaseHeaderPrintDTO();
         var loParam = new BaseHeaderDTO();
@@ -170,25 +170,31 @@ public class PMR02200PrintController: R_ReportControllerBase
 
             // Set base header data
             _logger.LogDebug("Deserialized Print Parameters: {@PrintParameters}");
+            var loCls = new PMR02200Cls();
+            poParam.CLANG_ID = R_BackGlobalVar.CULTURE;
 
             loParam.CCOMPANY_NAME = R_BackGlobalVar.COMPANY_ID.ToUpper();
             loParam.CPRINT_CODE = "001";
             loParam.CPRINT_NAME = "Deposit List Report";
             loParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+            loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
 
             // Create an instance of PMR01000PrintGOAResultDTo
+            poParam.DSTATEMENT_DATE = DateTime.ParseExact(poParam.CSTATEMENT_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+            poParam.DCUT_OFF_DATE = DateTime.ParseExact(poParam.CCUT_OFF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+
             PMR02200PrintResultDTO loData = new PMR02200PrintResultDTO()
             {
                 Title = "Deposit Type List",
                 Header = "Deposit Type List",
-                Column = new PMR02200PrintColumnDTO(),
+                Column = (PMR02200PrintColumnDTO)loColumn,
                 DataResult = new List<PMR02200DTO>(),
                 HeaderParam = poParam
             };
+            
+            
 
             // Create an instance of PMR01000Cls
-            var loCls = new PMR02200Cls();
-            poParam.CLANG_ID = R_BackGlobalVar.CULTURE;
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResult(poParam);
             _logger.LogInfo("Data generation successful. Processing data for printing.");

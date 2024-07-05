@@ -29,7 +29,7 @@ namespace GSM01000Service
     {
         private LoggerGSM01000 _Logger;
         private R_ReportFastReportBackClass _ReportCls;
-        private GSM01000PrintParamGOADTO _AllGSM01000GOAParameter;
+        private GSM01000PrintParamGOADTO _Parameter;
         private readonly ActivitySource _activitySource;
 
 
@@ -57,7 +57,7 @@ namespace GSM01000Service
 
         private void _ReportCls_R_GetMainDataAndName(ref ArrayList poData, ref string pcDataSourceName)
         {
-            poData.Add(GenerateDataPrint(_AllGSM01000GOAParameter));
+            poData.Add(GenerateDataPrint(_Parameter));
             pcDataSourceName = "ResponseDataModel";
         }
 
@@ -94,9 +94,7 @@ namespace GSM01000Service
                 // Log the parameter details
                 _Logger.LogInfo("Parameter Details - poParam: {poParam}, poLogKey: {poLogKey}", 
                     poParameter, loCache.poLogKey);
-        
-                R_DistributedCache.R_Set(loRtn.GuidResult, 
-                    R_NetCoreUtility.R_SerializeObjectToByte<GSM01000PrintParamGOADTO>(poParameter));
+                R_DistributedCache.R_Set(loRtn.GuidResult, R_NetCoreUtility.R_SerializeObjectToByte(loCache));
             }
             catch (Exception ex)
             {
@@ -120,14 +118,17 @@ namespace GSM01000Service
             GSM01000GOAPrintLogKeyDTO loResultGUID = null;
             try
             {
-                // Deserialize the GUID from the cache
+
                 loResultGUID = R_NetCoreUtility.R_DeserializeObjectFromByte<GSM01000GOAPrintLogKeyDTO>(
                     R_DistributedCache.Cache.Get(pcGuid));
+                R_NetCoreLogUtility.R_SetNetCoreLogKey(loResultGUID.poLogKey);
 
+                _Parameter = loResultGUID.poParam;
+                
                 _Logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
 
                 _Logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
-                _Logger.LogDebug("Deserialized Parameters: {@Parameters}", _AllGSM01000GOAParameter);
+                _Logger.LogDebug("Deserialized Parameters: {@Parameters}", _Parameter);
 
                 loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(), R_ReportUtility.GetMimeType(R_FileType.PDF));
         
@@ -171,28 +172,29 @@ namespace GSM01000Service
             loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
                 "Print_By", loCultureInfo);
             
-            GSM01000PrintColoumnGOADTO loColumnObject = new GSM01000PrintColoumnGOADTO();
+            GSM01000PrintColoumnDTO loColumnObject = new GSM01000PrintColoumnDTO();
             var loColumn = AssignValuesWithMessages(typeof(GSM01000BackResources.Resources_Dummy_Class),
                 loCultureInfo, loColumnObject);
             
-            
+            // Create an instance of GSM01000Cls
+            var loCls = new GSM01000Cls();
             // Set base header data
             loParam.CCOMPANY_NAME = "PT Realta Chackradarma";
             loParam.CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper();
             loParam.CPRINT_NAME = "Group Of Account";
             loParam.CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper();
+            loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
             
             // Create an instance of GSM01000PrintGOAResultDTo
             GSM01000PrintGOAResultDTo loData = new GSM01000PrintGOAResultDTo()
             {
                 Title = "Group Of Accounts",
                 Header = "001",
-                Column = new GSM01000PrintColoumnGOADTO(),
+                Column = new GSM01000PrintColoumnDTO(),
                 Data = new List<GSM01000DataResultGOADTO>()
             };
 
-            // Create an instance of GSM01000Cls
-            var loCls = new GSM01000Cls();
+
 
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResultGOA(poParam);

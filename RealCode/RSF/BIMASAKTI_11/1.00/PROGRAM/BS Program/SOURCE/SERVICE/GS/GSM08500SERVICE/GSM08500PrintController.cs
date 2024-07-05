@@ -6,6 +6,7 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using R_ReportFastReportBack;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Xml.Linq;
@@ -26,6 +27,8 @@ public class GSM08500PrintController : R_ReportControllerBase
     private LoggerGSM08500Print _logger;
     private R_ReportFastReportBackClass _ReportCls;
     private GSM08500PrintParamStatAccDTO _Parameter;
+    private readonly ActivitySource _activitySource;
+
     
     #region instantiation
 
@@ -33,6 +36,8 @@ public class GSM08500PrintController : R_ReportControllerBase
     {
         LoggerGSM08500Print.R_InitializeLogger(logger);
         _logger = LoggerGSM08500Print.R_GetInstanceLogger();
+        _activitySource = GSM08500Activity.R_InitializeAndGetActivitySource(nameof(GSM08500PrintController));
+
 
         _ReportCls = new R_ReportFastReportBackClass();
         _ReportCls.R_InstantiateMainReportWithFileName += _ReportCls_R_InstantiateMainReportWithFileName;
@@ -134,11 +139,27 @@ public class GSM08500PrintController : R_ReportControllerBase
     #region Helper
     private GSM08500PrintStatAccResultWithBaseHeaderPrintDTO GenerateDataPrint(GSM08500PrintParamStatAccDTO poParam)
     {
+        using Activity activity = _activitySource.StartActivity("GenerateDataPrint");
         var loEx = new R_Exception();
         GSM08500PrintStatAccResultWithBaseHeaderPrintDTO loRtn = new GSM08500PrintStatAccResultWithBaseHeaderPrintDTO();
-
+        System.Globalization.CultureInfo loCultureInfo =
+            new System.Globalization.CultureInfo(R_BackGlobalVar.REPORT_CULTURE);
         try
         {
+            _logger.LogInfo("Generating data for Statistic Account report.");
+            //Add Resources
+            loRtn.BaseHeaderColumn.Page = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Page", loCultureInfo);
+            loRtn.BaseHeaderColumn.Of =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Of", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_Date =
+                R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class), "Print_Date", loCultureInfo);
+            loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
+                "Print_By", loCultureInfo);
+            
+            GSM08500PrintColoumnStatAccDTO loColumnObject = new GSM08500PrintColoumnStatAccDTO();
+            var loColumn = AssignValuesWithMessages(typeof(GSM08500BackResources.Resources_Dummy_Class),
+                loCultureInfo, loColumnObject);
             var loCls = new GSM08500Cls();
 
             var loCollection = loCls.GetPrintDataResultStatAcc(poParam);
@@ -147,15 +168,20 @@ public class GSM08500PrintController : R_ReportControllerBase
             // Set Base Header Data
             var loParam = new BaseHeaderDTO()
             {
-
-                
                 CCOMPANY_NAME = "PT Realta Chackradarma",
                 CPRINT_CODE = poParam.CCOMPANY_ID.ToUpper(),
                 CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper(),
                 CPRINT_NAME = "Statistic Account",
+                BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO
+            };
+            GSM01000PrintStatAccResultDTo loData = new GSM01000PrintStatAccResultDTo()
+            {
+                Title = "Deposit Type List",
+                Header = "Deposit Type List",
+                Column = (GSM08500PrintColoumnStatAccDTO)loColumn,
+                Data = new List<GSM08500ResultSPPrintStatAccDTO>(),
             };
             
-            var loData = new GSM01000PrintStatAccResultDTo();
             _logger.LogInfo("Set Parameter");
             loData.Header = $"{poParam.CCOMPANY_ID}";
             
@@ -178,4 +204,18 @@ public class GSM08500PrintController : R_ReportControllerBase
     }
     #endregion
     
+    private object AssignValuesWithMessages(Type poResourceType, CultureInfo poCultureInfo, object poObject)
+    {
+        object loObj = Activator.CreateInstance(poObject.GetType());
+        var loGetPropertyObject = poObject.GetType().GetProperties();
+
+        foreach (var property in loGetPropertyObject)
+        {
+            string propertyName = property.Name;
+            string message = R_Utility.R_GetMessage(poResourceType, propertyName, poCultureInfo);
+            property.SetValue(loObj, message);
+        }
+
+        return loObj;
+    }
 }

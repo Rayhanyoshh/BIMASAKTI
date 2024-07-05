@@ -24,5 +24,14 @@ namespace Lookup_PMCOMMON.DTOs
         public const string LNO_REMAINING = "LNO_REMAINING";
         public const string LHAS_REMAINING = "LHAS_REMAINING";
         public const string CINVGRP_CODE = "CINVGRP_CODE";
+        public const string CBILLING_RULE_TYPE = "CBILLING_RULE_TYPE";
+        public const string CUNIT_TYPE_CTG_ID = "CUNIT_TYPE_CTG_ID";
+        public const string LACTIVE_ONLY = "LACTIVE_ONLY";
+
+        //CR12 26/06/2024
+        public const string CREF_NO = "CREF_NO";
+        public const string CBUILDING_ID = "CBUILDING_ID";
+        public const string CTRANS_STATUS = "CTRANS_STATUS";
+
     }
 }

@@ -18,7 +18,7 @@ namespace GSM01000Common.Model
             {
                 Title = "Chart Of Account",
                 Header = "",
-                Column = new GSM01000PrintColoumnCOADTO()
+                Column = new GSM01000PrintColoumnDTO()
             };
 
             int Data1 = 4;

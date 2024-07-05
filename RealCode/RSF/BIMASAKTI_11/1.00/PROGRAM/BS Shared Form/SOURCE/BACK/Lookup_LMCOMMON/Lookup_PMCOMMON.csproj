@@ -14,9 +14,4 @@
 		</Reference>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="DTOs\PML01000\" />
-	  <Folder Include="DTOs\PML01100\" />
-	</ItemGroup>
-
 </Project>

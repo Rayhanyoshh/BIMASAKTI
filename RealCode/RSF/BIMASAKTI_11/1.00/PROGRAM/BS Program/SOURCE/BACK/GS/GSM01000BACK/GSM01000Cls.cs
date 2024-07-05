@@ -14,6 +14,7 @@ namespace GSM001000Back
     {
         private LoggerGSM01000 _logger;
         private readonly ActivitySource _activitySource;
+        private RSP_GS_MAINTAIN_COAResources.Resources_Dummy_Class _rspCOA = new();
 
         public GSM01000Cls()
         {
@@ -502,7 +503,7 @@ namespace GSM001000Back
             try
             {
                 var loDb = new R_Db();
-                var loConn = loDb.GetConnection("R_ReportConnectionString");
+                var loConn = loDb.GetConnection(R_Db.eDbConnectionStringType.ReportConnectionString);
                 var loCmd = loDb.GetCommand();
 
                 var lcQuery = "RSP_GS_PRINT_COA";
@@ -540,6 +541,42 @@ namespace GSM001000Back
         }
 
 
+        public PrintLogoResultDTO GetBaseHeaderLogoCompany(string pcCompanyId)
+        {
+            using Activity activity = _activitySource.StartActivity("GetBaseHeaderLogoCompany");
+            var loEx = new R_Exception();
+            PrintLogoResultDTO loResult = null;
+
+            try
+            {
+                var loDb = new R_Db();
+                var loConn = loDb.GetConnection(R_Db.eDbConnectionStringType.ReportConnectionString);
+                var loCmd = loDb.GetCommand();
+
+
+                var lcQuery = "SELECT dbo.RFN_GET_COMPANY_LOGO(@CCOMPANY_ID) as CLOGO";
+                loCmd.CommandText = lcQuery;
+                loCmd.CommandType = CommandType.Text;
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, pcCompanyId);
+
+                //Debug Logs
+                var loDbParam = loCmd.Parameters.Cast<DbParameter>()
+                    .Where(x => x != null && x.ParameterName.StartsWith("@")).Select(x => x.Value);
+                _logger.LogDebug("SELECT dbo.RFN_GET_COMPANY_LOGO({@CCOMPANY_ID}) as CLOGO", loDbParam);
+
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                loResult = R_Utility.R_ConvertTo<PrintLogoResultDTO>(loDataTable).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
 
        public List<GSM01000ResultSPPrintGOADTO> GetPrintDataResultGOA(GSM01000PrintParamGOADTO poEntity)
        {
@@ -551,7 +588,7 @@ namespace GSM001000Back
            try
            {
                var loDb = new R_Db();
-               var loConn = loDb.GetConnection("R_ReportConnectionString");
+               var loConn = loDb.GetConnection(R_Db.eDbConnectionStringType.ReportConnectionString);
                var loCmd = loDb.GetCommand();
 
                var lcQuery = "RSP_GS_PRINT_GOA";

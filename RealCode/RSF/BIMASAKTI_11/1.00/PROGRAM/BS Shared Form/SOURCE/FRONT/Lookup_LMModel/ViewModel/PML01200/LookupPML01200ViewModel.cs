@@ -14,10 +14,10 @@ namespace Lookup_PMModel.ViewModel.PML01200
     {
         private PublicLookupLMModel _model = new PublicLookupLMModel();
         private PublicLookupLMGetRecordModel _modelGetRecord = new PublicLookupLMGetRecordModel();
-        public ObservableCollection<PML01200DTO> InvoiceGroupList = new ObservableCollection<PML01200DTO>();
+        public ObservableCollection<LML01200DTO> InvoiceGroupList = new ObservableCollection<LML01200DTO>();
 
 
-        public async Task GetInvoiceGroupList(PML01200ParameterDTO poParam)
+        public async Task GetInvoiceGroupList(LML01200ParameterDTO poParam)
         {
             var loEx = new R_Exception();
 
@@ -28,7 +28,7 @@ namespace Lookup_PMModel.ViewModel.PML01200
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CACTIVE_TYPE, poParam.CACTIVE_TYPE);
 
                 var loResult = await _model.PML01200InvoiceGroupListAsync();
-                InvoiceGroupList = new ObservableCollection<PML01200DTO>(loResult.Data);
+                InvoiceGroupList = new ObservableCollection<LML01200DTO>(loResult.Data);
             }
             catch (Exception ex)
             {
@@ -36,10 +36,10 @@ namespace Lookup_PMModel.ViewModel.PML01200
             }
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task<PML01200DTO> GetAgreement(PML01200ParameterDTO poParam)
+        public async Task<LML01200DTO> GetAgreement(LML01200ParameterDTO poParam)
         {
             var loEx = new R_Exception();
-            PML01200DTO loRtn = null;
+            LML01200DTO loRtn = null;
             try
             {
                 var loResult = await _modelGetRecord.PML01200GetInvoiceGroupAsync(poParam);

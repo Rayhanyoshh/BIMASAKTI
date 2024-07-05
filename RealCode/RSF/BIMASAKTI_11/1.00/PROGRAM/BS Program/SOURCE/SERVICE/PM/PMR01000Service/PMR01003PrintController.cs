@@ -168,23 +168,25 @@ public class PMR01003PrintController  : R_ReportControllerBase
             // Set base header data
             _logger.LogDebug("Deserialized Print Parameters: {@PrintParameters}");
 
+            var loCls = new PMR01000Cls();
+
             loParam.CCOMPANY_NAME = R_BackGlobalVar.COMPANY_ID.ToUpper();
-            loParam.CPRINT_CODE = "001";
-            loParam.CPRINT_NAME = "Deposit Activity Report";
+            loParam.CPRINT_CODE = "PMR01000";
+            loParam.CPRINT_NAME = "Deposit Type Activity";
             loParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+            loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
             
             // Create an instance of PMR01000PrintGOAResultDTo
             PMR01003PrintResultDTO loData = new PMR01003PrintResultDTO()
             {
                 Title = "Deposit Type Activity",
                 Header = "Deposit Type Activity",
-                Column = new PMR01003PrintColoumnDTO(),
+                Column = (PMR01003PrintColoumnDTO) loColumn,
                 Data = new List<PMR01003DataResultDTO>(),
                 HeaderParam = poParam
             };
 
             // Create an instance of PMR01000Cls
-            var loCls = new PMR01000Cls();
 
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResult(poParam);

@@ -1,0 +1,160 @@
+@page "/PMT04210"
+@inherits R_Page
+@attribute [R_Page(Title = "Transaction Entry")]
+
+<R_GroupBox Title="Wire Transfer Receipt" TitleClass="text-danger">
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px" >
+            <R_Label>Property</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout class="col-4" style="max-width: 318px;">
+            <R_ComboBox Data="@_TransactionListViewModel.VAR_PROPERTY_LIST"
+                        @bind-Value="_TransactionListViewModel.PropertyDefault"
+                        ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
+                        TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+            />
+        </R_ItemLayout>
+        <R_Label FontStyle="R_eFontStyle.Bold" style="font-size: 15px; color: #0a53be;">Draft</R_Label> 
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>Department</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.Param.CDEPT_CODE"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupDept" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@BeforeOpen_lookupDept" R_After_Open_Lookup="@AfterOpen_lookupDept">
+                ...
+            </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CDEPT_NAME"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>Reference No.</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CREF_NO"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupDept" />
+        </R_ItemLayout>
+       
+        <R_ItemLayout class="col-1 ps-2" style="max-width : 65px" >
+            <R_Label>Ref Date</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2" style="max-width : 140px">
+            <R_DatePicker @bind-Value="_TransactionListViewModel.TransactionRecord.DREF_DATE"
+                          R_ConductorSource="_conductorRef"
+                          Enabled="true"/>
+        </R_ItemLayout>
+        <R_ItemLayout class="col-2 ps-3 pt-4">
+            <R_Label>Customer Type</R_Label>
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>Customer</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.Param.CCUSTOMER_ID"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupCust" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@BeforeOpen_lookupCust" R_After_Open_Lookup="@AfterOpen_lookupCust">
+                ...
+            </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TransactionListViewModel.Param.CCUSTOMER_NAME"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.Param.CCUSTOMER_TYPE"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>LOI/Agrmt. Dept.</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CLOI_DEPT_CODE"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupLOIDept" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@BeforeOpen_lookupLOIDept" R_After_Open_Lookup="@AfterOpen_lookupLOIDept">
+                ...
+            </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CLOI_DEPT_NAME"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>LOI/Agrmt. No.</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CLOI_AGRMT_NO"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupLOIDept" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@BeforeOpen_lookupLOIDept" R_After_Open_Lookup="@AfterOpen_lookupLOIDept">
+                ...
+            </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CLOI_DEPT_NAME"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-2" style="max-width : 110px">
+            <R_Label>Bank Code</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CCB_CODE"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="true"
+                       MaxLength="20"
+                       OnLostFocus="OnLostFocus_LookupLOIDept" />
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_Lookup R_Before_Open_Lookup="@BeforeOpen_lookupLOIDept" R_After_Open_Lookup="@AfterOpen_lookupLOIDept">
+                ...
+            </R_Lookup>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TransactionListViewModel.TransactionRecord.CLOI_DEPT_NAME"
+                       R_ConductorSource="_conductorRef"
+                       Enabled="false" />
+        </R_ItemLayout>
+    </R_StackLayout>
+</R_GroupBox>

@@ -132,6 +132,12 @@
   <data name="_agreementStatus" xml:space="preserve">
     <value>Agreement Status</value>
   </data>
+  <data name="_BiilingRuleCode" xml:space="preserve">
+    <value>Billing Rule Code</value>
+  </data>
+  <data name="_BiilingRuleName" xml:space="preserve">
+    <value>Billing Rule Name</value>
+  </data>
   <data name="_ChargesId" xml:space="preserve">
     <value>Charges Id</value>
   </data>
@@ -234,6 +240,9 @@
   <data name="_TaxName" xml:space="preserve">
     <value>Tax Name</value>
   </data>
+  <data name="_Tenant" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
   <data name="_TenantCat" xml:space="preserve">
     <value>Tenant Category</value>
   </data>
@@ -249,8 +258,20 @@
   <data name="_TenantType" xml:space="preserve">
     <value>Tenant Type</value>
   </data>
+  <data name="_TermNConditionCode" xml:space="preserve">
+    <value>Term and Condition Code</value>
+  </data>
+  <data name="_TermNConditionName" xml:space="preserve">
+    <value>Term and Condition Name</value>
+  </data>
   <data name="_transType" xml:space="preserve">
     <value>Transaction Type</value>
+  </data>
+  <data name="_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="_Unit" xml:space="preserve">
+    <value>Unit Name</value>
   </data>
   <data name="_unitDescription" xml:space="preserve">
     <value>Unit Description</value>

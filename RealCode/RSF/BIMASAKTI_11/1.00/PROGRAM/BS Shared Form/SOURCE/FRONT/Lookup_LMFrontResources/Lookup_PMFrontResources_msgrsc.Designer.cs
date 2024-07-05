@@ -106,6 +106,24 @@ namespace Lookup_PMFrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Billing Rule Code.
+        /// </summary>
+        internal static string _BiilingRuleCode {
+            get {
+                return ResourceManager.GetString("_BiilingRuleCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Billing Rule Name.
+        /// </summary>
+        internal static string _BiilingRuleName {
+            get {
+                return ResourceManager.GetString("_BiilingRuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Charges Id.
         /// </summary>
         internal static string _ChargesId {
@@ -412,6 +430,15 @@ namespace Lookup_PMFrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tenant.
+        /// </summary>
+        internal static string _Tenant {
+            get {
+                return ResourceManager.GetString("_Tenant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tenant Category.
         /// </summary>
         internal static string _TenantCat {
@@ -457,11 +484,47 @@ namespace Lookup_PMFrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Term and Condition Code.
+        /// </summary>
+        internal static string _TermNConditionCode {
+            get {
+                return ResourceManager.GetString("_TermNConditionCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Term and Condition Name.
+        /// </summary>
+        internal static string _TermNConditionName {
+            get {
+                return ResourceManager.GetString("_TermNConditionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction Type.
         /// </summary>
         internal static string _transType {
             get {
                 return ResourceManager.GetString("_transType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string _Type {
+            get {
+                return ResourceManager.GetString("_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Name.
+        /// </summary>
+        internal static string _Unit {
+            get {
+                return ResourceManager.GetString("_Unit", resourceCulture);
             }
         }
         

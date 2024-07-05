@@ -20,7 +20,7 @@ namespace GSM001000Common.Model
             {
                 Title = "Group Of Account",
                 Header = "",
-                Column = new GSM01000PrintColoumnGOADTO()
+                Column = new GSM01000PrintColoumnDTO()
             };
 
             int Data1 = 4;

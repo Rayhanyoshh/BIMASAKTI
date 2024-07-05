@@ -30,7 +30,7 @@ public class PMR02200Cls
        try
        {
            var loDb = new R_Db();
-           var loConn = loDb.GetConnection("R_ReportConnectionString");
+           var loConn = loDb.GetConnection(R_Db.eDbConnectionStringType.ReportConnectionString);
            var loCmd = loDb.GetCommand();
 
            var lcQuery = "RSP_PMR02200_GET_REPORT";
@@ -69,6 +69,43 @@ public class PMR02200Cls
 
        loEx.ThrowExceptionIfErrors();
        return loResult;
+    }
+    
+    public PrintLogoResultDTO GetBaseHeaderLogoCompany(string pcCompanyId)
+    {
+        using Activity activity = _activitySource.StartActivity("GetBaseHeaderLogoCompany");
+        var loEx = new R_Exception();
+        PrintLogoResultDTO loResult = null;
+
+        try
+        {
+            var loDb = new R_Db();
+            var loConn = loDb.GetConnection(R_Db.eDbConnectionStringType.ReportConnectionString);
+            var loCmd = loDb.GetCommand();
+
+
+            var lcQuery = "SELECT dbo.RFN_GET_COMPANY_LOGO(@CCOMPANY_ID) as CLOGO";
+            loCmd.CommandText = lcQuery;
+            loCmd.CommandType = CommandType.Text;
+            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, R_BackGlobalVar.COMPANY_ID);
+
+            //Debug Logs
+            var loDbParam = loCmd.Parameters.Cast<DbParameter>()
+                .Where(x => x != null && x.ParameterName.StartsWith("@")).Select(x => x.Value);
+            _logger.LogDebug("SELECT dbo.RFN_GET_COMPANY_LOGO({@CCOMPANY_ID}) as CLOGO", loDbParam);
+
+            var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+            loResult = R_Utility.R_ConvertTo<PrintLogoResultDTO>(loDataTable).FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+            _logger.LogError(loEx);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+
+        return loResult;
     }
     
     public List<PropertyListDTO> PropertyListDB(PMR02200DTO poParameter)

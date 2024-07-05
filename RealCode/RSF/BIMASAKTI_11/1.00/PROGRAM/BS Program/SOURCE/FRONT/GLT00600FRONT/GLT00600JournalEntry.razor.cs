@@ -384,6 +384,8 @@ namespace GLT00600Front
                     EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
                     _JournalListViewModel.Data.CREC_ID = data.CREC_ID;
                 }
+                EnableHaveRecId = !string.IsNullOrWhiteSpace(data.CREC_ID);
+                _JournalListViewModel.Data.CREC_ID = data.CREC_ID;
 
                 if (!string.IsNullOrWhiteSpace(_JournalListViewModel.Data.CREC_ID))
                 {

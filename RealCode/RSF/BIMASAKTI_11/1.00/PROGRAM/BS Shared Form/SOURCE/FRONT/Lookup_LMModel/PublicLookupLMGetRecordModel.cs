@@ -1,6 +1,8 @@
 ﻿using Lookup_PMCOMMON;
 using Lookup_PMCOMMON.DTOs;
-using Lookup_PMCOMMON.DTOs.PML01200;
+using Lookup_PMCOMMON.DTOs.LML01000;
+using Lookup_PMCOMMON.DTOs.LML01100;
+using Lookup_PMCOMMON.DTOs.LML01300;
 using R_APIClient;
 using R_BlazorFrontEnd.Exceptions;
 using R_BusinessObjectFront;
@@ -67,7 +69,20 @@ namespace Lookup_PMModel
         {
             throw new NotImplementedException();
         }
-        public LMLGenericRecord<PML01200DTO> PML01200InvoiceGroup(PML01200ParameterDTO poParam)
+        public LMLGenericRecord<LML01200DTO> LML01200InvoiceGroup(LML01200ParameterDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
+        public LMLGenericRecord<LML01000DTO> LML01000BillingRule(LML01000ParameterDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
+
+        public LMLGenericRecord<LML01100DTO> LML01100TNC(LML01100ParameterDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
+        public LMLGenericRecord<LML01300DTO> LML01300LOIAgreement(LML01300ParameterDTO poParam)
         {
             throw new NotImplementedException();
         }
@@ -295,9 +310,8 @@ namespace Lookup_PMModel
 
             return loResult!;
         }
-
-
         #endregion
+
         #region LML0900GetRecord
         public async Task<LML00900DTO> LML00900GetTransactionAsync(LML00900ParameterDTO poParam)
         {
@@ -311,7 +325,7 @@ namespace Lookup_PMModel
 
                 var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML00900DTO>, LML00900ParameterDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IGetRecordLookupLM.PML01200InvoiceGroup),
+                    nameof(IGetRecordLookupLM.LML00900Transaction),
                     poParam,
                     DEFAULT_MODULE,
                     _SendWithContext,
@@ -329,22 +343,81 @@ namespace Lookup_PMModel
             return loResult!;
         }
 
-
-        #endregion
-        #region LML01200GetRecord
-        public async Task<PML01200DTO> PML01200GetInvoiceGroupAsync(PML01200ParameterDTO poParam)
+        #region LML01000GetRecord
+        public async Task<LML01000DTO> LML01000GetBillingRuleAsync(LML01000ParameterDTO poParam)
         {
 
             var loEx = new R_Exception();
-            PML01200DTO loResult = null;
+            LML01000DTO loResult = null;
 
             try
             {
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
 
-                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<PML01200DTO>, PML01200ParameterDTO>(
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML01000DTO>, LML01000ParameterDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IGetRecordLookupLM.PML01200InvoiceGroup),
+                    nameof(IGetRecordLookupLM.LML01000BillingRule),
+                    poParam,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loResult = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult!;
+        }
+        #endregion
+        #region LML01100GetRecord
+        public async Task<LML01100DTO> LML01100GetTermNConditionAsync(LML01100ParameterDTO poParam)
+        {
+
+            var loEx = new R_Exception();
+            LML01100DTO loResult = null;
+
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML01100DTO>, LML01100ParameterDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGetRecordLookupLM.LML01100TNC),
+                    poParam,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loResult = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult!;
+        }
+        #endregion
+        #endregion
+        #region LML01200GetRecord
+        public async Task<LML01200DTO> PML01200GetInvoiceGroupAsync(LML01200ParameterDTO poParam)
+        {
+
+            var loEx = new R_Exception();
+            LML01200DTO loResult = null;
+
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML01200DTO>, LML01200ParameterDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGetRecordLookupLM.LML01200InvoiceGroup),
                     poParam,
                     DEFAULT_MODULE,
                     _SendWithContext,
@@ -362,9 +435,45 @@ namespace Lookup_PMModel
             return loResult!;
         }
 
+        #endregion
+        #region LML01300GetRecord
+        public async Task<LML01300DTO> LML01300GetLOIAgreementAsync(LML01300ParameterDTO poParam)
+        {
 
+            var loEx = new R_Exception();
+            LML01300DTO loResult = null;
 
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML01300DTO>, LML01300ParameterDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGetRecordLookupLM.LML01300LOIAgreement),
+                    poParam,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loResult = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult!;
+        }
 
         #endregion
+
+
+
+
+
+
+
     }
 }

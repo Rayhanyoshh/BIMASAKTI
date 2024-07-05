@@ -142,6 +142,15 @@ namespace Lookup_GSFrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building.
+        /// </summary>
+        internal static string _Building {
+            get {
+                return ResourceManager.GetString("_Building", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Building ID.
         /// </summary>
         internal static string _BuildingId {
@@ -502,6 +511,15 @@ namespace Lookup_GSFrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        internal static string _Location {
+            get {
+                return ResourceManager.GetString("_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local Curr. Base Rate.
         /// </summary>
         internal static string _LocCurrBaseRate {
@@ -552,6 +570,33 @@ namespace Lookup_GSFrontResources {
         internal static string _OkBtn {
             get {
                 return ResourceManager.GetString("_OkBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Unit Id.
+        /// </summary>
+        internal static string _OtherUnitId {
+            get {
+                return ResourceManager.GetString("_OtherUnitId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Unit Name.
+        /// </summary>
+        internal static string _OtherUnitName {
+            get {
+                return ResourceManager.GetString("_OtherUnitName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Unit Type.
+        /// </summary>
+        internal static string _OtherUnitType {
+            get {
+                return ResourceManager.GetString("_OtherUnitType", resourceCulture);
             }
         }
         

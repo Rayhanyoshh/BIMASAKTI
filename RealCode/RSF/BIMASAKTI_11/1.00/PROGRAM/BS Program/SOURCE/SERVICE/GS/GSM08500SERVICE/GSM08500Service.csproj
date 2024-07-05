@@ -38,8 +38,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\BACK\GS\GSM08500BackResources\GSM08500BackResources.csproj" />
       <ProjectReference Include="..\..\..\BACK\GS\GSM08500Back\GSM08500Back.csproj" />
       <ProjectReference Include="..\..\..\COMMON\GS\GSM08500Common\GSM08500Common.csproj" />
+        <ProjectReference Include="..\..\..\COMMON\BaseHeaderCommon\BaseHeaderResources\BaseHeaderResources.csproj" />
+        
     </ItemGroup>
 
 </Project>

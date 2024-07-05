@@ -51,15 +51,15 @@ namespace Lookup_PMModel.ViewModel.LML00900
 
             try
             {
-               // string? lcPeriodParam = "";
+                string? lcPeriodParam = "";
                 if (PeriodValue == "P")
                 {
                     lcPeriodParam = PeriodYear.ToString() + PeriodMonth;
                 };
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, _Parameter.CPROPERTY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CDEPT_CODE, _Parameter.CDEPT_CODE);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTRANS_CODE, _Parameter.CTRANS_CODE);
-                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTENANT_ID, _Parameter.CTENANT_ID);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CDEPT_CODE, _Parameter.CDEPT_CODE ?? "");
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTRANS_CODE, _Parameter.CTRANS_CODE ?? "");
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTENANT_ID, _Parameter.CTENANT_ID ?? "");
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPERIOD, lcPeriodParam);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.LHAS_REMAINING, _Parameter.LHAS_REMAINING);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.LNO_REMAINING, _Parameter.LNO_REMAINING);
@@ -81,6 +81,7 @@ namespace Lookup_PMModel.ViewModel.LML00900
                 else
                 {
                     _btnOk = false;
+                    TransactionList.Clear();
                 }
             }
             catch (Exception ex)
@@ -89,7 +90,7 @@ namespace Lookup_PMModel.ViewModel.LML00900
             }
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task<LML00900DTO> GetAgreement(LML00900ParameterDTO poParam)
+        public async Task<LML00900DTO> GetTransaction(LML00900ParameterDTO poParam)
         {
             var loEx = new R_Exception();
             LML00900DTO loRtn = null;

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using BaseHeaderReportCOMMON;
 using PMR02200Common.DTOs;
 using PMR02200Common.DTOs.PrintDTO;
@@ -63,9 +65,14 @@ public class PMR02200DummyData
             CTO_PERIOD = "20241201",
             CSTATEMENT_DATE = "20240614",
             LFILTER_INCLUDE_ZERO_BALANCE = true,
-            LFILTER_SHOW_AGE_TOTAL = false,
+            LFILTER_SHOW_AGE_TOTAL = true,
             CLANG_ID = "en",
         };
+        loData.Param.DCUT_OFF_DATE =
+            DateTime.ParseExact(loData.Param.CCUT_OFF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);  
+        loData.Param.DSTATEMENT_DATE =
+            DateTime.ParseExact(loData.Param.CSTATEMENT_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
+
         return loData;
     }
     
@@ -74,7 +81,7 @@ public class PMR02200DummyData
         var loParam = new BaseHeaderDTO()
         {
             CCOMPANY_NAME = "PT Realta Chakradarma",
-            CPRINT_CODE = "010",
+            CPRINT_CODE = "PMR02200",
             CPRINT_NAME = "Statement Of Account",
             CUSER_ID = "RYC",
         };

@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="07/02/2024 16:37:21" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="Data" DataType="PMR02200Common.DTOs.PMR02100DetailPrintResultDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Title" DataType="System.String"/>
+        <Column Name="Header" DataType="System.String"/>
+        <Column Name="Column" DataType="PMR02100Common.DTOs.PrintDTO.PMR02100PrintColoumnDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="HEADER_PROPERTY" DataType="System.String"/>
+          <Column Name="HEADER_CUT_OFF_DATE" DataType="System.String"/>
+          <Column Name="HEADER_CUSTOMER" DataType="System.String"/>
+          <Column Name="HEADER_JOURNAL_GROUP" DataType="System.String"/>
+          <Column Name="HEADER_REPORT_TYPE" DataType="System.String"/>
+          <Column Name="CHECKBOX_CUSTOMER_INFORMATION" DataType="System.String"/>
+          <Column Name="CHECKBOX_UNALLOCATED_RECEIPT" DataType="System.String"/>
+          <Column Name="CHECKBOX_PENALTY" DataType="System.String"/>
+          <Column Name="CHECKBOX_INVOICE_GROUP" DataType="System.String"/>
+          <Column Name="COLOUMN_JRN_GRP" DataType="System.String"/>
+          <Column Name="COLOUMN_UNIT_NAME" DataType="System.String"/>
+          <Column Name="COLOUMN_AGREEMENT_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_INVOICE_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_DUE_DATE" DataType="System.String"/>
+          <Column Name="COLOUMN_CUSTOMER" DataType="System.String"/>
+          <Column Name="COLOUMN_PHONE" DataType="System.String"/>
+          <Column Name="COLOUMN_EMAIL" DataType="System.String"/>
+          <Column Name="COLOUMN_ADDRESS" DataType="System.String"/>
+          <Column Name="COLOUMN_NOT_DUE" DataType="System.String"/>
+          <Column Name="COLOUMN_UNALLOCATED_RECEIPT" DataType="System.String"/>
+          <Column Name="COLOUMN_PENALTY" DataType="System.String"/>
+          <Column Name="COLOUMN_1_30DAYS" DataType="System.String"/>
+          <Column Name="COLOUMN_31_60DAYS" DataType="System.String"/>
+          <Column Name="COLOUMN_61_90DAYS" DataType="System.String"/>
+          <Column Name="COLOUMN_91_120DAYS" DataType="System.String"/>
+          <Column Name="COLOUMN_120DAYS" DataType="System.String"/>
+          <Column Name="COLOUMN_TOTAL" DataType="System.String"/>
+          <Column Name="FOOTER_DESCRIPTION" DataType="System.String"/>
+          <Column Name="FOOTER_GRAND_TOTAL" DataType="System.String"/>
+          <Column Name="FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP" DataType="System.String"/>
+        </Column>
+        <Column Name="Param" DataType="PMR02100Common.DTOs.PrintDTO.PMR02100PrintParamDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="CCOMPANY_ID" DataType="System.String"/>
+          <Column Name="CPROPERTY_ID" DataType="System.String"/>
+          <Column Name="CCUT_OFF_DATE" DataType="System.String"/>
+          <Column Name="CREPORT_TYPE" DataType="System.String"/>
+          <Column Name="CFROM_CUSTOMER_ID" DataType="System.String"/>
+          <Column Name="CFROM_CUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="CTO_CUSTOMER_ID" DataType="System.String"/>
+          <Column Name="CTO_CUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="CFROM_JRNGRP_CODE" DataType="System.String"/>
+          <Column Name="CTO_JRNGRP_CODE" DataType="System.String"/>
+          <Column Name="CINV_GRP_CODE" DataType="System.String"/>
+          <Column Name="CLANG_ID" DataType="System.String"/>
+          <Column Name="LCUSTOMER_INFORMATION" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="LUNALLOCATED_RECEIPT" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="LPENALTY" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="LINVOICE_GROUP" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="LDESCRIPTION" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="CFROM_JRNGRP_NAME" DataType="System.String"/>
+          <Column Name="CTO_JRNGRP_NAME" DataType="System.String"/>
+          <Column Name="CINV_GRP_NAME" DataType="System.String"/>
+        </Column>
+        <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02100Common.DTOs.PMR02100DTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CCOMPANY_ID" DataType="System.String"/>
+          <Column Name="CUSER_ID" DataType="System.String"/>
+          <Column Name="CPROPERTY_ID" DataType="System.String"/>
+          <Column Name="CJRNGRP_CODE" DataType="System.String"/>
+          <Column Name="CJRNGRP_NAME" DataType="System.String"/>
+          <Column Name="CCUSTOMER_ID" DataType="System.String"/>
+          <Column Name="CCUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="CPHONE" DataType="System.String"/>
+          <Column Name="CEMAIL" DataType="System.String"/>
+          <Column Name="CADDRESS" DataType="System.String"/>
+          <Column Name="CUNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CAGREEMENT_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CINVGRP_CODE" DataType="System.String"/>
+          <Column Name="CINVGRP_NAME" DataType="System.String"/>
+          <Column Name="CINVGRP_DUE_DATE" DataType="System.String"/>
+          <Column Name="NAGE_NOT_DUE_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_MORE_1_30_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_MORE_31_60_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_MORE_61_90_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_MORE_91_120_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_MORE_THAN_120_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_UNALLOCATED_RECEIPT_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_PENALTY_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="NAGE_TOTAL_AMOUNT" DataType="System.Decimal"/>
+        </BusinessObjectDataSource>
+      </Column>
+      <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="BLOGO_COMPANY" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="CPRINT_CODE" DataType="System.String"/>
+        <Column Name="CCOMPANY_NAME" DataType="System.String"/>
+        <Column Name="CPRINT_NAME" DataType="System.String"/>
+        <Column Name="CUSER_ID" DataType="System.String"/>
+      </Column>
+      <Column Name="BaseHeaderColumn" DataType="BaseHeaderReportCOMMON.BaseHeaderColumnDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Page" DataType="System.String"/>
+        <Column Name="Of" DataType="System.String"/>
+        <Column Name="Print_Date" DataType="System.String"/>
+        <Column Name="Print_By" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+    <Total Name="TotalNotDue" Expression="[TotalByJrnNotDue]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total_1-30" Expression="[TotalByJrn(1-30)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total_31-60" Expression="[TotalByJrn(31-60)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total_61-90" Expression="[TotalByJrn(31-60)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total_91-120" Expression="[TotalByJrn(91-120)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="Total&gt;120" Expression="[TotalByJrn(&gt;120)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="TotalTotal" Expression="[TotalByJrn(Total)]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="TotalByJrnNotDue" Expression="[ResponseDataModel.Data.DataResult.NAGE_NOT_DUE_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter3"/>
+    <Total Name="TotalByJrn(1-30)" Expression="[ResponseDataModel.Data.DataResult.NAGE_MORE_1_30_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrn(31-60)" Expression="[ResponseDataModel.Data.DataResult.NAGE_MORE_61_90_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrn(61-90)" Expression="[ResponseDataModel.Data.DataResult.NAGE_MORE_61_90_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrn(91-120)" Expression="[ResponseDataModel.Data.DataResult.NAGE_MORE_91_120_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrn(&gt;120)" Expression="[ResponseDataModel.Data.DataResult.NAGE_MORE_THAN_120_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrn(Total)" Expression="[ResponseDataModel.Data.DataResult.NAGE_TOTAL_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalByJrnPenalty" Expression="[ResponseDataModel.Data.DataResult.NAGE_PENALTY_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter2"/>
+    <Total Name="TotalPenalty" Expression="[TotalByJrnPenalty]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="TotalByJrnUnallocated" Expression="[ResponseDataModel.Data.DataResult.NAGE_UNALLOCATED_RECEIPT_AMOUNT]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="TotalUnallocated" Expression="[TotalByJrnUnallocated]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotalNotDue" Expression="[TotalNotDue]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotal1-30" Expression="[Total_1-30]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotal31-60" Expression="[Total_31-60]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotal61-90" Expression="[Total_61-90]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotal91-120" Expression="[Total_91-120]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotal&gt;120" Expression="[Total&gt;120]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotalTotal" Expression="[TotalTotal]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="GrandTotalPenalty" Expression="[TotalPenalty]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrandNotDue" Expression="[GrandTotalNotDue]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrand1-30" Expression="[GrandTotal1-30]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrand31-60" Expression="[GrandTotal31-60]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrand61-90" Expression="[GrandTotal61-90]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrand91-120" Expression="[GrandTotal91-120]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrand&gt;120" Expression="[GrandTotal&gt;120]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrandPenalty" Expression="[GrandTotalPenalty]" Evaluator="Data1" PrintOn="DataFooter1"/>
+    <Total Name="FinalGrandTotalTotal" Expression="[GrandTotalTotal]" Evaluator="Data1" PrintOn="DataFooter1"/>
+  </Dictionary>
+  <inherited Name="Page1">
+    <inherited Name="PageHeader1">
+      <inherited Name="Picture1"/>
+      <inherited Name="Text33"/>
+      <inherited Name="Text40">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </inherited>
+      <inherited Name="Text36"/>
+      <inherited Name="Text38"/>
+      <inherited Name="Text34"/>
+      <inherited Name="Text37"/>
+      <inherited Name="Text39"/>
+      <ChildBand Name="Child1" ZOrder="-1" Top="78.8" Width="1047.06" Height="94.5">
+        <TextObject Name="Text47" Left="916.65" Top="9.45" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_CUSTOMER_INFORMATION]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text71" Left="916.65" Top="28.35" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_PENALTY]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text88" Top="9.45" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_PROPERTY]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text89" Top="28.35" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text90" Top="47.25" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_REPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text92" Left="113.4" Top="9.45" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CCUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text94" Left="113.4" Top="47.25" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CREPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text128" Left="113.4" Top="66.15" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CFROM_JRNGRP_CODE] - [ResponseDataModel.Data.Param.CTO_JRNGRP_CODE]" Font="Arial Unicode MS, 7pt">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text167" Left="916.65" Top="47.25" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.FOOTER_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text168" Left="916.65" Top="66.15" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_INVOICE_GROUP]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <CheckBoxObject Name="CheckBox7" Left="897.75" Top="9.45" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION"/>
+        <CheckBoxObject Name="CheckBox8" Left="897.75" Top="28.35" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data.Param.LPENALTY"/>
+        <CheckBoxObject Name="CheckBox9" Left="897.75" Top="47.25" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data.Param.LDESCRIPTION"/>
+        <CheckBoxObject Name="CheckBox10" Left="897.75" Top="66.15" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data.Param.LINVOICE_GROUP"/>
+        <TextObject Name="Text227" Top="66.15" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_JOURNAL_GROUP]" Font="Arial Unicode MS, 7pt"/>
+      </ChildBand>
+    </inherited>
+    <GroupHeaderBand Name="GroupHeader1" ZOrder="0" Top="255.3" Width="1047.06" Height="28.35" Condition="[ResponseDataModel.Data.DataResult.CJRNGRP_CODE]" KeepTogether="true">
+      <TextObject Name="Text181" Top="9.45" Width="198.45" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CJRNGRP_CODE]" VertAlign="Bottom" Font="Arial Unicode MS, 7pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="176.5" Width="1047.06" Height="75.6" Border.Lines="Top, Bottom" RepeatOnEveryPage="true">
+        <TextObject Name="Text55" Left="585.9" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_NOT_DUE]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text79" Left="652.05" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_1_30DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text80" Left="718.2" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_31_60DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text81" Left="784.35" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_61_90DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text82" Left="850.5" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_91_120DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text85" Left="916.65" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_120DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text129" Left="28.35" Top="18.9" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_CUSTOMER]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text130" Left="56.7" Top="37.8" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_UNIT_NAME]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text131" Left="207.9" Top="37.8" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_AGREEMENT_NO]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text132" Left="75.6" Top="56.7" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_INVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text133" Left="226.8" Top="56.7" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_INVOICE_GROUP]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text134" Left="387.45" Top="56.7" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_DUE_DATE]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text180" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_JOURNAL_GROUP]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text221" Left="982.8" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_PENALTY]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+      </DataHeaderBand>
+      <GroupHeaderBand Name="GroupHeader3" Top="286.85" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CCUSTOMER_ID]" KeepTogether="true">
+        <TextObject Name="Text182" Left="28.35" Width="170.1" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CCUSTOMER_ID] - [ResponseDataModel.Data.DataResult.CCUSTOMER_NAME]" VertAlign="Center" Font="Arial Unicode MS, 7pt">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <GroupHeaderBand Name="GroupHeader2" Top="353.15" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION]">
+          <TextObject Name="Text184" Left="56.7" Width="141.75" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+          <TextObject Name="Text185" Left="207.9" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CAGREEMENT_NO]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+          <DataHeaderBand Name="DataHeader2" Top="308.95" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
+            <TextObject Name="Text215" Left="28.35" Width="113.4" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_PHONE]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text216" Left="141.75" Width="122.85" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_EMAIL]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text217" Left="264.6" Width="207.9" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_ADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <ChildBand Name="Child3" Top="331.05" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
+              <TextObject Name="Text218" Left="28.35" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CPHONE]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+              <TextObject Name="Text219" Left="141.75" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CEMAIL]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+              <TextObject Name="Text220" Left="264.6" Width="207.9" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+            </ChildBand>
+          </DataHeaderBand>
+          <DataBand Name="Data1" Top="375.25" Width="1047.06" Height="18.9" DataSource="DataResult">
+            <TextObject Name="Text183" Left="75.6" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
+            <TextObject Name="Text186" Left="226.8" Width="122.85" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LINVOICE_GROUP]" Text="[ResponseDataModel.Data.DataResult.CINVGRP_CODE] - [ResponseDataModel.Data.DataResult.CINVGRP_NAME]" VertAlign="Center" Font="Arial Unicode MS, 7pt">
+              <Formats>
+                <GeneralFormat/>
+                <GeneralFormat/>
+              </Formats>
+            </TextObject>
+            <TextObject Name="Text63" Left="652.05" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_1_30_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text84" Left="916.65" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_THAN_120_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text62" Left="585.9" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_NOT_DUE_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text64" Left="718.2" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_31_60_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text65" Left="850.5" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_91_120_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text78" Left="784.35" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_61_90_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text141" Left="387.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVGRP_DUE_DATE]" Font="Arial Unicode MS, 7pt"/>
+            <TextObject Name="Text222" Left="982.8" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_PENALTY_AMOUNT]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
+            <ChildBand Name="Child2" Top="397.35" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LDESCRIPTION]">
+              <TextObject Name="Text213" Left="75.6" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.Column.FOOTER_DESCRIPTION] :" HorzAlign="Right" Font="Arial Unicode MS, 7pt, style=Bold"/>
+              <TextObject Name="Text214" Left="151.2" Width="236.25" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVOICE_DESCRIPTION]" Font="Arial Unicode MS, 7pt"/>
+            </ChildBand>
+          </DataBand>
+          <GroupFooterBand Name="GroupFooter2" Top="419.45" Width="1047.06" Height="18.9">
+            <TextObject Name="Text150" Left="198.45" Width="264.6" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP] [ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION] :" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold">
+              <Formats>
+                <GeneralFormat/>
+                <GeneralFormat/>
+              </Formats>
+            </TextObject>
+            <TextObject Name="Text144" Left="652.05" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrn(1-30)]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text145" Left="718.2" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrn(31-60)]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text146" Left="784.35" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrn(61-90)]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text147" Left="850.5" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrn(91-120)]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text148" Left="916.65" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrn(&gt;120)]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text187" Left="585.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrnNotDue]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text201" Left="463.05" Width="122.85" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+            <TextObject Name="Text223" Left="982.8" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalByJrnPenalty]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          </GroupFooterBand>
+        </GroupHeaderBand>
+        <GroupFooterBand Name="GroupFooter3" Top="441.55" Width="1047.06" Height="18.9">
+          <TextObject Name="Text152" Left="652.05" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_1-30]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text153" Left="718.2" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_31-60]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text154" Left="784.35" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_61-90]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text155" Left="850.5" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_91-120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text156" Left="916.65" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total&gt;120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text158" Left="56.7" Width="406.35" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP] [ResponseDataModel.Data.DataResult.CCUSTOMER_ID] - [ResponseDataModel.Data.DataResult.CCUSTOMER_NAME] :" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold">
+            <Formats>
+              <GeneralFormat/>
+              <GeneralFormat/>
+              <GeneralFormat/>
+            </Formats>
+          </TextObject>
+          <TextObject Name="Text188" Left="585.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalNotDue]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text202" Left="463.05" Width="122.85" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+          <TextObject Name="Text224" Left="982.8" Width="66.15" Height="18.9" Border.Lines="Top" Text="[TotalPenalty]" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        </GroupFooterBand>
+      </GroupHeaderBand>
+      <GroupFooterBand Name="GroupFooter1" Top="463.65" Width="1047.06" Height="18.9">
+        <TextObject Name="Text200" Left="28.35" Width="434.7" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP] [ResponseDataModel.Data.DataResult.CJRNGRP_CODE] :" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold">
+          <Formats>
+            <GeneralFormat/>
+            <GeneralFormat/>
+          </Formats>
+        </TextObject>
+        <TextObject Name="Text203" Left="463.05" Width="122.85" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text160" Left="585.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotalNotDue]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text161" Left="652.05" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal1-30]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text162" Left="718.2" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal31-60]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text163" Left="784.35" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal61-90]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text164" Left="850.5" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal91-120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text165" Left="916.65" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal&gt;120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text225" Left="982.8" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotalPenalty]" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+      </GroupFooterBand>
+      <DataFooterBand Name="DataFooter1" Top="485.75" Width="1047.06" Height="37.8">
+        <TextObject Name="Text159" Left="292.95" Top="18.9" Width="170.1" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_GRAND_TOTAL] :" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text204" Left="463.05" Top="18.9" Width="122.85" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text205" Left="585.9" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrandNotDue]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text206" Left="652.05" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrand1-30]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text207" Left="718.2" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrand31-60]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text208" Left="784.35" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrand61-90]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text209" Left="850.5" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrand91-120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text210" Left="916.65" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrand&gt;120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+        <TextObject Name="Text226" Left="982.8" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrandPenalty]" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
+      </DataFooterBand>
+    </GroupHeaderBand>
+  </inherited>
+</inherited>

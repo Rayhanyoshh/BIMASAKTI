@@ -96,29 +96,7 @@ public partial class GSM01300GridMover : R_Page
         eventArgs.Result = eventArgs.Data;
     }
     
-    private void Allocation_BtnMoveRight()
-    {
-        HasMove = true;
-        _SourceAvailableCOA_gridRef.R_MoveToTargetGrid();
-    }
 
-    private void Allocation_BtnAllMoveRight()
-    {
-        HasMove = true;
-        _SourceAvailableCOA_gridRef.R_MoveAllToTargetGrid();
-    }
-
-    private void Allocation_BtnAllMoveLeft()
-    {
-        HasMove = true;
-        _SelectedCOA_gridRef.R_MoveAllToTargetGrid();
-    }
-
-    private void Allocation_BtnMoveLeft()
-    {
-        HasMove = true;
-        _SelectedCOA_gridRef.R_MoveToTargetGrid();
-    }
     
     #region Save Batch
     private void R_BeforeSaveBatch(R_BeforeSaveBatchEventArgs events)
@@ -208,7 +186,39 @@ public partial class GSM01300GridMover : R_Page
             
     }
     
+    private void R_GridRowBeforeDrop(R_GridDragDropBeforeDropEventArgs<GSM01310DTO> eventArgs)
+    {
+        //eventArgs.Cancel = true;
+    }
+
+    private void R_GridRowAfterDrop(R_GridDragDropAfterDropEventArgs<GSM01310DTO> eventArgs)
+    {
+
+    }
     
+    private void Allocation_BtnMoveRight()
+    {
+        HasMove = true;
+        _SourceAvailableCOA_gridRef.R_MoveToTargetGrid();
+    }
+
+    private void Allocation_BtnAllMoveRight()
+    {
+        HasMove = true;
+        _SourceAvailableCOA_gridRef.R_MoveAllToTargetGrid();
+    }
+
+    private void Allocation_BtnAllMoveLeft()
+    {
+        HasMove = true;
+        _SelectedCOA_gridRef.R_MoveAllToTargetGrid();
+    }
+
+    private void Allocation_BtnMoveLeft()
+    {
+        HasMove = true;
+        _SelectedCOA_gridRef.R_MoveToTargetGrid();
+    }
 
     
 }

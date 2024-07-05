@@ -195,6 +195,7 @@ namespace CBT01200MODEL
             try
             {
                 JournalParam.CPERIOD = JournalPeriodYear + JournalPeriodMonth;
+                
                 var loResult = await _CBT01200Model.GetJournalListAsync(JournalParam);
 
                 JournalGrid = new ObservableCollection<CBT01200DTO>(loResult);

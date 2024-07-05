@@ -24,13 +24,18 @@ namespace GSM01000Common.DTOs
 
     }
 
-    public class GSM01000PrintColoumnCOADTO
+    public class GSM01000PrintColoumnDTO
     {
         public string COLOUMN_ACCOUNT_NO { get; set; } = "Account No";
         public string COLOUMN_ACCOUNT_NAME { get; set; } = "Account Name";
-        public string COLOUMN_CATEGORY { get; set; } = "Category";
+        public string COLOUMN_BSIS { get; set; } = "BS/IS";
+        public string COLOUMN_DC { get; set; } = "D/C";
         public string COLOUMN_CASHFLOW { get; set; } = "Cash Flow";
         public string COLOUMN_ACTIVE { get; set; } = "Active";
+        public string COLOUMN_CODE { get; set; } = "Code";
+        public string COLOUMN_NAME { get; set; } = "Name";
+        public string COLOUMN_CATEGORY { get; set; } = "Category";
+
     }
 
     public class GSM01000ResultSPPrintCOADTO

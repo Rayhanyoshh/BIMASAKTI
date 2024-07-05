@@ -5,6 +5,7 @@ public class PMR02100PrintColoumnDTO
     public string HEADER_PROPERTY { get; set; } = "Property";
     public string HEADER_CUT_OFF_DATE { get; set; } = "Cut Off Date";
     public string HEADER_CUSTOMER { get; set; } = "Customer";
+    public string HEADER_JOURNAL_GROUP { get; set; } = "Journal Group";
     public string HEADER_REPORT_TYPE { get; set; } = "Report Type";
     
     public string CHECKBOX_CUSTOMER_INFORMATION { get; set; } = "Customer Information";
@@ -13,6 +14,10 @@ public class PMR02100PrintColoumnDTO
     public string CHECKBOX_INVOICE_GROUP { get; set; } = "Invoice Group";
     
     public string COLOUMN_JRN_GRP { get; set; } = "Journal Group";
+    public string COLOUMN_UNIT_NAME { get; set; } = "Unit Name";
+    public string COLOUMN_AGREEMENT_NO { get; set; } = "Agreement No";
+    public string COLOUMN_INVOICE_NO { get; set; } = "Invoice No";
+    public string COLOUMN_DUE_DATE { get; set; } = "Due Date";
     public string COLOUMN_CUSTOMER { get; set; } = "Customer";
     public string COLOUMN_PHONE { get; set; } = "Phone";
     public string COLOUMN_EMAIL { get; set; } = "Email";

@@ -8,7 +8,7 @@ namespace GSM01000Common.DTOs
     {
         public string Title { get; set; }
         public string Header { get; set; }
-        public GSM01000PrintColoumnCOADTO Column { get; set; }
+        public GSM01000PrintColoumnDTO Column { get; set; }
         public List<GSM01000ResultSPPrintCOADTO> Data { get; set; }
         
         public GSM01000PrintParamCOADTO ParamDTO { get; set; }
@@ -26,7 +26,7 @@ namespace GSM01000Common.DTOs
     {
         public string Title { get; set; }
         public string Header { get; set; }
-        public GSM01000PrintColoumnGOADTO Column { get; set; }
+        public GSM01000PrintColoumnDTO Column { get; set; }
         public List<GSM01000DataResultGOADTO> Data { get; set; }
     }
 

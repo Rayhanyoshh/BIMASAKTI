@@ -24,6 +24,12 @@ namespace Lookup_PMModel.ViewModel.LML00800
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CPROPERTY_ID, poParam.CPROPERTY_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CDEPT_CODE, poParam.CDEPT_CODE);
                 R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CAGGR_STTS, poParam.CAGGR_STTS);
+                //CR26/06/2024
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTRANS_CODE, poParam.CTRANS_CODE);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CREF_NO, poParam.CREF_NO);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTENANT_ID, poParam.CTENANT_ID);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CBUILDING_ID, poParam.CBUILDING_ID);
+                R_FrontContext.R_SetStreamingContext(ContextConstantPublicLookup.CTRANS_STATUS, poParam.CTRANS_STATUS);
 
                 var loResult = await _model.LML00800GetAgreementListAsync();
                 AgreementList = new ObservableCollection<LML00800DTO>(loResult.Data);

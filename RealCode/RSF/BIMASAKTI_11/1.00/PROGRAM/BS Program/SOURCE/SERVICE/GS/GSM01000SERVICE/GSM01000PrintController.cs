@@ -165,7 +165,7 @@ public class GSM01000PrintController : R_ReportControllerBase
             loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
                 "Print_By", loCultureInfo);
             
-            GSM01000PrintColoumnGOADTO loColumnObject = new GSM01000PrintColoumnGOADTO();
+            GSM01000PrintColoumnDTO loColumnObject = new GSM01000PrintColoumnDTO();
             var loColumn = AssignValuesWithMessages(typeof(GSM01000BackResources.Resources_Dummy_Class),
                 loCultureInfo, loColumnObject);
             var loCls = new GSM01000Cls();
@@ -176,18 +176,17 @@ public class GSM01000PrintController : R_ReportControllerBase
             // Set Base Header Data
             var loParam = new BaseHeaderDTO()
             {
-
-                
                 CCOMPANY_NAME = poParam.CCOMPANY_ID.ToUpper(),
-                CPRINT_CODE = "COA",
+                CPRINT_CODE = "GSM01000",
                 CPRINT_NAME = "Chart Of Account",
                 CUSER_ID = poParam.CUSER_LOGIN_ID.ToUpper(),
+                BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO
+
             };
             GSM01000PrintCOAResultDTo loData = new GSM01000PrintCOAResultDTo()
             {
                 Title = "Chart Of Accounts",
-                Header = "001",
-                Column = new GSM01000PrintColoumnCOADTO(),
+                Column = (GSM01000PrintColoumnDTO)loColumn,
                 Data = new List<GSM01000ResultSPPrintCOADTO>()
             };
           

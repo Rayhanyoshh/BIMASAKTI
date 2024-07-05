@@ -36,6 +36,14 @@
             button4 = new Button();
             button5 = new Button();
             button6 = new Button();
+            PMR02101DetailButton = new Button();
+            PMR02102DetailButton = new Button();
+            PMR02103DetailButton = new Button();
+            PMR02104DetailButton = new Button();
+            PMR02105DetailButton = new Button();
+            PMR02106DetailButton = new Button();
+            PMR02107DetailButton = new Button();
+            PMR02108DetailButton = new Button();
             SuspendLayout();
             // 
             // PMR01000
@@ -126,11 +134,107 @@
             button6.UseVisualStyleBackColor = true;
             button6.Click += PMR02101SummaryButton_Click;
             // 
+            // PMR02101DetailButton
+            // 
+            PMR02101DetailButton.Location = new Point(375, 24);
+            PMR02101DetailButton.Margin = new Padding(2);
+            PMR02101DetailButton.Name = "PMR02101DetailButton";
+            PMR02101DetailButton.Size = new Size(135, 27);
+            PMR02101DetailButton.TabIndex = 8;
+            PMR02101DetailButton.Text = "PMR02101Detail";
+            PMR02101DetailButton.UseVisualStyleBackColor = true;
+            PMR02101DetailButton.Click += PMR02101Detail_Click;
+            // 
+            // PMR02102DetailButton
+            // 
+            PMR02102DetailButton.Location = new Point(375, 57);
+            PMR02102DetailButton.Margin = new Padding(2);
+            PMR02102DetailButton.Name = "PMR02102DetailButton";
+            PMR02102DetailButton.Size = new Size(135, 27);
+            PMR02102DetailButton.TabIndex = 9;
+            PMR02102DetailButton.Text = "PMR02102Detail";
+            PMR02102DetailButton.UseVisualStyleBackColor = true;
+            PMR02102DetailButton.Click += PMR02102DetailButton_Click;
+            // 
+            // PMR02103DetailButton
+            // 
+            PMR02103DetailButton.Location = new Point(375, 88);
+            PMR02103DetailButton.Margin = new Padding(2);
+            PMR02103DetailButton.Name = "PMR02103DetailButton";
+            PMR02103DetailButton.Size = new Size(135, 27);
+            PMR02103DetailButton.TabIndex = 10;
+            PMR02103DetailButton.Text = "PMR02103Detail";
+            PMR02103DetailButton.UseVisualStyleBackColor = true;
+            PMR02103DetailButton.Click += PMR02103DetailButton_Click;
+            // 
+            // PMR02104DetailButton
+            // 
+            PMR02104DetailButton.Location = new Point(375, 119);
+            PMR02104DetailButton.Margin = new Padding(2);
+            PMR02104DetailButton.Name = "PMR02104DetailButton";
+            PMR02104DetailButton.Size = new Size(135, 27);
+            PMR02104DetailButton.TabIndex = 11;
+            PMR02104DetailButton.Text = "PMR02104Detail";
+            PMR02104DetailButton.UseVisualStyleBackColor = true;
+            PMR02104DetailButton.Click += PMR02104DetailButton_Click;
+            // 
+            // PMR02105DetailButton
+            // 
+            PMR02105DetailButton.Location = new Point(375, 150);
+            PMR02105DetailButton.Margin = new Padding(2);
+            PMR02105DetailButton.Name = "PMR02105DetailButton";
+            PMR02105DetailButton.Size = new Size(135, 27);
+            PMR02105DetailButton.TabIndex = 12;
+            PMR02105DetailButton.Text = "PMR02105Detail";
+            PMR02105DetailButton.UseVisualStyleBackColor = true;
+            PMR02105DetailButton.Click += PMR02105DetailButton_Click;
+            // 
+            // PMR02106DetailButton
+            // 
+            PMR02106DetailButton.Location = new Point(375, 183);
+            PMR02106DetailButton.Margin = new Padding(2);
+            PMR02106DetailButton.Name = "PMR02106DetailButton";
+            PMR02106DetailButton.Size = new Size(135, 27);
+            PMR02106DetailButton.TabIndex = 13;
+            PMR02106DetailButton.Text = "PMR02106Detail";
+            PMR02106DetailButton.UseVisualStyleBackColor = true;
+            PMR02106DetailButton.Click += PMR02106DetailButton_Click;
+            // 
+            // PMR02107DetailButton
+            // 
+            PMR02107DetailButton.Location = new Point(375, 214);
+            PMR02107DetailButton.Margin = new Padding(2);
+            PMR02107DetailButton.Name = "PMR02107DetailButton";
+            PMR02107DetailButton.Size = new Size(135, 27);
+            PMR02107DetailButton.TabIndex = 14;
+            PMR02107DetailButton.Text = "PMR02107Detail";
+            PMR02107DetailButton.UseVisualStyleBackColor = true;
+            PMR02107DetailButton.Click += PMR02107DetailButton_Click;
+            // 
+            // PMR02108DetailButton
+            // 
+            PMR02108DetailButton.Location = new Point(375, 245);
+            PMR02108DetailButton.Margin = new Padding(2);
+            PMR02108DetailButton.Name = "PMR02108DetailButton";
+            PMR02108DetailButton.Size = new Size(135, 27);
+            PMR02108DetailButton.TabIndex = 15;
+            PMR02108DetailButton.Text = "PMR02108Detail";
+            PMR02108DetailButton.UseVisualStyleBackColor = true;
+            PMR02108DetailButton.Click += PMR02108DetailButton_Click;
+            // 
             // DesignFormPMR
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(680, 270);
+            ClientSize = new Size(966, 345);
+            Controls.Add(PMR02108DetailButton);
+            Controls.Add(PMR02107DetailButton);
+            Controls.Add(PMR02106DetailButton);
+            Controls.Add(PMR02105DetailButton);
+            Controls.Add(PMR02104DetailButton);
+            Controls.Add(PMR02103DetailButton);
+            Controls.Add(PMR02102DetailButton);
+            Controls.Add(PMR02101DetailButton);
             Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
@@ -156,5 +260,13 @@
         private Button button4;
         private Button button5;
         private Button button6;
+        private Button PMR02101DetailButton;
+        private Button PMR02102DetailButton;
+        private Button PMR02103DetailButton;
+        private Button PMR02104DetailButton;
+        private Button PMR02105DetailButton;
+        private Button PMR02106DetailButton;
+        private Button PMR02107DetailButton;
+        private Button PMR02108DetailButton;
     }
 }

@@ -16,5 +16,12 @@ namespace Lookup_PMCOMMON.DTOs
         public string? CCUSTOMER_TYPE_NAME { get; set; } = "";
         public string? CPHONE1 { get; set; }= "";
         public string? CEMAIL { get; set; }= "";
+        public string? CPAYMENT_TERM_CODE { get; set; } = "";
+        public string? CCURRENCY_CODE { get; set; } = "";
+        public string? CTAX_TYPE { get; set; } = "";
+        public bool LTAXABLE { get; set; } 
+        public string? CTAX_ID { get; set; } = "";
+        public string? CTAX_NAME { get; set; } = "";
+        public decimal NTAX_PCT { get; set; }
     }
 }
