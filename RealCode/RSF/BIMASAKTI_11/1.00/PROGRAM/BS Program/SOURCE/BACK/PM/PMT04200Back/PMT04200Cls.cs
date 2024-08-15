@@ -26,7 +26,7 @@ namespace PMT04200Back
         public PMT04200Cls()
         {
             _logger = LoggerPMT04200.R_GetInstanceLogger();
-            _activitySource = PMT04200Activity.R_GetInstanceActivitySource();
+            _activitySource = PMT04200ActivityInitSourceBase.R_GetInstanceActivitySource();
         }
        
         #region log activity
@@ -75,6 +75,46 @@ namespace PMT04200Back
 
                 var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
                 loResult = R_Utility.R_ConvertTo<PMT04200DTO>(loDataTable).ToList();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
+        
+        public List<PMT04200AllocationGridDTO> GetJournalAllocationGridList (PMT04200ParamDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            var loEx = new R_Exception();
+            List<PMT04200AllocationGridDTO> loResult = null;
+
+            try
+            {
+                var loDb = new R_Db();
+                var loConn = loDb.GetConnection("R_DefaultConnectionString");
+                var loCmd = loDb.GetCommand();
+
+                var lcQuery = "RSP_PM_GET_ALLOCATION_LIST";
+                loCmd.CommandText = lcQuery;
+                loCmd.CommandType = CommandType.StoredProcedure;
+
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, poEntity.CCOMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, 50, poEntity.CPROPERTY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, 50, poEntity.CDEPT_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 50, ContextConstant.VAR_TRANS_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, 50, poEntity.CREF_NO);
+                loDb.R_AddCommandParameter(loCmd, "@CLANGUAGE_ID", DbType.String, 50, poEntity.CLANGUAGE_ID);
+
+                //Debug Logs
+                ShowLogDebug(lcQuery, loCmd.Parameters);
+
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                loResult = R_Utility.R_ConvertTo<PMT04200AllocationGridDTO>(loDataTable).ToList();
             }
             catch (Exception ex)
             {
@@ -175,15 +215,16 @@ namespace PMT04200Back
                 loCmd.CommandType = CommandType.StoredProcedure;
                 loCmd.CommandText = lcQuery;
 
-                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 8, R_BackGlobalVar.COMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 8, poNewEntity.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, 50, poNewEntity.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, poNewEntity.CUSER_ID);
                 loDB.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, 20, poNewEntity.CACTION);
-                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, R_BackGlobalVar.USER_ID);
                 loDB.R_AddCommandParameter(loCmd, "@CREC_ID", DbType.String, 50, poNewEntity.CREC_ID);
                 loDB.R_AddCommandParameter(loCmd, "@CREF_NO", DbType.String, 30, poNewEntity.CREF_NO);
                 loDB.R_AddCommandParameter(loCmd, "@CDEPT_CODE", DbType.String, 50, poNewEntity.CDEPT_CODE);
                 loDB.R_AddCommandParameter(loCmd, "@CTRANS_CODE", DbType.String, 10, ContextConstant.VAR_TRANS_CODE);
 
-                loDB.R_AddCommandParameter(loCmd, "@CPAYMENT_TYPE", DbType.String, 2, "CA");
+                loDB.R_AddCommandParameter(loCmd, "@CPAYMENT_TYPE", DbType.String, 2, "WT");
                 loDB.R_AddCommandParameter(loCmd, "@CREF_DATE", DbType.String, 8, poNewEntity.CREF_DATE);
                 loDB.R_AddCommandParameter(loCmd, "@CCUST_SUPP_ID", DbType.String, 20, poNewEntity.CCUST_SUPP_ID);
                 loDB.R_AddCommandParameter(loCmd, "@CLOI_AGRMT_ID", DbType.String, 50, poNewEntity.CLOI_AGRMT_ID);

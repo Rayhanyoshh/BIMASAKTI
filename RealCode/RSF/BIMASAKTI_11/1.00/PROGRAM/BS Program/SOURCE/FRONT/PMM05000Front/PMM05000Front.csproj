@@ -43,11 +43,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\BACK\GFF00900COMMON\GFF00900COMMON.csproj" />
-
+		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_LMFRONT\Lookup_PMFRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\GFF00900FRONT\GFF00900FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\GFF00900Model\GFF00900Model.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_GSFRONT\Lookup_GSFRONT.csproj" />
 		<ProjectReference Include="..\PMM05000FrontResources\PMM05000FrontResources.csproj" />
 		<ProjectReference Include="..\PMM05000Model\PMM05000Model.csproj" />
 	</ItemGroup>

@@ -53,6 +53,7 @@ namespace GSM01000Model
         public int SumValidDataCOAExcel { get; set; }
         public int SumInvalidDataCOAExcel { get; set; }
         public string CompanyID { get; set; }
+        public string CompanyName { get; set; }
         public string UserId { get; set; }
         
         public GSM01000UploadHeaderDTO loCompany = new GSM01000UploadHeaderDTO();
@@ -81,17 +82,20 @@ namespace GSM01000Model
                     CCOMPANY_ID = CompanyID,
                     CGLACCOUNT_NO = loTemp.AccountNo,
                     CGLACCOUNT_NAME = loTemp.AccountName,
-                    LACTIVE = loTemp.Active,
+                    LACTIVE = loTemp?.Active ?? false,
                     CBSIS = loTemp.BSIS,
                     CDBCR = loTemp.DC,
-                    LUSER_RESTR = loTemp.UserRestriction,
-                    LCENTER_RESTR = loTemp.CenterRestriction,
-                    NonActiveDate = loTemp.NonActiveDate,
+                    CCASH_FLOW_CODE = loTemp?.CashFlowCode ?? "",
+                    CCASH_FLOW_GROUP_CODE = loTemp?.CashFlowGroupCode ?? "",
+                    LUSER_RESTR = loTemp?.UserRestriction ?? false,
+                    LCENTER_RESTR = loTemp?.CenterRestriction ?? false,
+                    NonActiveDate = loTemp?.NonActiveDate ?? "",
                     NonActiveDateDisplay = !string.IsNullOrWhiteSpace(loTemp.NonActiveDate) ? DateTime.ParseExact(loTemp.NonActiveDate, "yyyyMMdd", CultureInfo.InvariantCulture) : default,
-                    Valid = loTemp.Valid,
+                    Valid = loTemp?.Valid ?? "",
                     ErrorMessage = "",
                     Var_Exists = loTemp.Var_Exists,
-                    Var_Overwrite = loTemp.Var_Overwrite
+                    Var_Overwrite = loTemp.Var_Overwrite,
+                    
                 }).ToList();
 
                 SumListCOAExcel = loData.Count;
@@ -142,7 +146,7 @@ namespace GSM01000Model
                 loBatchPar = new R_BatchParameter();
 
                 loBatchPar.COMPANY_ID = CompanyID;
-                loBatchPar.USER_ID = UserId;
+                loBatchPar.USER_ID = UserId; ;
                 loBatchPar.UserParameters = loUserParameneters;
                 loBatchPar.ClassName = "GSM01000Back.GSM01001Cls";
                 loBatchPar.BigObject = Bigobject;
@@ -207,10 +211,10 @@ namespace GSM01000Model
 
         public async Task ReportProgress(int pnProgress, string pcStatus)
         {
-            Message = string.Format("Process Progress {0} with status {1}", pnProgress, pcStatus);
+            Message = string.Format("Process Progress {0}% with status {1}", pnProgress, pcStatus);
 
             Percentage = pnProgress;
-            Message = string.Format("Process Progress {0} with status {1}", pnProgress, pcStatus);
+            Message = string.Format("Process Progress {0}% with status {1}", pnProgress, pcStatus);
 
             // Call Method Action StateHasChange
             StateChangeAction();
@@ -271,8 +275,24 @@ namespace GSM01000Model
                         }
                     });
 
+                    
                     //Set DataSetTable and get error
-                    var loExcelData = R_FrontUtility.ConvertCollectionToCollection<GSM01001ExcelDTO>(COAValidateUploadError);
+                    var loExcelData = COAValidateUploadError.Select(x => new GSM01001ExcelDTO
+                    {
+                        // Mapping properti x ke GSM01001ExcelDTO
+                        No = x.NO,
+                        AccountNo = x.CGLACCOUNT_NO,
+                        AccountName = x.CGLACCOUNT_NAME,
+                        Active = x.LACTIVE,
+                        BSIS = x.CBSIS,
+                        DC = x.CDBCR,
+                        CashFlowCode = x.CCASH_FLOW_CODE,
+                        CashFlowGroupCode = x.CCASH_FLOW_GROUP_CODE,
+                        UserRestriction = x.LUSER_RESTR,
+                        CenterRestriction = x.LCENTER_RESTR,
+                        NonActiveDate = x.NonActiveDate,
+                        ErrorMessage = x.ErrorMessage,
+                    }).ToList();
 
                     var loDataTable = R_FrontUtility.R_ConvertTo<GSM01001ExcelDTO>(loExcelData);
                     loDataTable.TableName = "COA";
@@ -307,7 +327,6 @@ namespace GSM01000Model
 
             try
             {
-                R_FrontContext.R_SetContext(ContextConstant.CCOMPANY_ID, CompanyID);
 
                 var loResult = await _GSM01000Model.CompanyDetailModel();
 

@@ -168,7 +168,10 @@ public partial class PMR01000 : R_Page
                 CTO_TYPE = _PMR01000ViewModel.ToTypeSelected,
                 CFROM_TYPE = _PMR01000ViewModel.FromTypeSelected,
                 CTO_TRANS_TYPE = _PMR01000ViewModel.ToTransTypeSelected,
-                CFROM_TRANS_TYPE = _PMR01000ViewModel.FromTransTypeSelected
+                CFROM_TRANS_TYPE = _PMR01000ViewModel.FromTransTypeSelected,
+                LIS_PRINT = true,
+                CPRINT_FILENAME = "Deposit Report",
+                CPRINT_FILE_TYPE = "PDF"
             };
 
             if (loParam.CDEPOSIT_TYPE == "1")

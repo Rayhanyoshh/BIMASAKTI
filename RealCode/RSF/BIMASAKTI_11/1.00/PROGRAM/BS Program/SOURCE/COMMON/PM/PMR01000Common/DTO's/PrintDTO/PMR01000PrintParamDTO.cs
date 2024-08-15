@@ -3,6 +3,7 @@ namespace PMR01000Common.DTO_s.PrintDTO;
 public class PMR01000PrintParamDTO
 {
     public string CCOMPANY_ID { get; set; }
+    public string CUSER_ID { get; set; }
     public string CPROPERTY_ID { get; set; }
     public string CDEPOSIT_TYPE  { get; set; }
     public string CDEPOSIT_TYPE_NAME  { get; set; }
@@ -22,4 +23,9 @@ public class PMR01000PrintParamDTO
     public string CFROM_TRANS_TYPE { get; set; }
     public string CTO_TRANS_TYPE { get; set; }
     public string CLANGUAGE_ID { get; set; }
+    
+    public bool LIS_PRINT { get; set; } = true;
+    public string CPRINT_FILENAME { get; set; }
+    public string CPRINT_FILE_TYPE { get; set; }
+    
 }

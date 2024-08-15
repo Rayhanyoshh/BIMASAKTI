@@ -38,7 +38,7 @@ namespace GSM08500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_STATISTIC_ACCOUNT_DT";
@@ -189,7 +189,7 @@ namespace GSM08500Back
                 _logger.LogDebug("Start R_Deleting: Entity = {Entity}, Action = {Action}", poNewEntity, lcAction);
 
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loComm = loDb.GetCommand();
                 R_ExternalException.R_SP_Init_Exception(loConn);
 
@@ -274,7 +274,7 @@ namespace GSM08500Back
                 _logger.LogDebug("Start GetStatAccListDb: Entity = {Entity}", poEntity);
 
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 loCmd.CommandType = CommandType.StoredProcedure;
@@ -313,7 +313,7 @@ namespace GSM08500Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 // Create the SQL query with placeholders for parameters
                 string lcQuery = "EXEC RSP_GS_COPY_STATISTIC_ACCOUNT " +
@@ -357,7 +357,7 @@ namespace GSM08500Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 // Create the SQL query
                 string lcQuery = @"SELECT A.CCOMPANY_ID, B.CCOMPANY_NAME FROM GSM_COMPANY A (NOLOCK)
@@ -415,7 +415,7 @@ namespace GSM08500Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 // Create the SQL query
                 string lcQuery = $"EXEC RSP_GS_ACTIVE_INACTIVE_STATISTIC_ACCOUNT " +
@@ -456,7 +456,7 @@ namespace GSM08500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "SELECT * FROM SAM_COMPANIES WHERE CCOMPANY_ID = @CCOMPANY_ID";
@@ -580,7 +580,7 @@ namespace GSM08500Back
               try
               {
                   loDb = new R_Db();
-                  loConn = loDb.GetConnection("R_DefaultConnectionString");
+                  loConn = loDb.GetConnection();
                   loCmd = loDb.GetCommand();
 
                   lcQuery = "RSP_GS_GET_COMPANY_INFO";

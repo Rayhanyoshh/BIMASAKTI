@@ -17,6 +17,7 @@ public class PMT04200ParamDTO
     public string CCUSTOMER_ID { get; set; }
     public string CCUSTOMER_NAME { get; set; }
     public string CCUSTOMER_TYPE { get; set; }
+    public string CCUSTOMER_TYPE_NAME { get; set; }
     public string CPERIOD { get; set; }
     public string CSTATUS { get; set; }
     public string CSEARCH_TEXT { get; set; }

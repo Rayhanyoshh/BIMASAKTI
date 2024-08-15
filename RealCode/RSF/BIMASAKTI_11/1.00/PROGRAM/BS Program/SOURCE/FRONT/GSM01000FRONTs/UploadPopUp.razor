@@ -12,7 +12,7 @@
             <R_Label>@_localizer["_company"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_TextBox @bind-Value="@_GSM01001ViewModel.loCompany.CCOMPANY_ID"
+            <R_TextBox @bind-Value="@_GSM01001ViewModel.CompanyID"
                        Enabled="false"/>
         </R_ItemLayout>
         <R_ItemLayout col="3">
@@ -25,11 +25,7 @@
           <R_ItemLayout col="2">
             <R_Label>@_localizer["_sourceFile"]</R_Label>
         </R_ItemLayout>
-          <R_ItemLayout col="7">
-            <R_TextBox  @bind-Value="@_GSM01001ViewModel.SourceFileName"
-                        Enabled="false"/>
-        </R_ItemLayout>
-        <R_ItemLayout col="2">
+        <R_ItemLayout col="7">
             <R_InputFile OnChange="@_COA_SourceUpload_OnChange" Accepts="@accepts"/>
         </R_ItemLayout>
     </R_StackLayout>
@@ -45,15 +41,19 @@
                     Width="100%">
                 <R_GridColumns>
                     <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.NO)" HeaderText=@_localizer["_no"] Width="100px"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CGLACCOUNT_NO)" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText=@_localizer["_accountName"] R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CBSIS)" HeaderText=@_localizer["_bsis"] R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CDBCR)" HeaderText=@_localizer["_dc"] R_EnableAdd="true" R_EnableEdit="true"/>
-                    <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.LACTIVE)" HeaderText=@_localizer["_active"] R_EnableAdd="true" R_EnableEdit="false"/>
-                     <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CCASH_FLOW_GROUP_CODE)" HeaderText=@_localizer["_cashflowgroupcode"] R_EnableAdd="true" R_EnableEdit="false" />
-                     <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CCASH_FLOW_CODE)" HeaderText=@_localizer["_cashflowcode"] R_EnableAdd="true" R_EnableEdit="false" />
-                    <R_GridTextColumn FieldName="Valid" HeaderText=@_localizer["_valid"] Visible="@_GSM01001ViewModel.VisibleError" Width="300px"></R_GridTextColumn>
-                    <R_GridTextColumn FieldName="ErrorMessage" HeaderText=@_localizer["_errorMessage"] Visible="@_GSM01001ViewModel.VisibleError" Width="300px"></R_GridTextColumn>                </R_GridColumns>
+                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CGLACCOUNT_NO)" HeaderText=@_localizer["_accountNo"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CGLACCOUNT_NAME)" HeaderText=@_localizer["_accountName"] R_EnableAdd="true" R_EnableEdit="true" Width="100px"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CBSIS)" HeaderText=@_localizer["_bsis"] R_EnableAdd="true" R_EnableEdit="true" Width="100px"/>
+                    <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CDBCR)" HeaderText=@_localizer["_dc"] R_EnableAdd="true" R_EnableEdit="true" Width="100px"/>
+                    <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.LACTIVE)" HeaderText=@_localizer["_active"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                    <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.LUSER_RESTR)" HeaderText=@_localizer["_userRestriction"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                    <R_GridCheckBoxColumn FieldName="@nameof(GSM01001ErrorValidateDTO.LCENTER_RESTR)" HeaderText=@_localizer["_centerRestriction"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                     <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.NonActiveDate)" HeaderText=@_localizer["_cashflowgroupcode"] R_EnableAdd="true" R_EnableEdit="false" Width="100px" />
+                     <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CCASH_FLOW_GROUP_CODE)" HeaderText=@_localizer["_cashflowgroupcode"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                     <R_GridTextColumn FieldName="@nameof(GSM01001ErrorValidateDTO.CCASH_FLOW_CODE)" HeaderText=@_localizer["_cashflowcode"] R_EnableAdd="true" R_EnableEdit="false" Width="100px"/>
+                    <R_GridTextColumn Visible="_GSM01001ViewModel.VisibleError" FieldName="@nameof(GSM01001ErrorValidateDTO.Valid)" HeaderText=@_localizer["_valid"]  Width="300px"></R_GridTextColumn>
+                    <R_GridTextColumn Visible="_GSM01001ViewModel.VisibleError" FieldName="@nameof(GSM01001ErrorValidateDTO.ErrorMessage)"  HeaderText=@_localizer["_notes"]  Width="300px"></R_GridTextColumn>
+                </R_GridColumns>
             </R_Grid>
         </R_ItemLayout>
     </R_StackLayout>

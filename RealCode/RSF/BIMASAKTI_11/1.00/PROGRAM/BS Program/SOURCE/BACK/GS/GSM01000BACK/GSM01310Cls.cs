@@ -36,7 +36,7 @@ namespace GSM01000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
         
                 lcQuery = "RSP_GS_GET_GOA_COA_DETAIL";
@@ -85,7 +85,7 @@ namespace GSM01000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loComm = loDb.GetCommand();
         
                 lcQuery = "INSERT INTO GSM_GOA_COA " +
@@ -141,7 +141,7 @@ namespace GSM01000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
                 lcQuery = "RSP_GS_GET_GOA_COA_LIST";
                 loCmd.CommandType = CommandType.StoredProcedure;

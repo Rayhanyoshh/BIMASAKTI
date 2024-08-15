@@ -9,6 +9,7 @@ namespace PMT04200Common
     public interface IPMT04200 
     {
         IAsyncEnumerable<PMT04200DTO> GetJournalList();
+        IAsyncEnumerable<PMT04200AllocationGridDTO> GetAllocationList();
         PMT04200RecordResult<PMT04200DTO>  GetJournalRecord(PMT04200DTO poEntity);
 
         PMT04200RecordResult<PMT04200DTO> SaveJournalRecord(PMT04200SaveParamDTO poEntity);

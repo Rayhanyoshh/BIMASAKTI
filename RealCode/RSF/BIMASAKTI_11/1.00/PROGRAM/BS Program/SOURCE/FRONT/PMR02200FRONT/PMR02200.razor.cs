@@ -2,9 +2,11 @@ using System.Globalization;
 using BlazorClientHelper;
 using Lookup_GSCOMMON.DTOs;
 using Lookup_GSFRONT;
+using Lookup_GSModel.ViewModel;
 using Lookup_PMCOMMON.DTOs;
 using Lookup_PMFRONT;
 using Lookup_PMModel.ViewModel.LML00600;
+using Lookup_PMModel.ViewModel.LML00700;
 using Lookup_PMModel.ViewModel.LML00800;
 using Microsoft.AspNetCore.Components;
 using PMR02200Common.DTOs;
@@ -162,9 +164,16 @@ public partial class PMR02200 : R_Page
 
             try
             {
+            if (!string.IsNullOrWhiteSpace(_PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_ID))
+            {
+
                 LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
                 var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
                 {
+                    CUSER_ID = _clientHelper.UserId,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CPROPERTY_ID = _PMR02200ViewModel.PropertyDefault,
+                    CCUSTOMER_TYPE = "01",
                     CSEARCH_TEXT = _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_ID, // property that bindded to search textbox
                 };
                 var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
@@ -173,13 +182,17 @@ public partial class PMR02200 : R_Page
                 if (loResult == null)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
-                            typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
+                            typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                             "_ErrLookup01"));
-                    _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_NAME = ""; //kosongin bind textbox name kalo gaada
-                    //await GLAccount_TextBox.FocusAsync();
+                    _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_ID = ""; //kosongin bind textbox name kalo gaada
+                    _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_NAME = "";
                 }
                 else
+                    _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_ID = loResult.CTENANT_ID;
                     _PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_NAME = loResult.CTENANT_NAME; //assign bind textbox name kalo ada
+                }
+
+         
             }
             catch (Exception ex)
             {
@@ -232,6 +245,10 @@ public partial class PMR02200 : R_Page
                 LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
                 var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
                 {
+                    CUSER_ID = _clientHelper.UserId,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CPROPERTY_ID = _PMR02200ViewModel.PropertyDefault,
+                    CCUSTOMER_TYPE = "01",
                     CSEARCH_TEXT = _PMR02200ViewModel.PrintParam.CTO_CUSTOMER_ID, // property that bindded to search textbox
                 };
                 var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
@@ -297,14 +314,16 @@ public partial class PMR02200 : R_Page
 
             try
             {
-                LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
-                var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+                LookupGSL00700ViewModel loLookupViewModel = new LookupGSL00700ViewModel(); //use GSL's model
+                var loParam = new GSL00700ParameterDTO // use match param as GSL's dto, send as type in search texbox
                 {
+                    CUSER_ID = _clientHelper.UserId,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
                     CSEARCH_TEXT = _PMR02200ViewModel.PrintParam.CDEPT_CODE, // property that bindded to search textbox
                 };
 
 
-                var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
+                var loResult = await loLookupViewModel.GetDepartment(loParam); //retrive single record 
 
                 //show result & show name/related another fields
                 if (loResult == null)
@@ -316,7 +335,7 @@ public partial class PMR02200 : R_Page
                     //await GLAccount_TextBox.FocusAsync();
                 }
                 else
-                    _PMR02200ViewModel.PrintParam.CDEPT_NAME = loResult.CCUSTOMER_TYPE_NAME; //assign bind textbox name kalo ada
+                    _PMR02200ViewModel.PrintParam.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
             }
             catch (Exception ex)
             {
@@ -407,6 +426,11 @@ public partial class PMR02200 : R_Page
             LookupLML00800ViewModel loLookupViewModel = new LookupLML00800ViewModel(); //use GSL's model
             var loParam = new LML00800ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CPROPERTY_ID = _PMR02200ViewModel.PropertyDefault,
+                CDEPT_CODE = _PMR02200ViewModel.PrintParam.CDEPT_CODE,
+                CAGGR_STTS = _PMR02200ViewModel.AggrementRadioSelected,
+                CLANG_ID = _clientHelper.Culture.Name,
                 CSEARCH_TEXT = _PMR02200ViewModel.PrintParam.CFROM_LOI_NO, // property that bindded to search textbox
             };
 

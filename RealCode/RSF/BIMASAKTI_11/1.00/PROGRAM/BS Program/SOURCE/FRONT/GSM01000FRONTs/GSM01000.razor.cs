@@ -315,7 +315,23 @@ namespace GSM01000Front
             var loEx = new R_Exception();
             try
             {
+                var loData = arg.Data as GSM01000DTO;
                 // nanti kerjakan resources nya
+                if (_conductorGridRef.R_ConductorMode == R_eConductorMode.Add )
+                {
+                    if (loData.CCASH_FLOW_CODE == "")
+                    {
+                        loEx.Add("", @_localizer["validationCashflow"]);
+                    }
+                }
+                if (_conductorGridRef.R_ConductorMode == R_eConductorMode.Edit )
+                {
+                    if (loData.CCASH_FLOW_CODE == "")
+                    {
+                        loEx.Add("", @_localizer["validationCashflow"]);
+                    }
+                }
+                
             }
             catch (Exception ex)
             {
@@ -872,6 +888,22 @@ namespace GSM01000Front
                         {
                             eventArgs.Cancel = true;
                         }
+                    }
+                }
+                  
+                    // nanti kerjakan resources nya
+                if (_conductorGridRef.R_ConductorMode == R_eConductorMode.Add )
+                {
+                    if (loData.CCASH_FLOW_CODE == "")
+                    {
+                        loException.Add("", @_localizer["validationCashflow"]);
+                    }
+                }
+                if (_conductorGridRef.R_ConductorMode == R_eConductorMode.Edit )
+                {
+                    if (loData.CCASH_FLOW_CODE == "")
+                    {
+                        loException.Add("", @_localizer["validationCashflow"]);
                     }
                 }
             }

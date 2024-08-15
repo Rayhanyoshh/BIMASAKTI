@@ -1,0 +1,93 @@
+@page "/TXR00200"
+@attribute [R_Page(Title = "Generate Tax E-Faktur")]
+@using TXR00200Common.PrintDTO
+@using TXR00200Common.DTOs
+@inherits R_Page
+
+<R_StackLayout>
+    
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Property</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_TXR00200ViewModel.PropertyList"
+                        @bind-Value="_TXR00200ViewModel.PropertyDefault"
+                        ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
+                        TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Tax Period</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_NumericTextBox @bind-Value="_TXR00200ViewModel.PeriodYear"
+                              ThousandSeparator="false"
+                              Arrows="true"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_ComboBox Data="_TXR00200ViewModel.PeriodDetailList" 
+                        @bind-Value="_TXR00200ViewModel.PeriodMonthDefault"
+                        ValueField="@nameof(TXR00200PeriodDetailDTO.CPERIOD_NO)"
+                        TextField="@nameof(TXR00200PeriodDetailDTO.CPERIOD_NO)"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Tax Type</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="6">
+            <R_RadioGroup Data="@_TXR00200ViewModel.TaxTypeRadio"
+                          @bind-Value="@_TXR00200ViewModel.TaxTypeRadioSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CTAX_TYPE)"
+                          TextField="@nameof(PrintParamTXDTO.CTAX_TYPE_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+
+                          OnChanged="OnChangeTaxType"
+
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+    
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Transaction Code</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox   Data="@_TXR00200ViewModel.TransCodeComboBoxList"
+                          @bind-Value="@_TXR00200ViewModel.TransCodeSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CTRANS_CODE)"
+                          TextField="@nameof(PrintParamTXDTO.CTRANC_CODE_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+                         
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-1 ps-4 pt-1">
+
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout class="col-1 ps-4 pt-1">
+
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+</R_StackLayout>
+
+
+<R_StackLayout Row="true">
+    <R_ItemLayout class="col-1 ps-4 pt-1">
+        <R_Button  OnClick="Button_OnClickProcessAsync">
+            Print
+        </R_Button>
+    </R_ItemLayout>
+</R_StackLayout>

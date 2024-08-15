@@ -1,13 +1,8 @@
 ﻿using BaseHeaderReportCOMMON;
 using GSM01000Common.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using BaseHeaderReportCOMMON.Models;
-using System.Text;
-using BaseHeaderReportCOMMON;
+
 
 
 namespace GSM001000Common.Model

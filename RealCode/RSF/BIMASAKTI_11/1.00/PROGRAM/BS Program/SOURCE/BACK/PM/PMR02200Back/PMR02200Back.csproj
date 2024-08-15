@@ -25,7 +25,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\COMMON\PM\PMR02200Common\PMR02200Common.csproj" />
+        <ProjectReference Include="..\..\..\COMMON\PM\PMR02200Common\PMR02200Common.csproj" />
     </ItemGroup>
+
 
 </Project>

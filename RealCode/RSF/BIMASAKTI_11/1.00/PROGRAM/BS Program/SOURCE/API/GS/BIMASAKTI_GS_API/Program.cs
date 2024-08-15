@@ -8,6 +8,7 @@ builder.R_RegisterServices(
     {
         //startup.R_DisableAuthentication();
         startup.R_DisableAuthorization();
+        startup.R_DisableReportServerClient();
         // startup.R_DisableOpenTelemetry();
     }
 );

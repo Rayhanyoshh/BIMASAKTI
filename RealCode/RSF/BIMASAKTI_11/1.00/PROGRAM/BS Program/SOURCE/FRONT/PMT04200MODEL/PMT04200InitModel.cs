@@ -400,6 +400,16 @@ namespace PMT04200MODEL
             throw new NotImplementedException();
         }
 
+        public PMT04200RecordResult<PMT04200JournalListInitialProcessDTO> GetTabJournalListInitialProcess()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PMT04200RecordResult<PMT04210JournalEntryInitialProcessDTO> GetTabJournalEntryInitialProcess()
+        {
+            throw new NotImplementedException();
+        }
+
         public PMT04200RecordResult<PMT04200GSCompanyInfoDTO> GetGSCompanyInfo()
         {
             throw new NotImplementedException();

@@ -3,10 +3,15 @@ namespace PMM05000Common.DTOs;
 public class ContextConstant
 {
     public const string CPROPERTY_ID = "CPROPERTY_ID";
-    public const string CUNIT_TYPE_ID = "CUNIT_TYPE_ID";
-    public const string CUNIT_TYPE_NAME = "CUNIT_TYPE_NAME";
-    public const string LACTIVE_ONLY = "LACTIVE_ONLY";
-    public const string CVALID_DATE = "CVALID_DATE";
-    public const string CVALID_INTERNAL_ID = "CVALID_INTERNAL_ID";
+    public const string CUNIT_TYPE_CATEGORY_ID = "CUNIT_TYPE_CATEGORY_ID";
+    public const string CPRICE_TYPE = "CPRICE_TYPE";
+    public const string CTYPE = "CTYPE";
     public const string LACTIVE = "LACTIVE";
+    public const string CVALID_DATE = "CVALID_DATE";
+    public const string CVALID_ID = "CVALID_ID";
+    public const string CRATE_DATE = "CRATE_DATE";
+    public const string CLASS_APPLICATION = "CLASS_APPLICATION";
+    public const string CCOMPANY_ID = "CCOMPANY_ID";
+    public const string CLASS_ID = "CLASS_ID";
+    public const string REC_ID_LIST = "REC_ID_LIST";
 }

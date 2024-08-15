@@ -167,11 +167,6 @@
           "System.Text.Encodings.Web": "6.0.0"
         }
       },
-      "BaseHeaderReportCOMMON/1.0.0": {
-        "runtime": {
-          "BaseHeaderReportCOMMON.dll": {}
-        }
-      },
       "GFF00900COMMON/1.0.0": {
         "runtime": {
           "GFF00900COMMON.dll": {}
@@ -196,9 +191,6 @@
         }
       },
       "GSM01000Common/1.0.0": {
-        "dependencies": {
-          "BaseHeaderReportCOMMON": "1.0.0"
-        },
         "runtime": {
           "GSM01000Common.dll": {}
         }
@@ -347,6 +339,14 @@
           }
         }
       },
+      "BaseHeaderReportCOMMON/1.0.0.0": {
+        "runtime": {
+          "BaseHeaderReportCOMMON.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "R_ContextEnumAndInterface/1.0.0.0": {
         "runtime": {
           "R_ContextEnumAndInterface.dll": {
@@ -483,11 +483,6 @@
       "path": "system.text.json/6.0.0",
       "hashPath": "system.text.json.6.0.0.nupkg.sha512"
     },
-    "BaseHeaderReportCOMMON/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "GFF00900COMMON/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -594,6 +589,11 @@
       "sha512": ""
     },
     "R_APIClient/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BaseHeaderReportCOMMON/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

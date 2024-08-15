@@ -3,103 +3,229 @@ using R_Common;
 using R_CommonFrontBackAPI;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Reflection;
+using System.Transactions;
 using PMM05000Common.DTOs;
 using PMM05000Back;
+using PMM05000Common;
 
 namespace PMM05000Back;
 
-public class PMM05000Cls : R_BusinessObject<PMM05000DTO>
+public class PMM05000Cls
 {
-    protected override PMM05000DTO R_Display(PMM05000DTO poEntity)
+    RSP_PM_MAINTAIN_PRICINGResources.Resources_Dummy_Class _rspMaintainPricing = new();
+
+    RSP_PM_MAINTAIN_PRICING_RATEResources.Resources_Dummy_Class _rspMaintainPricingRate = new();
+
+    RSP_PM_ACTIVE_INACTIVE_PRICINGResources.Resources_Dummy_Class _rspActiveInactivePricing = new();
+
+    private LoggerPMM05000 _logger;
+
+    private readonly ActivitySource _activitySource;
+
+    public PMM05000Cls()
     {
-        R_Exception loException = new R_Exception();
-        PMM05000DTO loRtn = null;
-        R_Db loDb;
-        DbConnection loConn = null;
-        DbCommand loCmd;
-        string lcQuery;
-        try
-        {
-                
-            loDb = new R_Db();
-            loConn = loDb.GetConnection("R_DefaultConnectionString");
-            loCmd = loDb.GetCommand();
-                
-            lcQuery = "RSP_GS_GET_UNIT_TYPE_PRICE_DETAIL";
-            loCmd.CommandType = CommandType.StoredProcedure;
-            loCmd.CommandText = lcQuery;
-                
-            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
-            loDb.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", System.Data.DbType.String, 50, poEntity.CPROPERTY_ID);
-            loDb.R_AddCommandParameter(loCmd, "@CVALID_DATE", System.Data.DbType.String, 50, poEntity.CVALID_DATE);
-            loDb.R_AddCommandParameter(loCmd, "@CUNIT_TYPE_ID", System.Data.DbType.String, 50, poEntity.CUNIT_TYPE_ID);
-            loDb.R_AddCommandParameter(loCmd, "@LACTIVE_ONLY", System.Data.DbType.Boolean, 50, poEntity.LACTIVE);
-            loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", System.Data.DbType.String, 50, poEntity.CUSER_ID);
-
-            var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
-
-            loRtn = R_Utility.R_ConvertTo<PMM05000DTO>(loDataTable).FirstOrDefault();
-        }
-        catch (Exception ex)
-        {
-            loException.Add(ex);
-        }
-        loException.ThrowExceptionIfErrors();
-
-        return loRtn;
+        _logger = LoggerPMM05000.R_GetInstanceLogger();
+        _activitySource = PMM05000Activity.R_GetInstanceActivitySource();
     }
-
-    protected override void R_Saving(PMM05000DTO poNewEntity, eCRUDMode poCRUDMode)
-    {
-          var loEx = new R_Exception();
-          var loDb = new R_Db();
-          DbCommand loCmd;
-          var loConn = loDb.GetConnection("R_DefaultConnectionString");
-          string lcAction = "";
-          string lcQuery = "";
-          
-          try
+    public List<UnitTypeCategoryDTO> GetUnitTypeCategoryList(UnitTypeCategoryParamDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            R_Exception loEx = new();
+            List<UnitTypeCategoryDTO> loRtn = null;
+            R_Db loDB;
+            DbConnection loConn;
+            DbCommand loCmd;
+            string lcQuery;
+            try
             {
-                loCmd = loDb.GetCommand();
-                if (poCRUDMode == eCRUDMode.AddMode)
-                {
-                    lcAction = "ADD";
-                }
-                else if (poCRUDMode == eCRUDMode.EditMode)
-                {
-                    lcAction = "EDIT";
-                }
+                loDB = new R_Db();
+                loConn = loDB.GetConnection();
+                loCmd = loDB.GetCommand();
 
-                lcQuery = "RSP_PM_MAINTAIN_UNIT_TYPE_PRICE";
+                lcQuery = "RSP_GS_GET_UNIT_TYPE_CTG_LIST";
                 loCmd.CommandType = CommandType.StoredProcedure;
                 loCmd.CommandText = lcQuery;
 
-                loDb.R_AddCommandParameter(loCmd, "CCOMPANY_ID", DbType.String, 8, poNewEntity.CCOMPANY_ID);
-                loDb.R_AddCommandParameter(loCmd, "CPROPERTY_ID", DbType.String, 20, poNewEntity.CPROPERTY_ID);
-                loDb.R_AddCommandParameter(loCmd, "CUNIT_TYPE_ID", DbType.String, 20, poNewEntity.CUNIT_TYPE_ID);
-                loDb.R_AddCommandParameter(loCmd, "CVALID_INTERNAL_ID", DbType.String, 20, poNewEntity.CVALID_INTERNAL_ID);
-                loDb.R_AddCommandParameter(loCmd, "CVALID_DATE", DbType.String, 20, poNewEntity.CVALID_DATE);
-                loDb.R_AddCommandParameter(loCmd, "CBY_SQM_TOTAL", DbType.String, 20, poNewEntity.CBY_SQM_TOTAL);
-                loDb.R_AddCommandParameter(loCmd, "NNORMAL_PRICE_SQM", DbType.Decimal, 20, poNewEntity.NNORMAL_PRICE_SQM);
-                loDb.R_AddCommandParameter(loCmd, "NNORMAL_SELLING_PRICE", DbType.Decimal, 20, poNewEntity.NNORMAL_SELLING_PRICE);
-                loDb.R_AddCommandParameter(loCmd, "NBOTTOM_PRICE_SQM", DbType.Decimal, 20, poNewEntity.NBOTTOM_PRICE_SQM);
-                loDb.R_AddCommandParameter(loCmd, "NBOTTOM_SELLING_PRICE", DbType.Decimal, 20, poNewEntity.NBOTTOM_SELLING_PRICE);
-                loDb.R_AddCommandParameter(loCmd, "LOVERWRITE", DbType.Boolean, 20, poNewEntity.LOVERWRITE);
-                loDb.R_AddCommandParameter(loCmd, "LACTIVE", DbType.Boolean, 20, poNewEntity.LACTIVE);
-                loDb.R_AddCommandParameter(loCmd, "CACTION", DbType.String, 10, lcAction);
-                loDb.R_AddCommandParameter(loCmd, "CUSER_ID", DbType.String, 20, poNewEntity.CUSER_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poEntity.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, int.MaxValue, poEntity.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poEntity.CUSER_ID);
+                ShowLogDebug(lcQuery, loCmd.Parameters);
 
+                var loRtnTemp = loDB.SqlExecQuery(loConn, loCmd, true);
+                loRtn = R_Utility.R_ConvertTo<UnitTypeCategoryDTO>(loRtnTemp).ToList();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+
+        public List<PricingDTO> GetPricingList(PricingParamDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            R_Exception loEx = new();
+            List<PricingDTO> loRtn = null;
+            R_Db loDB;
+            DbConnection loConn;
+            DbCommand loCmd;
+            string lcQuery;
+            try
+            {
+                loDB = new R_Db();
+                loConn = loDB.GetConnection();
+                loCmd = loDB.GetCommand();
+
+                lcQuery = "RSP_PM_GET_PRICING_LIST";
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loCmd.CommandText = lcQuery;
+
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poEntity.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, int.MaxValue, poEntity.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CUNIT_CATEGORY_ID", DbType.String, int.MaxValue, poEntity.CUNIT_TYPE_CATEGORY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPRICE_TYPE", DbType.String, int.MaxValue, poEntity.CPRICE_TYPE);
+                loDB.R_AddCommandParameter(loCmd, "@LACTIVE_ONLY", DbType.Boolean, int.MaxValue, poEntity.LACTIVE);
+                loDB.R_AddCommandParameter(loCmd, "@CTYPE", DbType.String, int.MaxValue, poEntity.CTYPE);
+                loDB.R_AddCommandParameter(loCmd, "@CVALID_DATE", DbType.String, int.MaxValue, poEntity.CVALID_DATE);
+                loDB.R_AddCommandParameter(loCmd, "@CVALID_ID", DbType.String, int.MaxValue, poEntity.CVALID_INTERNAL_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poEntity.CUSER_ID);
+
+                ShowLogDebug(lcQuery, loCmd.Parameters);
+                var loRtnTemp = loDB.SqlExecQuery(loConn, loCmd, true);
+                loRtn = R_Utility.R_ConvertTo<PricingDTO>(loRtnTemp).ToList();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+
+        public List<PricingDTO> GetPricingDateList(PricingParamDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            R_Exception loEx = new();
+            List<PricingDTO> loRtn = null;
+            R_Db loDB;
+            DbConnection loConn;
+            DbCommand loCmd;
+            string lcQuery;
+            try
+            {
+                loDB = new R_Db();
+                loConn = loDB.GetConnection();
+                loCmd = loDB.GetCommand();
+
+                lcQuery = "RSP_PM_GET_PRICING_DATE_LIST";
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loCmd.CommandText = lcQuery;
+
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poEntity.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, int.MaxValue, poEntity.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CUNIT_CATEGORY_ID", DbType.String, int.MaxValue, poEntity.CUNIT_TYPE_CATEGORY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPRICE_TYPE", DbType.String, int.MaxValue, poEntity.CPRICE_TYPE);
+                loDB.R_AddCommandParameter(loCmd, "@CTYPE", DbType.String, int.MaxValue, poEntity.CTYPE);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poEntity.CUSER_ID);
+                ShowLogDebug(lcQuery, loCmd.Parameters);
+
+                var loRtnTemp = loDB.SqlExecQuery(loConn, loCmd, true);
+                loRtn = R_Utility.R_ConvertTo<PricingDTO>(loRtnTemp).ToList();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+
+        public void SavePricing(PricingSaveParamDTO poParam)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required))
+                {
+                    SavePricingSP(poParam);
+
+                    transactionScope.Complete();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        public void SavePricingSP(PricingSaveParamDTO poParam)
+        {
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            R_Exception loEx = new R_Exception();
+            R_Db loDB = new R_Db();
+            DbConnection loConn = null;
+            DbCommand loCmd = null;
+            string lcQuery = "";
+            try
+            {
+
+
+                loCmd = loDB.GetCommand();
+                loConn = loDB.GetConnection();
                 R_ExternalException.R_SP_Init_Exception(loConn);
 
+                // creating temptable
+                lcQuery = @"CREATE TABLE #PRICING 
+                              ( ISEQ INT
+	                        , CVALID_INTERNAL_ID	VARCHAR(36)
+	                        , CCHARGES_TYPE			VARCHAR(2)
+	                        , CCHARGES_ID			VARCHAR(20)
+	                        , CPRICE_MODE			VARCHAR(2)
+	                        , NNORMAL_PRICE			NUMERIC(18,2)
+	                        , NBOTTOM_PRICE			NUMERIC(18,2)
+	                        , LOVERWRITE			BIT
+                              ) ";
+                //exec temptable
+                loDB.SqlExecNonQuery(lcQuery, loConn, false);
+
+                //convert data
+                var loConvertedData = ConvertListToBulkDTO(poParam.PRICING_LIST);
+
+                //savebulk
+                _logger.LogDebug($"INSERT INTO #PRICING {loConvertedData}");//log insert
+                
+                loDB.R_BulkInsert<PricingDBSaveBulkDTO>((SqlConnection)loConn, "#PRICING", loConvertedData);
+
+                //exec rsp
+                lcQuery = "RSP_PM_MAINTAIN_PRICING";
+                loCmd.CommandText = lcQuery;
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poParam.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, int.MaxValue, poParam.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPRICE_TYPE", DbType.String, int.MaxValue, poParam.CPRICE_TYPE);
+                loDB.R_AddCommandParameter(loCmd, "@CUNIT_TYPE_CTG_ID", DbType.String, int.MaxValue, poParam.CUNIT_TYPE_CATEGORY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CVALID_FROM_DATE", DbType.String, int.MaxValue, poParam.CVALID_FROM_DATE);
+                loDB.R_AddCommandParameter(loCmd, "@LACTIVE", DbType.Boolean, int.MaxValue, poParam.LACTIVE);
+                loDB.R_AddCommandParameter(loCmd, "@CACTION", DbType.String, int.MaxValue, poParam.CACTION);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poParam.CUSER_ID);
                 try
                 {
-                    loDb.SqlExecNonQuery(loConn, loCmd, false);
+                    ShowLogDebug(lcQuery, loCmd.Parameters);
+                    loDB.SqlExecNonQuery(loConn, loCmd, false);
                 }
                 catch (Exception ex)
                 {
                     loEx.Add(ex);
                 }
-
                 loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
 
             }
@@ -117,192 +243,121 @@ public class PMM05000Cls : R_BusinessObject<PMM05000DTO>
                     }
                     loConn.Dispose();
                 }
+                if (loCmd != null)
+                {
+                    loCmd.Dispose();
+                    loCmd = null;
+                }
             }
             loEx.ThrowExceptionIfErrors();
-    }
-
-    protected override void R_Deleting(PMM05000DTO poNewEntity)
-    {
-        var loEx = new R_Exception();
-        var loDb = new R_Db();
-        DbConnection loConn = null;
-        DbCommand loCmd;
-        string lcAction = "DELETE";
-        string lcQuery = "";
-
-        try
-        {
-            loConn = loDb.GetConnection("R_DefaultConnectionString");
-            loCmd = loDb.GetCommand();
-
-            lcQuery = "RSP_PM_MAINTAIN_UNIT_TYPE_PRICE";
-            loCmd.CommandType = CommandType.StoredProcedure;
-            loCmd.CommandText = lcQuery;
-
-            loDb.R_AddCommandParameter(loCmd, "CCOMPANY_ID", DbType.String, 8, poNewEntity.CCOMPANY_ID);
-            loDb.R_AddCommandParameter(loCmd, "CPROPERTY_ID", DbType.String, 20, poNewEntity.CPROPERTY_ID);
-            loDb.R_AddCommandParameter(loCmd, "CUNIT_TYPE_ID", DbType.String, 20, poNewEntity.CUNIT_TYPE_ID);
-            loDb.R_AddCommandParameter(loCmd, "CVALID_INTERNAL_ID", DbType.String, 20, poNewEntity.CVALID_INTERNAL_ID);
-            loDb.R_AddCommandParameter(loCmd, "CVALID_DATE", DbType.String, 20, poNewEntity.CVALID_DATE);
-            loDb.R_AddCommandParameter(loCmd, "CBY_SQM_TOTAL", DbType.String, 20, poNewEntity.CBY_SQM_TOTAL);
-            loDb.R_AddCommandParameter(loCmd, "NNORMAL_PRICE_SQM", DbType.Decimal, 20, poNewEntity.NNORMAL_PRICE_SQM);
-            loDb.R_AddCommandParameter(loCmd, "NNORMAL_SELLING_PRICE", DbType.Decimal, 20,
-                poNewEntity.NNORMAL_SELLING_PRICE);
-            loDb.R_AddCommandParameter(loCmd, "NBOTTOM_PRICE_SQM", DbType.Decimal, 20, poNewEntity.NBOTTOM_PRICE_SQM);
-            loDb.R_AddCommandParameter(loCmd, "NBOTTOM_SELLING_PRICE", DbType.Decimal, 20,
-                poNewEntity.NBOTTOM_SELLING_PRICE);
-            loDb.R_AddCommandParameter(loCmd, "LOVERWRITE", DbType.Boolean, 20, poNewEntity.LOVERWRITE);
-            loDb.R_AddCommandParameter(loCmd, "LACTIVE", DbType.Boolean, 20, poNewEntity.LACTIVE);
-            loDb.R_AddCommandParameter(loCmd, "CACTION", DbType.String, 10, lcAction);
-            loDb.R_AddCommandParameter(loCmd, "CUSER_ID", DbType.String, 20, poNewEntity.CUSER_ID);
-
-            R_ExternalException.R_SP_Init_Exception(loConn);
-            
-            
-        }
-        catch (Exception ex)
-        {
-            loEx.Add(ex);
-        }
-    }
-
-    public List<PMM05000DTO> GetTypePriceListDb (BackParameter poEntity)
-    {
-        R_Exception loException = new R_Exception();
-        List<PMM05000DTO> loRtn = null;
-        R_Db loDb;
-        DbConnection loConn = null;
-        DbCommand loCmd;
-        string lcQuery = null;
-        try
-        {
-                
-            loDb = new R_Db();
-            loConn = loDb.GetConnection("R_DefaultConnectionString");
-            loCmd = loDb.GetCommand();
-                
-            lcQuery = "RSP_GS_GET_UNIT_TYPE_PRICE_LIST";
-            loCmd.CommandType = CommandType.StoredProcedure;
-            loCmd.CommandText = lcQuery;
-                
-            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", System.Data.DbType.String, 50, poEntity.CCOMPANY_ID);
-            loDb.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", System.Data.DbType.String, 50, poEntity.CPROPERTY_ID);
-            loDb.R_AddCommandParameter(loCmd, "@CUNIT_TYPE_ID", System.Data.DbType.String, 50, poEntity.CUNIT_TYPE_ID);
-            loDb.R_AddCommandParameter(loCmd, "@LACTIVE_ONLY", System.Data.DbType.String, 50, false);
-            loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", System.Data.DbType.String, 50, poEntity.CUSER_ID);
-
-            var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
-
-            loRtn = R_Utility.R_ConvertTo<PMM05000DTO>(loDataTable).ToList();
-        }
-        catch (Exception ex)
-        {
-            loException.Add(ex);
-        }
-            loException.ThrowExceptionIfErrors();
-
-        return loRtn;
-    }
-    
-    public List<PropertyListDTO> PropertyListDB(BackParameter poParameter)
-    {
-        R_Exception loException = new R_Exception();
-        List<PropertyListDTO> loResult = null;
-        try
-        {
-            var loDb = new R_Db();
-            var loConn = loDb.GetConnection("R_DefaultConnectionString");
-            var loCmd = loDb.GetCommand();
-
-            var lcQuery = "EXEC RSP_GS_GET_PROPERTY_LIST @CCOMPANY_ID, @CUSER_ID";
-            loCmd.CommandText = lcQuery;
-
-            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 20, poParameter.CCOMPANY_ID);
-            loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, poParameter.CUSER_ID);
-
-            var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
-            loResult = R_Utility.R_ConvertTo<PropertyListDTO>(loDataTable).ToList();
-        }
-        catch (Exception ex)
-        {
-            loException.Add(ex);
-        }
-        loException.ThrowExceptionIfErrors();
-
-        return loResult;
-    }
-    
-    public void ActiveInactiveProcess()
-    {
-        R_Exception loException = new R_Exception();
-
-        try
-        {
-            if (loException.Haserror == false)
-            {
-
-            }
-        }
-        catch (Exception ex)
-        {
-            loException.Add(ex);
         }
 
-        EndBlock:
-        loException.ThrowExceptionIfErrors();
-    }
-        
-    public void RSP_GS_ACTIVE_INACTIVE_PRICE_Method(ActiveInactiveParameterDTO poEntity)
-    {
-        R_Exception loException = new R_Exception();
-        var loEx = new R_Exception();
-        var loDb = new R_Db();
-        var loConn = loDb.GetConnection("R_DefaultConnectionString");
-
-        try
+        public void ActiveInactivePricing(PricingParamDTO poParam)
         {
-            //R_Db loDb = new R_Db();
-            //DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
-            string lcQuery = $"EXEC [RSP_PM_ACTIVE_INACTIVE_UNIT_PRICE]" +
-                             $"'{poEntity.CCOMPANY_ID}', " +
-                             $"'{poEntity.CPROPERTY_ID}', " +
-                             $"'{poEntity.CUNIT_TYPE_ID}', " +
-                             $"'{poEntity.CVALID_INTERNAL_ID}', " +
-                             $"'{!poEntity.LACTIVE}', " +
-                             $"'{poEntity.CUSER_ID}'";
-
-            DbCommand loCmd = loDb.GetCommand();
-            loCmd.CommandText = lcQuery;
-
-            R_ExternalException.R_SP_Init_Exception(loConn);
-
+            using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
+            R_Exception loEx = new();
+            R_Db loDB;
+            DbConnection loConn = null;
+            DbCommand loCmd = null;
+            string lcQuery;
             try
             {
-                loDb.SqlExecNonQuery(loConn, loCmd, false);
+                loDB = new R_Db();
+                loConn = loDB.GetConnection();
+                loCmd = loDB.GetCommand();
+                R_ExternalException.R_SP_Init_Exception(loConn);
+
+                lcQuery = "RSP_PM_ACTIVE_INACTIVE_PRICING";
+                loCmd.CommandType = CommandType.StoredProcedure;
+                loCmd.CommandText = lcQuery;
+
+                loDB.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, poParam.CCOMPANY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, int.MaxValue, poParam.CPROPERTY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CPRICE_TYPE", DbType.String, int.MaxValue, poParam.CPRICE_TYPE);
+                loDB.R_AddCommandParameter(loCmd, "@CUNIT_TYPE_CATEGORY_ID", DbType.String, int.MaxValue, poParam.CUNIT_TYPE_CATEGORY_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CVALID_INTERNAL_ID", DbType.String, int.MaxValue, poParam.CVALID_INTERNAL_ID);
+                loDB.R_AddCommandParameter(loCmd, "@CVALID_DATE", DbType.String, int.MaxValue, poParam.CVALID_DATE);
+                loDB.R_AddCommandParameter(loCmd, "@LACTIVE", DbType.Boolean, int.MaxValue, poParam.LACTIVE);
+                loDB.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, int.MaxValue, poParam.CUSER_ID);
+                try
+                {
+                    ShowLogDebug(lcQuery, loCmd.Parameters);
+                    loDB.SqlExecNonQuery(loConn, loCmd, false);
+                }
+                catch (Exception ex)
+                {
+                    loEx.Add(ex);
+                }
+                loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
             }
             catch (Exception ex)
             {
                 loEx.Add(ex);
             }
-
-            loEx.Add(R_ExternalException.R_SP_Get_Exception(loConn));
-
-        }
-        catch (Exception ex)
-        {
-            loEx.Add(ex);
-        }
-        finally
-        {
-            if (loConn != null)
+            finally
             {
-                if (loConn.State != ConnectionState.Closed)
+                if (loConn != null)
                 {
-                    loConn.Close();
+                    if (loConn.State != ConnectionState.Closed)
+                    {
+                        loConn.Close();
+                    }
+                    loConn.Dispose();
                 }
-                loConn.Dispose();
+                if (loCmd != null)
+                {
+                    loCmd.Dispose();
+                    loCmd = null;
+                }
             }
+            loEx.ThrowExceptionIfErrors();
         }
-        loEx.ThrowExceptionIfErrors();
-    }
+
+        private List<PricingDBSaveBulkDTO> ConvertListToBulkDTO(List<PricingBulkSaveDTO> poParam)
+        {
+            var loRtn = new List<PricingDBSaveBulkDTO>();
+            R_Exception loEx = new R_Exception();
+            try
+            {
+                // separate new & old data (base on CVALID_INTERNAL_ID)
+                var loNewData = poParam.Where(item => string.IsNullOrEmpty(item.CVALID_INTERNAL_ID)).ToList();
+                var loOldData = poParam.Where(item => !string.IsNullOrEmpty(item.CVALID_INTERNAL_ID)).ToList();
+
+                // concatenate new data first and then old data
+                var loSortedData = loNewData.Concat(loOldData).ToList();
+
+                // give seq
+                loRtn = loSortedData.Select((loTemp, i) => new PricingDBSaveBulkDTO
+                {
+                    ISEQ = i + 1,//add sequence
+                    CVALID_INTERNAL_ID = loTemp.CVALID_INTERNAL_ID,
+                    CCHARGES_TYPE = loTemp.CCHARGES_TYPE,
+                    CCHARGES_ID = loTemp.CCHARGES_ID,
+                    CPRICE_MODE = loTemp.CPRICE_MODE,
+                    NNORMAL_PRICE = loTemp.NNORMAL_PRICE,
+                    NBOTTOM_PRICE = loTemp.NBOTTOM_PRICE,
+                    LOVERWRITE = loTemp.LOVERWRITE,
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+        #region log method helper
+
+        private void ShowLogDebug(string pcQuery, DbParameterCollection poParameters)
+        {
+            var paramValues = string.Join(", ", poParameters.Cast<DbParameter>().Select(p => $"{p.ParameterName} '{p.Value}'"));
+            _logger.LogDebug($"EXEC {pcQuery} {paramValues}");
+        }
+
+        private void ShowLogError(Exception ex)
+        {
+            _logger.LogError(ex);
+        }
+
+        #endregion
 }

@@ -52,18 +52,18 @@ namespace PMR02200MODEL
         
         public List<MonthDTO> PeriodMonthList { get; set; } = new List<MonthDTO>
         {
-            new MonthDTO { Id = "01", Text = "Januari" },
-            new MonthDTO { Id = "02", Text = "Februari" },
-            new MonthDTO { Id = "03", Text = "Maret" },
+            new MonthDTO { Id = "01", Text = "January" },
+            new MonthDTO { Id = "02", Text = "February" },
+            new MonthDTO { Id = "03", Text = "March" },
             new MonthDTO { Id = "04", Text = "April" },
-            new MonthDTO { Id = "05", Text = "Mei" },
-            new MonthDTO { Id = "06", Text = "Juni" },
-            new MonthDTO { Id = "07", Text = "Juli" },
-            new MonthDTO { Id = "08", Text = "Agustus" },
+            new MonthDTO { Id = "05", Text = "May" },
+            new MonthDTO { Id = "06", Text = "June" },
+            new MonthDTO { Id = "07", Text = "July" },
+            new MonthDTO { Id = "08", Text = "August" },
             new MonthDTO { Id = "09", Text = "September" },
-            new MonthDTO { Id = "10", Text = "Oktober" },
+            new MonthDTO { Id = "10", Text = "October" },
             new MonthDTO { Id = "11", Text = "November" },
-            new MonthDTO { Id = "12", Text = "Desember" }
+            new MonthDTO { Id = "12", Text = "December" }
         };
         public async Task GetPeriodCompany()
         {

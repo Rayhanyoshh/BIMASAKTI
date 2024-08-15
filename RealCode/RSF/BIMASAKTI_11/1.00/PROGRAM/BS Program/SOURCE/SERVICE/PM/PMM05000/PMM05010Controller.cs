@@ -1,5 +1,9 @@
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using R_Common;
 using R_CommonFrontBackAPI;
 using PMM05000Back;
@@ -13,122 +17,124 @@ namespace PMM05000Service
     [Route("api/[controller]/[action]")]
     public class PMM05010Controller : ControllerBase, IPMM05010
     {
-        [HttpPost]
-        public R_ServiceGetRecordResultDTO<PMM05010DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<PMM05010DTO> poParameter)
+     private LoggerPMM05000 _logger;
+
+        private readonly ActivitySource _activitySource;
+
+        public PMM05010Controller(ILogger<LoggerPMM05000> logger)
         {
-            var loEx = new R_Exception();
-            var loRtn = new R_ServiceGetRecordResultDTO<PMM05010DTO>();
-            BackParameter loDbPar;
-            try
-            {
-                var loCls = new PMM05010Cls();
-                loDbPar = new BackParameter();
-                // poParameter.Entity.CCOMPANY_ID = "rcd";
-                // poParameter.Entity.CPROPERTY_ID = "JBMPC";
-                // poParameter.Entity.CUNIT_TYPE_ID = "1BRoom";
-                poParameter.Entity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                poParameter.Entity.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
-                poParameter.Entity.CUNIT_TYPE_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CUNIT_TYPE_ID);
-                loRtn.data = loCls.R_GetRecord(poParameter.Entity);
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-
-            return loRtn;
+            LoggerPMM05000.R_InitializeLogger(logger);
+            _logger = LoggerPMM05000.R_GetInstanceLogger();
+            _activitySource = PMM05000Activity.R_InitializeAndGetActivitySource(GetType().Name);
         }
 
         [HttpPost]
-        public R_ServiceSaveResultDTO<PMM05010DTO> R_ServiceSave(R_ServiceSaveParameterDTO<PMM05010DTO> poParameter)
+        public IAsyncEnumerable<PricingRateDTO> GetPricingRateDateList()
         {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<PMM05010DTO> poParameter)
-        {
-            throw new NotImplementedException();
-        }
-        
-        [HttpPost]
-        public UnitTypeDataDTO GetUnitTypeList()
-        {
-            R_Exception loEx = new R_Exception();
-            UnitTypeDataDTO loRtn = null;
-            List<PMM05010DTO> loResult;
-            BackParameter loDbPar;
-            PMM05010Cls loCls;
-
-            try
-            {
-                loDbPar = new BackParameter();
-                loDbPar.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                loDbPar.CUSER_ID = R_BackGlobalVar.USER_ID;
-                loDbPar.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
-                // loDbPar.CCOMPANY_ID = "RCD";
-                // loDbPar.CPROPERTY_ID = "JBMPC";
-                loDbPar.CUNIT_TYPE_CATEGORY_ID = "";
-                // loDbPar.CUSER_ID = "ADMIN";
-                loCls = new PMM05010Cls();
-                loResult = loCls.UnitTypeListDB(loDbPar);
-                loRtn = new UnitTypeDataDTO() { Data = loResult };
-
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-
-            return loRtn;
-        }
-        
-        [HttpPost]
-        public IAsyncEnumerable<PMM05010DTO> GetUnitTypeListAsyc()
-        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
             R_Exception loException = new R_Exception();
-            IAsyncEnumerable<PMM05010DTO> loRtn = null;
-            PMM05010Cls loCls;
-            BackParameter loDbPar;
-            List<PMM05010DTO> loRtnTmp;
-
+            List<PricingRateDTO> loRtnTemp = null;
+            PMM05001Cls loCls;
             try
             {
-                loDbPar = new BackParameter();
-                loDbPar.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
-                loDbPar.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
-                loDbPar.CUNIT_TYPE_CATEGORY_ID = "";
-                // loDbPar.CCOMPANY_ID = "rcd";
-                loDbPar.CUSER_ID = "Admin";
-
-                loCls = new PMM05010Cls();
-
-                loRtnTmp = loCls.UnitTypeListDB(loDbPar);
-
-                loRtn = GetUnitTypeStream(loRtnTmp);
-
+                loCls = new PMM05001Cls();
+                ShowLogExecute();
+                loRtnTemp = loCls.GetPricingRateDateList(new PricingRateSaveParamDTO()
+                {
+                    CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID,
+                    CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID),
+                    CPRICE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPRICE_TYPE),
+                    CUSER_ID = R_BackGlobalVar.USER_ID,
+                });
             }
             catch (Exception ex)
             {
                 loException.Add(ex);
+                ShowLogError(loException);
             }
+        EndBlock:
             loException.ThrowExceptionIfErrors();
+            ShowLogEnd();
+            return StreamListHelper(loRtnTemp);
+        }
 
+        [HttpPost]
+        public IAsyncEnumerable<PricingRateDTO> GetPricingRateList()
+        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            R_Exception loException = new R_Exception();
+            List<PricingRateDTO> loRtnTemp = null;
+            PMM05001Cls loCls;
+            try
+            {
+                loCls = new PMM05001Cls();
+                ShowLogExecute();
+                loRtnTemp = loCls.GetPricingRateList(new PricingRateSaveParamDTO()
+                {
+                    CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID,
+                    CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CUNIT_TYPE_CATEGORY_ID),
+                    CPRICE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPRICE_TYPE),
+                    CRATE_DATE= R_Utility.R_GetStreamingContext<string>(ContextConstant.CRATE_DATE),
+                    CUSER_ID = R_BackGlobalVar.USER_ID,
+                });
+            }
+            catch (Exception ex)
+            {
+                loException.Add(ex);
+                ShowLogError(loException);
+            }
+        EndBlock:
+            loException.ThrowExceptionIfErrors();
+            ShowLogEnd();
+            return StreamListHelper(loRtnTemp);
+        }
+
+        [HttpPost]
+        public PricingDumpResultDTO SavePricingRate(PricingRateSaveParamDTO poParam)
+        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            PricingDumpResultDTO loRtn = new();
+            R_Exception loException = new R_Exception();
+            PMM05001Cls loCls;
+            try
+            {
+                loCls = new PMM05001Cls();
+                poParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poParam.CUSER_ID = R_BackGlobalVar.USER_ID;
+                ShowLogExecute();
+                loCls.SavePricingRate(poParam);
+            }
+            catch (Exception ex)
+            {
+                loException.Add(ex);
+                ShowLogError(loException);
+            }
+        EndBlock:
+            loException.ThrowExceptionIfErrors();
+            ShowLogEnd();
             return loRtn;
         }
-        
-        #region Helper
-        private async IAsyncEnumerable<PMM05010DTO> GetUnitTypeStream(List<PMM05010DTO> poParameter)
+
+        private async IAsyncEnumerable<T> StreamListHelper<T>(List<T> poList)
         {
-            foreach (PMM05010DTO item in poParameter)
+            foreach (T loEntity in poList)
             {
-                yield return item;
+                yield return loEntity;
             }
-        }
+        }   
+        
+        #region logger
+
+        private void ShowLogStart([CallerMemberName] string pcMethodCallerName = "") => _logger.LogInfo($"Starting {pcMethodCallerName} in {GetType().Name}");
+
+        private void ShowLogExecute([CallerMemberName] string pcMethodCallerName = "") => _logger.LogInfo($"Executing cls method in {GetType().Name}.{pcMethodCallerName}");
+
+        private void ShowLogEnd([CallerMemberName] string pcMethodCallerName = "") => _logger.LogInfo($"End {pcMethodCallerName} in {GetType().Name}");
+
+        private void ShowLogError(Exception exception, [CallerMemberName] string pcMethodCallerName = "") => _logger.LogError(exception);
 
         #endregion
     }

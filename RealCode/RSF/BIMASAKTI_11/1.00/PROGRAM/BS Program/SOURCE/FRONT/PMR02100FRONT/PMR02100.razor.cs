@@ -156,6 +156,10 @@ public partial class PMR02100 : R_Page
             LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
             var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CUSER_ID = _clientHelper.UserId,
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                CCUSTOMER_TYPE = "01",
                 CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID, // property that bindded to search textbox
             };
             var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
@@ -223,6 +227,10 @@ public partial class PMR02100 : R_Page
             LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
             var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CUSER_ID = _clientHelper.UserId,
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                CCUSTOMER_TYPE = "01",
                 CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID, // property that bindded to search textbox
             };
             var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
@@ -300,6 +308,10 @@ public partial class PMR02100 : R_Page
             LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
             var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CJRNGRP_TYPE = "10",
+                CUSER_LOGIN_ID = _clientHelper.UserId,
                 CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE, // property that bindded to search textbox
             };
             var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
@@ -314,7 +326,7 @@ public partial class PMR02100 : R_Page
                 //await GLAccount_TextBox.FocusAsync();
             }
             else
-                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE = loResult.CJRNGRP_NAME; //assign bind textbox name kalo ada
+                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = loResult.CJRNGRP_NAME; //assign bind textbox name kalo ada
         }
         catch (Exception ex)
         {
@@ -332,6 +344,10 @@ public partial class PMR02100 : R_Page
             LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
             var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CJRNGRP_TYPE = "10",
+                CUSER_LOGIN_ID = _clientHelper.UserId,
                 CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE, // property that bindded to search textbox
             };
             var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
@@ -400,6 +416,11 @@ public partial class PMR02100 : R_Page
             LookupPML01200ViewModel loLookupViewModel = new LookupPML01200ViewModel(); //use GSL's model
             var loParam = new LML01200ParameterDTO // use match param as GSL's dto, send as type in search texbox
             {
+                CCOMPANY_ID = _clientHelper.CompanyId,
+                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                CINVGRP_CODE = "",
+                CACTIVE_TYPE = "ALL",
+                CLANGUAGE_ID = _clientHelper.Culture.Name,
                 CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CINV_GRP_CODE, // property that bindded to search textbox
             };
             var loResult = await loLookupViewModel.GetAgreement(loParam); //retrive single record 

@@ -11,70 +11,36 @@ using R_CommonFrontBackAPI;
 
 namespace PMM05000Model
 {
-    public class PMM05000Model : R_BusinessObjectServiceClientBase<PMM05000DTO>, IPMM05000
+    public class PMM05000Model : R_BusinessObjectServiceClientBase<PricingSaveParamDTO>, IPMM05000
     {
-        private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrlPM";
-        private const string DEFAULT_SERVICEPOINT_NAME = "api/PMM05000";
+             private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrlPM";
+        private const string DEFAULT_CHECKPOINT_NAME = "api/PMM05000";
         private const string DEFAULT_MODULE = "PM";
-
-        public PMM05000Model() :
-            base(DEFAULT_HTTP_NAME, DEFAULT_SERVICEPOINT_NAME, DEFAULT_MODULE, true, true)
+        public PMM05000Model(string pcHttpClientName = DEFAULT_HTTP_NAME,
+            string pcRequestServiceEndPoint = DEFAULT_CHECKPOINT_NAME,
+            bool plSendWithContext = true,
+            bool plSendWithToken = true
+            ) : base(
+                pcHttpClientName,
+                pcRequestServiceEndPoint,
+                DEFAULT_MODULE,
+                plSendWithContext,
+                plSendWithToken)
         {
         }
 
-        #region Property
-        public IAsyncEnumerable<PropertyListDTO> GetPropertyList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<PropertyListDataDTO> GetProperyListAsync()
+        public async Task<List<PropertyDTO>> GetPropertyListAsync()
         {
             var loEx = new R_Exception();
-            PropertyListDataDTO loResult = new PropertyListDataDTO();
-            try
-            {
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+            List<PropertyDTO> loResult = null;
 
-                var loTempResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PropertyListDTO>(
-                    _RequestServiceEndPoint,
-                    nameof(IPMM05000.GetPropertyList),
-                    DEFAULT_MODULE,
-                    _SendWithContext,
-                    _SendWithToken);
-                loResult.Data = loTempResult;
-
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-
-            return loResult;
-        }
-        #endregion
-
-
-        #region Unit Type Price List
-        public PMM05000ListDTO GetUnitTypePriceList()
-        {
-            throw new NotImplementedException();
-        }
-        
-        public async Task<PMM05000ListDTO> GetUnitPriceListAsync()
-        {
-            var loEx = new R_Exception();
-            PMM05000ListDTO loResult = null;
             try
             {
                 R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
-                loResult = await R_HTTPClientWrapper.R_APIRequestObject<PMM05000ListDTO>(
+                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PropertyDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IPMM05000.GetUnitTypePriceList),
-                    DEFAULT_MODULE,
-                    _SendWithContext,
+                    nameof(IPMM05000.GetPropertyList),
+                    DEFAULT_MODULE, _SendWithContext,
                     _SendWithToken);
             }
             catch (Exception ex)
@@ -85,39 +51,170 @@ namespace PMM05000Model
             loEx.ThrowExceptionIfErrors();
 
             return loResult;
-        }
-        #endregion
 
-        #region MyRegion
-        public ActiveInactiveDTO RSP_GS_ACTIVE_INACTIVE_Method()
-        {
-            throw new NotImplementedException();
         }
-        
-        public async Task RSP_GS_ACTIVE_INACTIVE_MethodAsync()
+
+        public async Task<List<PricingDTO>> GetPricingDateListAsync()
         {
             var loEx = new R_Exception();
-            ActiveInactiveDTO loRtn = new ActiveInactiveDTO();
+            List<PricingDTO> loResult = new List<PricingDTO>();
             try
             {
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
-
-                loRtn = await R_HTTPClientWrapper.R_APIRequestObject<ActiveInactiveDTO>(
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PricingDTO>(
                     _RequestServiceEndPoint,
-                    nameof(IPMM05000.RSP_GS_ACTIVE_INACTIVE_Method),
-                    DEFAULT_MODULE,
-                    _SendWithContext,
+                    nameof(IPMM05000.GetPricingDateList),
+                    DEFAULT_MODULE, _SendWithContext,
                     _SendWithToken);
             }
             catch (Exception ex)
             {
                 loEx.Add(ex);
             }
+            loEx.ThrowExceptionIfErrors();
+            return loResult;
+        }
 
+        public async Task<List<UnitTypeCategoryDTO>> GetUnitTypeCategoryListAsync()
+        {
+            var loEx = new R_Exception();
+            List<UnitTypeCategoryDTO> loResult = null;
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<UnitTypeCategoryDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IPMM05000.GetUnitTypeCategoryList),
+                    DEFAULT_MODULE, _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loResult;
+        }
+
+        public async Task<List<PricingDTO>> GetPricingListAsync()
+        {
+            var loEx = new R_Exception();
+            List<PricingDTO> loResult = null;
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PricingDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IPMM05000.GetPricingList),
+                    DEFAULT_MODULE, _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loResult;
+        }
+
+        public async Task<List<TypeDTO>> GetPriceChargesTypeAsync()
+        {
+            var loEx = new R_Exception();
+            List<TypeDTO> loResult = null;
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<TypeDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IPMM05000.GetPriceChargesType),
+                    DEFAULT_MODULE, _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+            return loResult;
+        }
+
+        public async Task SavePricingAsync(PricingSaveParamDTO poParam)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                await R_HTTPClientWrapper.R_APIRequestObject<PricingDumpResultDTO, PricingSaveParamDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IPMM05000.SavePricing),
+                    poParam,
+                    DEFAULT_MODULE
+                    , _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
             loEx.ThrowExceptionIfErrors();
         }
-        #endregion
-       
+
+        public async Task ActiveInactivePricingAsync(PricingParamDTO poParam)
+        {
+            var loEx = new R_Exception();
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                await R_HTTPClientWrapper.R_APIRequestObject<PricingDumpResultDTO, PricingParamDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IPMM05000.ActiveInactivePricing),
+                    poParam,
+                    DEFAULT_MODULE
+                    , _SendWithContext,
+                    _SendWithToken);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
+
+        //NotImplementedException (Method)
+        public IAsyncEnumerable<PropertyDTO> GetPropertyList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<UnitTypeCategoryDTO> GetUnitTypeCategoryList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<PricingDTO> GetPricingDateList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<PricingDTO> GetPricingList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PricingDumpResultDTO SavePricing(PricingSaveParamDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<TypeDTO> GetPriceChargesType()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PricingDumpResultDTO ActiveInactivePricing(PricingParamDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -1,0 +1,103 @@
+@page "/TXR00100"
+@attribute [R_Page(Title = "Witholding Tax Slip Report")]
+@using TXR00100Common.PrintDTO
+@using TXR00100Common.DTOs
+@inherits R_Page
+
+<R_StackLayout>
+    
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Property</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_ComboBox Data="@_TXR00100ViewModel.PropertyList"
+                        @bind-Value="_TXR00100ViewModel.PropertyDefault"
+                        ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
+                        TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Tax Period</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_NumericTextBox @bind-Value="_TXR00100ViewModel.PeriodYear"
+                              ThousandSeparator="false"
+                              Arrows="true"/>
+        </R_ItemLayout>
+        <R_ItemLayout col="1">
+            <R_ComboBox Data="_TXR00100ViewModel.PeriodDetailList" 
+                        @bind-Value="_TXR00100ViewModel.PeriodMonthDefault"
+                        ValueField="@nameof(TXR00100PeriodDetailDTO.CPERIOD_NO)"
+                        TextField="@nameof(TXR00100PeriodDetailDTO.CPERIOD_NO)"/>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Deposit Type</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout col="6">
+            <R_RadioGroup Data="@_TXR00100ViewModel.WHTaxRadio"
+                          @bind-Value="@_TXR00100ViewModel.WHTaxRadioSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CWH_TAX_TYPE)"
+                          TextField="@nameof(PrintParamTXDTO.CWH_TAX_TYPE_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+    
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label>Sort By</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_RadioGroup Data="@_TXR00100ViewModel.SortByRadio1"
+                          @bind-Value="@_TXR00100ViewModel.SortByRadioSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CSORT_BY)"
+                          TextField="@nameof(PrintParamTXDTO.CSORT_BY_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label></R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_RadioGroup Data="@_TXR00100ViewModel.SortByRadio2"
+                          @bind-Value="@_TXR00100ViewModel.SortByRadioSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CSORT_BY)"
+                          TextField="@nameof(PrintParamTXDTO.CSORT_BY_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+    <R_StackLayout Row="true">
+        <R_ItemLayout col="2">
+            <R_Label></R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout>
+            <R_RadioGroup Data="@_TXR00100ViewModel.SortByRadio3"
+                          @bind-Value="@_TXR00100ViewModel.SortByRadioSelected"
+                          ValueField="@nameof(PrintParamTXDTO.CSORT_BY)"
+                          TextField="@nameof(PrintParamTXDTO.CSORT_BY_NAME)"
+                          R_ConductorSource="@_ConductorRef"
+            />
+        </R_ItemLayout>
+    </R_StackLayout>
+
+   
+</R_StackLayout>
+<R_StackLayout Row="true">
+    <R_ItemLayout class="col-1 ps-4 pt-1">
+        <R_Button  OnClick="Button_OnClickProcessAsync">
+            Print
+        </R_Button>
+    </R_ItemLayout>
+</R_StackLayout>

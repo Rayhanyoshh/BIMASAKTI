@@ -137,7 +137,7 @@ namespace PMR01000MODEL
             List<PMR01000PeriodDTDTO> loResult = null;
             try
             {
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+                
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
                 loResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PMR01000PeriodDTDTO>(
                     _RequestServiceEndPoint,

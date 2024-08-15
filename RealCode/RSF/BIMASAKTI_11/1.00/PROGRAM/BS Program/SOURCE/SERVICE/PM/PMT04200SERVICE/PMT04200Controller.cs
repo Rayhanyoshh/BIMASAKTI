@@ -30,7 +30,7 @@ namespace PMT04200SERVICE
             //Initial and Get Logger
             LoggerPMT04200.R_InitializeLogger(logger);
             _logger = LoggerPMT04200.R_GetInstanceLogger();
-            _activitySource = PMT04200Activity.R_InitializeAndGetActivitySource(GetType().Name);
+            _activitySource = PMT04200ActivityInitSourceBase.R_InitializeAndGetActivitySource(GetType().Name);
 
         }
         
@@ -74,6 +74,43 @@ namespace PMT04200SERVICE
             ShowLogEnd();
             return loRtn;
         }
+        
+        [HttpPost]
+        public IAsyncEnumerable<PMT04200AllocationGridDTO> GetAllocationList()
+        {
+            using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
+            ShowLogStart();
+            var loEx = new R_Exception();
+            IAsyncEnumerable<PMT04200AllocationGridDTO> loRtn = null;
+
+            try
+            {
+                var loParam = new PMT04200ParamDTO();
+                loParam.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
+                loParam.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CDEPT_CODE);
+                loParam.CREF_NO = R_Utility.R_GetStreamingContext<string>(ContextConstant.CREF_NO);
+                loParam.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                loParam.CUSER_ID = R_BackGlobalVar.USER_ID;
+                loParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
+
+                var loCls = new PMT04200Cls();
+
+                ShowLogExecute();
+                var loTempRtn = loCls.GetJournalAllocationGridList(loParam);
+
+                loRtn = StreamListData<PMT04200AllocationGridDTO>(loTempRtn);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                ShowLogError(loEx);
+
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            ShowLogEnd();
+            return loRtn;
+        }
 
         [HttpPost]
         public PMT04200RecordResult<PMT04200DTO> GetJournalRecord(PMT04200DTO poEntity)
@@ -86,7 +123,8 @@ namespace PMT04200SERVICE
             try
             {
                 var loCls = new PMT04200Cls();
-
+                poEntity.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poEntity.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
                 _logger.LogInfo("Call Back Method GetJournalDisplay");
                 loRtn.Data = loCls.GetTransactionDisplay(poEntity);
             }
@@ -113,6 +151,9 @@ namespace PMT04200SERVICE
             try
             {
                 var loCls = new PMT04200Cls();
+                poEntity.Data.CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID;
+                poEntity.Data.CUSER_ID = R_BackGlobalVar.USER_ID;
+                poEntity.Data.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
 
                 _logger.LogInfo("Call Back Method SaveJournal");
                 loRtn.Data = loCls.SaveJournal(poEntity.Data, poEntity.CRUDMode);

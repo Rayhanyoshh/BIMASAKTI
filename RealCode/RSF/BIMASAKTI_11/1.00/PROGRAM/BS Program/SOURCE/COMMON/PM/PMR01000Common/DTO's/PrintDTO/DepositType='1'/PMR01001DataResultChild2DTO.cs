@@ -13,4 +13,5 @@ public class PMR01001DataResultChild2DTO
     public string CCURRENCY_CODE  { get; set; }
     public decimal NDEPOSIT_AMOUNT  { get; set; }
     public decimal NDEPOSIT_BALANCE  { get; set; }
+    
 }

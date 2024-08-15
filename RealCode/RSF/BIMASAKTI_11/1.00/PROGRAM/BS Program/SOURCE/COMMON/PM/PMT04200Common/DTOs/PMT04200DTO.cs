@@ -8,6 +8,7 @@ public class PMT04200DTO
     public string CPROPERTY_ID { get; set; }
     public int INO { get; set; }
     public string CCOMPANY_ID { get; set; }
+    public string CUSER_ID { get; set; }
     public string CLANGUAGE_ID { get; set; }
     public string CDEPT_CODE { get; set; }
     public string CLOI_AGRMT_NO { get; set; }

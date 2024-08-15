@@ -50,7 +50,7 @@ namespace GSM01000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
                 lcQuery =
                     $"EXEC RSP_GS_GET_GOA_BY_COA_LIST" +

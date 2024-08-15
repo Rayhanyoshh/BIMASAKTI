@@ -103,8 +103,41 @@ public class PMR01001PrintController : R_ReportControllerBase
         R_Exception loException = new R_Exception();
         FileStreamResult loRtn = null;
         PMR01000PrintLogKeyDTO loResultGUID = null;
+        R_FileType loFileType = new();
         try
         {
+            //cek flag dari param apakah mode print/save as
+            if (loResultGUID.poParam.LIS_PRINT)
+            {
+//method filestream result seperti print biasa(pada browser akan open dan tidak mendonwload)
+                loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(peExport: loFileType), R_ReportUtility.GetMimeType(loFileType));
+            }
+            else//jika isPrint==false
+            {
+//mapping untuk persiapan filetype
+                switch (loResultGUID.poParam.CPRINT_FILE_TYPE)
+                {
+                    case "XLSX":
+                        loFileType = R_FileType.XLSX;
+                        break;
+                    case "PDF":
+                        loFileType = R_FileType.PDF;
+                        break;
+                    case "XLS":
+                        loFileType = R_FileType.XLS;
+                        break;
+                    case "CSV":
+                        loFileType = R_FileType.CSV;
+                        break;
+                    default:
+                        loFileType = R_FileType.PDF;
+                        break;
+                } 
+
+                //print nama save as (browser tidak akan membuka di tab baru melainkan langsung download, syaratnya butuh filename dan creport filetype)
+                loRtn = File(_ReportCls.R_GetStreamReport(peExport: loFileType), R_ReportUtility.GetMimeType(loFileType), $"{loResultGUID.poParam.CPRINT_FILENAME}.{loResultGUID.poParam.CPRINT_FILE_TYPE}"); //pada method ini ada overload dimana parameter terdapat filename, nantinya akan diinput seperti filename.filetype
+            }
+            
             // Deserialize the GUID from the cache
             loResultGUID = R_NetCoreUtility.R_DeserializeObjectFromByte<PMR01000PrintLogKeyDTO>(
                 R_DistributedCache.Cache.Get(pcGuid));
@@ -112,14 +145,6 @@ public class PMR01001PrintController : R_ReportControllerBase
 
             // Get Parameter
             R_NetCoreLogUtility.R_SetNetCoreLogKey(loResultGUID.poLogKey);
-
-            _Parameter = loResultGUID.poParam;
-
-            _logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
-            _logger.LogDebug("Deserialized Parameters: {@Parameters}", _Parameter);
-
-            loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(), R_ReportUtility.GetMimeType(R_FileType.PDF));
-            _logger.LogInfo("Data retrieval successful. Generating report.");
 
             _logger.LogInfo("Report generated successfully.");
         }
@@ -185,6 +210,7 @@ public class PMR01001PrintController : R_ReportControllerBase
             };
 
             // Create an instance of PMR01000Cls
+            poParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
             poParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResult(poParam);

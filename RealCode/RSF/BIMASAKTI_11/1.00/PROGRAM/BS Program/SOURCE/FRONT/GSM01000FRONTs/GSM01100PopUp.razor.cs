@@ -66,6 +66,7 @@ public partial class GSM01100PopUp : R_Page
         {
             _GSM1100ViewModel.loGetUserAssignList = (List<AssignUserDTO>)eventArgs.Data;//take list from selected
             string lcCombinedUserIdWithCommaSeparator = string.Join(",", _GSM1100ViewModel.loGetUserAssignList.Where(dto => dto.LSELECTED).Select(dto => dto.CUSER_ID));
+            
             await _GSM1100ViewModel.SaveUserAssign(lcCombinedUserIdWithCommaSeparator);
         }
         catch (Exception ex)

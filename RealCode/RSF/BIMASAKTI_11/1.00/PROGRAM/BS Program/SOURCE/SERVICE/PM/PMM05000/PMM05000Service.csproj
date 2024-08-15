@@ -6,16 +6,23 @@
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\BACK\PM\PMM05000Back\PMM05000Back.csproj" />
 	  <ProjectReference Include="..\..\..\COMMON\PM\PMM05000Common\PMM05000Common.csproj" />
 	</ItemGroup>
 
+
 	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+		<Reference Include="BaseHeaderReportCOMMON">
+			<HintPath>..\..\..\COMMON\BaseHeaderCommon\BaseHeaderCommonDll\BaseHeaderReportCOMMON.dll</HintPath>
+		</Reference>
 		<Reference Include="R_APIBackEnd">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_APIBackEnd.dll</HintPath>
 		</Reference>
@@ -30,6 +37,9 @@
 		</Reference>
 		<Reference Include="R_Cache">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_Cache.dll</HintPath>
+		</Reference>
+		<Reference Include="R_OpenTelemetry">
+			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_OpenTelemetry.dll</HintPath>
 		</Reference>
 		<Reference Include="R_ReportFastReportBack">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_ReportFastReportBack.dll</HintPath>

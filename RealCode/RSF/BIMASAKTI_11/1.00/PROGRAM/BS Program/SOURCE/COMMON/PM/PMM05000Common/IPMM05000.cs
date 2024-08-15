@@ -5,12 +5,15 @@ using PMM05000Common.DTOs;
 
 namespace PMM05000Common
 {
-    public interface IPMM05000 : R_IServiceCRUDBase<PMM05000DTO>
+    public interface IPMM05000  
     {
-        IAsyncEnumerable<PropertyListDTO> GetPropertyList();
-        PMM05000ListDTO GetUnitTypePriceList();
-        
-        ActiveInactiveDTO RSP_GS_ACTIVE_INACTIVE_Method();
+        IAsyncEnumerable<PropertyDTO> GetPropertyList();
+        IAsyncEnumerable<UnitTypeCategoryDTO> GetUnitTypeCategoryList();
+        IAsyncEnumerable<PricingDTO> GetPricingList();
+        IAsyncEnumerable<PricingDTO> GetPricingDateList();
+        PricingDumpResultDTO SavePricing(PricingSaveParamDTO poParam);
+        IAsyncEnumerable<TypeDTO> GetPriceChargesType();
+        PricingDumpResultDTO ActiveInactivePricing(PricingParamDTO poParam);
     }
 }
 

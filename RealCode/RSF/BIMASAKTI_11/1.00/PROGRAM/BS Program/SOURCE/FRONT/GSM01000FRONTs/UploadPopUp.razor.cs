@@ -67,9 +67,11 @@ public partial class UploadPopUp : R_Page
         try
         {
             //Asign Company and User id
+            await _GSM01001ViewModel.GetCompanyDetailAsync();
             _GSM01001ViewModel.CompanyID = clientHelper.CompanyId;
             _GSM01001ViewModel.UserId = clientHelper.UserId;
-            _GSM01001ViewModel.GetCompanyDetailAsync();
+            _GSM01001ViewModel.CompanyName = _GSM01001ViewModel.loCompany.CCOMPANY_NAME;
+            
 
             //Assign Action
             _GSM01001ViewModel.StateChangeAction = StateChangeInvoke;
@@ -86,19 +88,6 @@ public partial class UploadPopUp : R_Page
         R_DisplayException(loEx);
         return Task.CompletedTask;
 
-    }
-    public async Task GetCompanyDetail(string pcCompID)
-    {
-        var loEx = new R_Exception();
-        try
-        {
-            await _GSM01001ViewModel.GetCompanyDetailAsync();
-        }
-        catch (Exception ex)
-        {
-            loEx.Add(ex);
-        }
-        loEx.ThrowExceptionIfErrors();
     }
 
 

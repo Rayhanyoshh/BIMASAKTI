@@ -5,11 +5,17 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\COMMON\PM\PMM05000Common\PMM05000Common.csproj" />
-	  <ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources.csproj" />
-	  <ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources.csproj" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\COMMON\PM\PMM05000Common\PMM05000Common.csproj" />
+		<ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources\RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources.csproj" />
+		<ProjectReference Include="..\..\LM\LM_SPR\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources\RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources.csproj" />
+		<ProjectReference Include="..\..\LM\LM_SPR\RSP_PM_ACTIVE_INACTIVE_PRICINGResources\RSP_PM_ACTIVE_INACTIVE_PRICINGResources.csproj" />
+		<ProjectReference Include="..\LM_SPR\RSP_PM_ACTIVE_INACTIVE_UNIT_PRICEResources\RSP_PM_ACTIVE_INACTIVE_UNIT_PRICEResources.csproj" />
+		<ProjectReference Include="..\LM_SPR\RSP_PM_MAINTAIN_PRICINGResources\RSP_PM_MAINTAIN_PRICINGResources.csproj" />
+		<ProjectReference Include="..\LM_SPR\RSP_PM_MAINTAIN_PRICING_RATEResources\RSP_PM_MAINTAIN_PRICING_RATEResources.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,12 +28,19 @@
 		<Reference Include="R_CommonFrontBackAPI">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_CommonFrontBackAPI.dll</HintPath>
 		</Reference>
+		<Reference Include="R_OpenTelemetry">
+		  <HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_OpenTelemetry.dll</HintPath>
+		</Reference>
 		<Reference Include="R_Storage">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_Storage.dll</HintPath>
 		</Reference>
 		<Reference Include="R_StorageCommon">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_StorageCommon.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="BackParameter\" />
 	</ItemGroup>
 
 </Project>

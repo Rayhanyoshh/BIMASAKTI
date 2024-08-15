@@ -50,9 +50,10 @@ namespace PMT04200MODEL
             new KeyValuePair<string, string>("12", "12")
         };
         #endregion
-        #region Property
-        public PMT04200ParamDTO Param { get; set; } = new PMT04200ParamDTO();
-        public ObservableCollection<PMT04200DTO> TransactionGrid { get; set; } = new ObservableCollection<PMT04200DTO>();
+        #region Public Property ViewModel
+        public string SearchText { get; set; }
+        public PMT04200ParamDTO JornalParam { get; set; } = new PMT04200ParamDTO();
+        public ObservableCollection<PMT04200DTO> JournalGrid { get; set; } = new ObservableCollection<PMT04200DTO>();
         public PMT04200DTO TransactionRecord { get; set; } = new();
         public int ParamPeriodYear { get; set; }
         public string ParamPeriodMonth { get; set; }
@@ -123,10 +124,17 @@ namespace PMT04200MODEL
 
             try
             {
-                Param.CPERIOD = ParamPeriodYear + ParamPeriodMonth;
-                Param.CPROPERTY_ID = PropertyDefault;
-                var loResult = await _PMT04200Model.GetJournalListAsync(Param);
-                TransactionGrid = new ObservableCollection<PMT04200DTO>(loResult);
+                JornalParam.CPERIOD = ParamPeriodYear + ParamPeriodMonth;
+                JornalParam.CPROPERTY_ID = PropertyDefault;
+                var loResult = await _PMT04200Model.GetJournalListAsync(JornalParam);
+                loResult.ForEach(x =>
+                {
+                    if (DateTime.TryParseExact(x.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var ldRefDate))
+                    {
+                        x.DREF_DATE = ldRefDate;
+                    }
+                });
+                JournalGrid = new ObservableCollection<PMT04200DTO>(loResult);
             }
             catch (Exception ex)
             {
@@ -135,26 +143,6 @@ namespace PMT04200MODEL
 
             loEx.ThrowExceptionIfErrors();
         }
-        public async Task GetJournalRecord(PMT04200DTO poParam)
-        {
-            var loEx = new R_Exception();
-
-            try
-            {
-                var loResult = await _PMT04200Model.R_ServiceGetRecordAsync(poParam);
-                TransactionRecord = loResult;
-                
-                TransactionRecord.DDOC_DATE = DateTime.ParseExact(TransactionRecord.CDOC_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                TransactionRecord.DREF_DATE = DateTime.ParseExact(TransactionRecord.CREF_DATE, "yyyyMMdd", CultureInfo.InvariantCulture);
-                Data.CSTATUS = TransactionRecord.CSTATUS;   
-            }
-            catch (Exception ex)
-            {
-                loEx.Add(ex);
-            }
-
-            loEx.ThrowExceptionIfErrors();
-            }
 
         #endregion
 

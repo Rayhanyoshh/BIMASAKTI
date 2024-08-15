@@ -35,7 +35,7 @@ namespace GSM001000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_COA_DETAIL";
@@ -180,7 +180,7 @@ namespace GSM001000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loComm = loDb.GetCommand();
                 R_ExternalException.R_SP_Init_Exception(loConn);
 
@@ -244,7 +244,7 @@ namespace GSM001000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_COA_LIST";
@@ -283,7 +283,7 @@ namespace GSM001000Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 string lcQuery = $"EXEC RSP_GS_COPY_COA " +
                                  $"'{poEntity.CLOGIN_COMPANY_ID}', " +
@@ -320,7 +320,7 @@ namespace GSM001000Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 string lcQuery = $"EXEC RSP_GS_GET_COMPANY_INFO " +
                                  $"'{poEntity.CCOMPANY_ID}'";
@@ -378,7 +378,7 @@ namespace GSM001000Back
             try
             {
                 R_Db loDb = new R_Db();
-                DbConnection loConn = loDb.GetConnection("R_DefaultConnectionString");
+                DbConnection loConn = loDb.GetConnection();
 
                 string lcQuery = $"EXEC RSP_GS_ACTIVE_INACTIVE_COA " +
                                  $"'{poEntity.CCOMPANY_ID}', " +
@@ -419,7 +419,7 @@ namespace GSM001000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_COMPANY_INFO";
@@ -463,7 +463,7 @@ namespace GSM001000Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = " select * from SAM_COMPANIES where CCOMPANY_ID = @CCOMPANY_ID ";

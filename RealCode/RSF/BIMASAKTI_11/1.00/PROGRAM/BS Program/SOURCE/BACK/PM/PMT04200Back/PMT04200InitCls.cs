@@ -1,5 +1,4 @@
-﻿using PMT04200Back;
-using PMT04200Common.Loggers;
+﻿using PMT04200Common.Loggers;
 using PMT04200Common.DTOs;
 using PMT04200Common;
 using R_BackEnd;
@@ -8,19 +7,18 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Reflection;
-using PMT04200Common.DTOs;
 
 namespace PMT04200Back
 {
     public class PMT04200InitCls
     {
-        private LoggerInitPMT04200 _logger;
+        private LoggerPMT04200InitialProcess _logger;
         private readonly ActivitySource _activitySource;
 
         public PMT04200InitCls()
         {
-            _logger = LoggerInitPMT04200.R_GetInstanceLogger();
-            _activitySource = PMT04200Activity.R_GetInstanceActivitySource();
+            _logger = LoggerPMT04200InitialProcess.R_GetInstanceLogger();
+            _activitySource = PMT04200ActivityInitSourceBase.R_GetInstanceActivitySource();
         }
         #region Init Back
         public PMT04200GSCompanyInfoDTO GetCompanyInfoRecord()
@@ -376,7 +374,7 @@ namespace PMT04200Back
 
             return loResult;
         }
-        public List<PropertyListDTO> PropertyListDB(PMT04200ParamDTO poParameter)
+        public List<PropertyListDTO> PropertyListDB()
         {
             R_Exception loException = new R_Exception();
             List<PropertyListDTO> loResult = null;
@@ -389,8 +387,8 @@ namespace PMT04200Back
                 var lcQuery = "EXEC RSP_GS_GET_PROPERTY_LIST @CCOMPANY_ID, @CUSER_ID";
                 loCmd.CommandText = lcQuery;
 
-                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 20, poParameter.CCOMPANY_ID);
-                loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, poParameter.CUSER_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 20, R_BackGlobalVar.COMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CUSER_ID", DbType.String, 20, R_BackGlobalVar.USER_ID);
 
                 var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
                 loResult = R_Utility.R_ConvertTo<PropertyListDTO>(loDataTable).ToList();

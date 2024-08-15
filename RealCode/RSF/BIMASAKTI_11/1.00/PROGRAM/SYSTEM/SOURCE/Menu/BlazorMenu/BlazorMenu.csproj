@@ -90,6 +90,7 @@
   </ItemGroup>
 
 <ItemGroup>
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\COMMON\TX\TXR00200Common\TXR00200Common.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\CBT01200FRONT\CBT01200FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLT00600FRONT\GLT00600Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLTR00100FRONT\GLTR00100FRONT.csproj" />
@@ -100,10 +101,14 @@
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM01500Front\LMM01500Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM03700Front\LMM03700Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM05000FRONT\LMM05000Front.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMM04700FRONT\PMM04700FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMM05000Front\PMM05000Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR01000FRONT\PMR01000FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR02100FRONT\PMR02100FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR02200FRONT\PMR02200FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMT04200FRONT\PMT04200FRONT.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\TXR00100Front\TXR00100Front.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\TXR00200Front\TXR00200Front.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\TXR00200Model\TXR00200Model.csproj" />
 	</ItemGroup>
 </Project>

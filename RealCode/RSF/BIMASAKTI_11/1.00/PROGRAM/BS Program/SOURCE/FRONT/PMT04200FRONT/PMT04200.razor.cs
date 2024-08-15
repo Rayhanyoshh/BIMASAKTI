@@ -1,7 +1,6 @@
-using BlazorClientHelper;
-using PMT04200Common;
 using PMT04200Common.DTOs;
 using PMT04200MODEL;
+using BlazorClientHelper;
 using Lookup_GSCOMMON.DTOs;
 using Lookup_GSFRONT;
 using Lookup_GSModel.ViewModel;
@@ -9,49 +8,45 @@ using Microsoft.AspNetCore.Components;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
-using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lookup_PMCOMMON.DTOs;
 using Lookup_PMFRONT;
 using Lookup_PMModel.ViewModel.LML00600;
+using R_BlazorFrontEnd.Interfaces;
 
 namespace PMT04200FRONT;
 
 public partial class PMT04200 : R_Page
 {
-    private PMT04200ViewModel _TransactionListViewModel = new();
+    private PMT04200ViewModel _viewModel = new();
     private R_Conductor _conductorRef;
     private R_Grid<PMT04200DTO> _gridRef;
     
     [Inject] IClientHelper clientHelper { get; set; }
-    
+    [Inject] private R_ILocalizer<PMT04200FrontResources.Resources_Dummy_Class> _localizer { get; set; }
+
     protected override async Task R_Init_From_Master(object poParameter)
     {
         var loEx = new R_Exception();
 
         try
         {
-            await _TransactionListViewModel.GetAllUniversalData();
-            await _TransactionListViewModel.GetPropertyList();
+            await _viewModel.GetAllUniversalData();
+            await _viewModel.GetPropertyList();
             //Set Dept Code
-            if (_TransactionListViewModel.VAR_PROPERTY_LIST.Count > 0)
+            if (_viewModel.VAR_PROPERTY_LIST.Count > 0)
             {
-                var lcPropertyId = _TransactionListViewModel.VAR_PROPERTY_LIST.FirstOrDefault().CPROPERTY_ID;
+                var lcPropertyId = _viewModel.VAR_PROPERTY_LIST.FirstOrDefault().CPROPERTY_ID;
                 OnChangedProperty(lcPropertyId);
             }
             
             //Set Journal Period
-            if (!string.IsNullOrWhiteSpace(_TransactionListViewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY))
-                _TransactionListViewModel.ParamPeriodYear = int.Parse(_TransactionListViewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY);
+            if (!string.IsNullOrWhiteSpace(_viewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY))
+                _viewModel.ParamPeriodYear = int.Parse(_viewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY);
 
-            _TransactionListViewModel.ParamPeriodMonth = _TransactionListViewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_MM;
+            _viewModel.ParamPeriodMonth = _viewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_MM;
         }
         catch (Exception ex)
         {
@@ -65,23 +60,39 @@ public partial class PMT04200 : R_Page
     public async Task OnclickSearch()
     {
         var loEx = new R_Exception();
+        bool loValidate = false;
         try
         {
-            if (string.IsNullOrEmpty(_TransactionListViewModel.Param.CSEARCH_TEXT))
+            if (string.IsNullOrWhiteSpace(_viewModel.PropertyDefault   ))
             {
-                loEx.Add(new Exception("Please input keyword to search!"));
-                goto EndBlock;
+                loEx.Add(R_FrontUtility.R_GetError(
+                    typeof(PMT04200FrontResources.Resources_Dummy_Class),
+                    "V01"));
+                loValidate = true;
             }
-            if (!string.IsNullOrEmpty(_TransactionListViewModel.Param.CSEARCH_TEXT)
-                && _TransactionListViewModel.Param.CSEARCH_TEXT.Length < 3)
+
+            if (string.IsNullOrEmpty(_viewModel.SearchText))
             {
-                loEx.Add(new Exception("Minimum search keyword is 3 characters!"));
-                goto EndBlock;
+                loEx.Add(R_FrontUtility.R_GetError(
+                    typeof(PMT04200FrontResources.Resources_Dummy_Class),
+                    "N02"));
+                loValidate = true;
             }
-            await _gridRef.R_RefreshGrid(null);
-            if (_TransactionListViewModel.TransactionGrid.Count <= 0)
+            else
             {
-                loEx.Add("", "No Data Found!");
+                if (_viewModel.SearchText.Length < 3)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(PMT04200FrontResources.Resources_Dummy_Class),
+                        "N03"));
+                    loValidate = true;
+                }
+            }
+
+            if (loValidate == false)
+            {
+                _viewModel.JornalParam.CSEARCH_TEXT = _viewModel.SearchText;
+                await _gridRef.R_RefreshGrid(null);
             }
         }
         catch (Exception ex)
@@ -95,14 +106,23 @@ public partial class PMT04200 : R_Page
     public async Task OnClickShowAll()
     {
         var loEx = new R_Exception();
+        bool loValidate = false;
+
         try
         {
-            //reset detail
-            _TransactionListViewModel.Param.CSEARCH_TEXT = "";
-            await _gridRef.R_RefreshGrid(null);
-            if (_TransactionListViewModel.TransactionGrid.Count <= 0)
+            if (string.IsNullOrWhiteSpace(_viewModel.PropertyDefault   ))
             {
-                loEx.Add("", "No Data Found!");
+                loEx.Add(R_FrontUtility.R_GetError(
+                    typeof(PMT04200FrontResources.Resources_Dummy_Class),
+                    "V01"));
+                loValidate = true;
+            }
+
+            if (loValidate == false)
+            {
+                _viewModel.SearchText = "";
+                _viewModel.JornalParam.CSEARCH_TEXT = "";
+                await _gridRef.R_RefreshGrid(null);
             }
         }
         catch (Exception ex)
@@ -112,6 +132,27 @@ public partial class PMT04200 : R_Page
         loEx.ThrowExceptionIfErrors();
 
     }
+    
+    private void PropertyCombobox_ValueChange(string pcPropertyId)
+    {
+        var loEx = new R_Exception();
+
+        try
+        {
+            _viewModel.PropertyDefault    = pcPropertyId;
+            if (_gridRef.DataSource.Count > 0)
+            {
+                _gridRef.DataSource.Clear();
+            }
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+        EndBlock:
+        R_DisplayException(loEx);
+    }
+
     #endregion
     #region TransactionGrid
     private async Task JournalGrid_ServiceGetListRecord(R_ServiceGetListRecordEventArgs eventArgs)
@@ -119,8 +160,14 @@ public partial class PMT04200 : R_Page
         var loEx = new R_Exception();
         try
         {
-            await _TransactionListViewModel.GetJournalList();
-            eventArgs.ListEntityResult = _TransactionListViewModel.TransactionGrid;
+            await _viewModel.GetJournalList();
+            eventArgs.ListEntityResult = _viewModel.JournalGrid;
+            if (_viewModel.JournalGrid.Count <= 0)
+            {
+                loEx.Add(R_FrontUtility.R_GetError(
+                    typeof(PMT04200FrontResources.Resources_Dummy_Class),
+                    "N01"));
+            }
   
         }
         catch (Exception ex)
@@ -165,16 +212,28 @@ public partial class PMT04200 : R_Page
     #region Predefine Transaction Entry
     private void Predef_TransactionEntry(R_InstantiateDockEventArgs eventArgs)
     {
-        /*var loParam = (PMT04200DTO)_conductorRef.R_GetCurrentData();*/
-        eventArgs.TargetPageType = typeof(PMT04210);
-        eventArgs.Parameter = _TransactionListViewModel.Param;
+        var loEx = new R_Exception();
+        try
+        {
+            var loData = (PMT04200DTO)_conductorRef.R_GetCurrentData();
+            loData.CPROPERTY_ID = _viewModel.PropertyDefault   ;
+
+            eventArgs.Parameter = loData;
+            eventArgs.TargetPageType = typeof(PMT04210);
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+        loEx.ThrowExceptionIfErrors();
+      
     }
     private async Task AfterPredef_TransactionEntry(R_AfterOpenPredefinedDockEventArgs eventArgs)
     {
         var loEx = new R_Exception();
         try
         {
-            /*await _gridRef.R_RefreshGrid(null);*/
+            await _viewModel.GetAllUniversalData();
         }
         catch (Exception ex)
         {
@@ -192,9 +251,7 @@ public partial class PMT04200 : R_Page
         {
             var param = new GSL00710ParameterDTO
             {
-                CUSER_LOGIN_ID = clientHelper.UserId,
-                CCOMPANY_ID = clientHelper.CompanyId,
-                CPROPERTY_ID = _TransactionListViewModel.PropertyDefault
+                CPROPERTY_ID = _viewModel.PropertyDefault   
             };
             eventArgs.Parameter = param;
             eventArgs.TargetPageType = typeof(GSL00710);
@@ -214,41 +271,44 @@ public partial class PMT04200 : R_Page
             return;
         }
 
-        _TransactionListViewModel.Param.CDEPT_CODE = loTempResult.CDEPT_CODE;
-        _TransactionListViewModel.Param.CDEPT_NAME = loTempResult.CDEPT_NAME;
+        _viewModel.JornalParam.CDEPT_CODE = loTempResult.CDEPT_CODE;
+        _viewModel.JornalParam.CDEPT_NAME = loTempResult.CDEPT_NAME;
     }
     private async Task OnLostFocus_LookupDept()
     {
         var loEx = new R_Exception();
-
         try
         {
-            LookupGSL00710ViewModel loLookupViewModel = new LookupGSL00710ViewModel(); //use GSL's model
-            var loParam = new GSL00710ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (string.IsNullOrWhiteSpace(_viewModel.JornalParam.CDEPT_CODE) == false)
             {
-                CSEARCH_TEXT = _TransactionListViewModel.Param.CDEPT_CODE, // property that bindded to search textbox
-            };
+                GSL00710ParameterDTO loParam = new GSL00710ParameterDTO() { CSEARCH_TEXT = _viewModel.JornalParam.CDEPT_CODE, CPROPERTY_ID = _viewModel.PropertyDefault    };
 
+                LookupGSL00710ViewModel loLookupViewModel = new LookupGSL00710ViewModel();
 
-            var loResult = await loLookupViewModel.GetDepartmentProperty(loParam); //retrive single record 
+                var loResult = await loLookupViewModel.GetDepartmentProperty(loParam);
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                         "_ErrLookup01"));
-                _TransactionListViewModel.Param.CDEPT_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                    _viewModel.JornalParam.CDEPT_NAME = "";
+                    goto EndBlock;
+                }
+                _viewModel.JornalParam.CDEPT_CODE = loResult.CDEPT_CODE;
+                _viewModel.JornalParam.CDEPT_NAME = loResult.CDEPT_NAME;
             }
             else
-                _TransactionListViewModel.Param.CDEPT_NAME = loResult.CDEPT_NAME; //assign bind textbox name kalo ada
+            {
+                _viewModel.JornalParam.CDEPT_NAME = "";
+            }
         }
         catch (Exception ex)
         {
             loEx.Add(ex);
         }
 
+        EndBlock:
         R_DisplayException(loEx);
     }
     #endregion
@@ -260,10 +320,7 @@ public partial class PMT04200 : R_Page
         {
             var param = new LML00600ParameterDTO
             {
-                CUSER_ID = clientHelper.UserId,
-                CPROPERTY_ID = _TransactionListViewModel.PropertyDefault,
-                CSEARCH_TEXT = "",
-                CCOMPANY_ID = clientHelper.CompanyId
+                CPROPERTY_ID = _viewModel.PropertyDefault   
             };
             eventArgs.Parameter = param;
             eventArgs.TargetPageType = typeof(LML00600);
@@ -283,9 +340,9 @@ public partial class PMT04200 : R_Page
             return;
         }
 
-        _TransactionListViewModel.Param.CCUSTOMER_ID = loTempResult.CTENANT_ID;
-        _TransactionListViewModel.Param.CCUSTOMER_NAME = loTempResult.CTENANT_NAME;
-        _TransactionListViewModel.Param.CCUSTOMER_TYPE = loTempResult.CTENANT_TYPE_NAME;
+        _viewModel.JornalParam.CCUSTOMER_ID = loTempResult.CTENANT_ID;
+        _viewModel.JornalParam.CCUSTOMER_NAME = loTempResult.CTENANT_NAME;
+        _viewModel.JornalParam.CCUSTOMER_TYPE_NAME = loTempResult.CCUSTOMER_TYPE_NAME;
     }
     private async Task OnLostFocus_LookupCust()
     {
@@ -293,34 +350,39 @@ public partial class PMT04200 : R_Page
 
         try
         {
-            LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
-            var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (string.IsNullOrWhiteSpace(_viewModel.JornalParam.CCUSTOMER_ID) == false)
             {
-                CSEARCH_TEXT = _TransactionListViewModel.Param.CDEPT_CODE, // property that bindded to search textbox
-            };
+                LML00600ParameterDTO loParam = new LML00600ParameterDTO() { CSEARCH_TEXT = _viewModel.JornalParam.CCUSTOMER_ID, CPROPERTY_ID = _viewModel.PropertyDefault    };
 
+                LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel();
 
-            var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
+                var loResult = await loLookupViewModel.GetTenant(loParam);
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                         "_ErrLookup01"));
-                _TransactionListViewModel.Param.CCUSTOMER_NAME = ""; //kosongin bind textbox name kalo gaada
-                _TransactionListViewModel.Param.CCUSTOMER_TYPE = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                    _viewModel.JornalParam.CCUSTOMER_NAME = "";
+                    _viewModel.JornalParam.CCUSTOMER_TYPE_NAME = "";
+                    goto EndBlock;
+                }
+                _viewModel.JornalParam.CCUSTOMER_ID = loResult.CTENANT_ID;
+                _viewModel.JornalParam.CCUSTOMER_NAME = loResult.CTENANT_NAME;
+                _viewModel.JornalParam.CCUSTOMER_TYPE_NAME = loResult.CCUSTOMER_TYPE_NAME;
             }
             else
-                _TransactionListViewModel.Param.CCUSTOMER_NAME = loResult.CTENANT_NAME; //assign bind textbox name kalo ada
-                _TransactionListViewModel.Param.CCUSTOMER_TYPE = loResult.CTENANT_TYPE_NAME; //assign bind textbox name kalo ada
+            {
+                _viewModel.JornalParam.CCUSTOMER_TYPE_NAME = "";
+                _viewModel.JornalParam.CCUSTOMER_NAME = "";
+            }
         }
         catch (Exception ex)
         {
             loEx.Add(ex);
         }
 
+        EndBlock:
         R_DisplayException(loEx);
     }
     #endregion
@@ -331,11 +393,11 @@ public partial class PMT04200 : R_Page
         var loEx = new R_Exception();
         try
         {
-            _TransactionListViewModel.Param.CDEPT_CODE = "";
-            _TransactionListViewModel.Param.CDEPT_NAME = "";
-            _TransactionListViewModel.Param.CCUSTOMER_ID = "";
-            _TransactionListViewModel.Param.CCUSTOMER_NAME = "";
-            _TransactionListViewModel.Param.CCUSTOMER_TYPE = "";
+            _viewModel.JornalParam.CDEPT_CODE = "";
+            _viewModel.JornalParam.CDEPT_NAME = "";
+            _viewModel.JornalParam.CCUSTOMER_ID = "";
+            _viewModel.JornalParam.CCUSTOMER_NAME = "";
+            _viewModel.JornalParam.CCUSTOMER_TYPE = "";
             
             if (_gridRef.DataSource.Count > 0)
             {

@@ -287,7 +287,7 @@ namespace Lookup_PMBACK
                 var loConn = loDb.GetConnection();
                 var loCmd = loDb.GetCommand();
 
-                var lcQuery = @"RSP_PM_GET_AGGREMENTNO_LIST ";
+                var lcQuery = @"RSP_PM_GET_AGGREMENTNO_LIST";
                 loCmd.CommandText = lcQuery;
                 loCmd.CommandType = CommandType.StoredProcedure;
 

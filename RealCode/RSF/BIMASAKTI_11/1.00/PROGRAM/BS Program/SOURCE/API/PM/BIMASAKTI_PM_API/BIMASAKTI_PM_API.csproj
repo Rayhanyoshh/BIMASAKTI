@@ -22,6 +22,7 @@
 	  <ProjectReference Include="..\..\..\..\..\BS Shared Form\SOURCE\SERVICES\PMF00100SERVICES\PMF00100SERVICES.csproj" />
 	  <ProjectReference Include="..\..\..\BACK\PM\PMR01000BACK\PMR01000Back.csproj" />
 	  <ProjectReference Include="..\..\..\COMMON\PM\PMR01000Common\PMR01000Common.csproj" />
+	  <ProjectReference Include="..\..\..\SERVICE\PM\PMM04700SERVICE\PMM04700SERVICE.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMM05000\PMM05000Service.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR01000Service\PMR01000Service.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR02100SERVICE\PMR02100SERVICE.csproj" />
@@ -41,6 +42,9 @@
 		</Reference>
 		<Reference Include="R_ContextAPIMiddleware">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_ContextAPIMiddleware.dll</HintPath>
+		</Reference>
+		<Reference Include="R_ReportServerClient">
+			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_ReportServerClient.dll</HintPath>
 		</Reference>
 		<Reference Include="R_ControllerPlugins">
 			<HintPath>..\..\..\..\..\SYSTEM\SOURCE\LIBRARY\Back\R_ControllerPlugins.dll</HintPath>

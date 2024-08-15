@@ -154,10 +154,10 @@
     <value>Cash Flow</value>
   </data>
   <data name="_cashflowcode" xml:space="preserve">
-    <value>CashFlowCode</value>
+    <value>CashFlow Code</value>
   </data>
   <data name="_cashflowgroupcode" xml:space="preserve">
-    <value>CashFlowGroupCode</value>
+    <value>CashFlow Group Code</value>
   </data>
   <data name="_centerCode" xml:space="preserve">
     <value>Center Code</value>
@@ -296,5 +296,12 @@
   </data>
   <data name="_valid" xml:space="preserve">
     <value>Valid</value>
+  </data>
+  <data name="_validationCashflow" xml:space="preserve">
+    <value>Cash Flow Code cannot be empty!
+</value>
+  </data>
+  <data name="_notes" xml:space="preserve">
+    <value>Notes</value>
   </data>
 </root>

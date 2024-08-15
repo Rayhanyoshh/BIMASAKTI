@@ -36,7 +36,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
         
                 lcQuery = $"SELECT * FROM GSM_PERIOD_DT A (NOLOCK) " +
@@ -77,7 +77,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
         
                 lcQuery = $"SELECT CPERIOD_NO, CSTART_DATE, CEND_DATE " +

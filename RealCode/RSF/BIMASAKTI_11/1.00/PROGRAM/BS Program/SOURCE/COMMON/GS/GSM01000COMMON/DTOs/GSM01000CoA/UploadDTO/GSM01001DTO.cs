@@ -30,6 +30,7 @@ namespace GSM01000Common.DTOs
     
     public class  GSM01001ExcelDTO
     {
+        public int No { get; set; }
         // Result
         public string AccountNo { get; set; }
         public string AccountName { get; set; }
@@ -38,6 +39,8 @@ namespace GSM01000Common.DTOs
         public bool Active { get; set; }
         public bool CenterRestriction { get; set; }
         public bool UserRestriction { get; set; }
+        public string CashFlowGroupCode { get; set; }
+        public string CashFlowCode { get; set; }
         public string NonActiveDate { get; set; }
         public string ErrorMessage { get; set; }
     }
@@ -78,6 +81,8 @@ namespace GSM01000Common.DTOs
         public string CDBCR { get; set; }
         public bool LACTIVE { get; set; }
         public bool LCENTER_RESTR { get; set; }
+        public string CCASH_FLOW_GROUP_CODE { get; set; }
+        public string CCASH_FLOW_CODE { get; set; }
         public bool LUSER_RESTR { get; set; } 
         public bool LEXIST { get; set; } 
         public string NonActiveDate { get; set; }

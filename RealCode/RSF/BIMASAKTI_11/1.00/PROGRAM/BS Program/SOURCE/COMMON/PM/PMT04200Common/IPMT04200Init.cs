@@ -25,5 +25,8 @@ namespace PMT04200Common
         #endregion
 
         PMT04200RecordResult<PMT04200InitDTO> GetTabTransactionListInitVar();
+        
+        PMT04200RecordResult<PMT04200JournalListInitialProcessDTO> GetTabJournalListInitialProcess();
+        PMT04200RecordResult<PMT04210JournalEntryInitialProcessDTO> GetTabJournalEntryInitialProcess();
     }
 }

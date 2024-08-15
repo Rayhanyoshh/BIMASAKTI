@@ -125,8 +125,11 @@ public class GSM01000PrintController : R_ReportControllerBase
             _logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
             _logger.LogDebug("Deserialized Parameters: {@Parameters}", _Parameter);
 
+            /*
             loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(), R_ReportUtility.GetMimeType(R_FileType.PDF));
-        
+            */
+            loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(peExport: R_FileType.XLSX), R_ReportUtility.GetMimeType(R_FileType.XLSX));
+
             _logger.LogInfo("Report generated successfully.");
         }
         catch (Exception ex)

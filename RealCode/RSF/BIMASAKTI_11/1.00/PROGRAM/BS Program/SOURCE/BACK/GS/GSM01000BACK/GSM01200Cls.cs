@@ -38,7 +38,7 @@ namespace GSM01200Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_COA_CENTER_DETAIL";
@@ -88,7 +88,7 @@ namespace GSM01200Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loComm = loDb.GetCommand();
 
                 lcQuery = "INSERT INTO GSM_COA_CENTER " +
@@ -161,7 +161,7 @@ namespace GSM01200Back
                 _logger.LogDebug("CCOMPANY_ID = {CCOMPANY_ID}", poEntity.CCOMPANY_ID);
                 _logger.LogDebug("CGLACCOUNT_NO = {CGLACCOUNT_NO}", poEntity.CGLACCOUNT_NO);
 
-                var loDataTable = loDb.SqlExecQuery(loDb.GetConnection("R_DefaultConnectionString"), loDbCommand, true);
+                var loDataTable = loDb.SqlExecQuery(loDb.GetConnection(), loDbCommand, true);
 
                 loRtn = R_Utility.R_ConvertTo<GSM01200DTO>(loDataTable).ToList();
             }

@@ -39,7 +39,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 lcQuery = "RSP_GS_GET_PERIOD_HD";
@@ -179,7 +179,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loComm = loDb.GetCommand();
 
                 // Initialize external exception handling
@@ -238,7 +238,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 // Initialize external exception handling
@@ -280,7 +280,7 @@ namespace GSM07500Back
             try
             {
                 loDb = new R_Db();
-                loConn = loDb.GetConnection("R_DefaultConnectionString");
+                loConn = loDb.GetConnection();
                 loCmd = loDb.GetCommand();
 
                 // Initialize external exception handling

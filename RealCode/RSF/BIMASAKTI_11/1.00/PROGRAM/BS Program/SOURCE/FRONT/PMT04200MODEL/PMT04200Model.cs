@@ -168,6 +168,11 @@ namespace PMT04200MODEL
             throw new NotImplementedException();
         }
 
+        public IAsyncEnumerable<PMT04200AllocationGridDTO> GetAllocationList()
+        {
+            throw new NotImplementedException();
+        }
+
         public PMT04200RecordResult<PMT04200DTO> GetJournalRecord(PMT04200DTO poEntity)
         {
             throw new NotImplementedException();

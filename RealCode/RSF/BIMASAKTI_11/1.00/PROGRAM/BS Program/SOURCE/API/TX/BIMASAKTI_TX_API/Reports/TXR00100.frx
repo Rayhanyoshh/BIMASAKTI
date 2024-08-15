@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\TX\BIMASAKTI_TX_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="07/30/2024 10:51:56" ReportInfo.CreatorVersion="2023.2.21.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
+      <Column Name="Data1" DataType="TXR00100Common.PrintDTO.PrintResultTXDTO, TXR00100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Title" DataType="System.String"/>
+        <Column Name="Header" DataType="System.String"/>
+        <Column Name="Column" DataType="TXR00100Common.PrintDTO.TXR00100PrintColoumnDTO, TXR00100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="HEADER_PROPERTY" DataType="System.String"/>
+          <Column Name="HEADER_TAX_PERIOD" DataType="System.String"/>
+          <Column Name="COLOUMN_WH_TAX_COLLECT" DataType="System.String"/>
+          <Column Name="COLOUMN_CUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="COLOUMN_TAX_ADDRESS" DataType="System.String"/>
+          <Column Name="COLOUMN_AGGREMENT_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_UNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="COLOUMN_INVOICE_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_INVOICE_DATE" DataType="System.String"/>
+          <Column Name="COLOUMN_CURR" DataType="System.String"/>
+          <Column Name="COLOUMN_WH_TAX_AMOUNT" DataType="System.String"/>
+          <Column Name="COLOUMN_WH_TAX_SLIP_NO" DataType="System.String"/>
+          <Column Name="COLOUMN_WH_TAX_SLIP_DATE" DataType="System.String"/>
+          <Column Name="COLOUMN_WH_TAX_SLIP_AMOUNT" DataType="System.String"/>
+        </Column>
+        <Column Name="Param" DataType="TXR00100Common.PrintDTO.PrintParamTXDTO, TXR00100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="CCOMPANY_ID" DataType="System.String"/>
+          <Column Name="CPROPERTY_ID" DataType="System.String"/>
+          <Column Name="CTAX_PERIOD_YEAR" DataType="System.String"/>
+          <Column Name="CTAX_PERIOD_MONTH" DataType="System.String"/>
+          <Column Name="CWH_TAX_TYPE" DataType="System.String"/>
+          <Column Name="CWH_TAX_TYPE_NAME" DataType="System.String"/>
+          <Column Name="CSORT_BY" DataType="System.String"/>
+          <Column Name="CSORT_BY_NAME" DataType="System.String"/>
+          <Column Name="CUSER_LOGIN" DataType="System.String"/>
+        </Column>
+        <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[TXR00100Common.PrintDTO.TXR00100DataResultDTO, TXR00100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <Column Name="CCUSTOMER_NAME" DataType="System.String"/>
+          <Column Name="CTAX_ADDRESS" DataType="System.String"/>
+          <Column Name="CAGREEMENT_NO" DataType="System.String"/>
+          <Column Name="CUNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CINVOICE_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_DATE" DataType="System.String"/>
+          <Column Name="CCURRENCY_CODE" DataType="System.String"/>
+          <Column Name="NWH_TAX_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="CWH_TAX_SLIP_NO" DataType="System.String"/>
+          <Column Name="CWH_TAX_SLIP_DATE" DataType="System.String"/>
+          <Column Name="NWH_TAX_SLIP_AMOUNT" DataType="System.Decimal"/>
+          <Column Name="LWH_TAX_COLLECT" DataType="System.Boolean" BindableControl="CheckBox"/>
+        </BusinessObjectDataSource>
+      </Column>
+      <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="BLOGO_COMPANY" DataType="System.Byte[]" BindableControl="Picture"/>
+        <Column Name="CPRINT_CODE" DataType="System.String"/>
+        <Column Name="CCOMPANY_NAME" DataType="System.String"/>
+        <Column Name="CPRINT_NAME" DataType="System.String"/>
+        <Column Name="CUSER_ID" DataType="System.String"/>
+      </Column>
+      <Column Name="BaseHeaderColumn" DataType="BaseHeaderReportCOMMON.BaseHeaderColumnDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Page" DataType="System.String"/>
+        <Column Name="Of" DataType="System.String"/>
+        <Column Name="Print_Date" DataType="System.String"/>
+        <Column Name="Print_By" DataType="System.String"/>
+      </Column>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <inherited Name="Page1">
+    <inherited Name="PageHeader1">
+      <inherited Name="Picture1"/>
+      <inherited Name="Text33"/>
+      <inherited Name="Text40">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </inherited>
+      <inherited Name="Text36"/>
+      <inherited Name="Text38"/>
+      <inherited Name="Text34"/>
+      <inherited Name="Text37"/>
+      <inherited Name="Text39"/>
+    </inherited>
+    <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="79.6" Width="1047.06" Height="37.8" Border.Lines="Bottom">
+      <TextObject Name="Text41" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_PROPERTY]" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text42" Top="18.9" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_TAX_PERIOD]" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text43" Left="94.5" Width="94.5" Height="18.9" Text=": [ResponseDataModel.Data1.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text44" Left="94.5" Top="18.9" Width="94.5" Height="18.9" Text=": [ResponseDataModel.Data1.Param.CTAX_PERIOD_YEAR]" Font="Arial Unicode MS, 8pt"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" ZOrder="0" Top="163.2" Width="1047.06" Height="37.8" DataSource="Data">
+      <TextObject Name="Text53" Left="85.05" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Data.CCUSTOMER_NAME]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text56" Left="179.55" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data1.Data.CTAX_ADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text67" Left="255.15" Top="9.45" Width="85.05" Height="18.9" Text="[ResponseDataModel.Data1.Data.CAGREEMENT_NO]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text68" Left="340.2" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Data.CUNIT_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text69" Left="434.7" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data1.Data.CINVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text70" Left="500.85" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data1.Data.CINVOICE_DATE]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text71" Left="576.45" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data1.Data.CCURRENCY_CODE]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text72" Left="614.25" Top="9.45" Width="85.05" Height="18.9" Text="[ResponseDataModel.Data1.Data.NWH_TAX_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 8pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text73" Left="708.75" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Data.CWH_TAX_SLIP_NO]" HorzAlign="Center" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text74" Left="803.25" Top="9.45" Width="103.95" Height="18.9" Text="[ResponseDataModel.Data1.Data.CWH_TAX_SLIP_DATE]" HorzAlign="Center" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      <TextObject Name="Text75" Left="907.2" Top="9.45" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data1.Data.NWH_TAX_SLIP_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 8pt" Trimming="EllipsisCharacter"/>
+      <CheckBoxObject Name="CheckBox1" Left="28.35" Top="9.45" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data1.Data.LWH_TAX_COLLECT"/>
+      <DataHeaderBand Name="DataHeader1" Top="121.4" Width="1047.06" Height="37.8">
+        <TextObject Name="Text54" Left="85.05" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_CUSTOMER_NAME]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text55" Top="9.45" Width="85.05" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_WH_TAX_COLLECT]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text57" Left="179.55" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_TAX_ADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text58" Left="255.15" Top="9.45" Width="85.05" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_AGGREMENT_NO]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text59" Left="340.2" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_UNIT_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text60" Left="434.7" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_INVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text61" Left="500.85" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_INVOICE_DATE]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text62" Left="576.45" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_CURR]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text63" Left="614.25" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_WH_TAX_AMOUNT]" HorzAlign="Center" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text64" Left="708.75" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_WH_TAX_SLIP_NO]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text65" Left="803.25" Top="9.45" Width="103.95" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_WH_TAX_SLIP_DATE]" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text66" Left="907.2" Top="9.45" Width="141.75" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_WH_TAX_SLIP_AMOUNT]" HorzAlign="Center" VertAlign="Center" Font="Arial Unicode MS, 8pt"/>
+      </DataHeaderBand>
+    </DataBand>
+  </inherited>
+</inherited>

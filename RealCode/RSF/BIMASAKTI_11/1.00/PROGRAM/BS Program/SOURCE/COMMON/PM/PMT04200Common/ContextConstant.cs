@@ -12,5 +12,6 @@ namespace PMT04200Common
         public const string CSEARCH_TEXT = "CSEARCH_TEXT";
         public const string CPROPERTY_ID = "CPROPERTY_ID";
         public const string CCUSTOMER_ID = "CCUSTOMER_ID";
+        public const string CREF_NO = "CREF_NO";
     }
 }
