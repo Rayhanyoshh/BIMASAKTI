@@ -48,5 +48,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\BACK\Lookup_LMCOMMON\Lookup_PMCOMMON.csproj" />
 		<ProjectReference Include="..\..\COMMON\PM\PMR02200Common\PMR02200Common.csproj" />
+		<ProjectReference Include="..\PMR02200FrontResources\PMR02200FrontResources.csproj" />
 	</ItemGroup>
 </Project>

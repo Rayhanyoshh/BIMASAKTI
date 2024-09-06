@@ -272,13 +272,13 @@ namespace GSM01000Front
 
                 if (loParam.LACTIVE)
                 {
-                    loLabel = @_localizer["_active"];
                     _GSM01000ViewModel.SelectedActiveInactiveLACTIVE = false;
+                    loLabel = @_localizer["_inactive"];
                 }
                 else
                 {
-                    loLabel = @_localizer["_inactive"];
                     _GSM01000ViewModel.SelectedActiveInactiveLACTIVE = true;
+                    loLabel = @_localizer["_active"];
                 }
 
 

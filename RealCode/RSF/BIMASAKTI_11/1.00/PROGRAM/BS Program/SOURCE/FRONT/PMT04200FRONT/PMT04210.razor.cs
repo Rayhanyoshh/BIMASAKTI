@@ -64,7 +64,7 @@ public partial class PMT04210 : R_Page
 
         try
         {
-            await _JournalEntryViewModel.GetAllUniversalData();
+            await _JournalEntryViewModel.GetAllUniversalData(poParameter);
             await _JournalEntryViewModel.GetPropertyList();
            
             var loData = R_FrontUtility.ConvertObjectToObject<PMT04200InputParameterDTO>(poParameter);
@@ -570,6 +570,8 @@ public partial class PMT04210 : R_Page
                 var loParam = R_FrontUtility.ConvertObjectToObject<PMT04200UpdateStatusDTO>(loData);
 
                 await _JournalEntryViewModel.SubmitCashReceipt(loParam);
+                R_MessageBox.Show("", _localizer["_submitsuccess"], R_eMessageBoxButtonType.OK);
+          
                 await _conductorRef.R_GetEntity(loData);
             }
         }
@@ -579,7 +581,7 @@ public partial class PMT04210 : R_Page
         }
 
         EndBlock:
-        loEx.ThrowExceptionIfErrors();
+        R_DisplayException(loEx);
         }
     private async Task RedraftProcess()
     {

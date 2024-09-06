@@ -14,6 +14,7 @@ using R_BlazorFrontEnd.Helpers;
 using Lookup_PMCOMMON.DTOs;
 using Lookup_PMFRONT;
 using Lookup_PMModel.ViewModel.LML00600;
+using PMT04200FrontResources;
 using R_BlazorFrontEnd.Interfaces;
 
 namespace PMT04200FRONT;
@@ -25,7 +26,7 @@ public partial class PMT04200 : R_Page
     private R_Grid<PMT04200DTO> _gridRef;
     
     [Inject] IClientHelper clientHelper { get; set; }
-    [Inject] private R_ILocalizer<PMT04200FrontResources.Resources_Dummy_Class> _localizer { get; set; }
+    [Inject] private R_ILocalizer<Resources_Dummy_Class> _localizer { get; set; }
 
     protected override async Task R_Init_From_Master(object poParameter)
     {
@@ -33,15 +34,15 @@ public partial class PMT04200 : R_Page
 
         try
         {
-            await _viewModel.GetAllUniversalData();
             await _viewModel.GetPropertyList();
+            await _viewModel.GetAllUniversalData();
+ 
             //Set Dept Code
             if (_viewModel.VAR_PROPERTY_LIST.Count > 0)
             {
-                var lcPropertyId = _viewModel.VAR_PROPERTY_LIST.FirstOrDefault().CPROPERTY_ID;
-                OnChangedProperty(lcPropertyId);
+                var lcPropertyId = _viewModel.PropertyDefault;
+                await PropertyCombobox_ValueChange(lcPropertyId);
             }
-            
             //Set Journal Period
             if (!string.IsNullOrWhiteSpace(_viewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY))
                 _viewModel.ParamPeriodYear = int.Parse(_viewModel.VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY);
@@ -63,7 +64,7 @@ public partial class PMT04200 : R_Page
         bool loValidate = false;
         try
         {
-            if (string.IsNullOrWhiteSpace(_viewModel.PropertyDefault   ))
+            if (string.IsNullOrWhiteSpace(_viewModel.PropertyDefault))
             {
                 loEx.Add(R_FrontUtility.R_GetError(
                     typeof(PMT04200FrontResources.Resources_Dummy_Class),
@@ -133,13 +134,14 @@ public partial class PMT04200 : R_Page
 
     }
     
-    private void PropertyCombobox_ValueChange(string pcPropertyId)
+    private async Task PropertyCombobox_ValueChange(string pcPropertyId)
     {
         var loEx = new R_Exception();
 
         try
         {
-            _viewModel.PropertyDefault    = pcPropertyId;
+            _viewModel.PropertyDefault = pcPropertyId;
+            await _viewModel.GetPMParam(pcPropertyId);
             if (_gridRef.DataSource.Count > 0)
             {
                 _gridRef.DataSource.Clear();
@@ -152,6 +154,7 @@ public partial class PMT04200 : R_Page
         EndBlock:
         R_DisplayException(loEx);
     }
+
 
     #endregion
     #region TransactionGrid
@@ -387,31 +390,4 @@ public partial class PMT04200 : R_Page
     }
     #endregion
     
-    
-    private async Task OnChangedProperty(object poParam)
-    {
-        var loEx = new R_Exception();
-        try
-        {
-            _viewModel.JornalParam.CDEPT_CODE = "";
-            _viewModel.JornalParam.CDEPT_NAME = "";
-            _viewModel.JornalParam.CCUSTOMER_ID = "";
-            _viewModel.JornalParam.CCUSTOMER_NAME = "";
-            _viewModel.JornalParam.CCUSTOMER_TYPE = "";
-            
-            if (_gridRef.DataSource.Count > 0)
-            {
-                _gridRef.DataSource.Clear();
-            }
-            
-        }
-        catch (Exception ex)
-        {
-            loEx.Add(ex);
-        }
-
-        loEx.ThrowExceptionIfErrors();
-    }
-
-
 }

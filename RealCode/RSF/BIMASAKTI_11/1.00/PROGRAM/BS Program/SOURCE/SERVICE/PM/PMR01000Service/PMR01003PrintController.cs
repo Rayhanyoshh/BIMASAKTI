@@ -161,7 +161,7 @@ public class PMR01003PrintController  : R_ReportControllerBase
             loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
                 "Print_By", loCultureInfo);
             
-            PMR01001PrintColoumnDTO loColumnObject = new PMR01001PrintColoumnDTO();
+            PMR01003PrintColoumnDTO loColumnObject = new PMR01003PrintColoumnDTO();
             var loColumn = AssignValuesWithMessages(typeof(PMR01000BackResources.Resources_Dummy_Class),
                 loCultureInfo, loColumnObject);
             
@@ -170,10 +170,10 @@ public class PMR01003PrintController  : R_ReportControllerBase
 
             var loCls = new PMR01000Cls();
 
-            loParam.CCOMPANY_NAME = R_BackGlobalVar.COMPANY_ID.ToUpper();
+            loParam.CCOMPANY_NAME = poParam.CCOMPANY_ID;
             loParam.CPRINT_CODE = "PMR01000";
             loParam.CPRINT_NAME = "Deposit Type Activity";
-            loParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+            loParam.CUSER_ID = poParam.CUSER_ID.ToUpper();
             loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
             
             // Create an instance of PMR01000PrintGOAResultDTo
@@ -189,12 +189,13 @@ public class PMR01003PrintController  : R_ReportControllerBase
             // Create an instance of PMR01000Cls
 
             // Get print data for Group Of Account report
+            poParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
             var loCollection = loCls.GetPrintDataResult(poParam);
             _logger.LogInfo("Data generation successful. Processing data for printing.");
 
 
             // Process the data and create a formatted list
-             var loTempData = loCollection
+            var loTempData = loCollection
                 .GroupBy(data1a => new
                 {
                     data1a.CDEPOSIT_ID,

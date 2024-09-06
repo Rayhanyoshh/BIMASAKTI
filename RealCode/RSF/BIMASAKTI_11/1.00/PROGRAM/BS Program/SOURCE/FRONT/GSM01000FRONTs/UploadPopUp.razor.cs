@@ -24,7 +24,7 @@ public partial class UploadPopUp : R_Page
     private R_eFileSelectAccept[] accepts = { R_eFileSelectAccept.Excel };
 
     private GSM01001ViewModel _GSM01001ViewModel = new GSM01001ViewModel();
-    private R_Grid<GSM01001ErrorValidateDTO> _COAUploadGridRef;
+    private R_Grid<GSM01001ExcelToGridDTO> _COAUploadGridRef;
 
     private bool FileHasData = false;
 
@@ -62,7 +62,7 @@ public partial class UploadPopUp : R_Page
     protected override async Task<Task> R_Init_From_Master(object poParameter)
     {
         var loEx = new R_Exception();
-        var Param = (GSM01001ErrorValidateDTO)poParameter;
+        var Param = (GSM01001ExcelToGridDTO)poParameter;
 
         try
         {
@@ -132,7 +132,7 @@ public partial class UploadPopUp : R_Page
             var loData = (List<GSM01001DTO>)eventArgs.Parameter;
 
             await _GSM01001ViewModel.ConvertGrid(loData);
-            eventArgs.ListEntityResult = _GSM01001ViewModel.COAValidateUploadError;
+            eventArgs.ListEntityResult = _GSM01001ViewModel.COAExcelGridUpload;
         }
         catch (Exception ex)
         {

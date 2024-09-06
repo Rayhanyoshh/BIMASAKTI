@@ -123,6 +123,33 @@ namespace CBT01200SERVICE
         }
 
         [HttpPost]
+        public CBT01200RecordResult<CBT01200ValidateUpdateStatusDTO> ValidateUpdateJournalStatus(CBT01200ValidateUpdateStatusDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("ValidateUpdateJournalStatus");
+            var loEx = new R_Exception();
+            CBT01200RecordResult<CBT01200ValidateUpdateStatusDTO> loRtn = new CBT01200RecordResult<CBT01200ValidateUpdateStatusDTO>();
+            _logger.LogInfo("Start ValidateUpdateJournalStatus");
+
+            try
+            {
+                var loCls = new CBT01200Cls();
+
+                _logger.LogInfo("Call Back Method GetValidateUpdateJournalStatus");
+                loRtn.Data = loCls.GetValidateUpdateJournalStatus(poEntity);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            _logger.LogInfo("End ValidateUpdateJournalStatus");
+
+            return loRtn;
+        }
+
+        [HttpPost]
         public R_ServiceGetRecordResultDTO<CBT01200DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<CBT01200DTO> poParameter)
         {
             using Activity activity = _activitySource.StartActivity("R_ServiceGetRecord");

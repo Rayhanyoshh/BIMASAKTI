@@ -195,14 +195,14 @@
             <R_TextBox @bind-Value="_JournalEntryViewModel.Data.CCURRENCY_CODE" Enabled="false"></R_TextBox>
         </R_ItemLayout>
         <R_ItemLayout col="2">
-            <R_NumericTextBox R_ConductorSource="_conductorRef" Arrows="false" @bind-Value="_JournalEntryViewModel.Data.NTRANS_AMOUNT" TextAlignment="@R_eTextAlignment.Right" R_EnableAdd R_EnableEdit></R_NumericTextBox>
+            <R_NumericTextBox TValue="decimal" R_ConductorSource="_conductorRef" Arrows="false" @bind-Value="_JournalEntryViewModel.Data.NTRANS_AMOUNT" TextAlignment="@R_eTextAlignment.Right" R_EnableAdd R_EnableEdit></R_NumericTextBox>
         </R_ItemLayout>
         <R_ItemLayout col="2"><R_Label></R_Label></R_ItemLayout>
         <R_ItemLayout>
             <R_Label>@(_localizer["_LocalCurrency"])</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_JournalEntryViewModel.Data.NLBASE_RATE"
+            <R_NumericTextBox TValue="decimal" @bind-Value="_JournalEntryViewModel.Data.NLBASE_RATE"
                               Arrows="false"
                               Decimals="6"
                               TextAlignment="@R_eTextAlignment.Right"
@@ -218,7 +218,7 @@
             <R_Label>=</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_JournalEntryViewModel.Data.NLCURRENCY_RATE"
+            <R_NumericTextBox TValue="decimal" @bind-Value="_JournalEntryViewModel.Data.NLCURRENCY_RATE"
                               Arrows="false"
                               Decimals="6"
                               TextAlignment="@R_eTextAlignment.Right"
@@ -239,7 +239,7 @@
             <R_Label>@(_localizer["_BaseCurrency"])</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_JournalEntryViewModel.Data.NBBASE_RATE"
+            <R_NumericTextBox TValue="decimal" @bind-Value="_JournalEntryViewModel.Data.NBBASE_RATE"
                               Arrows="false"
                               Decimals="6"
                               TextAlignment="@R_eTextAlignment.Right"
@@ -255,7 +255,7 @@
             <R_Label>=</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_JournalEntryViewModel.Data.NBCURRENCY_RATE"
+            <R_NumericTextBox TValue="decimal" @bind-Value="_JournalEntryViewModel.Data.NBCURRENCY_RATE"
                               Arrows="false"
                               Decimals="6"
                               TextAlignment="@R_eTextAlignment.Right"
@@ -386,13 +386,14 @@
                 Height="150px"
         >
             <R_GridColumns>
+                <R_GridTextColumn Width="180px" FieldName="@nameof(PMF00100ListDTO.CALLOC_NO)" Enabled="false" HeaderText="@_localizer["_AllocRefNo"]"></R_GridTextColumn>
                 <R_GridDatePickerColumn Width="150px" FieldName="@nameof(PMF00100ListDTO.DALLOC_DATE)" Enabled="false" HeaderText="@_localizer["_AllocDate"]"></R_GridDatePickerColumn>
                 <R_GridTextColumn Width="150px" FieldName="@nameof(PMF00100ListDTO.CTRANS_NAME)" Enabled="false" HeaderText="@_localizer["_TrxType"]"></R_GridTextColumn>
                 <R_GridTextColumn Width="200px" FieldName="@nameof(PMF00100ListDTO.CREF_NO)" Enabled="false" HeaderText="@_localizer["_RefNo"]"></R_GridTextColumn>
                 <R_GridTextColumn Width="120px" FieldName="@nameof(PMF00100ListDTO.CCURRENCY_CODE)" HeaderText="@_localizer["_Curr"]" Enabled="false" />
-                <R_GridNumericColumn Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NTRANS_AMOUNT)" Enabled="false" HeaderText="@_localizer["_Amount"]"></R_GridNumericColumn>
-                <R_GridNumericColumn Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NLFOREX_GAINLOSS)" Enabled="false" HeaderText="@_localizer["_GainLossLocal"]"></R_GridNumericColumn>
-                <R_GridNumericColumn Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NBFOREX_GAINLOSS)" Enabled="false" HeaderText="@_localizer["_GainLossBase"]"></R_GridNumericColumn>
+                <R_GridNumericColumn TValue="decimal" Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NTRANS_AMOUNT)" Enabled="false" HeaderText="@_localizer["_Amount"]"></R_GridNumericColumn>
+                <R_GridNumericColumn TValue="decimal" Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NLFOREX_GAINLOSS)" Enabled="false" HeaderText="@_localizer["_GainLossLocal"]"></R_GridNumericColumn>
+                <R_GridNumericColumn TValue="decimal" Width="250px" Decimals="2" FieldName="@nameof(PMF00100ListDTO.NBFOREX_GAINLOSS)" Enabled="false" HeaderText="@_localizer["_GainLossBase"]"></R_GridNumericColumn>
                 <R_GridTextColumn Width="300px" FieldName="@nameof(PMF00100ListDTO.CTRANS_DESC)" HeaderText="@_localizer["_Description"]" Enabled="false" />
             </R_GridColumns>
         </R_Grid>

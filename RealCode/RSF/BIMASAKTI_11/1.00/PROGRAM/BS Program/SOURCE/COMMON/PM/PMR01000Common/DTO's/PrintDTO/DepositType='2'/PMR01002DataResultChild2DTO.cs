@@ -13,7 +13,7 @@ public class PMR01002DataResultChild2DTO
     public string CDEPOSIT_DATE  { get; set; }
     public string CPAYMENT_STATUS  { get; set; }
     public string CCURRENCY_CODE  { get; set; }
-    public decimal NDEPOSIT_AMOUNT  { get; set; }
     public decimal NDEPOSIT_BALANCE  { get; set; }
     public decimal NLOCAL_DEPOSIT_BALANCE  { get; set; }
+    public decimal NBASE_DEPOSIT_BALANCE  { get; set; }
 }

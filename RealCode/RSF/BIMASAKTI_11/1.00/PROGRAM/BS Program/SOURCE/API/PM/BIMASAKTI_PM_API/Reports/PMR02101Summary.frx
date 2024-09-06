@@ -1,5 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="06/26/2024 17:16:59" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/02/2024 15:04:33" ReportInfo.CreatorVersion="2023.2.21.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using System.Globalization;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Text93_AfterPrint(object sender, EventArgs e)
+    {
+      // Ambil nilai string tanggal dari ResponseDataModel.Data.Param.CCUT_OFF_DATE
+      string originalDateStr = Report.GetVariableValue(&quot;ResponseDataModel.Data.Param.CCUT_OFF_DATE&quot;).ToString();
+            
+      // Pisahkan tahun, bulan, dan hari dari string tanggal
+      string year = originalDateStr.Substring(0, 4);
+      string month = originalDateStr.Substring(4, 2);
+      string day = originalDateStr.Substring(6, 2);
+            
+      // Gabungkan tahun, bulan, dan hari menjadi format yang dapat diubah menjadi DateTime
+      string dateFormatted = $&quot;{year}-{month}-{day}&quot;;
+            
+      // Ubah string menjadi DateTime
+      DateTime date = DateTime.ParseExact(dateFormatted, &quot;yyyy-MM-dd&quot;, CultureInfo.InvariantCulture);
+            
+      // Format tanggal menjadi '20 September 2024'
+      string formattedDate = date.ToString(&quot;dd MMMM yyyy&quot;, new CultureInfo(&quot;id-ID&quot;));
+            
+      // Set nilai TextBox ke tanggal yang sudah diformat
+      (sender as FastReport.TextObject).Text = formattedDate; 
+    }
+  }
+}
+</ScriptText>
   <Dictionary>
     <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
       <Column Name="Data" DataType="PMR02200Common.DTOs.PMR02100SummaryPrintResultDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -58,6 +103,7 @@
           <Column Name="CFROM_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CTO_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CINV_GRP_NAME" DataType="System.String"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
         <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02100Common.DTOs.PMR02100DTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
@@ -79,6 +125,13 @@
           <Column Name="NAGE_PENALTY_AMOUNT" DataType="System.Decimal"/>
           <Column Name="NAGE_TOTAL_AMOUNT" DataType="System.Decimal"/>
           <Column Name="CUSER_ID" DataType="System.String"/>
+          <Column Name="CUNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CAGREEMENT_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CINVGRP_CODE" DataType="System.String"/>
+          <Column Name="CINVGRP_NAME" DataType="System.String"/>
+          <Column Name="CINVGRP_DUE_DATE" DataType="System.String"/>
         </BusinessObjectDataSource>
       </Column>
       <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -132,7 +185,7 @@
         <TextObject Name="Text90" Top="47.25" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_REPORT_TYPE]" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text91" Top="66.15" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUSTOMER]" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text92" Left="113.4" Top="9.45" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 8pt"/>
-        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CCUT_OFF_DATE]" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="D" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text94" Left="113.4" Top="47.25" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CREPORT_TYPE]" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text95" Left="113.4" Top="66.15" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CFROM_CUSTOMER_ID] - [ResponseDataModel.Data.Param.CTO_CUSTOMER_ID]" Font="Arial Unicode MS, 8pt">
           <Formats>

@@ -34,7 +34,8 @@
             <R_Label>@_localizer["_journalPeriod"]</R_Label>
         </R_ItemLayout>
     <R_ItemLayout col="1">
-        <R_NumericTextBox @bind-Value="_TransactionListViewModel.JournalPeriodYear"
+        <R_NumericTextBox TValue="int" 
+                          @bind-Value="_TransactionListViewModel.JournalPeriodYear"
                           Min=_TransactionListViewModel.VAR_GSM_PERIOD.IMIN_YEAR
                           Max=_TransactionListViewModel.VAR_GSM_PERIOD.IMAX_YEAR
                          ThousandSeparator="false"
@@ -85,7 +86,7 @@
             <R_GridTextColumn Width="132px" FieldName="@nameof(CBT01200DTO.CDOC_NO)" HeaderText="Document No."></R_GridTextColumn>
             <R_GridTextColumn Width="500px" FieldName="@nameof(CBT01200DTO.CTRANS_DESC)" HeaderText="Description"></R_GridTextColumn>
             <R_GridTextColumn Width="100px" FieldName="@nameof(CBT01200DTO.CCURRENCY_CODE)" HeaderText="Currency"></R_GridTextColumn>
-            <R_GridNumericColumn Width="97px" FieldName="@nameof(CBT01200DTO.NTRANS_AMOUNT)" HeaderText="Amount"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="97px" FieldName="@nameof(CBT01200DTO.NTRANS_AMOUNT)" HeaderText="Amount"></R_GridNumericColumn>
             <R_GridTextColumn Width="86px" FieldName="@nameof(CBT01200DTO.CSTATUS_NAME)" HeaderText="Status"></R_GridTextColumn>
             <R_GridTextColumn Width="150px" FieldName="@nameof(CBT01200DTO.CUPDATE_BY)" HeaderText="Updated By"></R_GridTextColumn>
             <R_GridTextColumn Width="150px" FieldName="@nameof(CBT01200DTO.DUPDATE_DATE)" HeaderText="Updated Date"></R_GridTextColumn>
@@ -104,22 +105,21 @@
             Height="240px"
             R_GridType="R_eGridType.Navigator">
         <R_GridColumns>
-            <R_GridNumericColumn Width="67px" FieldName="@nameof(CBT01201DTO.INO)" HeaderText="No."></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="int" Width="67px" FieldName="@nameof(CBT01201DTO.INO)" HeaderText="No."></R_GridNumericColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CGLACCOUNT_NO)" MaxLength="20" HeaderText="Account No."></R_GridTextColumn>
             <R_GridTextColumn Width="165px" FieldName="@nameof(CBT01201DTO.CGLACCOUNT_NAME)" HeaderText="Account Name"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCENTER_NAME)" HeaderText="Center"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCASH_FLOW_CODE)" HeaderText="Cash Flow Code"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCASH_FLOW_NAME)" HeaderText="Cash Flow Name"></R_GridTextColumn>
-            <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CCENTER_NAME)" HeaderText="Center"></R_GridTextColumn>
-            <R_GridNumericColumn Width="92px" FieldName="@nameof(CBT01201DTO.NDEBIT)" HeaderText="Debit"></R_GridNumericColumn>
-            <R_GridNumericColumn Width="92px" FieldName="@nameof(CBT01201DTO.NCREDIT)" HeaderText="Credit"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="92px" FieldName="@nameof(CBT01201DTO.NDEBIT)" HeaderText="Debit"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="92px" FieldName="@nameof(CBT01201DTO.NCREDIT)" HeaderText="Credit"></R_GridNumericColumn>
             <R_GridTextColumn Width="475px" FieldName="@nameof(CBT01201DTO.CDETAIL_DESC)" HeaderText="Description"></R_GridTextColumn>
             <R_GridTextColumn Width="120px" FieldName="@nameof(CBT01201DTO.CDOCUMENT_NO)" HeaderText="Voucher No."></R_GridTextColumn>
             <R_GridTextColumn Width="130px" FieldName="@nameof(CBT01201DTO.CDOCUMENT_DATE)" HeaderText="Voucher Date"></R_GridTextColumn>
-            <R_GridNumericColumn Width="110px" FieldName="@nameof(CBT01201DTO.NLDEBIT)" HeaderText="DB (Local)"></R_GridNumericColumn>
-            <R_GridNumericColumn Width="110px" FieldName="@nameof(CBT01201DTO.NLCREDIT)" HeaderText="CR (Local)"></R_GridNumericColumn>
-            <R_GridNumericColumn Width="110px" FieldName="@nameof(CBT01201DTO.NBDEBIT)" HeaderText="DB (Base)"></R_GridNumericColumn>
-            <R_GridNumericColumn Width="110px" FieldName="@nameof(CBT01201DTO.NBCREDIT)" HeaderText="CR (Base)"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(CBT01201DTO.NLDEBIT)" HeaderText="DB (Local)"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(CBT01201DTO.NLCREDIT)" HeaderText="CR (Local)"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(CBT01201DTO.NBDEBIT)" HeaderText="DB (Base)"></R_GridNumericColumn>
+            <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(CBT01201DTO.NBCREDIT)" HeaderText="CR (Base)"></R_GridNumericColumn>
         </R_GridColumns>
     </R_Grid>
 </R_StackLayout>

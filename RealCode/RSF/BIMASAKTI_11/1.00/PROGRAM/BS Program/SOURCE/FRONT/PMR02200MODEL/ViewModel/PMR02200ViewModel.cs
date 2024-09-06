@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Lookup_PMCOMMON.DTOs;
 using PMR02200Common.DTOs;
 using PMR02200Common.DTOs.PrintDTO;
+using PMR02200FrontResources;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Interfaces;
 using MonthDTO = PMR02200Common.DTOs.MonthDTO;
 
 namespace PMR02200MODEL
@@ -99,34 +101,79 @@ namespace PMR02200MODEL
         }
 
         #endregion
+        #region labelProperties
         #region Agreement No. Based On
-        public List<DropDownDTO> AggrementRadio1 = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "1", Text = "Customer" },
-        };
-        public List<DropDownDTO> AggrementRadio2 = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "2", Text = "Department" }
-        };
+        public List<DropDownDTO> AggrementRadio1 = new List<DropDownDTO>();
+        public List<DropDownDTO> AggrementRadio2 = new List<DropDownDTO>();
         public string AggrementRadioSelected = "";
         #endregion
         #region Date Based On
-        public List<DropDownDTO> DateBaseRadio1 = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "1", Text = "Cut Off" },
-        };
-        public List<DropDownDTO> DateBaseRadio2 = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "2", Text = "Period" }
-        };
+        public List<DropDownDTO> DateBaseRadio1 = new List<DropDownDTO>();
+        public List<DropDownDTO> DateBaseRadio2 = new List<DropDownDTO>();
         public string DateBaseRadioSelected = "";
         #endregion
+        public List<CheckBoxDTO> LOINoOption = new List<CheckBoxDTO>();
+        public List<DropDownDTO> BasedOnRadio1 = new List<DropDownDTO>();
+        public List<DropDownDTO> BasedOnRadio2 = new List<DropDownDTO>();
+        public string BasedOnRadioSelected = "";
+        public List<DropDownDTO> ReportTypeRadio1 = new List<DropDownDTO>();
+        public List<DropDownDTO> ReportTypeRadio2 = new List<DropDownDTO>();
+        public string ReportTypeRadioSelected = "";
+        #endregion
 
-        public List<CheckBoxDTO> LOINoOption = new List<CheckBoxDTO>()
+        
+         public async Task InitProcess(R_ILocalizer<ResourcesDummyPMR2200> poParamLocalizer)
         {
-            new CheckBoxDTO { Id = "1", Value = true },
-               new CheckBoxDTO { Id = "2", Value = false },
+            R_Exception loEx = new R_Exception();
+            try
+            {
+                AggrementRadio1 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "1", Text = poParamLocalizer["_DropDownCustomer"] },
+                };
+                AggrementRadio2 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "2", Text = poParamLocalizer["_labelDepartment"] }
+                };
+                ReportTypeRadio1 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "1", Text = poParamLocalizer["_radioSummary"] },
+                };
+                ReportTypeRadio2 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "2", Text = poParamLocalizer["_radioDetail"] }
+                };
+                BasedOnRadio1 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "1", Text = poParamLocalizer["_DropDownCustomer"] }
+                };
+                BasedOnRadio2 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "2", Text = poParamLocalizer["_labelJournalGroup"] }
+                };
+                LOINoOption = new List<CheckBoxDTO>()
+                {
+                    new CheckBoxDTO { Id = "1", Value = true },
+                    new CheckBoxDTO { Id = "2", Value = false },
 
-        };
+                };
+                DateBaseRadio1 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "1", Text = poParamLocalizer["_labelCutoffDate"] },
+                };
+                DateBaseRadio2 = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = "2", Text = poParamLocalizer["_labelPeriod"] }
+                };
+                ReportTypeRadioSelected = poParamLocalizer["_radioSummary"];
+                BasedOnRadioSelected = poParamLocalizer["_DropDownCustomer"];
+                DateBaseRadioSelected = poParamLocalizer["_labelCutoffDate"];
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
     }
 }

@@ -402,6 +402,15 @@ namespace GSM01000FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NonActiveDate.
+        /// </summary>
+        internal static string _NonActiveDate {
+            get {
+                return ResourceManager.GetString("_NonActiveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         internal static string _notes {

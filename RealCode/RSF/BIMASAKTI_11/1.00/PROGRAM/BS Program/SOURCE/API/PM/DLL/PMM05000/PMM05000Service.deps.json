@@ -101,8 +101,6 @@
       "PMM05000Back/1.0.0": {
         "dependencies": {
           "PMM05000Common": "1.0.0",
-          "RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources": "1.0.0",
-          "RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources": "1.0.0",
           "RSP_PM_ACTIVE_INACTIVE_PRICINGResources": "1.0.0",
           "RSP_PM_ACTIVE_INACTIVE_UNIT_PRICEResources": "1.0.0",
           "RSP_PM_MAINTAIN_PRICINGResources": "1.0.0",
@@ -116,16 +114,6 @@
       "PMM05000Common/1.0.0": {
         "runtime": {
           "PMM05000Common.dll": {}
-        }
-      },
-      "RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources/1.0.0": {
-        "runtime": {
-          "RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources.dll": {}
-        }
-      },
-      "RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources/1.0.0": {
-        "runtime": {
-          "RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources.dll": {}
         }
       },
       "RSP_PM_ACTIVE_INACTIVE_PRICINGResources/1.0.0": {
@@ -345,16 +333,6 @@
       "sha512": ""
     },
     "PMM05000Common/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "RSP_LM_ACTIVE_INACTIVE_UNIT_PRICEResources/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "RSP_LM_MAINTAIN_UNIT_TYPE_PRICEResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

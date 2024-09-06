@@ -126,7 +126,7 @@ namespace PMT04200Back
 
             return loResult;
         }
-        public PMT04200PMSystemParamDTO GetPMSystemParamRecord()
+        public PMT04200PMSystemParamDTO GetPMSystemParamRecord(string pcPropertyId)
         {
             using Activity activity = _activitySource.StartActivity(MethodBase.GetCurrentMethod().Name);
             var loEx = new R_Exception();
@@ -144,6 +144,7 @@ namespace PMT04200Back
 
                 loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, R_BackGlobalVar.COMPANY_ID);
                 loDb.R_AddCommandParameter(loCmd, "@CLANGUAGE_ID", DbType.String, 50, R_BackGlobalVar.CULTURE);
+                loDb.R_AddCommandParameter(loCmd, "@CPROPERTY_ID", DbType.String, 50, pcPropertyId);
 
                 //Debug Logs
                 ShowLogDebug(lcQuery, loCmd.Parameters);

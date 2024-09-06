@@ -48,6 +48,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_GSFRONT\Lookup_GSFRONT.csproj" />
         <ProjectReference Include="..\..\..\..\BS Shared Form\SOURCE\FRONT\Lookup_LMFRONT\Lookup_PMFRONT.csproj" />
+        <ProjectReference Include="..\PMR02100FrontResources\PMR02100FrontResources.csproj" />
         <ProjectReference Include="..\PMR02100MODEL\PMR02100MODEL.csproj" />
     </ItemGroup>
 

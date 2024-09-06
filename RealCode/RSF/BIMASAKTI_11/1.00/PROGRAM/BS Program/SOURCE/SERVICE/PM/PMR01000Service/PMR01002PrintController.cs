@@ -161,7 +161,7 @@ public class PMR01002PrintController  : R_ReportControllerBase
             loRtn.BaseHeaderColumn.Print_By = R_Utility.R_GetMessage(typeof(BaseHeaderResources.Resources_Dummy_Class),
                 "Print_By", loCultureInfo);
             
-            PMR01001PrintColoumnDTO loColumnObject = new PMR01001PrintColoumnDTO();
+            PMR01002PrintColoumnDTO loColumnObject = new PMR01002PrintColoumnDTO();
             var loColumn = AssignValuesWithMessages(typeof(PMR01000BackResources.Resources_Dummy_Class),
                 loCultureInfo, loColumnObject);
             // Set base header data
@@ -185,7 +185,7 @@ public class PMR01002PrintController  : R_ReportControllerBase
             };
 
             // Create an instance of PMR01000Cls
-
+            poParam.CLANGUAGE_ID = R_BackGlobalVar.REPORT_CULTURE;
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResult(poParam);
             _logger.LogInfo("Data generation successful. Processing data for printing.");
@@ -225,7 +225,8 @@ public class PMR01002PrintController  : R_ReportControllerBase
                         data2b.CCURRENCY_CODE,
                         data2b.NDEPOSIT_AMOUNT,
                         data2b.NDEPOSIT_BALANCE,
-                        data2b.NLOCAL_DEPOSIT_BALANCE
+                        data2b.NLOCAL_DEPOSIT_BALANCE,
+                        data2b.NBASE_DEPOSIT_BALANCE
                     }).Select(data3b => new PMR01002DataResultChild2DTO()
                     {
                         CCUSTOMER_NAME = data3b.Key.CCUSTOMER_NAME, 
@@ -238,9 +239,9 @@ public class PMR01002PrintController  : R_ReportControllerBase
                         CDEPOSIT_DATE = data3b.Key.CDEPOSIT_DATE,
                         CPAYMENT_STATUS = data3b.Key.CPAYMENT_STATUS,
                         CCURRENCY_CODE = data3b.Key.CCURRENCY_CODE,
-                        NDEPOSIT_AMOUNT = data3b.Key.NDEPOSIT_AMOUNT,
-                        NDEPOSIT_BALANCE = data3b.Key.NDEPOSIT_BALANCE,
-                        NLOCAL_DEPOSIT_BALANCE = data3b.Key.NDEPOSIT_AMOUNT
+                        NDEPOSIT_BALANCE = data3b.Key.NDEPOSIT_AMOUNT,
+                        NBASE_DEPOSIT_BALANCE = data3b.Key.NBASE_DEPOSIT_BALANCE,
+                        NLOCAL_DEPOSIT_BALANCE = data3b.Key.NLOCAL_DEPOSIT_BALANCE
                     }).ToList()
                 }).ToList()
             }).ToList();

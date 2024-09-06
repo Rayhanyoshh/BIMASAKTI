@@ -1,5 +1,6 @@
 ﻿using Lookup_PMCOMMON;
 using Lookup_PMCOMMON.DTOs;
+using Lookup_PMCOMMON.DTOs.GET_USER_PARAM_DETAIL;
 using Lookup_PMCOMMON.DTOs.LML01000;
 using Lookup_PMCOMMON.DTOs.LML01100;
 using Lookup_PMCOMMON.DTOs.LML01300;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Lookup_PMCOMMON.DTOs.PML01200;
 
 namespace Lookup_PMModel
 {
@@ -86,6 +88,12 @@ namespace Lookup_PMModel
         {
             throw new NotImplementedException();
         }
+        public LMLGenericRecord<GET_USER_PARAM_DETAILDTO> UserParamDetail(GET_USER_PARAM_DETAILParameterDTO poParam)
+        {
+            throw new NotImplementedException();
+        }
+
+
         #endregion
 
 
@@ -404,18 +412,18 @@ namespace Lookup_PMModel
         }
         #endregion
         #endregion
-        #region LML01200GetRecord
-        public async Task<LML01200DTO> PML01200GetInvoiceGroupAsync(LML01200ParameterDTO poParam)
+        #region LML01200GetRecor[
+        public async Task<PML01200DTO> PML01200GetInvoiceGroupAsync(PML01200ParameterDTO poParam)
         {
 
             var loEx = new R_Exception();
-            LML01200DTO loResult = null;
+            PML01200DTO loResult = null;
 
             try
             {
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
 
-                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<LML01200DTO>, LML01200ParameterDTO>(
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<PML01200DTO>, PML01200ParameterDTO>(
                     _RequestServiceEndPoint,
                     nameof(IGetRecordLookupLM.LML01200InvoiceGroup),
                     poParam,
@@ -467,9 +475,39 @@ namespace Lookup_PMModel
             return loResult!;
         }
 
+
         #endregion
+        #region GET USER PARAM
+        public async Task<GET_USER_PARAM_DETAILDTO> GetUserParamDetailAsync(GET_USER_PARAM_DETAILParameterDTO poParam)
+        {
+            var loEx = new R_Exception();
+            GET_USER_PARAM_DETAILDTO loResult = null;
 
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
 
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<LMLGenericRecord<GET_USER_PARAM_DETAILDTO>, GET_USER_PARAM_DETAILParameterDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(IGetRecordLookupLM.UserParamDetail),
+                    poParam,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loResult = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult!;
+        }
+
+        #endregion
 
 
 

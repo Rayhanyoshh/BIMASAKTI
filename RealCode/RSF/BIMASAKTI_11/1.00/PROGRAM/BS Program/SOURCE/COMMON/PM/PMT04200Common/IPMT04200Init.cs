@@ -12,7 +12,7 @@ namespace PMT04200Common
         PMT04200RecordResult<PMT04200GSCompanyInfoDTO> GetGSCompanyInfo();
         PMT04200RecordResult<PMT04200GLSystemParamDTO> GetGLSystemParam();
         PMT04200RecordResult<PMT04200CBSystemParamDTO> GetCBSystemParam();
-        PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam();
+        PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam(PMTInitialParamDTO poEntity);
         PMT04200RecordResult<PMT04200GSPeriodDTInfoDTO> GetGSPeriodDTInfo(PMT04200ParamGSPeriodDTInfoDTO poEntity);
         PMT04200RecordResult<PMT04200GSTransInfoDTO> GetGSTransCodeInfo();
         PMT04200RecordResult<PMT04200GSPeriodYearRangeDTO> GetGSPeriodYearRange();

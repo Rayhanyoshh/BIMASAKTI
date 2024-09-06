@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="05/28/2024 14:41:26" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/02/2024 15:56:50" ReportInfo.CreatorVersion="2023.2.21.0">
   <ScriptText>using System;
 using FastReport;
 using FastReport.Utils;
@@ -83,12 +83,12 @@ namespace FastReport
         <Column Name="ColumnDetail" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01003PrintColumnDetailDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <Column Name="COLOUMN_DETAIL_DEPOSIT_TYPE" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_REFERENCE_NO" DataType="System.String"/>
-          <Column Name="COLOUMN_DETAIL_DEPOSIT_DATE" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_PAYMENT_STATUS" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_CURRENCY" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_UNIT_DESCRIPTION" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_AMOUNT" DataType="System.String"/>
           <Column Name="COLOUMN_DETAIL_DEPOSIT_BALANCE" DataType="System.String"/>
+          <Column Name="COLOUMN_DETAIL_ALLOCATION_DATE" DataType="System.String"/>
         </Column>
         <Column Name="HeaderParam" DataType="PMR01000Common.DTO_s.PrintDTO.PMR01000PrintParamDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
@@ -109,6 +109,11 @@ namespace FastReport
           <Column Name="CFROM_TRANS_TYPE" DataType="System.String"/>
           <Column Name="CTO_TRANS_TYPE" DataType="System.String"/>
           <Column Name="CLANGUAGE_ID" DataType="System.String"/>
+          <Column Name="CUSER_ID" DataType="System.String"/>
+          <Column Name="LIS_PRINT" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="CPRINT_FILENAME" DataType="System.String"/>
+          <Column Name="CPRINT_FILE_TYPE" DataType="System.String"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
         <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[PMR01000Common.DTO_s.PrintDTO.PMR01003DataResultDTO, PMR01000Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CDEPOSIT_ID" DataType="System.String"/>
@@ -165,6 +170,11 @@ namespace FastReport
           <Column Name="CFROM_TRANS_TYPE" DataType="System.String"/>
           <Column Name="CTO_TRANS_TYPE" DataType="System.String"/>
           <Column Name="CLANGUAGE_ID" DataType="System.String"/>
+          <Column Name="CUSER_ID" DataType="System.String"/>
+          <Column Name="LIS_PRINT" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="CPRINT_FILENAME" DataType="System.String"/>
+          <Column Name="CPRINT_FILE_TYPE" DataType="System.String"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
       </Column>
       <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -181,7 +191,7 @@ namespace FastReport
         <Column Name="Print_By" DataType="System.String"/>
       </Column>
     </BusinessObjectDataSource>
-    <Total Name="TotalAmount" Expression="[ResponseDataModel.Data3.Data.Detail1.Detail2.NAMOUNT]" Evaluator="Data3" PrintOn="DataFooter3"/>
+    <Total Name="TotalAmount" Expression="[ResponseDataModel.Data3.Data.Detail1.Detail2.NDEPOSIT_AMOUNT]" Evaluator="Data3" PrintOn="DataFooter3"/>
     <Total Name="TotalBalance" Expression="[ResponseDataModel.Data3.Data.Detail1.Detail2.NDEPOSIT_BALANCE]" Evaluator="Data3" PrintOn="DataFooter3"/>
     <Total Name="AllTotalAmount" Expression="[TotalAmount]" Evaluator="Data5" PrintOn="DataFooter1"/>
     <Total Name="AllTotalBalance" Expression="[TotalBalance]" Evaluator="Data2" PrintOn="DataFooter1"/>
@@ -212,20 +222,10 @@ namespace FastReport
         <TextObject Name="Text46" Left="859.95" Top="18.9" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.Column.HEADER_TO_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
         <TextObject Name="Text47" Left="859.95" Top="28.35" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.Column.HEADER_FROM_TRANSACTION_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
         <TextObject Name="Text48" Left="859.95" Top="37.8" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.Column.HEADER_TO_TRANSACTION_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-        <TextObject Name="Text49" Left="94.5" Top="9.45" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CFROM_YEAR][ResponseDataModel.Data3.HeaderParam.CFROM_MONTH]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt">
-          <Formats>
-            <GeneralFormat/>
-            <GeneralFormat/>
-          </Formats>
-        </TextObject>
-        <TextObject Name="Text50" Left="94.5" Top="18.9" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CTO_YEAR][ResponseDataModel.Data3.HeaderParam.CTO_MONTH]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt">
-          <Formats>
-            <GeneralFormat/>
-            <GeneralFormat/>
-          </Formats>
-        </TextObject>
-        <TextObject Name="Text51" Left="94.5" Top="28.35" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CFROM_BUILDING]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-        <TextObject Name="Text52" Left="94.5" Top="37.8" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CTO_BUILDING]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <TextObject Name="Text49" Left="94.5" Top="9.45" Width="151.2" Height="9.45" Text=": [ResponseDataModel.Data3.HeaderParam.CFROM_PERIOD]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <TextObject Name="Text50" Left="94.5" Top="18.9" Width="151.2" Height="9.45" Text=": [ResponseDataModel.Data3.HeaderParam.CTO_PERIOD]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <TextObject Name="Text51" Left="94.5" Top="28.35" Width="151.2" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CFROM_BUILDING]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <TextObject Name="Text52" Left="94.5" Top="37.8" Width="151.2" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CTO_BUILDING]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
         <TextObject Name="Text53" Left="954.45" Top="9.45" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CFROM_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
         <TextObject Name="Text54" Left="954.45" Top="18.9" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CTO_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
         <TextObject Name="Text55" Left="954.45" Top="28.35" Width="94.5" Height="9.45" Text="[ResponseDataModel.Data3.HeaderParam.CFROM_TRANS_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
@@ -253,64 +253,62 @@ namespace FastReport
       <TextObject Name="Text74" Left="982.8" Width="66.15" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.Column.COLOUMN_DEPOSIT_BALANCE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
     </ColumnHeaderBand>
     <DataBand Name="Data1" ZOrder="0" Top="160.8" Width="1047.06" DataSource="Data">
-      <TextObject Name="Text82" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.CDEPOSIT_ID]-[ResponseDataModel.Data3.Data.CDEPOSIT_NAME]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt">
+      <TextObject Name="Text82" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.CDEPOSIT_ID]-[ResponseDataModel.Data3.Data.CDEPOSIT_NAME]" Duplicates="Hide" VertAlign="Center" Font="Arial Unicode MS, 6pt">
         <Formats>
           <GeneralFormat/>
           <GeneralFormat/>
         </Formats>
       </TextObject>
       <DataBand Name="Data2" Top="164" Width="1047.06" DataSource="Detail1">
-        <TextObject Name="Text83" Left="94.5" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-        <TextObject Name="Text84" Left="141.75" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CDEPOSIT_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
+        <TextObject Name="Text84" Left="141.75" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CDEPOSIT_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+        <TextObject Name="Text83" Left="94.5" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" Duplicates="Hide" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
         <DataBand Name="Data3" Top="167.2" Width="1047.06" Height="37.8" BeforePrintEvent="Data3_BeforePrint" DataSource="Detail2">
-          <TextObject Name="Text85" Left="179.55" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCUSTOMER_NAME]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text86" Left="274.05" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text87" Left="349.65" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CREFERENCE_NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text88" Left="415.8" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CUNIT_DESCRIPTION]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text89" Left="472.5" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CPAYMENT_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text90" Left="510.3" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTYPES]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text91" Left="548.1" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text95" Left="614.25" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CDEPOSIT_DATE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text96" Left="670.95" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CPAYMENT_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text97" Left="718.2" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCURRENCY_CODE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text98" Left="765.45" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NAMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
-          <TextObject Name="Text99" Left="822.15" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NCREDIT_NOTE]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
-          <TextObject Name="Text100" Left="878.85" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NADJUSTMENT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
-          <TextObject Name="Text101" Left="935.55" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NREFUND]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
-          <TextObject Name="Text102" Left="992.25" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NDEPOSIT_BALANCE]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text85" Left="179.55" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCUSTOMER_NAME]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text86" Left="274.05" Top="9.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_TYPE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text87" Left="349.65" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CREFERENCE_NO]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text88" Left="415.8" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CUNIT_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text89" Left="472.5" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CPAYMENT_STATUS]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text90" Left="510.3" Top="9.45" Width="37.8" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTYPES]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text91" Left="548.1" Top="9.45" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CTRANSACTION_NO]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text95" Left="614.25" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CDEPOSIT_DATE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text96" Left="670.95" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CPAYMENT_STATUS]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text97" Left="718.2" Top="9.45" Width="47.25" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.CCURRENCY_CODE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text99" Left="822.15" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NCREDIT_NOTE]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text100" Left="878.85" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NADJUSTMENT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text101" Left="935.55" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NREFUND]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text102" Left="992.25" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NDEPOSIT_BALANCE]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text153" Left="765.45" Top="9.45" Width="56.7" Height="18.9" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.NDEPOSIT_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
           <DataBand Name="Data5" Top="249.2" Width="1047.06" Height="37.8" VisibleExpression="!string.IsNullOrWhiteSpace((String)Report.GetColumnValue(&quot;ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_TYPE&quot;))" DataSource="Detail3">
-            <TextObject Name="Text108" Left="888.3" Top="9.45" Width="75.6" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.NDETAIL_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="0" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
-            <TextObject Name="Text103" Left="538.65" Top="9.45" Width="66.15" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-            <TextObject Name="Text104" Left="604.8" Top="9.45" Width="75.6" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_TRANSACTION_NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-            <TextObject Name="Text105" Left="680.4" Top="9.45" Width="66.15" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_DATE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-            <TextObject Name="Text106" Left="746.55" Top="9.45" Width="85.05" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_PAYMENT_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-            <TextObject Name="Text107" Left="831.6" Top="9.45" Width="56.7" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_CURRENCY_CODE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt"/>
-            <TextObject Name="Text109" Left="963.9" Top="9.45" Width="75.6" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.NDETAIL_DEPOSIT_BALANCE]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 6pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text108" Left="907.2" Top="9.45" Width="75.6" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.NDETAIL_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="0" VertAlign="Center" WordWrap="false" Font="Arial Unicode MS, 6pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text103" Left="557.55" Top="9.45" Width="66.15" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_TYPE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+            <TextObject Name="Text104" Left="623.7" Top="9.45" Width="75.6" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_TRANSACTION_NO]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+            <TextObject Name="Text105" Left="699.3" Top="9.45" Width="66.15" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_DATE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+            <TextObject Name="Text106" Left="765.45" Top="9.45" Width="85.05" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_PAYMENT_STATUS]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
+            <TextObject Name="Text107" Left="850.5" Top="9.45" Width="56.7" Height="18.9" CanShrink="true" Text="[ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_CURRENCY_CODE]" VertAlign="Center" Font="Arial Unicode MS, 6pt"/>
             <DataHeaderBand Name="DataHeader1" Top="208.2" Width="1047.06" Height="37.8" VisibleExpression="!string.IsNullOrWhiteSpace((String)Report.GetColumnValue(&quot;ResponseDataModel.Data3.Data.Detail1.Detail2.Detail3.CDETAIL_DEPOSIT_TYPE&quot;))">
-              <TextObject Name="Text130" Left="538.65" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_DEPOSIT_TYPE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text143" Left="680.4" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_DEPOSIT_DATE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text144" Left="746.55" Top="9.45" Width="85.05" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_PAYMENT_STATUS]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text145" Left="831.6" Top="9.45" Width="56.7" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_CURRENCY]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text148" Left="604.8" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.Column.COLOUMN_TRANSACTION__NO]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text149" Left="888.3" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_AMOUNT]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-              <TextObject Name="Text150" Left="963.9" Top="9.45" Width="85.05" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_DEPOSIT_BALANCE]" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+              <TextObject Name="Text130" Left="557.55" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_DEPOSIT_TYPE]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+              <TextObject Name="Text143" Left="699.3" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_ALLOCATION_DATE]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+              <TextObject Name="Text144" Left="765.45" Top="9.45" Width="85.05" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_PAYMENT_STATUS]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+              <TextObject Name="Text145" Left="850.5" Top="9.45" Width="56.7" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_CURRENCY]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+              <TextObject Name="Text148" Left="623.7" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.Column.COLOUMN_TRANSACTION__NO]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+              <TextObject Name="Text149" Left="907.2" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data3.ColumnDetail.COLOUMN_DETAIL_AMOUNT]" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
             </DataHeaderBand>
           </DataBand>
           <DataFooterBand Name="DataFooter3" Top="290.2" Width="1047.06" Height="37.8">
-            <TextObject Name="Text113" Left="841.05" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text114" Left="897.75" Top="9.45" Width="94.5" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text135" Left="94.5" Top="9.45" Width="670.95" Height="28.35" Border.Lines="Top" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text140" Left="141.75" Top="9.45" Width="56.7" Height="28.35" Text="[ResponseDataModel.Data3.Data.Detail1.CDEPOSIT_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text141" Left="94.5" Top="9.45" Width="47.25" Height="28.35" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" Duplicates="Hide" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text151" Left="765.45" Top="9.45" Width="75.6" Height="28.35" Border.Lines="Top" Text="[TotalAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-            <TextObject Name="Text152" Left="992.25" Top="9.45" Width="94.5" Height="18.9" Border.Lines="Top" Text="[TotalBalance]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+            <TextObject Name="Text113" Left="841.05" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text114" Left="897.75" Top="9.45" Width="94.5" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text135" Left="94.5" Top="9.45" Width="670.95" Height="28.35" Border.Lines="Top" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text140" Left="141.75" Top="9.45" Width="56.7" Height="28.35" Text="[ResponseDataModel.Data3.Data.Detail1.CDEPOSIT_TYPE]" Duplicates="Hide" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text141" Left="94.5" Top="9.45" Width="47.25" Height="28.35" Text="[ResponseDataModel.Data3.Data.Detail1.CBUILDING_ID]" Duplicates="Hide" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text151" Left="765.45" Top="9.45" Width="75.6" Height="28.35" Border.Lines="Top" Text="[TotalAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
+            <TextObject Name="Text152" Left="992.25" Top="9.45" Width="94.5" Height="18.9" Border.Lines="Top" Text="[TotalBalance]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Center" Font="Arial Unicode MS, 6pt, style=Bold"/>
           </DataFooterBand>
         </DataBand>
         <DataFooterBand Name="DataFooter1" Top="331.2" Width="1047.06" Height="37.8">
-          <TextObject Name="Text134" Left="765.45" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top" Text="[AllTotalAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-          <TextObject Name="Text136" Left="699.3" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt"/>
-          <TextObject Name="Text138" Left="982.8" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" Text="[AllTotalBalance]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
-          <TextObject Name="Text139" Left="841.05" Top="9.45" Width="141.75" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt, style=Bold"/>
+          <TextObject Name="Text134" Left="765.45" Top="9.45" Width="75.6" Height="18.9" Border.Lines="Top" Text="[AllTotalAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
+          <TextObject Name="Text136" Left="699.3" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Arial Unicode MS, 6pt"/>
+          <TextObject Name="Text138" Left="982.8" Top="9.45" Width="66.15" Height="18.9" Border.Lines="Top" Text="[AllTotalBalance]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
+          <TextObject Name="Text139" Left="841.05" Top="9.45" Width="141.75" Height="18.9" Border.Lines="Top" VertAlign="Bottom" Font="Arial Unicode MS, 6pt, style=Bold"/>
         </DataFooterBand>
       </DataBand>
       <DataFooterBand Name="DataFooter2" Top="372.2" Width="1047.06" Height="37.8"/>

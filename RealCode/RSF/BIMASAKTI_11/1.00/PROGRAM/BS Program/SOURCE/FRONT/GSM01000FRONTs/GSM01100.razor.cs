@@ -107,7 +107,7 @@ namespace GSM01000Front
             }
         }
         
-        private async Task R_ConvertToGridEntity(R_ConvertToGridEntityEventArgs arg)
+        private void  R_ConvertToGridEntity(R_ConvertToGridEntityEventArgs arg)
         {
             arg.GridData = R_FrontUtility.ConvertObjectToObject<GSM01100DTO>(arg.Data);
         }

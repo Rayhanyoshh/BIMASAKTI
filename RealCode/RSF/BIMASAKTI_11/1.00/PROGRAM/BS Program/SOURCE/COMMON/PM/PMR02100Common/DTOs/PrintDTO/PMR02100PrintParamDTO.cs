@@ -1,3 +1,5 @@
+using System;
+
 namespace PMR02100Common.DTOs.PrintDTO;
 
 public class PMR02100PrintParamDTO
@@ -5,6 +7,7 @@ public class PMR02100PrintParamDTO
     public string CCOMPANY_ID { get; set; }
     public string CPROPERTY_ID { get; set; }
     public string CCUT_OFF_DATE { get; set; }
+    public DateTime DCUT_OFF_DATE { get; set; }
     public string CREPORT_TYPE { get; set; }
     public string CFROM_CUSTOMER_ID { get; set; }
     public string CFROM_CUSTOMER_NAME { get; set; }

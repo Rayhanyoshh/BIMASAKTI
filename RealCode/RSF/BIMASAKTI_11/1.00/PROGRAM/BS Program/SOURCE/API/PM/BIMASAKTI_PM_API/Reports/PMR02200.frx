@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="07/01/2024 15:33:51" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/05/2024 22:07:34" ReportInfo.CreatorVersion="2023.2.21.0">
   <ScriptText>using System;
 using System.Drawing;
 using System.Data;
@@ -74,6 +74,7 @@ namespace FastReport
           <Column Name="CDATE_BASE_ON" DataType="System.String"/>
           <Column Name="DSTATEMENT_DATE" DataType="System.DateTime"/>
           <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
+          <Column Name="CUSER_ID" DataType="System.String"/>
         </Column>
         <BusinessObjectDataSource Name="Data" DataType="System.Collections.Generic.List`1[[PMR02200Common.DTOs.PrintDTO.PMR02200DataResultDTO, PMR02200Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
@@ -146,6 +147,7 @@ namespace FastReport
           <Column Name="CDATE_BASE_ON" DataType="System.String"/>
           <Column Name="DSTATEMENT_DATE" DataType="System.DateTime"/>
           <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
+          <Column Name="CUSER_ID" DataType="System.String"/>
         </Column>
       </Column>
       <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -183,24 +185,24 @@ namespace FastReport
       <inherited Name="Text39"/>
     </inherited>
     <ColumnHeaderBand Name="ColumnHeader1" ZOrder="-1" Top="78.8" Width="1047.06" Height="75.6">
-      <TextObject Name="Text41" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_PROPERTY]" Font="Arial Unicode MS, 9pt"/>
-      <TextObject Name="Text44" Top="56.7" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_STATEMENT_DATE]" Font="Arial Unicode MS, 9pt"/>
-      <TextObject Name="Text47" Left="132.3" Top="56.7" Width="94.5" Height="18.9" Text=": [ResponseDataModel.Data1.Param.DSTATEMENT_DATE]" Font="Arial Unicode MS, 9pt"/>
-      <TextObject Name="Text48" Left="132.3" Width="94.5" Height="18.9" Text=": [ResponseDataModel.Data1.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 9pt"/>
-      <CheckBoxObject Name="CheckBox1" Left="878.85" Top="18.9" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" DataColumn="ResponseDataModel.Data1.Param.LFILTER_SHOW_AGE_TOTAL"/>
-      <TextObject Name="Text49" Left="907.2" Top="37.8" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_STATEMENT_DATE]" Font="Arial Unicode MS, 9pt"/>
-      <CheckBoxObject Name="CheckBox2" Left="878.85" Top="37.8" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data1.Param.LFILTER_INCLUDE_ZERO_BALANCE"/>
-      <TextObject Name="Text50" Left="907.2" Top="18.9" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_INCLUDE_ZERO_BALANCE]" Font="Arial Unicode MS, 9pt"/>
-      <TextObject Name="Text88" Top="28.35" Width="226.8" Height="18.9" Text="[ResponseDataModel.Data1.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="MMMM dd, yyyy" Font="Arial Unicode MS, 9pt"/>
+      <TextObject Name="Text41" Top="9.45" Width="160.65" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_PROPERTY]" Font="Arial Unicode MS, 9pt"/>
+      <TextObject Name="Text44" Top="47.25" Width="160.65" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_STATEMENT_DATE]" Font="Arial Unicode MS, 9pt"/>
+      <TextObject Name="Text47" Left="160.65" Top="47.25" Width="198.45" Height="18.9" Text=": [ResponseDataModel.Data1.Param.DSTATEMENT_DATE]" Format="Date" Format.Format="D" Font="Arial Unicode MS, 9pt"/>
+      <TextObject Name="Text48" Left="160.65" Top="9.45" Width="198.45" Height="18.9" Text=": [ResponseDataModel.Data1.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 9pt"/>
+      <CheckBoxObject Name="CheckBox1" Left="784.35" Top="18.9" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" DataColumn="ResponseDataModel.Data1.Param.LFILTER_SHOW_AGE_TOTAL"/>
+      <TextObject Name="Text49" Left="812.7" Top="37.8" Width="226.8" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_STATEMENT_DATE]" Font="Arial Unicode MS, 9pt"/>
+      <CheckBoxObject Name="CheckBox2" Left="784.35" Top="37.8" Width="18.9" Height="18.9" Border.Lines="All" DataColumn="ResponseDataModel.Data1.Param.LFILTER_INCLUDE_ZERO_BALANCE"/>
+      <TextObject Name="Text50" Left="812.7" Top="18.9" Width="226.8" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_INCLUDE_ZERO_BALANCE]" Font="Arial Unicode MS, 9pt"/>
+      <TextObject Name="Text88" Top="28.35" Width="226.8" Height="18.9" Text="[ResponseDataModel.Data1.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="D" Font="Arial Unicode MS, 9pt"/>
       <ChildBand Name="Child3" Top="157.6" Width="1047.06" Height="37.8" Border.Lines="Top, Bottom">
-        <TextObject Name="Text51" Left="425.25" Top="9.45" Width="274.05" Height="18.9" Text="[ResponseDataModel.Data1.Title]" Font="Arial Unicode MS, 10pt, style=Bold"/>
+        <TextObject Name="Text51" Left="330.75" Top="9.45" Width="368.55" Height="18.9" Text="[ResponseDataModel.Data1.Title]" HorzAlign="Center" Font="Arial Unicode MS, 10pt, style=Bold"/>
         <ChildBand Name="Child4" Top="198.6" Width="1047.06" Height="75.6">
-          <TextObject Name="Text55" Left="122.85" Top="9.45" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CTENANT_ID]" Font="Arial Unicode MS, 8pt"/>
-          <TextObject Name="Text52" Top="9.45" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_CUSTOMER]" Font="Arial Unicode MS, 8pt"/>
-          <TextObject Name="Text53" Top="28.35" Width="122.85" Height="18.9" BeforePrintEvent="Text46_BeforePrint" Text="[ResponseDataModel.Data1.Column.HEADER_UNIT_NAME]" Font="Arial Unicode MS, 8pt"/>
-          <TextObject Name="Text56" Left="122.85" Top="28.35" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CUNIT_DESCRIPTION]" Font="Arial Unicode MS, 8pt"/>
-          <TextObject Name="Text54" Top="47.25" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_LOI_AGGREMENT_NO]" Font="Arial Unicode MS, 8pt"/>
-          <TextObject Name="Text57" Left="122.85" Top="47.25" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CREF_NO]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text55" Left="160.65" Top="9.45" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CTENANT_ID]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text52" Top="9.45" Width="160.65" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_CUSTOMER]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text53" Top="28.35" Width="160.65" Height="18.9" BeforePrintEvent="Text46_BeforePrint" Text="[ResponseDataModel.Data1.Column.HEADER_UNIT_NAME]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text56" Left="160.65" Top="28.35" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CUNIT_DESCRIPTION]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text54" Top="47.25" Width="160.65" Height="18.9" Text="[ResponseDataModel.Data1.Column.HEADER_LOI_AGGREMENT_NO]" Font="Arial Unicode MS, 8pt"/>
+          <TextObject Name="Text57" Left="160.65" Top="47.25" Width="274.05" Height="18.9" Text=": [ResponseDataModel.Data1.DataResult.CREF_NO]" Font="Arial Unicode MS, 8pt"/>
           <ChildBand Name="Child5" Top="277.4" Width="1047.06" Height="37.8" Border.Lines="Top, Bottom">
             <TextObject Name="Text62" Left="642.6" Top="9.45" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_CURR]" Font="Arial Unicode MS, 9pt"/>
             <TextObject Name="Text58" Top="9.45" Width="198.45" Height="18.9" Text="[ResponseDataModel.Data1.Column.COLOUMN_INVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 9pt"/>

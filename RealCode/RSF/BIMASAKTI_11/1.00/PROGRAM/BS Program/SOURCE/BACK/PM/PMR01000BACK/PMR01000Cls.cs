@@ -86,7 +86,7 @@ public class PMR01000Cls
             var lcQuery = "SELECT dbo.RFN_GET_COMPANY_LOGO(@CCOMPANY_ID) as CLOGO";
             loCmd.CommandText = lcQuery;
             loCmd.CommandType = CommandType.Text;
-            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, R_BackGlobalVar.COMPANY_ID);
+            loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, int.MaxValue, pcCompanyId);
 
             //Debug Logs
             var loDbParam = loCmd.Parameters.Cast<DbParameter>()

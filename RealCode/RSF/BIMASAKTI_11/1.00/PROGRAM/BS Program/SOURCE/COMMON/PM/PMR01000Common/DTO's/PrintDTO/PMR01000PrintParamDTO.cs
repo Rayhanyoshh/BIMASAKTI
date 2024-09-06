@@ -1,3 +1,5 @@
+using System;
+
 namespace PMR01000Common.DTO_s.PrintDTO;
 
 public class PMR01000PrintParamDTO
@@ -18,6 +20,7 @@ public class PMR01000PrintParamDTO
     public string CFROM_BUILDING { get; set; }
     public string CTO_BUILDING { get; set; }
     public string CCUT_OFF_DATE { get; set; }
+    public DateTime DCUT_OFF_DATE { get; set; }
     public string CFROM_TYPE { get; set; }
     public string CTO_TYPE { get; set; }
     public string CFROM_TRANS_TYPE { get; set; }

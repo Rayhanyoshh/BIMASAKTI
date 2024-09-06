@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="06/26/2024 17:22:45" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/02/2024 15:27:49" ReportInfo.CreatorVersion="2023.2.21.0">
   <Dictionary>
     <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
       <Column Name="Data" DataType="PMR02200Common.DTOs.PMR02100DetailPrintResultDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -58,8 +58,9 @@
           <Column Name="CFROM_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CTO_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CINV_GRP_NAME" DataType="System.String"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
-        <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02200Common.DTOs.PMR02100DetailDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02100Common.DTOs.PMR02100DTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
           <Column Name="CUSER_ID" DataType="System.String"/>
           <Column Name="CPROPERTY_ID" DataType="System.String"/>
@@ -155,7 +156,7 @@
         <TextObject Name="Text89" Top="28.35" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text90" Top="47.25" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_REPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text92" Left="113.4" Top="9.45" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 7pt"/>
-        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CCUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="D" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text94" Left="113.4" Top="47.25" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CREPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text127" Top="66.15" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUSTOMER]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text128" Left="113.4" Top="66.15" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CFROM_CUSTOMER_ID] - [ResponseDataModel.Data.Param.CTO_CUSTOMER_ID]" Font="Arial Unicode MS, 7pt">

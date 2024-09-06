@@ -81,7 +81,7 @@ public partial class GSM01300GridMover : R_Page
     }
     
     private bool HasMove = false;
-    private void R_GridRowBeforeDrop(R_GridRowBeforeDropEventArgs eventArgs)
+    /*private void R_GridRowBeforeDrop(R_GridRowBeforeDropEventArgs eventArgs)
     {
         HasMove = true;
     }
@@ -89,7 +89,7 @@ public partial class GSM01300GridMover : R_Page
     private void R_GridRowAfterDrop(R_GridRowAfterDropEventArgs eventArgs)
     {
         HasMove = true;
-    }
+    }*/
 
     private void R_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
     {
@@ -148,7 +148,7 @@ public partial class GSM01300GridMover : R_Page
         try
         {
             ProsessMove = true;
-            await _SelectedCOA_conGrid.R_SaveBatch();
+            await _SelectedCOA_gridRef.R_SaveBatch();
         }
         catch (Exception ex)
         {

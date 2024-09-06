@@ -159,17 +159,19 @@ namespace PMT04200MODEL
 
             return loResult;
         }
-        public async Task<PMT04200PMSystemParamDTO> GetPMSystemParamAsync()
+        public async Task<PMT04200PMSystemParamDTO> GetPMSystemParamAsync(PMTInitialParamDTO poEntity)
         {
             var loEx = new R_Exception();
             PMT04200PMSystemParamDTO loResult = null;
 
             try
             {
+
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
-                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<PMT04200RecordResult<PMT04200PMSystemParamDTO>>(
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<PMT04200RecordResult<PMT04200PMSystemParamDTO>, PMTInitialParamDTO>(
                     _RequestServiceEndPoint,
                     nameof(IPMT04200Init.GetPMSystemParam),
+                    poEntity,
                     DEFAULT_MODULE,
                     _SendWithContext,
                     _SendWithToken);
@@ -416,6 +418,11 @@ namespace PMT04200MODEL
         }
 
         public PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam()
+        {
+            throw new NotImplementedException();
+        }
+
+        public PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam(PMTInitialParamDTO poEntity)
         {
             throw new NotImplementedException();
         }

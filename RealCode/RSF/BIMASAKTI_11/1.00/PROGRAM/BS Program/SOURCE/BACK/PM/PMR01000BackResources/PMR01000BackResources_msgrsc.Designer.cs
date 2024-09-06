@@ -195,6 +195,15 @@ namespace PMR01000BackResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base Deposit Balance.
+        /// </summary>
+        internal static string COLOUMN_NBASE_DEPOSIT_BALANCE {
+            get {
+                return ResourceManager.GetString("COLOUMN_NBASE_DEPOSIT_BALANCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment status.
         /// </summary>
         internal static string COLOUMN_PAYMENT_STATUS {
@@ -276,7 +285,7 @@ namespace PMR01000BackResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unit Description.
+        ///   Looks up a localized string similar to Unit Desc.
         /// </summary>
         internal static string COLOUMN_UNIT_DESCRIPTION {
             get {

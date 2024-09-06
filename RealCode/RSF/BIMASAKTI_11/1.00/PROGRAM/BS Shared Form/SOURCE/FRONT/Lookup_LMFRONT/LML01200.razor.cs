@@ -8,15 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lookup_PMCOMMON.DTOs.PML01200;
 using Lookup_PMModel.ViewModel.PML01200;
 
 namespace Lookup_PMFRONT
 {
     public partial  class LML01200 :R_Page
     {
-        private LookupLML01200ViewModel _viewModel = new LookupLML01200ViewModel();
-        private R_Grid<LML01200DTO>? GridRef;
-
+        private LookupPML01200ViewModel _viewModel = new LookupPML01200ViewModel();
+        private R_Grid<PML01200DTO>? GridRef;
+        private int _pageSize = 12;
         protected override async Task R_Init_From_Master(object poParameter)
         {
             var loEx = new R_Exception();
@@ -38,7 +39,7 @@ namespace Lookup_PMFRONT
             var loEx = new R_Exception();
             try
             {
-                var loParam = (LML01200ParameterDTO)eventArgs.Parameter;
+                var loParam = (PML01200ParameterDTO)eventArgs.Parameter;
                 await _viewModel.GetInvoiceGroupList(loParam);
                 eventArgs.ListEntityResult = _viewModel.InvoiceGroupList;
             }

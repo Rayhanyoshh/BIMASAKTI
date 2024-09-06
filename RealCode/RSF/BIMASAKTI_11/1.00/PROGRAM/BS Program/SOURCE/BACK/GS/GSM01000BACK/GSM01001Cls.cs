@@ -66,8 +66,8 @@ public class GSM01001Cls  : R_IBatchProcess
         try
         {
             await Task.Delay(100);
-            var loTempObject = R_NetCoreUtility.R_DeserializeObjectFromByte<List<GSM01001ErrorValidateDTO>>(poBatchProcessPar.BigObject);
-            var loObject = R_Utility.R_ConvertCollectionToCollection<GSM01001ErrorValidateDTO, GSM01001RequestDTO>(loTempObject);
+            var loTempObject = R_NetCoreUtility.R_DeserializeObjectFromByte<List<GSM01001ExcelToGridDTO>>(poBatchProcessPar.BigObject);
+            var loObject = R_Utility.R_ConvertCollectionToCollection<GSM01001ExcelToGridDTO, GSM01001RequestDTO>(loTempObject);
             
             var loVar = poBatchProcessPar.UserParameters.Where((x) => x.Key.Equals(ContextConstant.CCOMPANY_ID)).FirstOrDefault().Value;
             var lcCompanyId = ((System.Text.Json.JsonElement)loVar).GetString();

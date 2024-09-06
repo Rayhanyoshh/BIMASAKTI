@@ -105,6 +105,15 @@ namespace PMT04200FrontResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alloc. Ref. No..
+        /// </summary>
+        internal static string _AllocRefNo {
+            get {
+                return ResourceManager.GetString("_AllocRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
         internal static string _Amount {
@@ -560,6 +569,15 @@ namespace PMT04200FrontResources {
         internal static string _Submit {
             get {
                 return ResourceManager.GetString("_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Process Succesfully.
+        /// </summary>
+        internal static string _submitsuccess {
+            get {
+                return ResourceManager.GetString("_submitsuccess", resourceCulture);
             }
         }
         

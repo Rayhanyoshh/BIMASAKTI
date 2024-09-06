@@ -4,6 +4,7 @@ using PMR01000MODEL;
 using System.Globalization;
 using BlazorClientHelper;
 using Microsoft.AspNetCore.Components;
+using PMR01000FrontResources;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Enums;
@@ -21,6 +22,7 @@ public partial class PMR01000 : R_Page
     private PMR01000ViewModel _PMR01000ViewModel = new();
     private R_Conductor _ConductorRef;
     
+    [Inject] private R_ILocalizer<ResourcesDummyCls> _localizer { get; set; }
     [Inject] private IClientHelper _clientHelper { get; set; }
     [Inject] private R_IReport _reportService { get; set; }
     #region LockUnlock
@@ -89,15 +91,12 @@ public partial class PMR01000 : R_Page
 
         try
         {
+            await _PMR01000ViewModel.InitProcess(_localizer);
             await _PMR01000ViewModel.GetAllUniversalData();
 
             _PMR01000ViewModel.FromPeriodMonth = _PMR01000ViewModel.PeriodDetailList.FirstOrDefault().CPERIOD_NO;
             _PMR01000ViewModel. ToPeriodMonth = _PMR01000ViewModel.PeriodDetailList.LastOrDefault().CPERIOD_NO;
-            _PMR01000ViewModel.DepositTypeSelected = _PMR01000ViewModel.DepositType.FirstOrDefault().CDEPOSIT_TYPE;
-            _PMR01000ViewModel.ToTypeSelected = _PMR01000ViewModel.ToType.FirstOrDefault().Id;
-            _PMR01000ViewModel.FromTypeSelected = _PMR01000ViewModel.FromType.FirstOrDefault().Id;
-            _PMR01000ViewModel.ToTransTypeSelected = _PMR01000ViewModel.ToTransTypeList.FirstOrDefault().Id;
-            _PMR01000ViewModel.FromTransTypeSelected = _PMR01000ViewModel.FromTransTypeList.FirstOrDefault().Id;
+          
             await _PMR01000ViewModel.GetPropertyList();
             _PMR01000ViewModel.loProperty = _PMR01000ViewModel.PropertyDefault;
             await _PMR01000ViewModel.GetBuildingList();
@@ -165,13 +164,15 @@ public partial class PMR01000 : R_Page
                 CFROM_BUILDING = _PMR01000ViewModel.FromBuildingDefault,
                 CTO_BUILDING = _PMR01000ViewModel.ToBuildingDefault,
                 CCUT_OFF_DATE = _PMR01000ViewModel.CutOffDate.ToString("yyyyMMdd"),
+                DCUT_OFF_DATE = _PMR01000ViewModel.CutOffDate,
                 CTO_TYPE = _PMR01000ViewModel.ToTypeSelected,
                 CFROM_TYPE = _PMR01000ViewModel.FromTypeSelected,
                 CTO_TRANS_TYPE = _PMR01000ViewModel.ToTransTypeSelected,
                 CFROM_TRANS_TYPE = _PMR01000ViewModel.FromTransTypeSelected,
                 LIS_PRINT = true,
                 CPRINT_FILENAME = "Deposit Report",
-                CPRINT_FILE_TYPE = "PDF"
+                CPRINT_FILE_TYPE = "PDF",
+                CUSER_ID = _clientHelper.UserId
             };
 
             if (loParam.CDEPOSIT_TYPE == "1")

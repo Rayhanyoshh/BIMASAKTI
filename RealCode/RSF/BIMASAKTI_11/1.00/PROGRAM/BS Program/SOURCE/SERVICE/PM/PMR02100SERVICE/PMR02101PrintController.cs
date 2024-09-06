@@ -95,7 +95,7 @@ public class PMR02101PrintController : R_ReportControllerBase
         }
 
         loException.ThrowExceptionIfErrors();
-        _logger.LogInfo("End - Post COA Status");
+        _logger.LogInfo("End -DownloadResultPrintPost");
         return loRtn;
     }
 

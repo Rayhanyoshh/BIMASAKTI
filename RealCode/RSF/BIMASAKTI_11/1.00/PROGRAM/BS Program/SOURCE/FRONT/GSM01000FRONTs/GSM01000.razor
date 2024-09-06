@@ -6,7 +6,7 @@
 @using R_BlazorFrontEnd.Interfaces;
 @inject R_ILocalizer<ResourcesDummyCls> _localizer
 
-<R_PredefinedDock R_InstantiateDock="@Predef_GOA" R_AfterOpenPredefinedDock="@AfterPredef_GOA" title="Group Of Account">
+<R_PredefinedDock Title="Group Of Account" R_InstantiateDock="@Predef_GOA" R_AfterOpenPredefinedDock="@AfterPredef_GOA">
 
 </R_PredefinedDock>
 
@@ -44,7 +44,7 @@
                                                   HeaderText=@_localizer["_bsis"]
                                               R_EnableAdd="true"
                                               R_EnableEdit="true"
-                                              Width="90px"/>
+                                              Width="115px"/>
                     <R_GridDropDownListColumn Data="@_GSM01000ViewModel.CDBCR_Option"
                                               FieldName="@nameof(GSM01000DTO.CDBCR)"
                                               ValueField="@nameof(DropDownDTO.Id)"
@@ -52,11 +52,11 @@
                                                   HeaderText=@_localizer["_dc"]
                                               R_EnableAdd="true"
                                               R_EnableEdit="true"
-                                              Width="70px"/>
+                                              Width="120px"/>
                         <R_GridCheckBoxColumn FieldName="LACTIVE" HeaderText=@_localizer["_active"] R_EnableAdd="false" Enabled="false" R_EnableEdit="@_enableActiveInactive" Width="85px" />
                         <R_GridCheckBoxColumn FieldName="LUSER_RESTR" HeaderText=@_localizer["_userRestriction"] R_EnableAdd="@AddModePrimary" R_EnableEdit="@EditModePrimary" Width="140px" />
                         <R_GridCheckBoxColumn FieldName="LCENTER_RESTR" HeaderText=@_localizer["_centerRestriction"] R_EnableAdd="@AddModePrimary" R_EnableEdit="@EditModePrimary" Width="155px" />
-                        <R_GridLookupColumn FieldName="CCASH_FLOW_CODE" Name="CCASH" HeaderText=@loLabel R_EnableAdd="true" R_EnableEdit="true" Width="110px" />
+                        <R_GridLookupColumn FieldName="CCASH_FLOW_CODE" HeaderText=@_localizer["_cashflowgroupcode"] R_EnableAdd="true" R_EnableEdit="true" Width="190px" />
                         <R_GridTextColumn FieldName="CUPDATE_BY" HeaderText=@_localizer["_updateBy"] R_EnableAdd="false" R_EnableEdit="false" Width="115px" />
                         <R_GridTextColumn FieldName="DUPDATE_DATE" HeaderText=@_localizer["_updateDate"] R_EnableAdd="false" R_EnableEdit="false" Width="150px" />
                         <R_GridTextColumn FieldName="CCREATE_BY" HeaderText=@_localizer["_createdBy"] R_EnableAdd="false" R_EnableEdit="false" Width="110px" />

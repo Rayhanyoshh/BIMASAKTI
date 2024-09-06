@@ -149,18 +149,23 @@ namespace PMT04200SERVICE
         }
         
         [HttpPost]
-        public PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam()
+        public PMT04200RecordResult<PMT04200PMSystemParamDTO> GetPMSystemParam(PMTInitialParamDTO poEntity)
         {
             using Activity activity = _activitySource.StartActivity($"{GetType().Name}.{MethodBase.GetCurrentMethod().Name}");
             ShowLogStart();
             var loEx = new R_Exception();
+            PMT04200ParamDTO loParam = new PMT04200ParamDTO();
+
             PMT04200RecordResult<PMT04200PMSystemParamDTO> loRtn = new PMT04200RecordResult<PMT04200PMSystemParamDTO>();
+            _Logger.LogInfo("Start GetPMSystemParam");
+
             try
             {
                 var loCls = new PMT04200InitCls();
-
                 ShowLogExecute();
-                loRtn.Data = loCls.GetPMSystemParamRecord();
+                _Logger.LogInfo("Start GetPMSystemParam");
+
+                loRtn.Data = loCls.GetPMSystemParamRecord(poEntity.CPROPERTY_ID);
             }
             catch (Exception ex)
             {
@@ -244,6 +249,9 @@ namespace PMT04200SERVICE
                 var loCls = new PMT04200InitCls();
                 _Logger.LogInfo("Call All Back Method GetTabJournalListInitialProcess");
                 var loGLSystemParam = loCls.GetGLSystemParamRecord();
+                PMT04200ParamDTO loParam = new PMT04200ParamDTO();
+
+                loParam.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
                 var loTempResult = new PMT04200InitDTO
                 {
                     VAR_CB_SYSTEM_PARAM = loCls.GetCBSystemParamRecord(),
@@ -251,7 +259,6 @@ namespace PMT04200SERVICE
                     VAR_GSM_COMPANY = loCls.GetCompanyInfoRecord(),
                     VAR_TODAY = loCls.GetTodayDateRecord(),
                     VAR_SOFT_PERIOD_START_DATE = loCls.GetPeriodDTInfoRecord(new PMT04200ParamGSPeriodDTInfoDTO { CCYEAR = loGLSystemParam.CSOFT_PERIOD_YY, CPERIOD_NO = loGLSystemParam.CSOFT_PERIOD_MM }),
-                    VAR_PM_SYSTEM_PARAM = loCls.GetPMSystemParamRecord(),
                     VAR_GL_SYSTEM_PARAM = loCls.GetGLSystemParamRecord(),
                     VAR_GSB_CODE_LIST = loCls.GetGSBCodeList(),
                     VAR_GS_PROPERTY_LIST = loCls.PropertyListDB()
@@ -278,14 +285,16 @@ namespace PMT04200SERVICE
             var loEx = new R_Exception();
             PMT04200RecordResult<PMT04200JournalListInitialProcessDTO> loRtn = new PMT04200RecordResult<PMT04200JournalListInitialProcessDTO>();
             _Logger.LogInfo("Start GetTabJournalListInitialProcess");
+            PMT04200ParamDTO loParam = new PMT04200ParamDTO();
+
 
             try
             {
                 var loCls = new PMT04200InitCls();
                 _Logger.LogInfo("Call All Back Method GetTabJournalListInitialProcess");
+                loParam.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
                 var loTempResult = new PMT04200JournalListInitialProcessDTO
                 {
-                    VAR_PM_SYSTEM_PARAM = loCls.GetPMSystemParamRecord(),
                     VAR_GL_SYSTEM_PARAM = loCls.GetGLSystemParamRecord(),
                     VAR_GSB_CODE_LIST = loCls.GetGSBCodeList(),
                 };
@@ -311,17 +320,19 @@ namespace PMT04200SERVICE
             var loEx = new R_Exception();
             PMT04200RecordResult<PMT04210JournalEntryInitialProcessDTO> loRtn = new PMT04200RecordResult<PMT04210JournalEntryInitialProcessDTO>();
             _Logger.LogInfo("Start GetTabJournalListInitialProcess");
+            PMT04200ParamDTO loParam = new PMT04200ParamDTO();
+
 
             try
             {
                 var loCls = new PMT04200InitCls();
                 _Logger.LogInfo("Call All Back Method GetTabJournalListInitialProcess");
                 var loCbSystemParam = loCls.GetGLSystemParamRecord();
+                loParam.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
                 var loTempResult = new PMT04210JournalEntryInitialProcessDTO
                 {
                     VAR_CB_SYSTEM_PARAM = loCls.GetCBSystemParamRecord(),
                     VAR_GSM_TRANSACTION_CODE = loCls.GetTransCodeInfoRecord(),
-                    VAR_PM_SYSTEM_PARAM = loCls.GetPMSystemParamRecord(),
                     VAR_PROPERTY_LIST = loCls.PropertyListDB(),
                     VAR_GSM_COMPANY = loCls.GetCompanyInfoRecord(),
                     VAR_TODAY = loCls.GetTodayDateRecord(),
@@ -453,12 +464,14 @@ namespace PMT04200SERVICE
             ShowLogStart();
             var loEx = new R_Exception();
             PMT04200RecordResult<PMT04200InitDTO> loRtn = new PMT04200RecordResult<PMT04200InitDTO>();
+            PMT04200ParamDTO loParam = new PMT04200ParamDTO();
+
 
             try
             {
                 var loCls = new PMT04200InitCls();
                 ShowLogExecute();
-
+                loParam.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID);
                 loRtn.Data = new()
                 {
                     VAR_GL_SYSTEM_PARAM = loCls.GetGLSystemParamRecord(),
@@ -466,7 +479,6 @@ namespace PMT04200SERVICE
                     VAR_TODAY = loCls.GetTodayDateRecord(),
                     VAR_GSM_COMPANY = loCls.GetCompanyInfoRecord(),
                     VAR_CB_SYSTEM_PARAM = loCls.GetCBSystemParamRecord(),
-                    VAR_PM_SYSTEM_PARAM = loCls.GetPMSystemParamRecord(),
                 };
             }
             catch (Exception ex)

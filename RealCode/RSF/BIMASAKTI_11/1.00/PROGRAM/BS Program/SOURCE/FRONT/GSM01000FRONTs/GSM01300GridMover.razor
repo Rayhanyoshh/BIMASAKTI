@@ -3,6 +3,7 @@
 @using GSM01000FrontResources;
 @using R_BlazorFrontEnd.Interfaces;
 @inject R_ILocalizer<ResourcesDummyCls> _localizer
+@attribute [R_Page(Title ="GSM01300GridMover")]
 
 <R_StackLayout Style="width: 700px">
     <R_StackLayout Row>
@@ -18,14 +19,12 @@
                     AllowDeleteRow
                     Pageable="true"
                     Height="300px"
-                    DragClueField="@nameof(GSM01310DTO.CGLACCOUNT_NO)"
                     DragDrop="true"
-                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop"
-                    TargetGridDrop="@_SelectedCOA_gridRef"
                     R_ServiceGetRecord="@R_ServiceGetRecord"
+                    DragClueField="@nameof(GSM01310DTO.CGLACCOUNT_NO)"
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<GSM01310DTO> args) => R_GridRowBeforeDrop(args))"
-                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<GSM01310DTO> args) => R_GridRowAfterDrop(args))">
+                    R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<GSM01310DTO> args) => R_GridRowAfterDrop(args))"
+                    TargetGridDrop="@_SelectedCOA_gridRef">
                     <R_GridColumns>
                         <R_GridMultiHeaderColumn HeaderText="Available">
                             <R_GridTextColumn FieldName="CGLACCOUNT_NO"
@@ -73,12 +72,11 @@
                     R_ConductorGridSource="@_SelectedCOA_conGrid"
                     R_ServiceGetListRecord="@SelectedCoA_ServiceGetListRecord"
                     TargetGridDrop="@_SourceAvailableCOA_gridRef"
-                    R_GridRowBeforeDrop="@R_GridRowBeforeDrop"
-                    R_GridRowAfterDrop="@R_GridRowAfterDrop"
                     Height="300px"
                     R_ServiceGetRecord="@R_ServiceGetRecord"
                     DragDrop="true"
                     DragClueField="@nameof(AssignCoADTO.CGLACCOUNT_NO)"
+                    R_ServiceSaveBatch="@R_ServiceSaveBatch"
                     R_GridDragDropBeforeDrop="@((R_GridDragDropBeforeDropEventArgs<GSM01310DTO> args) => R_GridRowBeforeDrop(args))"
                     R_GridDragDropAfterDrop="@((R_GridDragDropAfterDropEventArgs<GSM01310DTO> args) => R_GridRowAfterDrop(args))"
             >
@@ -94,7 +92,7 @@
 
     <R_StackLayout Row Class="mt-2">
         <R_ItemLayout col="4">
-             <R_Button Enabled="@HasMove" OnClick="@BtnProcess">@_localizer["_process"]</R_Button>
+             <R_Button OnClick="@BtnProcess">@_localizer["_process"]</R_Button>
              <R_Button OnClick="@BtnClose">@_localizer["_close"]</R_Button>
         </R_ItemLayout>
     </R_StackLayout>
@@ -105,4 +103,4 @@
 
 <R_ConductorGrid @ref="@_SelectedCOA_conGrid"
                  R_IsHeader
-                 R_ServiceSaveBatch="@R_ServiceSaveBatch" />
+                  />

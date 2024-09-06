@@ -44,6 +44,8 @@
             PMR02106DetailButton = new Button();
             PMR02107DetailButton = new Button();
             PMR02108DetailButton = new Button();
+            button7 = new Button();
+            button8 = new Button();
             SuspendLayout();
             // 
             // PMR01000
@@ -222,11 +224,35 @@
             PMR02108DetailButton.UseVisualStyleBackColor = true;
             PMR02108DetailButton.Click += PMR02108DetailButton_Click;
             // 
+            // button7
+            // 
+            button7.Location = new Point(531, 24);
+            button7.Margin = new Padding(2);
+            button7.Name = "button7";
+            button7.Size = new Size(135, 27);
+            button7.TabIndex = 16;
+            button7.Text = "PMR00160Summary";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += PMR00160Summary_Click;
+            // 
+            // button8
+            // 
+            button8.Location = new Point(531, 69);
+            button8.Margin = new Padding(2);
+            button8.Name = "button8";
+            button8.Size = new Size(135, 27);
+            button8.TabIndex = 17;
+            button8.Text = "PMR00160Detail";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += PMR00160Detail_Click;
+            // 
             // DesignFormPMR
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(966, 345);
+            Controls.Add(button8);
+            Controls.Add(button7);
             Controls.Add(PMR02108DetailButton);
             Controls.Add(PMR02107DetailButton);
             Controls.Add(PMR02106DetailButton);
@@ -268,5 +294,7 @@
         private Button PMR02106DetailButton;
         private Button PMR02107DetailButton;
         private Button PMR02108DetailButton;
+        private Button button7;
+        private Button button8;
     }
 }

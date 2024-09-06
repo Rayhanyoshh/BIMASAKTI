@@ -74,7 +74,8 @@ namespace PMM05000Service
                 loRtnTemp = loCls.GetPricingRateList(new PricingRateSaveParamDTO()
                 {
                     CCOMPANY_ID = R_BackGlobalVar.COMPANY_ID,
-                    CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CUNIT_TYPE_CATEGORY_ID),
+                    CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPROPERTY_ID),
+                    CUNIT_TYPE_CATEGORY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstant.CUNIT_TYPE_CATEGORY_ID),
                     CPRICE_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstant.CPRICE_TYPE),
                     CRATE_DATE= R_Utility.R_GetStreamingContext<string>(ContextConstant.CRATE_DATE),
                     CUSER_ID = R_BackGlobalVar.USER_ID,

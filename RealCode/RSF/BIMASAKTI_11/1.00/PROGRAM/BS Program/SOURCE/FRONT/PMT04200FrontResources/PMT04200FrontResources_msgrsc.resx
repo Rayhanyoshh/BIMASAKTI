@@ -405,4 +405,10 @@
   <data name="V20" xml:space="preserve">
     <value>Please select Customer!</value>
   </data>
+    <data name="_AllocRefNo" xml:space="preserve">
+      <value>Alloc. Ref. No.</value>
+    </data>
+    <data name="_submitsuccess" xml:space="preserve">
+      <value>Submit Process Succesfully</value>
+    </data>
 </root>

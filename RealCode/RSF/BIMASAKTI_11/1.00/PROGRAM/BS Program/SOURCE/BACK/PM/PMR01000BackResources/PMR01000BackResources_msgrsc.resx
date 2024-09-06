@@ -163,7 +163,7 @@
     <value>Transaction</value>
   </data>
   <data name="COLOUMN_UNIT_DESCRIPTION" xml:space="preserve">
-    <value>Unit Description</value>
+    <value>Unit Desc</value>
   </data>
   <data name="COLOUMN_ACCOUNT_NAME" xml:space="preserve">
     <value>Account Name</value>
@@ -215,5 +215,8 @@
   </data>
   <data name="HEADER_TO_TYPE" xml:space="preserve">
     <value>To Type</value>
+  </data>
+  <data name="COLOUMN_NBASE_DEPOSIT_BALANCE" xml:space="preserve">
+    <value>Base Deposit Balance</value>
   </data>
 </root>

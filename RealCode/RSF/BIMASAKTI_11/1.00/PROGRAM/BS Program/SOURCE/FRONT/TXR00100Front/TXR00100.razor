@@ -8,7 +8,7 @@
     
     <R_StackLayout Row="true">
         <R_ItemLayout col="2">
-            <R_Label>Property</R_Label>
+            <R_Label>@_localizer["_labelProperty"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="2">
             <R_ComboBox Data="@_TXR00100ViewModel.PropertyList"
@@ -21,10 +21,10 @@
 
     <R_StackLayout Row="true">
         <R_ItemLayout col="2">
-            <R_Label>Tax Period</R_Label>
+            <R_Label>@_localizer["_labelTaxPeriod"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_TXR00100ViewModel.PeriodYear"
+            <R_NumericTextBox TValue="int"  @bind-Value="_TXR00100ViewModel.PeriodYear"
                               ThousandSeparator="false"
                               Arrows="true"/>
         </R_ItemLayout>
@@ -38,7 +38,7 @@
 
     <R_StackLayout Row="true">
         <R_ItemLayout col="2">
-            <R_Label>Deposit Type</R_Label>
+            <R_Label>@_localizer["_labelDepositType"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="6">
             <R_RadioGroup Data="@_TXR00100ViewModel.WHTaxRadio"
@@ -54,7 +54,7 @@
 
     <R_StackLayout Row="true">
         <R_ItemLayout col="2">
-            <R_Label>Sort By</R_Label>
+            <R_Label>@_localizer["_labelSortType"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout>
             <R_RadioGroup Data="@_TXR00100ViewModel.SortByRadio1"
@@ -97,7 +97,7 @@
 <R_StackLayout Row="true">
     <R_ItemLayout class="col-1 ps-4 pt-1">
         <R_Button  OnClick="Button_OnClickProcessAsync">
-            Print
+            @_localizer["_btnPrint"]
         </R_Button>
     </R_ItemLayout>
 </R_StackLayout>

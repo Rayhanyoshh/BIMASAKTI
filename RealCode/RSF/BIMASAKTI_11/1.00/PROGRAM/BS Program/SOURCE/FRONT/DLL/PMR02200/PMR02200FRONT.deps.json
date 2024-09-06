@@ -229,9 +229,16 @@
           "PMR02200Common.dll": {}
         }
       },
+      "PMR02200FrontResources/1.0.0": {
+        "runtime": {
+          "PMR02200FrontResources.dll": {}
+        }
+      },
       "PMR02200MODEL/1.0.0": {
         "dependencies": {
+          "Lookup_PMCOMMON": "1.0.0",
           "PMR02200Common": "1.0.0",
+          "PMR02200FrontResources": "1.0.0",
           "System.Text.Json": "6.0.0"
         },
         "runtime": {
@@ -516,6 +523,11 @@
       "sha512": ""
     },
     "PMR02200Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PMR02200FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

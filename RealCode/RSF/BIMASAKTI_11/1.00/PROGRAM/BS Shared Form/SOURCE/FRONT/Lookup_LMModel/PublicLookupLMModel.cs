@@ -9,6 +9,7 @@ using R_APIClient;
 using Lookup_PMCOMMON.DTOs.LML01000;
 using Lookup_PMCOMMON.DTOs.LML01100;
 using Lookup_PMCOMMON.DTOs.LML01300;
+using Lookup_PMCOMMON.DTOs.PML01200;
 
 namespace Lookup_PMModel
 {
@@ -349,14 +350,14 @@ namespace Lookup_PMModel
         }
         #endregion
         #region LML01200
-        public async Task<LMLGenericList<LML01200DTO>> PML01200InvoiceGroupListAsync()
+        public async Task<LMLGenericList<PML01200DTO>> PML01200InvoiceGroupListAsync()
         {
             var loEx = new R_Exception();
-            LMLGenericList<LML01200DTO> loResult = new LMLGenericList<LML01200DTO>();
+            LMLGenericList<PML01200DTO> loResult = new LMLGenericList<PML01200DTO>();
             try
             {
                 R_HTTPClientWrapper.httpClientName = _HttpClientName;
-                var loTempResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<LML01200DTO>(
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestStreamingObject<PML01200DTO>(
                     _RequestServiceEndPoint,
                     nameof(IPublicLookupLM.LML01200InvoiceGroupList),
                     DEFAULT_MODULE,

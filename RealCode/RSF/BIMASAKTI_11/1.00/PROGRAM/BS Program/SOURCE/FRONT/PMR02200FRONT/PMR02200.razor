@@ -5,7 +5,7 @@
 
 <R_StackLayout Row="true">
     <R_ItemLayout col="1">
-        <R_Label>Property</R_Label>
+        <R_Label>@_localizer["_labelProperty"]</R_Label>
     </R_ItemLayout>
     <R_ItemLayout col="2">
         <R_ComboBox Data="@_PMR02200ViewModel.PropertyList"
@@ -20,7 +20,7 @@
     <R_ItemLayout col="6">
         <R_StackLayout>
             <R_ItemLayout  Style="color: red;">
-                <R_Label>Agreement No. Based On</R_Label>
+                <R_Label>@_localizer["_labelAggrementNoBasedOn"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout>
                 <R_RadioGroup Data="@_PMR02200ViewModel.AggrementRadio1"
@@ -34,7 +34,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>From</R_Label>
+                    <R_Label>@_localizer["_labelFrom"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02200ViewModel.PrintParam.CFROM_CUSTOMER_ID"
@@ -60,7 +60,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>To</R_Label>
+                    <R_Label>@_localizer["_labelTo"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02200ViewModel.PrintParam.CTO_CUSTOMER_ID"
@@ -127,7 +127,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout>
                   <R_Label>
-                      LOI No.
+                      @_localizer["_checkboxLOINo"]
                   </R_Label>
                 </R_ItemLayout>
             </R_StackLayout>
@@ -139,7 +139,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_Label>
-                       From
+                        @_localizer["_labelFrom"]
                     </R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="5">
@@ -163,7 +163,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_Label>
-                        To
+                        @_localizer["_labelTo"]
                     </R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="5">
@@ -191,7 +191,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout>
                     <R_Label>
-                        Aggrement No.
+                        @_localizer["_labelAggrementNo"]
                     </R_Label>
                 </R_ItemLayout>
             </R_StackLayout>
@@ -203,7 +203,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_Label>
-                        From
+                        @_localizer["_labelFrom"]
                     </R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="5">
@@ -226,7 +226,7 @@
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_Label>
-                        To
+                        @_localizer["_labelTo"]
                     </R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="5">
@@ -251,7 +251,7 @@
     <R_ItemLayout col="5">
         <R_StackLayout>
             <R_ItemLayout  Class="col-5 ps-4" Style="color: red; font: bold">
-                <R_Label>Date Based On</R_Label>
+                <R_Label>@_localizer["_labelDateBasedOn"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout Class="col-4 ps-4">
                 <R_RadioGroup Data="@_PMR02200ViewModel.DateBaseRadio1"
@@ -262,7 +262,7 @@
                               OnChanged="@OnChangedCutOff"
                 />
             </R_ItemLayout>           
-             <R_ItemLayout Class="col-4 ps-4">
+             <R_ItemLayout Class="col-5 ps-4">
                  <R_DatePicker Value="@_PMR02200ViewModel.DCUT_OFF_DATE"
                                R_ConductorSource="_ConductorRef"
                                Enabled="@(_PMR02200ViewModel.DateBaseRadioSelected == "1")"/>
@@ -279,10 +279,10 @@
               </R_ItemLayout>
               <R_StackLayout Row>
                 <R_ItemLayout Class="col-2 ps-4">
-                    <R_Label>From</R_Label>
+                    <R_Label>@_localizer["_labelFrom"]</R_Label>
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
-                    <R_NumericTextBox @bind-Value="_PMR02200ViewModel.FromPeriodYear"
+                <R_ItemLayout col="3" style="width : 80px;">
+                    <R_NumericTextBox TValue="int" @bind-Value="_PMR02200ViewModel.FromPeriodYear"
                                       Min=_PMR02200ViewModel.VAR_YEAR_RANGE.IMIN_YEAR
                                       Max=_PMR02200ViewModel.VAR_YEAR_RANGE.IMAX_YEAR
                                       ThousandSeparator="false"
@@ -299,10 +299,10 @@
               </R_StackLayout>
             <R_StackLayout Row>
                 <R_ItemLayout Class="col-2 ps-4">
-                    <R_Label>To</R_Label>
+                    <R_Label>@_localizer["_labelTo"]</R_Label>
                 </R_ItemLayout>
-                <R_ItemLayout col="2">
-                    <R_NumericTextBox @bind-Value="_PMR02200ViewModel.ToPeriodYear"
+                <R_ItemLayout col="3" style="width : 80px;">
+                    <R_NumericTextBox TValue="int" @bind-Value="_PMR02200ViewModel.ToPeriodYear"
                                       Min=_PMR02200ViewModel.VAR_YEAR_RANGE.IMIN_YEAR
                                       Max=_PMR02200ViewModel.VAR_YEAR_RANGE.IMAX_YEAR
                                       ThousandSeparator="false"
@@ -319,15 +319,15 @@
             </R_StackLayout>
             <R_StackLayout Class="border-top ps-2 my-3"></R_StackLayout>
             <R_ItemLayout  Class="col-5 ps-4" Style="color: red; font: bold">
-                <R_Label>Statement Date</R_Label>
+                <R_Label>@_localizer["_labelStatementDate"]</R_Label>
             </R_ItemLayout>
-            <R_ItemLayout Class="col-4 ps-4">
+            <R_ItemLayout Class="col-5 ps-4">
                 <R_DatePicker Value="@_PMR02200ViewModel.DSTATEMENT_DATE"
                               R_ConductorSource="_ConductorRef" />
             </R_ItemLayout>
             <R_StackLayout Class="border-top ps-2 my-3"></R_StackLayout>
             <R_ItemLayout  Class="col-5 ps-4" Style="color: red; font: bold">
-                <R_Label>Filter</R_Label>
+                <R_Label>@_localizer["_labelFilter"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout>
                 <R_StackLayout Row>
@@ -338,7 +338,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout>
-                        <R_Label> Include Zero Balance</R_Label>
+                        <R_Label> @_localizer["_labelIncludeZeroBalance"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
                 <R_StackLayout Row>
@@ -349,7 +349,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout>
-                        <R_Label> Show Age Total </R_Label>
+                        <R_Label> @_localizer["_labelShowAgeTotal"] </R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -368,7 +368,7 @@
     </R_ItemLayout>
     <R_ItemLayout col="1">
         <R_Button OnClick="Button_OnClickProcessAsync">
-            Print
+            @_localizer["_btnPrint"]
         </R_Button>
     </R_ItemLayout>
 </R_StackLayout>

@@ -20,6 +20,7 @@ namespace TXR00200MODEL.ViewModel
         public DataSet ExcelDataSet { get; set; }
         #region Property
         public string PropertyDefault = "";
+        public string PropertyDefaultName = "";
         public List<PropertyListDTO> PropertyList { get; set; } = new List<PropertyListDTO>();
         public async Task GetPropertyList()
         {
@@ -29,7 +30,9 @@ namespace TXR00200MODEL.ViewModel
             {
                 var loResult = await _TXR00200Model.GetProperyListAsync();
                 PropertyList = loResult.Data;
-                PropertyDefault = PropertyList.FirstOrDefault().CPROPERTY_ID.ToString();
+                var property = PropertyList.FirstOrDefault();
+                PropertyDefault = property.CPROPERTY_ID.ToString();
+                PropertyDefaultName = property.CPROPERTY_NAME; // tambahkan baris ini
             }
             catch (Exception ex)
             {

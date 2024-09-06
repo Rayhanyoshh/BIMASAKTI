@@ -12,10 +12,15 @@
         </R_ItemLayout>
         <R_ItemLayout col="2">
             <R_ComboBox Data="@_TXR00200ViewModel.PropertyList"
-                        @bind-Value="_TXR00200ViewModel.PropertyDefault"
+                        Value="_TXR00200ViewModel.PropertyDefault"
                         ValueField="@nameof(PropertyListDTO.CPROPERTY_ID)"
                         TextField="@nameof(PropertyListDTO.CPROPERTY_NAME)"
+                        ValueChanged="@((string value) => OnChangeProperty(value))"
             />
+        </R_ItemLayout>
+        <R_ItemLayout col="2">
+            <R_TextBox @bind-Value="_TXR00200ViewModel.PropertyDefaultName"
+                        Enabled="false"/>
         </R_ItemLayout>
     </R_StackLayout>
 
@@ -24,7 +29,7 @@
             <R_Label>Tax Period</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_TXR00200ViewModel.PeriodYear"
+            <R_NumericTextBox TValue="int" @bind-Value="_TXR00200ViewModel.PeriodYear"
                               ThousandSeparator="false"
                               Arrows="true"/>
         </R_ItemLayout>

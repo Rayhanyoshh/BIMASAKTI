@@ -11,6 +11,7 @@
           "Lookup_GSFRONT": "1.0.0",
           "Lookup_PMFRONT": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.21",
+          "PMR02100FrontResources": "1.0.0",
           "PMR02100MODEL": "1.0.0",
           "BlazorClientHelper": "1.0.0.0",
           "R_APICommonDTO": "1.0.0.0",
@@ -228,9 +229,15 @@
           "PMR02100Common.dll": {}
         }
       },
+      "PMR02100FrontResources/1.0.0": {
+        "runtime": {
+          "PMR02100FrontResources.dll": {}
+        }
+      },
       "PMR02100MODEL/1.0.0": {
         "dependencies": {
           "PMR02100Common": "1.0.0",
+          "PMR02100FrontResources": "1.0.0",
           "System.Text.Json": "6.0.0"
         },
         "runtime": {
@@ -515,6 +522,11 @@
       "sha512": ""
     },
     "PMR02100Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PMR02100FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

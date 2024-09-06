@@ -34,7 +34,7 @@
                                   R_EnableAdd="true"
                                   R_EnableEdit="true"></R_GridTextColumn>
 
-                <R_GridNumericColumn FieldName="@nameof(PricingRateBulkSaveDTO.NBASE_RATE_AMOUNT)"
+                <R_GridNumericColumn TValue="decimal" FieldName="@nameof(PricingRateBulkSaveDTO.NBASE_RATE_AMOUNT)"
                                      R_EnableAdd="true"
                                      R_EnableEdit="true"
                                      HeaderText="Base Rate"
@@ -43,7 +43,7 @@
                                      Max="999999999"
                                      Min="0"></R_GridNumericColumn>
 
-                <R_GridNumericColumn FieldName="@nameof(PricingRateBulkSaveDTO.NCURRENCY_RATE_AMOUNT)"
+                <R_GridNumericColumn TValue="decimal" FieldName="@nameof(PricingRateBulkSaveDTO.NCURRENCY_RATE_AMOUNT)"
                                      R_EnableAdd="true"
                                      R_EnableEdit="true"
                                      HeaderText="Currency Rate"

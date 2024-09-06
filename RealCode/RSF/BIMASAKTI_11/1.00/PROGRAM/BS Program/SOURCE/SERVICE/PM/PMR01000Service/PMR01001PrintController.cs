@@ -106,6 +106,18 @@ public class PMR01001PrintController : R_ReportControllerBase
         R_FileType loFileType = new();
         try
         {
+            
+            loResultGUID = R_NetCoreUtility.R_DeserializeObjectFromByte<PMR01000PrintLogKeyDTO>(R_DistributedCache.Cache.Get(pcGuid));
+            _logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
+
+            // Get Parameter
+            R_NetCoreLogUtility.R_SetNetCoreLogKey(loResultGUID.poLogKey);
+
+            _Parameter = loResultGUID.poParam;
+
+            _logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
+            _logger.LogDebug("Deserialized Parameters: {@Parameters}", _Parameter);
+
             //cek flag dari param apakah mode print/save as
             if (loResultGUID.poParam.LIS_PRINT)
             {
@@ -138,14 +150,6 @@ public class PMR01001PrintController : R_ReportControllerBase
                 loRtn = File(_ReportCls.R_GetStreamReport(peExport: loFileType), R_ReportUtility.GetMimeType(loFileType), $"{loResultGUID.poParam.CPRINT_FILENAME}.{loResultGUID.poParam.CPRINT_FILE_TYPE}"); //pada method ini ada overload dimana parameter terdapat filename, nantinya akan diinput seperti filename.filetype
             }
             
-            // Deserialize the GUID from the cache
-            loResultGUID = R_NetCoreUtility.R_DeserializeObjectFromByte<PMR01000PrintLogKeyDTO>(
-                R_DistributedCache.Cache.Get(pcGuid));
-            _logger.LogDebug("Deserialized GUID: {pcGuid}", pcGuid);
-
-            // Get Parameter
-            R_NetCoreLogUtility.R_SetNetCoreLogKey(loResultGUID.poLogKey);
-
             _logger.LogInfo("Report generated successfully.");
         }
         catch (Exception ex)
@@ -193,10 +197,10 @@ public class PMR01001PrintController : R_ReportControllerBase
             _logger.LogDebug("Deserialized Print Parameters: {@PrintParameters}");
             var loCls = new PMR01000Cls();
 
-            loParam.CCOMPANY_NAME = R_BackGlobalVar.COMPANY_ID.ToUpper();
+            loParam.CCOMPANY_NAME = poParam.CCOMPANY_ID.ToUpper();
             loParam.CPRINT_CODE = "PMR01000";
             loParam.CPRINT_NAME = "Deposit List Report";
-            loParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+            loParam.CUSER_ID = poParam.CUSER_ID.ToUpper();
             loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
 
             // Create an instance of PMR01000PrintGOAResultDTo
@@ -210,7 +214,7 @@ public class PMR01001PrintController : R_ReportControllerBase
             };
 
             // Create an instance of PMR01000Cls
-            poParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+        
             poParam.CLANGUAGE_ID = R_BackGlobalVar.CULTURE;
             // Get print data for Group Of Account report
             var loCollection = loCls.GetPrintDataResult(poParam);

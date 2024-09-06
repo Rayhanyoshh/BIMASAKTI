@@ -796,6 +796,13 @@ namespace Lookup_GSSERVICES
                 _Logger.LogInfo("Call Back Method GetALLBuildingUnit");
                 var loResult = loCls.GetALLBuildingUnit(poEntity);
 
+                if (string.IsNullOrWhiteSpace(poEntity.CREMOVE_DATA_UNIT_ID_SEPARATOR) == false)
+                {
+                    var itemsToRemove = poEntity.CREMOVE_DATA_UNIT_ID_SEPARATOR.Split(',').ToList();
+
+                    loResult.RemoveAll(item => itemsToRemove.Contains(item.CUNIT_ID));
+                }
+
                 _Logger.LogInfo("Filter Search by text GSL02300GetBuildingUnit");
                 loRtn.Data = loResult.Find(x => x.CUNIT_ID.Trim().ToUpper() == poEntity.CSEARCH_TEXT.ToUpper().Trim());
             }
@@ -915,6 +922,13 @@ namespace Lookup_GSSERVICES
 
                 _Logger.LogInfo("Call Back Method GetALLOtherUnit");
                 var loResult = loCls.GetALLOtherUnit(poEntity);
+
+                if (string.IsNullOrWhiteSpace(poEntity.CREMOVE_DATA_OTHER_UNIT_ID) == false)
+                {
+                    var itemsToRemove = poEntity.CREMOVE_DATA_OTHER_UNIT_ID.Split(',').ToList();
+
+                    loResult.RemoveAll(item => itemsToRemove.Contains(item.COTHER_UNIT_ID));
+                }
 
                 _Logger.LogInfo("Filter Search by text GSL02700GetOtherUnit");
                 loRtn.Data = loResult.Find(x => x.COTHER_UNIT_ID.Trim().ToUpper() == poEntity.CSEARCH_TEXT.ToUpper().Trim());

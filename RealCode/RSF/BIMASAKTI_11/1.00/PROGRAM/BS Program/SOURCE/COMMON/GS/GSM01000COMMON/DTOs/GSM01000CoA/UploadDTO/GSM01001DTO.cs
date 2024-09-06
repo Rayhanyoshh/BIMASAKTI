@@ -45,7 +45,7 @@ namespace GSM01000Common.DTOs
         public string ErrorMessage { get; set; }
     }
     
-    public class GSM01001ErrorValidateDTO
+    public class GSM01001ExcelToGridDTO
     {
         // result
         public int NO { get; set; }

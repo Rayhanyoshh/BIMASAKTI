@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="07/02/2024 16:35:54" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/02/2024 15:28:22" ReportInfo.CreatorVersion="2023.2.21.0">
   <Dictionary>
     <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
       <Column Name="Data" DataType="PMR02200Common.DTOs.PMR02100DetailPrintResultDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -58,6 +58,7 @@
           <Column Name="LPENALTY" DataType="System.Boolean" BindableControl="CheckBox"/>
           <Column Name="LINVOICE_GROUP" DataType="System.Boolean" BindableControl="CheckBox"/>
           <Column Name="LDESCRIPTION" DataType="System.Boolean" BindableControl="CheckBox"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
         <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02100Common.DTOs.PMR02100DTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
@@ -154,14 +155,14 @@
       <inherited Name="Text34"/>
       <inherited Name="Text37"/>
       <inherited Name="Text39"/>
-      <ChildBand Name="Child1" ZOrder="-1" Top="78.8" Width="1047.06" Height="94.5">
+      <ChildBand Name="Child1" ZOrder="-1" Top="79.6" Width="1047.06" Height="94.5">
         <TextObject Name="Text47" Left="916.65" Top="9.45" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_CUSTOMER_INFORMATION]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text71" Left="916.65" Top="28.35" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.CHECKBOX_PENALTY]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text88" Top="9.45" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_PROPERTY]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text89" Top="28.35" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text90" Top="47.25" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_REPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text92" Left="113.4" Top="9.45" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CPROPERTY_ID]" Font="Arial Unicode MS, 7pt"/>
-        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CCUT_OFF_DATE]" Font="Arial Unicode MS, 7pt"/>
+        <TextObject Name="Text93" Left="113.4" Top="28.35" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="D" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text94" Left="113.4" Top="47.25" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CREPORT_TYPE]" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text128" Left="113.4" Top="66.15" Width="217.35" Height="18.9" Text=": [ResponseDataModel.Data.Param.CFROM_JRNGRP_CODE] - [ResponseDataModel.Data.Param.CTO_JRNGRP_CODE]" Font="Arial Unicode MS, 7pt">
           <Formats>
@@ -178,9 +179,9 @@
         <TextObject Name="Text221" Top="66.15" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_JOURNAL_GROUP]" Font="Arial Unicode MS, 7pt"/>
       </ChildBand>
     </inherited>
-    <GroupHeaderBand Name="GroupHeader1" ZOrder="0" Top="255.3" Width="1047.06" Height="28.35" Condition="[ResponseDataModel.Data.DataResult.CJRNGRP_CODE]" KeepTogether="true">
+    <GroupHeaderBand Name="GroupHeader1" ZOrder="0" Top="257.7" Width="1047.06" Height="28.35" Condition="[ResponseDataModel.Data.DataResult.CJRNGRP_CODE]" KeepTogether="true">
       <TextObject Name="Text181" Top="9.45" Width="198.45" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CJRNGRP_CODE]" VertAlign="Bottom" Font="Arial Unicode MS, 7pt"/>
-      <DataHeaderBand Name="DataHeader1" Top="176.5" Width="1047.06" Height="75.6" Border.Lines="Top, Bottom" RepeatOnEveryPage="true">
+      <DataHeaderBand Name="DataHeader1" Top="178.1" Width="1047.06" Height="75.6" Border.Lines="Top, Bottom" RepeatOnEveryPage="true">
         <TextObject Name="Text55" Left="652.05" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_NOT_DUE]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text79" Left="718.2" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_1_30DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text80" Left="784.35" Top="56.7" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_31_60DAYS]" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
@@ -195,27 +196,27 @@
         <TextObject Name="Text134" Left="387.45" Top="56.7" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.Column.COLOUMN_DUE_DATE]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
         <TextObject Name="Text180" Width="94.5" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_JOURNAL_GROUP]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
       </DataHeaderBand>
-      <GroupHeaderBand Name="GroupHeader3" Top="286.85" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CCUSTOMER_ID]" KeepTogether="true">
+      <GroupHeaderBand Name="GroupHeader3" Top="290.05" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CCUSTOMER_ID]" KeepTogether="true">
         <TextObject Name="Text182" Left="28.35" Width="170.1" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CCUSTOMER_ID] - [ResponseDataModel.Data.DataResult.CCUSTOMER_NAME]" VertAlign="Center" Font="Arial Unicode MS, 7pt">
           <Formats>
             <GeneralFormat/>
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <GroupHeaderBand Name="GroupHeader2" Top="353.15" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION]">
+        <GroupHeaderBand Name="GroupHeader2" Top="358.75" Width="1047.06" Height="18.9" Condition="[ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION]">
           <TextObject Name="Text184" Left="56.7" Width="141.75" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
           <TextObject Name="Text185" Left="207.9" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CAGREEMENT_NO]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
-          <DataHeaderBand Name="DataHeader2" Top="308.95" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
+          <DataHeaderBand Name="DataHeader2" Top="312.95" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
             <TextObject Name="Text215" Left="28.35" Width="113.4" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_PHONE]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
             <TextObject Name="Text216" Left="141.75" Width="122.85" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_EMAIL]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
             <TextObject Name="Text217" Left="264.6" Width="207.9" Height="18.9" Border.Lines="Top, Bottom" Text="[ResponseDataModel.Data.Column.COLOUMN_ADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
-            <ChildBand Name="Child3" Top="331.05" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
+            <ChildBand Name="Child3" Top="335.85" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LCUSTOMER_INFORMATION]">
               <TextObject Name="Text218" Left="28.35" Width="113.4" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CPHONE]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
               <TextObject Name="Text219" Left="141.75" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CEMAIL]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
               <TextObject Name="Text220" Left="264.6" Width="207.9" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CADDRESS]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
             </ChildBand>
           </DataHeaderBand>
-          <DataBand Name="Data1" Top="375.25" Width="1047.06" Height="18.9" DataSource="DataResult">
+          <DataBand Name="Data1" Top="381.65" Width="1047.06" Height="18.9" DataSource="DataResult">
             <TextObject Name="Text183" Left="75.6" Width="122.85" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVOICE_NO]" VertAlign="Center" Font="Arial Unicode MS, 7pt"/>
             <TextObject Name="Text186" Left="226.8" Width="122.85" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LINVOICE_GROUP]" Text="[ResponseDataModel.Data.DataResult.CINVGRP_CODE] - [ResponseDataModel.Data.DataResult.CINVGRP_NAME]" VertAlign="Center" Font="Arial Unicode MS, 7pt">
               <Formats>
@@ -230,12 +231,12 @@
             <TextObject Name="Text65" Left="916.65" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_91_120_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
             <TextObject Name="Text78" Left="850.5" Width="66.15" Height="18.9" Text="[ResponseDataModel.Data.DataResult.NAGE_MORE_61_90_AMOUNT]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial Unicode MS, 7pt" Trimming="EllipsisCharacter"/>
             <TextObject Name="Text141" Left="387.45" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVGRP_DUE_DATE]" Font="Arial Unicode MS, 7pt"/>
-            <ChildBand Name="Child2" Top="397.35" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LDESCRIPTION]">
+            <ChildBand Name="Child2" Top="404.55" Width="1047.06" Height="18.9" VisibleExpression="[ResponseDataModel.Data.Param.LDESCRIPTION]">
               <TextObject Name="Text213" Left="75.6" Width="75.6" Height="18.9" Text="[ResponseDataModel.Data.Column.FOOTER_DESCRIPTION] :" HorzAlign="Right" Font="Arial Unicode MS, 7pt, style=Bold"/>
               <TextObject Name="Text214" Left="151.2" Width="236.25" Height="18.9" Text="[ResponseDataModel.Data.DataResult.CINVOICE_DESCRIPTION]" Font="Arial Unicode MS, 7pt"/>
             </ChildBand>
           </DataBand>
-          <GroupFooterBand Name="GroupFooter2" Top="419.45" Width="1047.06" Height="18.9">
+          <GroupFooterBand Name="GroupFooter2" Top="427.45" Width="1047.06" Height="18.9">
             <TextObject Name="Text150" Left="198.45" Width="264.6" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP] [ResponseDataModel.Data.DataResult.CUNIT_DESCRIPTION] :" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold">
               <Formats>
                 <GeneralFormat/>
@@ -251,7 +252,7 @@
             <TextObject Name="Text201" Left="463.05" Width="189" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
           </GroupFooterBand>
         </GroupHeaderBand>
-        <GroupFooterBand Name="GroupFooter3" Top="441.55" Width="1047.06" Height="18.9">
+        <GroupFooterBand Name="GroupFooter3" Top="450.35" Width="1047.06" Height="18.9">
           <TextObject Name="Text152" Left="718.2" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_1-30]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
           <TextObject Name="Text153" Left="784.35" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_31-60]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
           <TextObject Name="Text154" Left="850.5" Width="66.15" Height="18.9" Border.Lines="Top" Text="[Total_61-90]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>
@@ -268,7 +269,7 @@
           <TextObject Name="Text202" Left="463.05" Width="189" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
         </GroupFooterBand>
       </GroupHeaderBand>
-      <GroupFooterBand Name="GroupFooter1" Top="463.65" Width="1047.06" Height="18.9">
+      <GroupFooterBand Name="GroupFooter1" Top="473.25" Width="1047.06" Height="18.9">
         <TextObject Name="Text200" Left="28.35" Width="434.7" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_SUB_TOTAL_BASED_ON_JRN_GRP] [ResponseDataModel.Data.DataResult.CJRNGRP_CODE] :" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold">
           <Formats>
             <GeneralFormat/>
@@ -283,7 +284,7 @@
         <TextObject Name="Text164" Left="916.65" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal91-120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
         <TextObject Name="Text165" Left="982.8" Width="66.15" Height="18.9" Border.Lines="Top" Text="[GrandTotal&gt;120]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
       </GroupFooterBand>
-      <DataFooterBand Name="DataFooter1" Top="485.75" Width="1047.06" Height="37.8">
+      <DataFooterBand Name="DataFooter1" Top="496.15" Width="1047.06" Height="37.8">
         <TextObject Name="Text159" Left="292.95" Top="18.9" Width="170.1" Height="18.9" Border.Lines="Top" Text="[ResponseDataModel.Data.Column.FOOTER_GRAND_TOTAL] :" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
         <TextObject Name="Text204" Left="463.05" Top="18.9" Width="189" Height="18.9" Border.Lines="Top" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial Unicode MS, 7pt, style=Bold"/>
         <TextObject Name="Text205" Left="652.05" Top="18.9" Width="66.15" Height="18.9" Border.Lines="Top" Text="[FinalGrandNotDue]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Bottom" Font="Arial Unicode MS, 7pt, style=Bold"/>

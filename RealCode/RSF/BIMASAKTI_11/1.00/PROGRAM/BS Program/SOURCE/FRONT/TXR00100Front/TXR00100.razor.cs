@@ -5,6 +5,7 @@ using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Interfaces;
 using TXR00100Common.PrintDTO;
+using TXR00100FrontResources;
 using TXR00100MODEL.ViewModel;
 
 namespace TXR00100Front;
@@ -16,6 +17,8 @@ public partial class TXR00100 : R_Page
     
     [Inject] private IClientHelper _clientHelper { get; set; }
     [Inject] private R_IReport _reportService { get; set; }
+    [Inject] private R_ILocalizer<ResourcesDummyTXR00100> _localizer { get; set; }
+
     
     #region init
 
@@ -25,6 +28,8 @@ public partial class TXR00100 : R_Page
 
         try
         {
+            await _TXR00100ViewModel.InitProcess(_localizer);
+
             await _TXR00100ViewModel.GetPropertyList();
             await _TXR00100ViewModel.GetPeriodDetailList();
             _TXR00100ViewModel.WHTaxRadioSelected = _TXR00100ViewModel.WHTaxRadio.FirstOrDefault().CWH_TAX_TYPE;

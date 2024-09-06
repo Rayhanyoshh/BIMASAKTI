@@ -5,12 +5,9 @@ namespace PMR01000Common.DTO_s.PrintDTO;
 public class PMR01000ResultPrintSPDTO
 {
     public string CDEPOSIT_ID  { get; set; }
-    public string CACCOUNT_NO  { get; set; }
-    public string CACCOUNT_NAME  { get; set; }
     public string CDEPOSIT_NAME  { get; set; }
     public string CBUILDING_ID  { get; set; }
     public string CDEPOSIT_TYPE  { get; set; }
-    
     public string CCUSTOMER_NAME  { get; set; }
     public string CTRANSACTION_TYPE  { get; set; }
     public string CREFERENCE_NO  { get; set; }
@@ -22,7 +19,11 @@ public class PMR01000ResultPrintSPDTO
     public string CCURRENCY_CODE  { get; set; }
     public decimal NDEPOSIT_AMOUNT  { get; set; }
     public decimal NDEPOSIT_BALANCE  { get; set; }
+    public string CACCOUNT_NO  { get; set; }
+    public string CACCOUNT_NAME  { get; set; }
+    
     public decimal NLOCAL_DEPOSIT_BALANCE  { get; set; }
+    public decimal NBASE_DEPOSIT_BALANCE  { get; set; }
 
     public string CTRANSACTION_NO  { get; set; }
 
@@ -39,10 +40,10 @@ public class PMR01000ResultPrintSPDTO
     public string CDETAIL_DEPOSIT_TYPE  { get; set; }
     public string CDETAIL_TRANSACTION_NO  { get; set; }
     public string CDETAIL_DEPOSIT_DATE  { get; set; }
+    public decimal NDETAIL_DEPOSIT_BALANCE  { get; set; }
     public string CDETAIL_PAYMENT_STATUS  { get; set; }
     public string CDETAIL_CURRENCY_CODE  { get; set; }
     public decimal? NDETAIL_AMOUNT  { get; set; }
-    public decimal? NDETAIL_DEPOSIT_BALANCE  { get; set; }
    
 }
 

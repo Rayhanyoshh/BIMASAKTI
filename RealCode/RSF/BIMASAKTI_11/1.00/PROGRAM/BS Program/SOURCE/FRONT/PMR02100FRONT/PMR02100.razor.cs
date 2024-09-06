@@ -12,6 +12,8 @@ using Lookup_PMModel.ViewModel.PML01200;
 using Microsoft.AspNetCore.Components;
 using PMR02100Common.DTOs;
 using PMR02100Common.DTOs.PrintDTO;
+using PMR02100FrontResources;
+using PMR02200FrontResources;
 using PMR02100MODEL;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.DataControls;
@@ -31,6 +33,7 @@ public partial class PMR02100 : R_Page
     private R_Conductor _ConductorRef;
     [Inject] private IClientHelper _clientHelper { get; set; }
     [Inject] private R_IReport _reportService { get; set; }
+    [Inject] private R_ILocalizer<ResourcesDummyClsPMR2100> _localizer { get; set; }
     
     #region LockUnlock
     private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrlPM";
@@ -98,6 +101,8 @@ public partial class PMR02100 : R_Page
 
         try
         {
+            await _PMR02100ViewModel.InitProcess(_localizer);
+
             await _PMR02100ViewModel.GetPropertyList();
             _PMR02100ViewModel.PrintParam.CCUT_OFF_DATE = DateTime.Today.ToString("yyyyMMdd");
             // Mendapatkan bulan hari ini
@@ -153,28 +158,36 @@ public partial class PMR02100 : R_Page
 
         try
         {
-            LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
-            var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (!string.IsNullOrWhiteSpace(_PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID))
             {
-                CUSER_ID = _clientHelper.UserId,
-                CCOMPANY_ID = _clientHelper.CompanyId,
-                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
-                CCUSTOMER_TYPE = "01",
-                CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID, // property that bindded to search textbox
-            };
-            var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
-                        typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
+                LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
+                var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+                {
+                    CUSER_ID = _clientHelper.UserId,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                    CCUSTOMER_TYPE = "01",
+                    CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID, // property that bindded to search textbox
+                };
+                var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
+
+                //show result & show name/related another fields
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                         "_ErrLookup01"));
-                _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                    _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID = ""; 
+                    _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_NAME = "";
+                }
+                else
+                {
+                    _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID = loResult?.CTENANT_ID; 
+                    _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_NAME = loResult?.CTENANT_NAME; 
+                }
             }
-            else
-                _PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_NAME = loResult.CTENANT_NAME; //assign bind textbox name kalo ada
+                
         }
         catch (Exception ex)
         {
@@ -224,28 +237,35 @@ public partial class PMR02100 : R_Page
 
         try
         {
-            LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
-            var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (!string.IsNullOrWhiteSpace(_PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID))
             {
-                CUSER_ID = _clientHelper.UserId,
-                CCOMPANY_ID = _clientHelper.CompanyId,
-                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
-                CCUSTOMER_TYPE = "01",
-                CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID, // property that bindded to search textbox
-            };
-            var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
-                        typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
+                LookupLML00600ViewModel loLookupViewModel = new LookupLML00600ViewModel(); //use GSL's model
+                var loParam = new LML00600ParameterDTO // use match param as GSL's dto, send as type in search texbox
+                {
+                    CUSER_ID = _clientHelper.UserId,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                    CCUSTOMER_TYPE = "01",
+                    CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID, // property that bindded to search textbox
+                };
+                var loResult = await loLookupViewModel.GetTenant(loParam); //retrive single record 
+
+                //show result & show name/related another fields
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(Lookup_GSFrontResources.Resources_Dummy_Class),
                         "_ErrLookup01"));
-                _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                    _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID = ""; //kosongin bind textbox name kalo gaada
+                    _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_NAME = "";
+                }
+                else
+                    _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID = loResult?.CTENANT_ID;
+                    _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_NAME = loResult?.CTENANT_NAME; //assign bind textbox name kalo ada
             }
-            else
-                _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_NAME = loResult.CTENANT_NAME; //assign bind textbox name kalo ada
+
+         
         }
         catch (Exception ex)
         {
@@ -305,29 +325,38 @@ public partial class PMR02100 : R_Page
 
         try
         {
-            LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
-            var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (!string.IsNullOrWhiteSpace(_PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE))
             {
-                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
-                CCOMPANY_ID = _clientHelper.CompanyId,
-                CJRNGRP_TYPE = "10",
-                CUSER_LOGIN_ID = _clientHelper.UserId,
-                CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE, // property that bindded to search textbox
-            };
-            var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
-                    typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
-                    "_ErrLookup01"));
-                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
+                var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
+                {
+                    CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CJRNGRP_TYPE = "10",
+                    CUSER_LOGIN_ID = _clientHelper.UserId,
+                    CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE, // property that bindded to search textbox
+                };
+                var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
+
+                //show result & show name/related another fields
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
+                        "_ErrLookup01"));
+                    _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
+                    //await GLAccount_TextBox.FocusAsync();
+                }
+                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = loResult?.CJRNGRP_NAME; //assign bind textbox name kalo ada
             }
             else
-                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = loResult.CJRNGRP_NAME; //assign bind textbox name kalo ada
+            {
+                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE = ""; //kosongin bind textbox name kalo gaada
+                _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
+            }
         }
+        
         catch (Exception ex)
         {
             loEx.Add(ex);
@@ -341,28 +370,38 @@ public partial class PMR02100 : R_Page
 
         try
         {
-            LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
-            var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (!string.IsNullOrWhiteSpace(_PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE))
             {
-                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
-                CCOMPANY_ID = _clientHelper.CompanyId,
-                CJRNGRP_TYPE = "10",
-                CUSER_LOGIN_ID = _clientHelper.UserId,
-                CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE, // property that bindded to search textbox
-            };
-            var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
-                    typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
-                    "_ErrLookup01"));
-                _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                LookupGSL00400ViewModel loLookupViewModel = new LookupGSL00400ViewModel(); //use GSL's model
+                var loParam = new GSL00400ParameterDTO // use match param as GSL's dto, send as type in search texbox
+                {
+                    CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CJRNGRP_TYPE = "10",
+                    CUSER_LOGIN_ID = _clientHelper.UserId,
+                    CSEARCH_TEXT =
+                        _PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE, // property that bindded to search textbox
+                };
+                var loResult = await loLookupViewModel.GetJournalGroup(loParam); //retrive single record 
+
+                //show result & show name/related another fields
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
+                        typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
+                        "_ErrLookup01"));
+                    _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
+                    //await GLAccount_TextBox.FocusAsync();
+                }
+                _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME = loResult?.CJRNGRP_NAME; //assign bind textbox name kalo ada
             }
             else
-                _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME = loResult.CJRNGRP_NAME; //assign bind textbox name kalo ada
+            {
+                _PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE = ""; //kosongin bind textbox name kalo gaada
+                _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME = ""; //kosongin bind textbox name kalo gaada
+            }
+            
         }
         catch (Exception ex)
         {
@@ -413,30 +452,40 @@ public partial class PMR02100 : R_Page
 
         try
         {
-            LookupPML01200ViewModel loLookupViewModel = new LookupPML01200ViewModel(); //use GSL's model
-            var loParam = new LML01200ParameterDTO // use match param as GSL's dto, send as type in search texbox
+            if (!string.IsNullOrWhiteSpace(_PMR02100ViewModel.PrintParam.CINV_GRP_CODE))
             {
-                CCOMPANY_ID = _clientHelper.CompanyId,
-                CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
-                CINVGRP_CODE = "",
-                CACTIVE_TYPE = "ALL",
-                CLANGUAGE_ID = _clientHelper.Culture.Name,
-                CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CINV_GRP_CODE, // property that bindded to search textbox
-            };
-            var loResult = await loLookupViewModel.GetAgreement(loParam); //retrive single record 
 
-            //show result & show name/related another fields
-            if (loResult == null)
-            {
-                loEx.Add(R_FrontUtility.R_GetError(
+                LookupPML01200ViewModel loLookupViewModel = new LookupPML01200ViewModel(); //use GSL's model
+                var loParam = new PML01200ParameterDTO() // use match param as GSL's dto, send as type in search texbox
+                {
+                    CCOMPANY_ID = _clientHelper.CompanyId,
+                    CPROPERTY_ID = _PMR02100ViewModel.PropertyDefault,
+                    CINVGRP_CODE = "",
+                    CACTIVE_TYPE = "ALL",
+                    CLANGUAGE_ID = _clientHelper.Culture.Name,
+                    CSEARCH_TEXT = _PMR02100ViewModel.PrintParam.CINV_GRP_CODE, // property that bindded to search textbox
+                };
+                var loResult = await loLookupViewModel.GetAgreement(loParam); //retrive single record 
+
+                //show result & show name/related another fields
+                if (loResult == null)
+                {
+                    loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Lookup_LMFrontResources.Resources_Dummy_Class),
                         "_ErrLookup01"));
-                _PMR02100ViewModel.PrintParam.CINV_GRP_NAME = ""; //kosongin bind textbox name kalo gaada
-                //await GLAccount_TextBox.FocusAsync();
+                    _PMR02100ViewModel.PrintParam.CINV_GRP_NAME = ""; //kosongin bind textbox name kalo gaada
+                    //await GLAccount_TextBox.FocusAsync();
+                }
+                _PMR02100ViewModel.PrintParam.CINV_GRP_NAME = loResult.CINVGRP_NAME; //assign bind textbox name kalo ada
             }
             else
-                _PMR02100ViewModel.PrintParam.CINV_GRP_NAME = loResult.CINVGRP_NAME; //assign bind textbox name kalo ada
+            {
+                _PMR02100ViewModel.PrintParam.CINV_GRP_NAME = ""; //kosongin bind textbox name kalo gaada
+            }
+
+         
         }
+        
         catch (Exception ex)
         {
             loEx.Add(ex);
@@ -460,6 +509,7 @@ public partial class PMR02100 : R_Page
                 CTO_CUSTOMER_ID = _PMR02100ViewModel.BasedOnRadioSelected == "2" ? "" : _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID,
                 CTO_CUSTOMER_NAME = _PMR02100ViewModel.BasedOnRadioSelected == "2" ? "" : _PMR02100ViewModel.PrintParam.CTO_CUSTOMER_NAME,
                 CCUT_OFF_DATE = _PMR02100ViewModel.DCUT_OFF_DATE.ToString("yyyyMMdd"),
+                DCUT_OFF_DATE = _PMR02100ViewModel.DCUT_OFF_DATE,
                 LINVOICE_GROUP = _PMR02100ViewModel.PrintParam.LINVOICE_GROUP,
                 CINV_GRP_CODE = _PMR02100ViewModel.PrintParam.LINVOICE_GROUP == false ? "" : _PMR02100ViewModel.PrintParam.CINV_GRP_CODE,
                 CINV_GRP_NAME = _PMR02100ViewModel.PrintParam.LINVOICE_GROUP == false ? "" : _PMR02100ViewModel.PrintParam.CINV_GRP_NAME,
@@ -471,12 +521,12 @@ public partial class PMR02100 : R_Page
                 CTO_JRNGRP_NAME = _PMR02100ViewModel.BasedOnRadioSelected == "1" ? "" : _PMR02100ViewModel.PrintParam.CTO_JRNGRP_NAME,
                 CFROM_JRNGRP_CODE = _PMR02100ViewModel.BasedOnRadioSelected == "1" ? "" : _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE,
                 CFROM_JRNGRP_NAME = _PMR02100ViewModel.BasedOnRadioSelected == "1" ? "" : _PMR02100ViewModel.PrintParam.CFROM_JRNGRP_NAME,
-                CREPORT_TYPE = _PMR02100ViewModel.ReportTypeRadioSelected,
+                CREPORT_TYPE = _PMR02100ViewModel.ReportTypeRadioSelected == "1" ? "Summary" : "Detail",
                 CLANG_ID = _clientHelper.Culture.Name,
             };
             
             //Summary and Customer
-            if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false)
+            if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false)
             {
                 loParam.CINV_GRP_CODE = "";
                 loParam.LDESCRIPTION = false;
@@ -491,7 +541,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary, Customer, Unallocated Receipt
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == false)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == false)
             {
              
                 loParam.CINV_GRP_CODE = "";
@@ -507,7 +557,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary, Customer, Penalty
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
             {
                 loParam.CINV_GRP_CODE = "";
                 loParam.LDESCRIPTION = false;
@@ -522,7 +572,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary, Customer, Penalty, Unallocated Receipt
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == true)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == true)
             {
                 loParam.CINV_GRP_CODE = "";
                 loParam.LDESCRIPTION = false;
@@ -537,7 +587,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary and Journal Group
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "2" &&  loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "2" &&  loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false)
             {
 
                 await _reportService.GetReport(
@@ -549,7 +599,7 @@ public partial class PMR02100 : R_Page
             }
 
             //Summary and Journal Group, Unallocated Receipt
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == false)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == false)
             {
                 loParam.CINV_GRP_CODE = "";
                 loParam.LDESCRIPTION = false;
@@ -564,7 +614,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary and Journal Group, Penalty
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == false  && loParam.LPENALTY == true)
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == false  && loParam.LPENALTY == true)
             {
                 loParam.CINV_GRP_CODE = "";
                 loParam.LDESCRIPTION = false;
@@ -579,7 +629,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Summary and Journal Group, Penalty, Unallocated Receipt
-            else if (loParam.CREPORT_TYPE == "1" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == true )
+            else if (loParam.CREPORT_TYPE == "Summary" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LUNALLOCATED_RECEIPT == true  && loParam.LPENALTY == true )
             {
              
                 loParam.LDESCRIPTION = false;
@@ -592,7 +642,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Detail and Customer
-            else if (loParam.CREPORT_TYPE == "2" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false )
+            else if (loParam.CREPORT_TYPE == "Detail" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LUNALLOCATED_RECEIPT == false && loParam.LPENALTY == false )
             {
                 await _reportService.GetReport(
                  "R_DefaultServiceUrlPM",
@@ -603,7 +653,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Detail and Customer, Penalty
-            else if (loParam.CREPORT_TYPE == "2" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
+            else if (loParam.CREPORT_TYPE == "Detail" && _PMR02100ViewModel.BasedOnRadioSelected == "1" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
             {
                 await _reportService.GetReport(
                  "R_DefaultServiceUrlPM",
@@ -614,7 +664,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Detail and Journal Group
-            else if (loParam.CREPORT_TYPE == "2" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LPENALTY == false && loParam.LUNALLOCATED_RECEIPT == false)
+            else if (loParam.CREPORT_TYPE == "Detail" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LPENALTY == false && loParam.LUNALLOCATED_RECEIPT == false)
             {
 
                 await _reportService.GetReport(
@@ -626,7 +676,7 @@ public partial class PMR02100 : R_Page
             }
             
             //Detail and Journal Group, Penalty
-            else if (loParam.CREPORT_TYPE == "2" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
+            else if (loParam.CREPORT_TYPE == "Detail" && _PMR02100ViewModel.BasedOnRadioSelected == "2" && loParam.LPENALTY == true && loParam.LUNALLOCATED_RECEIPT == false)
             {
 
                 await _reportService.GetReport(

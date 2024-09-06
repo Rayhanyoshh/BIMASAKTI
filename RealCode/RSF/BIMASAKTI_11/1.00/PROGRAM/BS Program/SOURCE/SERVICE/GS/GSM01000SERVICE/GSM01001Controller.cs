@@ -15,10 +15,10 @@ namespace GSM01000Service
     public class  GSM01001Controller  : ControllerBase, IGSM01001
     {
         [HttpPost]
-        public IAsyncEnumerable<GSM01001ErrorValidateDTO> GetErrorProcess()
+        public IAsyncEnumerable<GSM01001ExcelToGridDTO> GetErrorProcess()
         {
             var loEx = new R_Exception();
-            IAsyncEnumerable<GSM01001ErrorValidateDTO> loRtn = null;
+            IAsyncEnumerable<GSM01001ExcelToGridDTO> loRtn = null;
 
             try
             {

@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "6.0.21",
           "PMR01000Common": "1.0.0",
+          "PMR01000FrontResources": "1.0.0",
           "PMR01000MODEL": "1.0.0",
           "BlazorClientHelper": "1.0.0.0",
           "R_APICommonDTO": "1.0.0.0",
@@ -169,9 +170,15 @@
           "PMR01000Common.dll": {}
         }
       },
+      "PMR01000FrontResources/1.0.0": {
+        "runtime": {
+          "PMR01000FrontResources.dll": {}
+        }
+      },
       "PMR01000MODEL/1.0.0": {
         "dependencies": {
           "PMR01000Common": "1.0.0",
+          "PMR01000FrontResources": "1.0.0",
           "System.Text.Json": "6.0.0"
         },
         "runtime": {
@@ -416,6 +423,11 @@
       "hashPath": "system.text.json.6.0.0.nupkg.sha512"
     },
     "PMR01000Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PMR01000FrontResources/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -24,6 +24,7 @@
 	  <ProjectReference Include="..\..\..\COMMON\PM\PMR01000Common\PMR01000Common.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMM04700SERVICE\PMM04700SERVICE.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMM05000\PMM05000Service.csproj" />
+	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR00160SERVICE\PMR00160SERVICE.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR01000Service\PMR01000Service.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR02100SERVICE\PMR02100SERVICE.csproj" />
 	  <ProjectReference Include="..\..\..\SERVICE\PM\PMR02200SERVICE\PMR02200SERVICE.csproj" />

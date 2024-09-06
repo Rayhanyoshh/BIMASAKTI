@@ -27,7 +27,7 @@ namespace GSM01000Model
         {
         }
         
-        public IAsyncEnumerable<GSM01001ErrorValidateDTO> GetErrorProcess()
+        public IAsyncEnumerable<GSM01001ExcelToGridDTO> GetErrorProcess()
         {
             throw new NotImplementedException();
         }

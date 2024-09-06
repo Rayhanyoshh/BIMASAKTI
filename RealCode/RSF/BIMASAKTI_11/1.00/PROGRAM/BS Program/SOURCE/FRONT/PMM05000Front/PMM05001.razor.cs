@@ -80,7 +80,7 @@ public partial class PMM05001 : R_Page,R_ITabPage
             try
             {
                 await _viewModelPricing.GetUnitCategoryList();
-                eventArgs.ListEntityResult = _viewModelPricing._unitTypeCategoryId;
+                eventArgs.ListEntityResult = _viewModelPricing._unitTypeCategoryList;
             }
             catch (Exception ex)
             {

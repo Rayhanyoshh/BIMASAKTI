@@ -32,7 +32,7 @@
             <R_Label>@_localizer["_journalPeriod"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout col="1">
-            <R_NumericTextBox @bind-Value="_JournalListViewModel.Data.ISOFT_PERIOD_YY"
+            <R_NumericTextBox TValue="int" @bind-Value="_JournalListViewModel.Data.ISOFT_PERIOD_YY"
                               R_ConductorSource="_conductorRef"
                               Min=_JournalListViewModel.GSMPeriodCollection.IMIN_YEAR
                               Max=_JournalListViewModel.GSMPeriodCollection.IMAX_YEAR
@@ -84,7 +84,7 @@
     <R_GridTextColumn Width="132px" FieldName="@nameof(GLT00600JournalGridDTO.CDOC_NO)" HeaderText=@_localizer["_docNo."]></R_GridTextColumn>
     <R_GridTextColumn Width="450px" FieldName="@nameof(GLT00600JournalGridDTO.CTRANS_DESC)" HeaderText=@_localizer["_desc"]></R_GridTextColumn>
     <R_GridTextColumn Width="100px" FieldName="@nameof(GLT00600JournalGridDTO.CCURRENCY_CODE)" HeaderText=@_localizer["_currency"]></R_GridTextColumn>
-    <R_GridNumericColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDTO.NTRANS_AMOUNT)" HeaderText=@_localizer["_ammount"]></R_GridNumericColumn>
+    <R_GridNumericColumn TValue="decimal" Width="120px" FieldName="@nameof(GLT00600JournalGridDTO.NTRANS_AMOUNT)" HeaderText=@_localizer["_ammount"]></R_GridNumericColumn>
     <R_GridTextColumn Width="86px" FieldName="@nameof(GLT00600JournalGridDTO.CSTATUS_NAME)" HeaderText=@_localizer["_status"]></R_GridTextColumn>
     <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.CUPDATE_BY)" HeaderText=@_localizer["_updateBy"]></R_GridTextColumn>
     <R_GridTextColumn Width="150px" FieldName="@nameof(GLT00600JournalGridDTO.DUPDATE_DATE)" HeaderText=@_localizer["_updateDate"]></R_GridTextColumn>
@@ -110,20 +110,20 @@
         Height="240px">
 
     <R_GridColumns>
-        <R_GridNumericColumn Width="67px" FieldName="@nameof(GLT00600JournalGridDetailDTO.INO)" HeaderText=@_localizer["_no"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="int" Width="67px" FieldName="@nameof(GLT00600JournalGridDetailDTO.INO)" HeaderText=@_localizer["_no"]></R_GridNumericColumn>
         <R_GridTextColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NO)" HeaderText=@_localizer["_AccountNo"]></R_GridTextColumn>
         <R_GridTextColumn Width="165px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CGLACCOUNT_NAME)" HeaderText=@_localizer["_AccountName"]></R_GridTextColumn>
         <R_GridTextColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CCENTER_NAME)" HeaderText=@_localizer["_center"]></R_GridTextColumn>
         <R_GridTextColumn Width="73px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDBCR)" HeaderText=@_localizer["_dc"]></R_GridTextColumn>
-        <R_GridNumericColumn Width="92px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NDEBIT)" HeaderText=@_localizer["_debit"]></R_GridNumericColumn>
-        <R_GridNumericColumn Width="92px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NCREDIT)" HeaderText=@_localizer["_credit"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="92px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NDEBIT)" HeaderText=@_localizer["_debit"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="92px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NCREDIT)" HeaderText=@_localizer["_credit"]></R_GridNumericColumn>
         <R_GridTextColumn Width="475px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDETAIL_DESC)" HeaderText=@_localizer["_desc"]></R_GridTextColumn>
         <R_GridTextColumn Width="120px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDOCUMENT_NO)" HeaderText=@_localizer["_voucherNo"]></R_GridTextColumn>
         <R_GridTextColumn Width="130px" FieldName="@nameof(GLT00600JournalGridDetailDTO.CDOCUMENT_DATE)" HeaderText=@_localizer["_voucherDate"]></R_GridTextColumn>
-        <R_GridNumericColumn Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLDEBIT)" HeaderText=@_localizer["_dblocal"]></R_GridNumericColumn>
-        <R_GridNumericColumn Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLCREDIT)" HeaderText=@_localizer["_crlocal"]></R_GridNumericColumn>
-        <R_GridNumericColumn Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NBDEBIT)" HeaderText=@_localizer["_dbBase"]></R_GridNumericColumn>
-        <R_GridNumericColumn Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NBCREDIT)" HeaderText=@_localizer["_crBase"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLDEBIT)" HeaderText=@_localizer["_dblocal"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NLCREDIT)" HeaderText=@_localizer["_crlocal"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NBDEBIT)" HeaderText=@_localizer["_dbBase"]></R_GridNumericColumn>
+        <R_GridNumericColumn TValue="decimal" Width="110px" FieldName="@nameof(GLT00600JournalGridDetailDTO.NBCREDIT)" HeaderText=@_localizer["_crBase"]></R_GridNumericColumn>
     </R_GridColumns>
 </R_Grid>
 <R_ConductorGrid @ref="_conductorGridDetailRef"

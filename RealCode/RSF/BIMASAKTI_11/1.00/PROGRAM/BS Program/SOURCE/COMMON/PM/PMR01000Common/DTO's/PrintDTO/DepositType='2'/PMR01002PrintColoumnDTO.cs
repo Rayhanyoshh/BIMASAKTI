@@ -16,8 +16,8 @@ public class PMR01002PrintColoumnDTO
     public string COLOUMN_DEPOSIT_DATE{ get; set; } = "Deposit Date";
     public string COLOUMN_PAYMENT_STATUS{ get; set; } = "Payment status";
     public string COLOUMN_CURRENCY { get; set; } = "Currency";
-    public string COLOUMN_DEPOSIT_AMOUNT { get; set; } = "Deposit Amount";
     public string COLOUMN_DEPOSIT_BALANCE { get; set; } = "Deposit Balance";
+    public string COLOUMN_NBASE_DEPOSIT_BALANCE { get; set; } = "Base Deposit Balance";
     public string COLOUMN_LOCAL_DEPOSIT_BALANCE { get; set; } = "Local Deposit Balance";
     public string COLOUMN_CUT_OFF_DATE { get; set; } = "Cut Off Date";
 }

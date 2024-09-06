@@ -327,6 +327,25 @@ namespace CBT01200MODEL
             loEx.ThrowExceptionIfErrors();
             return loRtn;
         }
+        
+        public async Task<CBT01200ValidateUpdateStatusDTO> ValidateUpdateJournalStatus(object poEntity)
+        {
+            var loEx = new R_Exception();
+            CBT01200ValidateUpdateStatusDTO loRtn = null;
+
+            try
+            {
+                var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200ValidateUpdateStatusDTO>(poEntity);
+                loRtn = await _CBT01200Model.ValidateUpdateJournalStatusAsync(loParam);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
     }
 }
 

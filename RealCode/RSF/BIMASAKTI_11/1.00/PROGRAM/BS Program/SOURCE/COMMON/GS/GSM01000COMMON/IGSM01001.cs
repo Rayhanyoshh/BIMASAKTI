@@ -10,6 +10,6 @@ namespace GSM01000Common
 {
     public interface IGSM01001
     {
-        IAsyncEnumerable<GSM01001ErrorValidateDTO> GetErrorProcess();
+        IAsyncEnumerable<GSM01001ExcelToGridDTO> GetErrorProcess();
     }
 }

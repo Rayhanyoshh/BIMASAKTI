@@ -72,7 +72,7 @@ public partial class TXR00200 : R_Page
                 
             await _TXR00200ViewModel.GetEfakturList(loParam);
             var loByte = ExcelInject.R_WriteToExcel(_TXR00200ViewModel.ExcelDataSet);
-            var lcName = $"EFaktur" + ".csv";
+            var lcName = $"CSV_{_TXR00200ViewModel.PropertyDefaultName.Replace(" ", "_")}.csv";
 
             await JSRuntime.downloadFileFromStreamHandler(lcName, loByte);
             
@@ -102,6 +102,24 @@ public partial class TXR00200 : R_Page
                 _TXR00200ViewModel.TransCodeComboBoxList = _TXR00200ViewModel.TransCodeComboBox1;
                 _TXR00200ViewModel.TransCodeSelected = _TXR00200ViewModel.TransCodeComboBoxList.FirstOrDefault().CTRANS_CODE;
             }
+        }
+        catch (Exception ex)
+        {
+            loEx.Add(ex);
+        }
+
+        loEx.ThrowExceptionIfErrors();
+    }
+    
+    private void OnChangeProperty(string  poParam)
+    {
+        var loEx = new R_Exception();
+        try
+        {
+            _TXR00200ViewModel.PropertyDefault = string.IsNullOrWhiteSpace(poParam) ? "" : poParam;
+            _TXR00200ViewModel.PropertyDefaultName = _TXR00200ViewModel.PropertyList.FirstOrDefault(x => x.CPROPERTY_ID == _TXR00200ViewModel.PropertyDefault).CPROPERTY_NAME;
+            
+
         }
         catch (Exception ex)
         {

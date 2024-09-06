@@ -46,6 +46,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\COMMON\TX\TXR00100Common\TXR00100Common.csproj" />
+      <ProjectReference Include="..\TXR00100FrontResources\TXR00100FrontResources.csproj" />
     </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@ using R_BlazorFrontEnd.Excel;
 
 namespace GSM01000Model
 {
-    public class GSM01001ViewModel   : R_ViewModel<GSM01001ErrorValidateDTO>, R_IProcessProgressStatus
+    public class GSM01001ViewModel   : R_ViewModel<GSM01001ExcelToGridDTO>, R_IProcessProgressStatus
     {
         private GSM01000Model _GSM01000Model = new GSM01000Model();
         
@@ -59,7 +59,7 @@ namespace GSM01000Model
         public GSM01000UploadHeaderDTO loCompany = new GSM01000UploadHeaderDTO();
 
         // Grid Display COA Upload
-        public ObservableCollection<GSM01001ErrorValidateDTO> COAValidateUploadError { get; set; } = new ObservableCollection<GSM01001ErrorValidateDTO>();
+        public ObservableCollection<GSM01001ExcelToGridDTO> COAExcelGridUpload { get; set; } = new ObservableCollection<GSM01001ExcelToGridDTO>();
 
         
         public async Task ConvertGrid(List<GSM01001DTO> poEntity)
@@ -76,7 +76,7 @@ namespace GSM01000Model
                 R_FrontContext.R_SetContext(ContextConstant.CCOMPANY_ID, CompanyID);
 
                 // Convert Excel DTO and add SeqNo
-                var loData = poEntity.Select((loTemp, i) => new GSM01001ErrorValidateDTO()
+                var loData = poEntity.Select((loTemp, i) => new GSM01001ExcelToGridDTO()
                 {
                     NO = i+1,
                     CCOMPANY_ID = CompanyID,
@@ -100,7 +100,7 @@ namespace GSM01000Model
 
                 SumListCOAExcel = loData.Count;
 
-                COAValidateUploadError = new ObservableCollection<GSM01001ErrorValidateDTO>(loData);
+                COAExcelGridUpload = new ObservableCollection<GSM01001ExcelToGridDTO>(loData);
 
                 await Task.CompletedTask;
             }
@@ -118,7 +118,7 @@ namespace GSM01000Model
             var loEx = new R_Exception();
             R_BatchParameter loBatchPar;
             R_ProcessAndUploadClient loCls;
-            List<GSM01001ErrorValidateDTO> Bigobject;
+            List<GSM01001ExcelToGridDTO> Bigobject;
             List<R_KeyValue> loUserParameneters;
 
             try
@@ -137,10 +137,10 @@ namespace GSM01000Model
                     poProcessProgressStatus: this);
 
                 //Set Data
-                if (COAValidateUploadError.Count == 0)
+                if (COAExcelGridUpload.Count == 0)
                     return;
 
-                Bigobject = COAValidateUploadError.ToList<GSM01001ErrorValidateDTO>();
+                Bigobject = COAExcelGridUpload.ToList<GSM01001ExcelToGridDTO>();
 
                 //preapare Batch Parameter
                 loBatchPar = new R_BatchParameter();
@@ -151,7 +151,7 @@ namespace GSM01000Model
                 loBatchPar.ClassName = "GSM01000Back.GSM01001Cls";
                 loBatchPar.BigObject = Bigobject;
 
-                var lcGuid = await loCls.R_BatchProcess<List<GSM01001ErrorValidateDTO>>(loBatchPar, 13);
+                var lcGuid = await loCls.R_BatchProcess<List<GSM01001ExcelToGridDTO>>(loBatchPar, 13);
             }
             catch (Exception ex)
             {
@@ -259,7 +259,7 @@ namespace GSM01000Model
                 if (loResultData.Any(y => y.SeqNo > 0))
                 {
                     // Display Error Handle if get seq
-                    COAValidateUploadError.ToList().ForEach(x =>
+                    COAExcelGridUpload.ToList().ForEach(x =>
                     {
                         //Assign ErrorMessage, Valid and Set Valid And Invalid Data
                         if (loResultData.Any(y => y.SeqNo == x.NO))
@@ -277,7 +277,7 @@ namespace GSM01000Model
 
                     
                     //Set DataSetTable and get error
-                    var loExcelData = COAValidateUploadError.Select(x => new GSM01001ExcelDTO
+                    var loExcelData = COAExcelGridUpload.Select(x => new GSM01001ExcelDTO
                     {
                         // Mapping properti x ke GSM01001ExcelDTO
                         No = x.NO,

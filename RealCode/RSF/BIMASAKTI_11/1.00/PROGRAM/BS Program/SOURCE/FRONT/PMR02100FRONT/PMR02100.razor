@@ -4,7 +4,7 @@
 
 <R_StackLayout Row="true">
     <R_ItemLayout class="col-1 ps-4 pt-1">
-        <R_Label>Property</R_Label>
+        <R_Label>@_localizer["_labelProperty"]</R_Label>
     </R_ItemLayout>
     <R_ItemLayout col="4">
         <R_ComboBox Data="@_PMR02100ViewModel.PropertyList"
@@ -22,9 +22,9 @@
         <R_StackLayout Row="true">
             <R_ItemLayout class="col-6 ps-4">
                 <R_ItemLayout  Style="color: red;">
-                    <R_Label>Cut Off Date</R_Label>
+                    <R_Label>@_localizer["_labelCutoffDate"]</R_Label>
                 </R_ItemLayout>
-                <R_ItemLayout col="7">
+                <R_ItemLayout col="8">
                     <R_DatePicker Value="@_PMR02100ViewModel.DCUT_OFF_DATE"
                                   R_ConductorSource="_ConductorRef"/>
                 </R_ItemLayout>
@@ -32,7 +32,7 @@
             <R_ItemLayout  Class="border-end border-translucent"/>
             <R_ItemLayout class="col-6 ps-6">
                 <R_ItemLayout  Style="color: red;">
-                    <R_Label>Report Type</R_Label>
+                    <R_Label>@_localizer["_labelCutoffDate"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout>
                     <R_RadioGroup Data="@_PMR02100ViewModel.ReportTypeRadio1"
@@ -56,7 +56,7 @@
         <R_StackLayout Class="border-top ps-2 my-3"></R_StackLayout>
         
         <R_ItemLayout class="ps-4" Style="color: red;">
-            <R_Label>Based On</R_Label>
+            <R_Label>@_localizer["_labelBasedOn"]</R_Label>
         </R_ItemLayout>
 
         <R_ItemLayout  class="ps-4">
@@ -72,7 +72,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>From</R_Label>
+                    <R_Label>@_localizer["_labelFrom"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02100ViewModel.PrintParam.CFROM_CUSTOMER_ID"
@@ -99,7 +99,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>To</R_Label>
+                    <R_Label>@_localizer["_labelTo"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02100ViewModel.PrintParam.CTO_CUSTOMER_ID"
@@ -136,7 +136,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>From</R_Label>
+                    <R_Label>@_localizer["_labelFrom"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02100ViewModel.PrintParam.CFROM_JRNGRP_CODE"
@@ -162,7 +162,7 @@
                 <R_ItemLayout Style="width: 24px">
                 </R_ItemLayout>
                 <R_ItemLayout col="1">
-                    <R_Label>To</R_Label>
+                    <R_Label>@_localizer["_labelTo"]</R_Label>
                 </R_ItemLayout>
                 <R_ItemLayout col="2">
                     <R_TextBox @bind-Value="_PMR02100ViewModel.PrintParam.CTO_JRNGRP_CODE"
@@ -193,7 +193,7 @@
     <R_ItemLayout col="5">
         <R_ItemLayout class="col-12 ps-4">
             <R_ItemLayout  Style="color: red;">
-                <R_Label>Filter</R_Label>
+                <R_Label>@_localizer["_labelFilter"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="10">
                 <R_StackLayout Row>
@@ -204,7 +204,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout class="ps-2">
-                        <R_Label>Customer Information</R_Label>
+                        <R_Label>@_localizer["_checkboxCustomerInfomartion"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -217,7 +217,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout class="ps-2">
-                        <R_Label>Unallocated Receipt</R_Label>
+                        <R_Label>@_localizer["_checkboxUnAllocatedReceipt"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -230,7 +230,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout class="ps-2">
-                        <R_Label>Penalty</R_Label>
+                        <R_Label>@_localizer["_checkboxPenalty"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -244,7 +244,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout class="ps-2">
-                        <R_Label>Description</R_Label>
+                        <R_Label>@_localizer["_checkboxDesc"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -257,7 +257,7 @@
                         </R_CheckBox>
                     </R_ItemLayout>
                     <R_ItemLayout class="ps-2">
-                        <R_Label>Invoice Group</R_Label>
+                        <R_Label>@_localizer["_checkboxInvoiceGroup"]</R_Label>
                     </R_ItemLayout>
                 </R_StackLayout>
             </R_ItemLayout>
@@ -296,7 +296,7 @@
 <R_StackLayout Row="true">
     <R_ItemLayout class="col-1 ps-4 pt-1">
         <R_Button OnClick="Button_OnClickProcessAsync">
-            Print
+            @_localizer["_btnPrint"]
         </R_Button>
     </R_ItemLayout>
 </R_StackLayout>

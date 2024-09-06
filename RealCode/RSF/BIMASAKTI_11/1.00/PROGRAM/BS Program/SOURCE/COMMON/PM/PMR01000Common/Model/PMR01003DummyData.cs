@@ -66,7 +66,7 @@ public static class PMR01003DummyData
                             CDEPOSIT_DATE = $"30/09/2021{c}",
                             CPAYMENT_STATUS = $"Paid{c}",
                             CCURRENCY_CODE = $"IDR{c}",
-                            NAMOUNT = 102340,
+                            NDEPOSIT_AMOUNT =  102340,
                             NCREDIT_NOTE = 44100,
                             NADJUSTMENT = 602340,
                             NREFUND = 602340,

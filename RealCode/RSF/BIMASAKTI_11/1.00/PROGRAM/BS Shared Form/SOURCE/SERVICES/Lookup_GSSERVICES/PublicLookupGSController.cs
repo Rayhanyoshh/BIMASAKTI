@@ -1182,6 +1182,7 @@ namespace Lookup_GSSERVICES
                 poParameter.CDEPT_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CDEPT_CODE);
                 poParameter.CCB_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCB_TYPE);
                 poParameter.CBANK_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CBANK_TYPE);
+                poParameter.CCURRENCY_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCURRENCY_CODE);
 
                 _Logger.LogInfo("Call Back Method GetALLCB");
                 var loResult = loCls.GetALLCB(poParameter);
@@ -1219,6 +1220,7 @@ namespace Lookup_GSSERVICES
                 poParameter.CCB_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCB_TYPE);
                 poParameter.CBANK_TYPE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CBANK_TYPE);
                 poParameter.CCB_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCB_CODE);
+                poParameter.CCURRENCY_CODE = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CCURRENCY_CODE);
 
                 _Logger.LogInfo("Call Back Method GetALLCBAccount");
                 var loResult = loCls.GetALLCBAccount(poParameter);
@@ -1252,6 +1254,7 @@ namespace Lookup_GSSERVICES
 
                 _Logger.LogInfo("Set Param GSL02700GetOtherUnitList");
                 var loCls = new PublicLookupCls();
+                poParameter.CBUILDING_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CBUILDING_ID);
                 poParameter.CPROPERTY_ID = R_Utility.R_GetStreamingContext<string>(ContextConstantPublicLookup.CPROPERTY_ID);
                 poParameter.LEVENT = R_Utility.R_GetStreamingContext<bool>(ContextConstantPublicLookup.LEVENT);
 
@@ -1262,7 +1265,7 @@ namespace Lookup_GSSERVICES
                 loRtn = GetStream<GSL02700DTO>(loResult);
             }
             catch (Exception ex)
-            {
+            {   
                 loEx.Add(ex);
                 _Logger.LogError(loEx);
             }

@@ -58,12 +58,13 @@ public class PMT04210ViewModel : R_ViewModel<PMT04200DTO>
         
 
     #endregion
-    public async Task GetAllUniversalData()
+    public async Task GetAllUniversalData(object poEntity)
     {
         var loEx = new R_Exception();
 
         try
         {
+            var loParam = R_FrontUtility.ConvertObjectToObject<PMTInitialParamDTO>(poEntity);
             // Get Universal Data
             var loResult = await _PMT04200InitModel.GetTabJournalListInitVarAsync();
 

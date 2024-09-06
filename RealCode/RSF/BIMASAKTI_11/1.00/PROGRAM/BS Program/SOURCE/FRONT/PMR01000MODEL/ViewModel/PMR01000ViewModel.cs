@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using PMR01000Common;
 using PMR01000Common.DTO_s;
 using PMR01000Common.DTO_s.PrintDTO;
+using PMR01000FrontResources;
 using R_APICommonDTO;
 using R_BlazorFrontEnd;
 using R_BlazorFrontEnd.Exceptions;
 using R_BlazorFrontEnd.Helpers;
+using R_BlazorFrontEnd.Interfaces;
 using R_CommonFrontBackAPI;
 
 namespace PMR01000MODEL
@@ -27,6 +29,7 @@ namespace PMR01000MODEL
         public PMR01000CBSystemParamDTO VAR_CB_SYSTEM_PARAM { get; set; } = new PMR01000CBSystemParamDTO();
         public PMR01000PeriodCompanyDTO VAR_GSM_PERIOD { get; set; } = new PMR01000PeriodCompanyDTO();
         
+    
         public string PropertyDefault = "";
         public string FromBuildingDefault = "";
         public string ToBuildingDefault = "";
@@ -45,37 +48,62 @@ namespace PMR01000MODEL
         public string ToTypeSelected = "";
         public string FromTransTypeSelected = "";
         public string ToTransTypeSelected = "";
-        public List<DropDownDTO> FromType = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "Contractor", Text = "Contractor" },
-            new DropDownDTO { Id = "Customer", Text = "Customer" }
-        };
-        public List<DropDownDTO> ToType = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "Contractor", Text = "Contractor" },
-            new DropDownDTO { Id = "Customer", Text = "Customer" }
-        };
-        public List<DropDownDTO> FromTransTypeList = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "LOI", Text = "LOI" },
-            new DropDownDTO { Id = "Agreement", Text = "Agreement" }
-        };
-        public List<DropDownDTO> ToTransTypeList = new List<DropDownDTO>()
-        {
-            new DropDownDTO { Id = "LOI", Text = "LOI" },
-            new DropDownDTO { Id = "Agreement", Text = "Agreement" }
-        };
+        public List<DropDownDTO> ToType = new List<DropDownDTO>();
+        public List<DropDownDTO> FromType = new List<DropDownDTO>();
 
-        public List<PMR01000PrintParamDTO> DepositType { get; set; } = new List<PMR01000PrintParamDTO>()
+        public List<DropDownDTO> FromTransTypeList = new List<DropDownDTO>();
+        public List<DropDownDTO> ToTransTypeList = new List<DropDownDTO>();
+        public List<PMR01000PrintParamDTO> DepositType { get; set; } = new List<PMR01000PrintParamDTO>();
+        public async Task InitProcess(R_ILocalizer<ResourcesDummyCls> poParamLocalizer)
+        {
+            R_Exception loEx = new R_Exception();
+            try
             {
-                new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "1", CDEPOSIT_TYPE_NAME = "List"},
-                new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "2", CDEPOSIT_TYPE_NAME = "Outstanding"},
-                new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "3", CDEPOSIT_TYPE_NAME = "Activity" },
-            };
+                FromType = new List<DropDownDTO>
+                {
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownContractor"], Text = poParamLocalizer["_DropDownContractor"] },
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownCustomer"], Text = poParamLocalizer["_DropDownCustomer"] }
+                };
+                ToType = new List<DropDownDTO>
+                {
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownContractor"], Text = poParamLocalizer["_DropDownContractor"] },
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownCustomer"], Text = poParamLocalizer["_DropDownCustomer"] }
+                };
+                FromTransTypeList = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownLOI"], Text = poParamLocalizer["_DropDownLOI"] },
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownAgreement"], Text = poParamLocalizer["_DropDownAgreement"] }
+                };
+                ToTransTypeList = new List<DropDownDTO>()
+                {
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownLOI"], Text = poParamLocalizer["_DropDownLOI"] },
+                    new DropDownDTO { Id = poParamLocalizer["_DropDownAgreement"], Text = poParamLocalizer["_DropDownAgreement"] }
+                };
+                DepositType = new List<PMR01000PrintParamDTO>()
+                {
+                    new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "1", CDEPOSIT_TYPE_NAME = poParamLocalizer["_checkboxList"]},
+                    new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "2", CDEPOSIT_TYPE_NAME = poParamLocalizer["_checkboxOutstanding"]},
+                    new PMR01000PrintParamDTO() { CDEPOSIT_TYPE = "3", CDEPOSIT_TYPE_NAME = poParamLocalizer["_checkboxActivity"]},
+                };
+
+                DepositTypeSelected = "1";
+                ToTypeSelected = poParamLocalizer["_DropDownContractor"];
+                FromTypeSelected = poParamLocalizer["_DropDownCustomer"];
+                ToTransTypeSelected = poParamLocalizer["_DropDownLOI"];
+                FromTransTypeSelected = poParamLocalizer["_DropDownAgreement"];
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+            loEx.ThrowExceptionIfErrors();
+        }
+
+
+
+    
 
         public string DepositTypeSelected = "";
-        
-        
         
         public async Task GetPropertyList()
         {

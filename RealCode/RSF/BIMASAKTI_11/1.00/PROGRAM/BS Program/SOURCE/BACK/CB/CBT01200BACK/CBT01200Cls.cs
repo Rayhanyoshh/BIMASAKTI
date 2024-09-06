@@ -562,5 +562,44 @@ namespace CBT01200Back
             }
             loEx.ThrowExceptionIfErrors();
         }
+        
+        public CBT01200ValidateUpdateStatusDTO GetValidateUpdateJournalStatus(CBT01200ValidateUpdateStatusDTO poEntity)
+        {
+            using Activity activity = _activitySource.StartActivity("GetValidateUpdateJournalStatus");
+            var loEx = new R_Exception();
+            CBT01200ValidateUpdateStatusDTO loResult = null;
+
+            try
+            {
+                var loDb = new R_Db();
+                var loConn = loDb.GetConnection();
+                var loCmd = loDb.GetCommand();
+
+                var lcQuery = "SELECT dbo.RFN_CB_GET_ACCOUNT_BALANCE(@CCOMPANY_ID, @CCB_CODE, @CCB_ACCOUNT_NO, 1) AS NVALUE";
+                loCmd.CommandText = lcQuery;
+                loCmd.CommandType = CommandType.Text;
+
+                loDb.R_AddCommandParameter(loCmd, "@CCOMPANY_ID", DbType.String, 50, R_BackGlobalVar.COMPANY_ID);
+                loDb.R_AddCommandParameter(loCmd, "@CCB_CODE", DbType.String, 30, poEntity.CCB_CODE);
+                loDb.R_AddCommandParameter(loCmd, "@CCB_ACCOUNT_NO", DbType.String, 30, poEntity.CCB_ACCOUNT_NO);
+
+                //Debug Logs
+                var loDbParam = loCmd.Parameters.Cast<DbParameter>()
+                    .Where(x => x != null && x.ParameterName.StartsWith("@")).Select(x => x.Value);
+                _logger.LogDebug(lcQuery, loDbParam);
+
+                var loDataTable = loDb.SqlExecQuery(loConn, loCmd, true);
+                loResult = R_Utility.R_ConvertTo<CBT01200ValidateUpdateStatusDTO>(loDataTable).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+                _logger.LogError(loEx);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="06/26/2024 17:18:12" ReportInfo.CreatorVersion="2023.2.21.0">
+<inherited BaseReport="BaseHeaderLandscapeCommon.frx" BaseReportAbsolutePath="D:\BIMASAKTI\RealCode\RSF\BIMASAKTI_11\1.00\PROGRAM\BS Program\SOURCE\API\PM\BIMASAKTI_PM_API\Reports\BaseHeaderLandscapeCommon.frx" ScriptLanguage="CSharp" ReportInfo.Created="08/04/2023 16:21:34" ReportInfo.Modified="09/02/2024 15:16:49" ReportInfo.CreatorVersion="2023.2.21.0">
   <Dictionary>
     <BusinessObjectDataSource Name="ResponseDataModel" ReferenceName="ResponseDataModel" DataType="System.Collections.ArrayList" Enabled="true">
       <Column Name="Data" DataType="PMR02200Common.DTOs.PMR02100SummaryPrintResultDTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -58,6 +58,7 @@
           <Column Name="CFROM_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CTO_JRNGRP_NAME" DataType="System.String"/>
           <Column Name="CINV_GRP_NAME" DataType="System.String"/>
+          <Column Name="DCUT_OFF_DATE" DataType="System.DateTime"/>
         </Column>
         <BusinessObjectDataSource Name="DataResult" DataType="System.Collections.Generic.List`1[[PMR02100Common.DTOs.PMR02100DTO, PMR02100Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
           <Column Name="CCOMPANY_ID" DataType="System.String"/>
@@ -79,6 +80,13 @@
           <Column Name="NAGE_PENALTY_AMOUNT" DataType="System.Decimal"/>
           <Column Name="NAGE_TOTAL_AMOUNT" DataType="System.Decimal"/>
           <Column Name="CUSER_ID" DataType="System.String"/>
+          <Column Name="CUNIT_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CAGREEMENT_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_NO" DataType="System.String"/>
+          <Column Name="CINVOICE_DESCRIPTION" DataType="System.String"/>
+          <Column Name="CINVGRP_CODE" DataType="System.String"/>
+          <Column Name="CINVGRP_NAME" DataType="System.String"/>
+          <Column Name="CINVGRP_DUE_DATE" DataType="System.String"/>
         </BusinessObjectDataSource>
       </Column>
       <Column Name="BaseHeaderData" DataType="BaseHeaderReportCOMMON.BaseHeaderDTO, BaseHeaderReportCOMMON, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -106,7 +114,7 @@
     <Total Name="TotalPenalty" Expression="[ResponseDataModel.Data.DataResult.NAGE_PENALTY_AMOUNT]" Evaluator="Data1" PrintOn="ColumnFooter1"/>
   </Dictionary>
   <inherited Name="Page1">
-    <inherited Name="PageHeader1">
+    <inherited Name="PageHeader1" Guides="0">
       <inherited Name="Picture1"/>
       <inherited Name="Text33"/>
       <inherited Name="Text40">
@@ -134,7 +142,7 @@
         <TextObject Name="Text97" Top="66.15" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_CUSTOMER]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text98" Top="47.25" Width="132.3" Height="18.9" Text="[ResponseDataModel.Data.Column.HEADER_REPORT_TYPE]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text99" Left="132.3" Top="9.45" Width="179.55" Height="18.9" Text=": [ResponseDataModel.Data.Param.CPROPERTY_ID]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
-        <TextObject Name="Text100" Left="132.3" Top="28.35" Width="179.55" Height="18.9" Text=": [ResponseDataModel.Data.Param.CCUT_OFF_DATE]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
+        <TextObject Name="Text100" Left="132.3" Top="28.35" Width="179.55" Height="18.9" Text=": [ResponseDataModel.Data.Param.DCUT_OFF_DATE]" Format="Date" Format.Format="D" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text101" Left="132.3" Top="47.25" Width="179.55" Height="18.9" Text=": [ResponseDataModel.Data.Param.CREPORT_TYPE]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt"/>
         <TextObject Name="Text102" Left="132.3" Top="66.15" Width="179.55" Height="18.9" Text=": [ResponseDataModel.Data.Param.CFROM_CUSTOMER_ID] - [ResponseDataModel.Data.Param.CTO_CUSTOMER_ID]" VertAlign="Bottom" Font="Arial Unicode MS, 8pt">
           <Formats>

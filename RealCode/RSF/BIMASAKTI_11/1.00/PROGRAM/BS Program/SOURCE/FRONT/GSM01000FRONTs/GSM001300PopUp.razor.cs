@@ -83,7 +83,7 @@ public partial class GSM01300PopUp : R_Page
 
     public async Task Button_OnClickOkAsync()
     {
-        await _ConAssignCOARef.R_SaveBatch();
+        await _gridCoAListToAssignRef.R_SaveBatch();
         await this.Close(true, true);
     }
     public async Task Button_OnClickCloseAsync()

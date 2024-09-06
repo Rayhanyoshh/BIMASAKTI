@@ -70,7 +70,8 @@
                 <R_Label>@_localizer["_totalRows"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2">
-                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumListStaffExcel"
+                <R_NumericTextBox TValue="int" 
+                                  @bind-Value="@_GSM08501ViewModel.SumListStaffExcel"
                                   Arrows="false"
                                   Enabled="false">
                 </R_NumericTextBox>
@@ -79,7 +80,7 @@
                     <R_Label>@_localizer["_valid"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2" Class="bg-success">
-                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumValidDataStaffExcel"
+                <R_NumericTextBox TValue="int"  @bind-Value="@_GSM08501ViewModel.SumValidDataStaffExcel"
                                   Arrows="false"
                                   Enabled="false">
                 </R_NumericTextBox>
@@ -88,7 +89,7 @@
                     <R_Label>@_localizer["_invalid"]</R_Label>
             </R_ItemLayout>
             <R_ItemLayout col="2" Class="badge bg-danger">
-                <R_NumericTextBox @bind-Value="@_GSM08501ViewModel.SumInvalidDataStaffExcel"
+                <R_NumericTextBox TValue="int"  @bind-Value="@_GSM08501ViewModel.SumInvalidDataStaffExcel"
                                   Arrows="false"
                                   Enabled="false">
                 </R_NumericTextBox>

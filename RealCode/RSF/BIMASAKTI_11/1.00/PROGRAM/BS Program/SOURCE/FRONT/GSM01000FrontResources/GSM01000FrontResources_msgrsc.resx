@@ -304,4 +304,7 @@
   <data name="_notes" xml:space="preserve">
     <value>Notes</value>
   </data>
+  <data name="_NonActiveDate" xml:space="preserve">
+    <value>NonActiveDate</value>
+  </data>
 </root>

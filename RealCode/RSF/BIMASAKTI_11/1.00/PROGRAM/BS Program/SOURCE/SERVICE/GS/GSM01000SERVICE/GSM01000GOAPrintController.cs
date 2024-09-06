@@ -131,7 +131,7 @@ namespace GSM01000Service
                 _Logger.LogDebug("Deserialized Parameters: {@Parameters}", _Parameter);
 
                 /*loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(), R_ReportUtility.GetMimeType(R_FileType.PDF));*/
-                loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(peExport: R_FileType.XLSX), R_ReportUtility.GetMimeType(R_FileType.XLSX));
+                loRtn = new FileStreamResult(_ReportCls.R_GetStreamReport(peExport: R_FileType.PDF), R_ReportUtility.GetMimeType(R_FileType.PDF));
 
         
                 _Logger.LogInfo("Report generated successfully.");

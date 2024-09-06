@@ -341,7 +341,7 @@ namespace CBT01200FRONT
                         "V09"));
                 }
 
-                if (_TransactionListViewModel.DocDate.HasValue == false)
+                if (_TransactionListViewModel.Ddocdate.HasValue == false)
                 {
                     loEx.Add(R_FrontUtility.R_GetError(
                         typeof(Resources_Dummy_Class),
@@ -349,14 +349,14 @@ namespace CBT01200FRONT
                 }
                 else
                 {
-                    if (int.Parse(_TransactionListViewModel.DocDate.Value.ToString("yyyyMMdd")) > int.Parse(_TransactionListViewModel.RefDate.Value.ToString("yyyyMMdd")))
+                    if (int.Parse(_TransactionListViewModel.Ddocdate.Value.ToString("yyyyMMdd")) > int.Parse(_TransactionListViewModel.Drefdate.Value.ToString("yyyyMMdd")))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
                             "V11"));
                     }
 
-                    if (int.Parse(_TransactionListViewModel.DocDate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
+                    if (int.Parse(_TransactionListViewModel.Ddocdate.Value.ToString("yyyyMMdd")) < int.Parse(_TransactionEntryViewModel.VAR_SOFT_PERIOD_START_DATE.CEND_DATE))
                     {
                         loEx.Add(R_FrontUtility.R_GetError(
                             typeof(Resources_Dummy_Class),
@@ -1080,14 +1080,25 @@ namespace CBT01200FRONT
                         if (loResult == R_eMessageBoxResult.No)
                             goto EndBlock;
                     }
+                    var loValidate = await _TransactionListViewModel.ValidateUpdateJournalStatus(loData);
+                    if (loData.NTRANS_AMOUNT > loValidate.NVALUE)
+                    {
+                        loEx.Add(R_FrontUtility.R_GetError(
+                            typeof(Resources_Dummy_Class),
+                            "N07"));
+                    }
+                    else
+                    {
+                        var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
+                        loParam.LAUTO_COMMIT = false;
+                        loParam.LUNDO_COMMIT = false;
+                        loParam.CNEW_STATUS = loData.CSTATUS == "00" ? "10" : "00";
 
-                    var loParam = R_FrontUtility.ConvertObjectToObject<CBT01200UpdateStatusDTO>(loData);
-                    loParam.LAUTO_COMMIT = false;
-                    loParam.LUNDO_COMMIT = false;
-                    loParam.CNEW_STATUS = loData.CSTATUS == "00" ? "10" : "00";
+                        await _TransactionListViewModel.UpdateJournalStatus(loParam);
+                        await _conductorRef.R_GetEntity(loData);
+                    }
 
-                    await _TransactionListViewModel.UpdateJournalStatus(loParam);
-                    await _conductorRef.R_GetEntity(loData);
+                  
                 }
             }
             catch (Exception ex)

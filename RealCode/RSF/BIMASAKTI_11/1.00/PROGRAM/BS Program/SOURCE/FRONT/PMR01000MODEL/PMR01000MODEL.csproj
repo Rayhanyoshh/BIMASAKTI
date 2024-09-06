@@ -43,6 +43,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\COMMON\PM\PMR01000Common\PMR01000Common.csproj" />
+      <ProjectReference Include="..\PMR01000FrontResources\PMR01000FrontResources.csproj" />
     </ItemGroup>
 
 </Project>

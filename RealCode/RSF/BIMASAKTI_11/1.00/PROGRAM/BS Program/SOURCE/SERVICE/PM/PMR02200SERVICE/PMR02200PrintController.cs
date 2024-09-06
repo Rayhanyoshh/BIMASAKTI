@@ -173,10 +173,10 @@ public class PMR02200PrintController: R_ReportControllerBase
             var loCls = new PMR02200Cls();
             poParam.CLANG_ID = R_BackGlobalVar.CULTURE;
 
-            loParam.CCOMPANY_NAME = R_BackGlobalVar.COMPANY_ID.ToUpper();
+            loParam.CCOMPANY_NAME = poParam.CCOMPANY_ID.ToUpper();
             loParam.CPRINT_CODE = "001";
-            loParam.CPRINT_NAME = "Deposit List Report";
-            loParam.CUSER_ID = R_BackGlobalVar.USER_ID.ToUpper();
+            loParam.CPRINT_NAME = "Statement Of Account";
+            loParam.CUSER_ID = poParam.CUSER_ID.ToUpper();
             loParam.BLOGO_COMPANY = loCls.GetBaseHeaderLogoCompany(poParam.CCOMPANY_ID).CLOGO;
 
             // Create an instance of PMR01000PrintGOAResultDTo
@@ -185,8 +185,8 @@ public class PMR02200PrintController: R_ReportControllerBase
 
             PMR02200PrintResultDTO loData = new PMR02200PrintResultDTO()
             {
-                Title = "Deposit Type List",
-                Header = "Deposit Type List",
+                Title = "Statement Of Account",
+                Header = "Statement Of Account",
                 Column = (PMR02200PrintColumnDTO)loColumn,
                 DataResult = new List<PMR02200DTO>(),
                 HeaderParam = poParam

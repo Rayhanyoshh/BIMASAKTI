@@ -56,9 +56,9 @@ public static class PMR01002DummyData
                         CDEPOSIT_DATE = $"30/09/2021{c}",
                         CPAYMENT_STATUS = $"Paid{c}",
                         CCURRENCY_CODE = $"IDR{c}",
-                        NDEPOSIT_AMOUNT = 100,
                         NDEPOSIT_BALANCE = 300,
-                        NLOCAL_DEPOSIT_BALANCE = 200
+                        NBASE_DEPOSIT_BALANCE = 200,
+                        NLOCAL_DEPOSIT_BALANCE = 200,
                     });
                 }
             }
@@ -96,9 +96,9 @@ public static class PMR01002DummyData
                         data2b.CDEPOSIT_DATE,
                         data2b.CPAYMENT_STATUS,
                         data2b.CCURRENCY_CODE,
-                        data2b.NDEPOSIT_AMOUNT,
                         data2b.NDEPOSIT_BALANCE,
-                        data2b.NLOCAL_DEPOSIT_BALANCE
+                        data2b.NLOCAL_DEPOSIT_BALANCE,
+                        data2b.NBASE_DEPOSIT_BALANCE
                     }).Select(data3b => new PMR01002DataResultChild2DTO()
                     {
                         CCUSTOMER_NAME = data3b.Key.CCUSTOMER_NAME, 
@@ -108,12 +108,13 @@ public static class PMR01002DummyData
                         CUNIT_DESC = data3b.Key.CUNIT_DESC,
                         CDEPOSIT_ID = data3b.Key.CDEPOSIT_ID,
                         CDEPOSIT_NAME = data3b.Key.CDEPOSIT_NAME,
+                        CINVOICE_NO = data3b.Key.CINVOICE_NO,
                         CDEPOSIT_DATE = data3b.Key.CDEPOSIT_DATE,
                         CPAYMENT_STATUS = data3b.Key.CPAYMENT_STATUS,
                         CCURRENCY_CODE = data3b.Key.CCURRENCY_CODE,
-                        NDEPOSIT_AMOUNT = data3b.Key.NDEPOSIT_AMOUNT,
                         NDEPOSIT_BALANCE = data3b.Key.NDEPOSIT_BALANCE,
-                        NLOCAL_DEPOSIT_BALANCE = data3b.Key.NDEPOSIT_AMOUNT
+                        NBASE_DEPOSIT_BALANCE = data3b.Key.NBASE_DEPOSIT_BALANCE,
+                        NLOCAL_DEPOSIT_BALANCE = data3b.Key.NLOCAL_DEPOSIT_BALANCE
                     }).ToList()
                 }).ToList()
             }).ToList();

@@ -5,6 +5,7 @@ namespace PMR02200Common.DTOs.PrintDTO;
 public class PMR02200PrintParamDTO
 {
     public string CCOMPANY_ID { get; set; }
+    public string CUSER_ID { get; set; }
     public string CPROPERTY_ID { get; set; }
     public string CDATE_BASE_ON { get; set; }
     public string CFROM_CUSTOMER_ID { get; set; }

@@ -95,14 +95,11 @@
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLT00600FRONT\GLT00600Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GLTR00100FRONT\GLTR00100FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM01000FRONTs\GSM01000Front.csproj" />
-		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM05000FRONT\GSM05000Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM07500FRONT\GSM07500Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\GSM08500FRONT\GSM08500Front.csproj" />
-		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM01500Front\LMM01500Front.csproj" />
-		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM03700Front\LMM03700Front.csproj" />
-		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\LMM05000FRONT\LMM05000Front.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMM04700FRONT\PMM04700FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMM05000Front\PMM05000Front.csproj" />
+		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR00160FRONT\PMR00160FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR01000FRONT\PMR01000FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR02100FRONT\PMR02100FRONT.csproj" />
 		<ProjectReference Include="..\..\..\..\BS Program\SOURCE\FRONT\PMR02200FRONT\PMR02200FRONT.csproj" />

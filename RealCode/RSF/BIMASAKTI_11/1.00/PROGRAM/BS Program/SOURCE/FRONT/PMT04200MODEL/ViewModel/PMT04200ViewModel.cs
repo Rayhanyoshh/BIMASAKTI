@@ -88,11 +88,12 @@ namespace PMT04200MODEL
 
             try
             {
+                R_FrontContext.R_SetContext(ContextConstant.CPROPERTY_ID, PropertyDefault);
+
                 // Get Universal Data
                 VAR_GSM_COMPANY = await _PMT04200InitModel.GetGSCompanyInfoAsync();
                 VAR_GL_SYSTEM_PARAM = await _PMT04200InitModel.GetGLSystemParamAsync();
                 VAR_CB_SYSTEM_PARAM = await _PMT04200InitModel.GetCBSystemParamAsync();
-                VAR_PM_SYSTEM_PARAM = await _PMT04200InitModel.GetPMSystemParamAsync();
                 VAR_GSM_TRANSACTION_CODE = await _PMT04200InitModel.GetGSTransCodeInfoAsync();
                 VAR_GSM_PERIOD = await _PMT04200InitModel.GetGSPeriodYearRangeAsync();
                 VAR_GSB_CODE_LIST = await _PMT04200InitModel.GetGSBCodeListAsync();
@@ -103,9 +104,30 @@ namespace PMT04200MODEL
                 //Get And Set List Dept Code
                 VAR_DEPARTEMENT_LIST = await _PublicLookupModel.GSL00700GetDepartmentListAsync(new GSL00700ParameterDTO());
                 
-                ParamPeriodYear = int.Parse(VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY);
-                ParamPeriodMonth = VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_MM;
+                /*ParamPeriodYear = int.Parse(VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_YY);
+                ParamPeriodMonth = VAR_PM_SYSTEM_PARAM.CSOFT_PERIOD_MM;*/
 
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+        }
+        
+        public async Task GetPMParam(string pcPropertyId)
+        {
+            var loEx = new R_Exception();
+
+            try
+            {
+                // Get Universal Data
+                var loParam = new PMTInitialParamDTO() { CPROPERTY_ID = pcPropertyId };
+                var loResult = await _PMT04200InitModel.GetPMSystemParamAsync(loParam);
+
+                //Set Universal Data
+                VAR_PM_SYSTEM_PARAM = loResult;
             }
             catch (Exception ex)
             {

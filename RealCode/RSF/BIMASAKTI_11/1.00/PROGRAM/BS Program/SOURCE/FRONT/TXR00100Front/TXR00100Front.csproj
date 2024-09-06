@@ -46,6 +46,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TXR00100FrontResources\TXR00100FrontResources.csproj" />
       <ProjectReference Include="..\TXR00100Model\TXR00100Model.csproj" />
     </ItemGroup>
 

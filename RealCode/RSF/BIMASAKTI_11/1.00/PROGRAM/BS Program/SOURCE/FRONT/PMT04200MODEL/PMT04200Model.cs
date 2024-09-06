@@ -36,10 +36,27 @@ namespace PMT04200MODEL
 
             try
             {
+                if (string.IsNullOrWhiteSpace(poEntity.CSTATUS))
+                {
+                    poEntity.CSTATUS = string.Empty;
+                }
+
+                if (string.IsNullOrWhiteSpace(poEntity.CSEARCH_TEXT))
+                {
+                    poEntity.CSEARCH_TEXT = string.Empty;
+                }
+                if (string.IsNullOrWhiteSpace(poEntity.CDEPT_CODE))
+                {
+                    poEntity.CDEPT_CODE = string.Empty;
+                }
+                if (string.IsNullOrWhiteSpace(poEntity.CCUSTOMER_ID))
+                {
+                    poEntity.CCUSTOMER_ID = string.Empty;
+                }
                 R_FrontContext.R_SetStreamingContext(ContextConstant.CPROPERTY_ID, poEntity.CPROPERTY_ID);
-                R_FrontContext.R_SetStreamingContext(ContextConstant.CDEPT_CODE, poEntity.CDEPT_CODE);
-                R_FrontContext.R_SetStreamingContext(ContextConstant.CCUSTOMER_ID, poEntity.CCUSTOMER_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstant.CPERIOD, poEntity.CPERIOD);
+                R_FrontContext.R_SetStreamingContext(ContextConstant.CDEPT_CODE,string.IsNullOrWhiteSpace(poEntity.CDEPT_CODE) ? "" : poEntity.CDEPT_CODE);
+                R_FrontContext.R_SetStreamingContext(ContextConstant.CCUSTOMER_ID, string.IsNullOrWhiteSpace(poEntity.CCUSTOMER_ID) ? "" : poEntity.CCUSTOMER_ID);
                 R_FrontContext.R_SetStreamingContext(ContextConstant.CSTATUS, string.IsNullOrWhiteSpace(poEntity.CSTATUS) ? "" : poEntity.CSTATUS);
                 R_FrontContext.R_SetStreamingContext(ContextConstant.CSEARCH_TEXT, string.IsNullOrWhiteSpace(poEntity.CSEARCH_TEXT) ? "" : poEntity.CSEARCH_TEXT);
 

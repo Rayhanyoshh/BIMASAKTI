@@ -145,5 +145,21 @@ namespace DesignFormGS
             loReport.RegisterData(loData, "ResponseDataModel");
             loReport.Design();
         }
+
+        private void PMR00160Summary_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR00160COMMON.GenerateDataModel.DefaultDataSummaryWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
+
+        private void PMR00160Detail_Click(object sender, EventArgs e)
+        {
+            ArrayList loData = new ArrayList();
+            loData.Add(PMR00160COMMON.GenerateDataModel.DefaultDataDetailWithHeader());
+            loReport.RegisterData(loData, "ResponseDataModel");
+            loReport.Design();
+        }
     }
 }

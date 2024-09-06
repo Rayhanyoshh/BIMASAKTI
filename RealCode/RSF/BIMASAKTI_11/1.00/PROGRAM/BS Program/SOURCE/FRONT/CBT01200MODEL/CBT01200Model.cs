@@ -107,6 +107,33 @@ namespace CBT01200MODEL
             return loRtn;
         }
         
+        public async Task<CBT01200ValidateUpdateStatusDTO> ValidateUpdateJournalStatusAsync(CBT01200ValidateUpdateStatusDTO poEntity)
+        {
+            var loEx = new R_Exception();
+            CBT01200ValidateUpdateStatusDTO loResult = null;
+
+            try
+            {
+                R_HTTPClientWrapper.httpClientName = _HttpClientName;
+                var loTempResult = await R_HTTPClientWrapper.R_APIRequestObject<CBT01200RecordResult<CBT01200ValidateUpdateStatusDTO>, CBT01200ValidateUpdateStatusDTO>(
+                    _RequestServiceEndPoint,
+                    nameof(ICBT01200.ValidateUpdateJournalStatus),
+                    poEntity,
+                    DEFAULT_MODULE,
+                    _SendWithContext,
+                    _SendWithToken);
+
+                loResult = loTempResult.Data;
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
         
         #region Not Implement
         public IAsyncEnumerable<CBT01200DTO> GetJournalList()
@@ -124,6 +151,10 @@ namespace CBT01200MODEL
             throw new NotImplementedException();
         }
 
+        public CBT01200RecordResult<CBT01200ValidateUpdateStatusDTO> ValidateUpdateJournalStatus(CBT01200ValidateUpdateStatusDTO poEntity)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
